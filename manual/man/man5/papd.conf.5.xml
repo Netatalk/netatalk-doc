@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="papd.conf.5">
-  <!--  $Id: papd.conf.5.xml,v 1.9 2004-07-20 09:41:42 tkaiser Exp $ -->
+  <!--  $Id: papd.conf.5.xml,v 1.10 2004-09-06 21:11:18 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>papd.conf</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">13 June 2004</refmiscinfo>
+    <refmiscinfo class="date">06 Sep 2004</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -16,8 +16,9 @@
     <refname>papd.conf</refname>
 
     <refpurpose>Configuration file used by papd(8) to determine the
-    configuration of printers used by the Netatalk printing
-    daemon<indexterm><primary>papd.conf</primary></indexterm></refpurpose>
+    configuration of printers used by the Netatalk printing daemon<indexterm>
+        <primary>papd.conf</primary>
+      </indexterm></refpurpose>
   </refnamediv>
 
   <refsect1>
@@ -43,9 +44,7 @@
 
     <para>printername may be just a name (<emphasis remap="B">Printer
     1</emphasis>), or it may be a full name in nbp_name format (<emphasis
-    remap="B">Printer 1:LaserWriter@My Zone</emphasis>). If more than 15
-    printers are defined, you should explicitly define the zone for each
-    printer. Otherwise, the Mac Chooser not show all the printers.</para>
+    remap="B">Printer 1:LaserWriter@My Zone</emphasis>).</para>
 
     <para>Systems using a BSD printing system should make use of a pipe to the
     printing command in question within the <emphasis remap="B">pr</emphasis>
