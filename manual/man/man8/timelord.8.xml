@@ -15,8 +15,14 @@
   <refnamediv>
     <refname>timelord</refname>
 
-    <refpurpose>Macintosh time server daemon<indexterm><primary>timelord</primary></indexterm></refpurpose>
+    <refpurpose>Macintosh time server daemon</refpurpose>
   </refnamediv>
+
+  <refsynopsisdiv>
+    <indexterm>
+      <primary>timelord</primary>
+    </indexterm>
+  </refsynopsisdiv>
 
   <refsect1>
     <title>SYNTAX</title>
@@ -40,7 +46,8 @@
         <term><option>-d</option></term>
 
         <listitem>
-          <para>Debug mode, i.e. don&#39;t disassociate from controlling TTY.</para>
+          <para>Debug mode, i.e. don't disassociate from controlling
+          TTY.</para>
         </listitem>
       </varlistentry>
 
@@ -48,8 +55,8 @@
         <term><option>-n</option> <replaceable>nbpname</replaceable></term>
 
         <listitem>
-          <para>Register this server as <emphasis remap="I">nbpname</emphasis>.
-          This defaults to the hostname.</para>
+          <para>Register this server as <emphasis
+          remap="I">nbpname</emphasis>. This defaults to the hostname.</para>
         </listitem>
       </varlistentry>
     </variablelist>
