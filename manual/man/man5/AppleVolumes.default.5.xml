@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.6 2004-01-08 00:51:10 bfernhomberg Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.7 2004-01-13 22:47:59 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -24,21 +24,22 @@
 
     <para><filename>:ETCDIR:/AppleVolumes.default</filename> is the
     configuration file used by <command>afpd</command> to determine what
-    portions of the file system will be shared via Appletalk, as well as their
-    behavior. Any line not prefixed with # is interpreted. The configuration
-    lines are composed like:</para>
+    portions of the file system will be shared via Apple Filing Protocol, as
+    well as their behaviour. Any line not prefixed with # is interpreted. The
+    configuration lines are composed like:</para>
 
-    <para>path [ chooser name ] [ options ]</para>
+    <para><term>path <replaceable>[ volume name ] [ options ]</replaceable></term></para>
 
     <para>The path name must be a fully qualified path name, or a path name
     using either the ~ shell shorthand or any of the substitution variables,
     which are listed below.</para>
 
-    <para>The chooser name is the name that appears in the Chooser on
-    Macintoshes to represent the appropriate share. If there are spaces in the
-    name, it should be in quotes (i.e. &#34;File Share&#34;). The chooser name
-    may not exceed 27 characters in length, and cannot contain the
-    <keycode>&#39;:&#39;</keycode> character.</para>
+    <para>The volume name is the name that appears in the Chooser ot the
+    &#34;connect to server&#34; dialog on Macintoshes to represent the
+    appropriate share. If there are spaces in the name, it should be in quotes
+    (i.e. &#34;File Share&#34;). The volume name may not exceed 27 characters
+    in length, and cannot contain the <keycode>&#39;:&#39;</keycode>
+    character.</para>
 
     <note>
       <para>Each volume has to be configured on a <emphasis role="bold">single</emphasis>
@@ -130,7 +131,7 @@
 
               <listitem>
                 <para>Specifies the share as being read only for all users.
-                .AppleDB has to be writeable, you can use the
+                The .AppleDB directory has to be writeable, you can use the
                 <option>-dbpath</option> option to relocate it.</para>
               </listitem>
             </varlistentry>
@@ -151,7 +152,8 @@
 
               <listitem>
                 <para>a non-zero return code from root_preexec closes the
-                volume being mounted.</para>
+                volume immediately, preventing clients to mount/see the volume
+                in question</para>
               </listitem>
             </varlistentry>
 
@@ -160,7 +162,8 @@
 
               <listitem>
                 <para>a non-zero return code from preexec close the volume
-                being mounted.</para>
+                being immediately, preventing clients to mount/see the volume
+                in question</para>
               </listitem>
             </varlistentry>
           </variablelist>
@@ -172,7 +175,8 @@
 
         <listitem>
           <para>This option allows you to set a volume password, which can be
-          a maximum of 8 characters long.</para>
+          a maximum of 8 characters long (using ASCII strongly recommended at
+          the time of this writing)</para>
         </listitem>
       </varlistentry>
 
@@ -368,6 +372,18 @@
         </listitem>
       </varlistentry>
     </variablelist>
+
+    <para>When using variable substitution in the volume name, always keep in
+    mind, not to exceed the 27 characters limit</para>
+
+    <example>
+      <title>Using variable substitution when defining volumes</title>
+
+      <para><programlisting>/home/groups/$g &#34;Groupdir for $g&#34;
+~ &#34;$f is the best one&#34;</programlisting> We define &#34;groupdirs&#34;
+      for each primary group and use a personalized server name for homedir
+      shares.</para>
+    </example>
   </refsect1>
 
   <refsect1>
@@ -376,7 +392,7 @@
     <para>The AFP protocol mostly refers to files and directories by ID and
     not by name. Netatalk needs a way to store these ID&#39;s in a persistent
     way, to achieve this several different CNID backends are available. The
-    CNID Databases are by default located in the .<filename>AppleDB</filename>
+    CNID Databases are by default located in the <filename>.AppleDB</filename>
     folder in the volume root.</para>
 
     <variablelist>
@@ -398,7 +414,7 @@
         <term>dbd</term>
 
         <listitem>
-          <para>Access to the CNID database is restricted to a the
+          <para>Access to the CNID database is restricted to the
           <command>cnid_metad</command> daemon process. <command>afpd</command>
           processes communicate with the daemon for database reads and
           updates. If built with Berkeley DB transactions the probability for
@@ -545,7 +561,13 @@
               <term>crlf</term>
 
               <listitem>
-                <para>Enables crlf translation for TEXT files.</para>
+                <para>Enables crlf translation for TEXT files, automatically
+                converting macintosh line breaks into Unix ones. Use of this
+                option might be dangerous since some older programs store
+                binary data files as type &#34;TEXT&#34; when saving and
+                switch the filetype in a second step. <command>Afpd</command>
+                will potentially destroy such files when &#34;erroneously&#34;
+                changing bytes in order to do line break translation</para>
               </listitem>
             </varlistentry>
 
@@ -576,7 +598,18 @@
 
               <listitem>
                 <para>Forces <command>afpd</command> to not create
-                .AppleDouble unless a resource fork needs to be created.</para>
+                .AppleDouble directories unless macintosh metadata needs to be
+                written. This option is only useful if you want to share files
+                mostly used NOT by macs, causing <command>afpd</command> to
+                not automatically create .AppleDouble subdirs containing AD
+                header files in every directory it enters (which is the
+                default).</para>
+
+                <para>In case, you write or change files from mac clients, AD
+                metadata files have to be written even in case you set this
+                option. So you can&#39;t avoid the creation of .AppleDouble
+                directories and its contents when you give macs write access
+                and they make use of it</para>
               </listitem>
             </varlistentry>
 
