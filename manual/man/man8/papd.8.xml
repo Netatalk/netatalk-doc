@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">06 January 2004</refmiscinfo>
+    <refmiscinfo class="date">13 June 2004</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -33,15 +33,26 @@
 
     <para><command>papd</command> is the AppleTalk printer daemon. This daemon
     accepts print jobs from AppleTalk clients (typically Macintosh computers)
-    using the Printer Access Protocol (PAP). <command>papd</command> spools
-    jobs directly into an <citerefentry><refentrytitle>lpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    using the Printer Access Protocol (PAP). When used with System V printing 
+    systems, <command>papd</command> spools jobs directly into an 
+    <citerefentry><refentrytitle>lpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
     spool directory and wakes up <command>lpd</command> after accepting a job
     from the network to have it re-examine the appropriate spool directory.
     The actual printing and spooling is handled entirely by
-    <command>lpd</command>. <command>papd</command> can also pipe the print
-    job to an external program for processing, and this is the preferred
-    method to avoid compatibility problems with all the flavors of
-    <command>lpd</command> in use.</para>
+    <command>lpd</command>.</para> 
+    
+    <para><command>papd</command> can also pipe the print job to an external 
+    program for processing, and this is the preferred method on systems not using 
+    CUPS to avoid compatibility problems with all the flavours of <command>lpd</command> 
+    in use.
+    </para>
+    
+    <para>As of version 2.0, CUPS is also supported. Simply using 
+    <emphasis remap="B">cupsautoadd</emphasis> as first papd.conf entry will 
+    share all CUPS printers automagically using the PPD files configured in CUPS. 
+    It ist still possible to overwrite these defaults by individually define 
+    printer shares. See <citerefentry><refentrytitle>papd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+    for details</para>
 
     <para><command>papd</command> is typically started at boot time, out of
     system init scripts. It first reads from its configuration file,
@@ -52,15 +63,27 @@
     <para>The following options are supported: <informaltable frame="none"
     pgwide="0"><tgroup cols="4"><colspec align="center" /><thead><row><entry
     align="center">Name</entry><entry align="center">Type</entry><entry
-    align="center">Default</entry><entry align="char">Description</entry></row></thead><tbody><row><entry>pd</entry><entry>str</entry><entry>&#39;.ppd&#39;</entry><entry>Pathname
-    to PPD file</entry></row><row><entry>pr</entry><entry>str</entry><entry>&#39;lp&#39;</entry><entry>LPD
-    printer name (or print command)</entry></row><row><entry>op</entry><entry>str</entry><entry>&#39;operator&#39;</entry><entry>Operator
-    name for LPD spooling</entry></row><row><entry>ca</entry><entry>str</entry><entry>NULL</entry><entry>Pathname
-    used for CAP-style authentification</entry></row><row><entry>sp</entry><entry>bool</entry><entry>false</entry><entry>PSSP-style
-    authetication</entry></row><row><entry>am</entry><entry>str</entry><entry>NULL</entry><entry>UAMS
-    to use for authentication</entry></row><row><entry>pa</entry><entry>str</entry><entry>NULL</entry><entry>Printer&#39;s
-    AppleTalk address</entry></row></tbody></tgroup></informaltable> If no
-    configuration file is given, the hostname of the machine is used as the
+    align="center">Default</entry><entry align="char">Description</entry></row></thead>
+    <tbody>
+    <row><entry>pd</entry><entry>str</entry><entry>&#39;.ppd&#39;</entry><entry>Pathname
+    to PPD file</entry></row>
+	<row><entry>pr</entry><entry>str</entry><entry>&#39;lp&#39;</entry><entry>LPD
+    or CUPS printer name (or pipe to a print command)</entry></row>
+    <row><entry>op</entry><entry>str</entry><entry>&#39;operator&#39;</entry><entry>Operator
+    name for LPD spooling</entry></row>
+    <row><entry>au</entry><entry>bool</entry><entry>false</entry><entry>Whether to do authenticated printing or not</entry></row>
+    <row><entry>ca</entry><entry>str</entry><entry>NULL</entry><entry>Pathname
+    used for CAP-style authentification</entry></row>
+    <row><entry>sp</entry><entry>bool</entry><entry>false</entry><entry>PSSP-style
+    authetication</entry></row>
+    <row><entry>am</entry><entry>str</entry><entry>NULL</entry><entry>UAMS
+    to use for authentication</entry></row>
+    <row><entry>pa</entry><entry>str</entry><entry>NULL</entry><entry>Printer&#39;s
+    AppleTalk address</entry></row>
+    <row><entry>co</entry><entry>str</entry><entry>NULL</entry><entry>CUPS options as supplied to the <citerefentry><refentrytitle>lp</refentrytitle><manvolnum>1</manvolnum></citerefentry> command with &quot;-o&quot;</entry></row>
+    <row><entry>fo</entry><entry>bool</entry><entry>false</entry><entry>adjust lineending for foomatic-rip</entry></row>
+    </tbody></tgroup></informaltable>
+    If no configuration file is given, the hostname of the machine is used as the
     NBP name and all options take their default value.</para>
   </refsect1>
 
@@ -102,7 +125,10 @@
   <refsect1>
     <title>Examples</title>
 
-    <para>The following papd configuration file sets up three print spoolers.
+    <example>
+      <title>papd.conf System V printing system example</title>
+      
+      <para>The following papd configuration file sets up three print spoolers.
     The first spooler is known by the NBP name Mac Printer Spooler, and uses a
     PPD file located in <filename>/usr/share/lib/ppd</filename>. In addition,
     the user mcs will be the owner of all jobs that are spooled. The second
@@ -111,7 +137,8 @@
     PSSP authenticated printing is enabled, as is CAP-style authenticated
     printing. Both methods support guest and cleartext authentication as
     specified by the &#39;<option>am</option>&#39; option. The PPD used is
-    <filename>/etc/atalk/ppds/hp8100.ppd</filename>.<programlisting>Mac Printer Spooler:\
+    <filename>/etc/atalk/ppds/hp8100.ppd</filename>.
+    <programlisting>Mac Printer Spooler:\
    :pr=ps:\
    :pd=/usr/share/lib/ppd/HPLJ_4M.PPD:\
    :op=mcs:
@@ -126,6 +153,34 @@ HP 8100:\
    :am=uams_guest.so,uams_pam.so:\
    :pd=/etc/atalk/ppds/hp8100.ppd:
 </programlisting></para>
+
+</example>
+
+    <example>
+      <title>papd.conf CUPS example</title>
+
+	<para>We assume the server is connected to an AppleTalk LAN with 2 zone names
+	("1st floor" and "2nd floor") registered. The first entry sets up automatic 
+	sharing of all CUPS printers. All those shares appear in the zone "1st floor" 
+	and since no additional settings have been made, they use the CUPS printer 
+	name as NBP name and use the PPD configured in CUPS. The second entry defines 
+	different settings for one single CUPS printer. Its NBP name is differing 
+	from the printer's name and the registration happens in another zone. 
+	The third entry simply spools jobs into the filesystem making use
+	of papd recognizing some wildcards when printing to pipes.
+	<programlisting>cupsautoadd@1st floor:op=root:
+	
+	Boss' LaserWriter@2nd floor:\
+	     :pr=laserwriter-chief:
+	     
+	Dump PostScript:LaserWriter@Server:\
+         :pr=| cat >/home/%U/%J-prn.out:\
+         :pd=/usr/share/lib/ppd/mooralana.ppd:\
+         :sp:au:op=lp:\
+         :am=uams_clrtxt.so:
+    </programlisting></para>
+
+	</example>
   </refsect1>
 
   <refsect1>
@@ -158,14 +213,14 @@ HP 8100:\
     &#39;am&#39; option) applies to all printers. It is not possible to define
     different authentication methods on each printer. You can specify the list
     of UAMS multiple times, but only the last setting will be used. Currently
-    only uams_guest.so, uams_passwd.so, and uams_pam.so are supported as
-    printer authentication methods. The guest method requires a valid
-    username, but not a password. The passwd and pam methods require both a
-    valid username and the correct password.</para>
+    only uams_guest.so and uams_clrtxt.so are supported as printer authentication 
+    methods. The guest method requires a valid username, but not a password. 
+    The Cleartext UAM requires both a valid username and the correct password.</para>
 
     <note>
-      <para>The OSX printing system doesn&#39;t seem to support
-      authentification anymore.</para>
+      <para>As of this writing, Mac OS X makes no use of PSSP authentication 
+      any longer. CAP-style authentication normally won't be an option, too 
+      caused by the use of AFP over TCP these days.</para>
     </note>
 
     <para></para>
@@ -215,12 +270,21 @@ HP 8100:\
     full 8-bits) from the clients, but some PostScript printers (including
     Apple Computer&#39;s LaserWriter family) only accept 7-bit characters on
     their serial interface by default. You will need to configure your printer
-    to accept a full 8 bits.</para>
+    to accept a full 8 bits or take special precautions and convert the print 
+    job's encoding (eg. by using <emphasis remap="B">co="protocol=BCP"</emphasis>
+    when using CUPS 1.1.19 or above).</para>
+    
+    <para>When printing clients run MacOS 10.2 or above, take care that PPDs do
+    not make use of <emphasis remap="B">*cupsFilter:</emphasis> comments unless 
+    the appropriate filters are installed at the client's side, too (remember: 
+    Starting with 10.2 Apple chose to integrate CUPS into MacOS X). For in-depth 
+    information on how CUPS uses PPDs see chapter 3.4 in <ulink url="http://tinyurl.com/zbxn">
+    http://tinyurl.com/zbxn</ulink>)</para>
   </refsect1>
 
   <refsect1>
     <title>See also</title>
 
-    <para><citerefentry><refentrytitle>lpr</refentrytitle><manvolnum>1</manvolnum></citerefentry>,<citerefentry><refentrytitle>lprm</refentrytitle><manvolnum>1</manvolnum></citerefentry>,<citerefentry><refentrytitle>printcap</refentrytitle><manvolnum>5</manvolnum></citerefentry>,<citerefentry><refentrytitle>lpc</refentrytitle><manvolnum>8</manvolnum></citerefentry>,<citerefentry><refentrytitle>lpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
+    <para><citerefentry><refentrytitle>lpr</refentrytitle><manvolnum>1</manvolnum></citerefentry>,<citerefentry><refentrytitle>lprm</refentrytitle><manvolnum>1</manvolnum></citerefentry>,<citerefentry><refentrytitle>printcap</refentrytitle><manvolnum>5</manvolnum></citerefentry>,<citerefentry><refentrytitle>lpc</refentrytitle><manvolnum>8</manvolnum></citerefentry>,<citerefentry><refentrytitle>lpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>, <citerefentry><refentrytitle>lp</refentrytitle><manvolnum>1</manvolnum></citerefentry>.</para>
   </refsect1>
 </refentry>
