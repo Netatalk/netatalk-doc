@@ -11,7 +11,7 @@
       <contrib>initial version</contrib>
     </author>
 
-    <pubdate>06 January, 2004</pubdate>
+    <pubdate>26 June, 2004</pubdate>
   </chapterinfo>
 
   <title>Upgrading from a previous version of Netatalk</title>
@@ -21,11 +21,11 @@
 
     <para>Version 2.0 of the Netatalk suite includes significant changes and
     enhancements in functionality compared to previous versions. AFP 3.x is
-    now supported which allows UTF-8 encoded filenames of up to 255 bytes (85-255 chars)
-    in length amongst other things. The Catalogue Node ID (CNID) subsystem has
-    been reworked as well and should now be much more robust. For an overview
-    of what CNIDs are and why you need them please see the <link
-    linkend="CNID-backends">CNID</link> section in the manual.</para>
+    now supported which allows UTF-8 encoded filenames of up to 255 bytes
+    (85-255 chars) in length amongst other things. The Catalogue Node ID
+    (CNID) subsystem has been reworked as well and should now be much more
+    robust. For an overview of what CNIDs are and why you need them please see
+    the <link linkend="CNID-backends">CNID</link> section in the manual.</para>
 
     <para>The downside of these enhancements is that upgrading to Netatalk 2.0
     is not a process that can be easily automated. Too many factors depend on
@@ -55,14 +55,16 @@
     <title>Volumes and filenames</title>
 
     <para>Previous Netatalk versions saved filenames in the so called
-    <emphasis>CAP<indexterm><primary>CAP</primary><secondary>Columbia AppleTalk Package</secondary></indexterm></emphasis> encoding by default. Alternatively, there was the
-    NLS<indexterm><primary>NLS</primary><secondary>Native Language Support</secondary></indexterm> system, that allowed you to convert filenames to other codepages, like
-    ISO-8859-1.</para>
+    <emphasis>CAP<indexterm><primary>CAP</primary><secondary>Columbia
+    AppleTalk Package</secondary></indexterm></emphasis> encoding by default.
+    Alternatively, there was the NLS<indexterm><primary>NLS</primary><secondary>Native
+    Language Support</secondary></indexterm> system, that allowed you to
+    convert filenames to other codepages, like ISO-8859-1.</para>
 
-    <para>For Netatalk 2.0 the charset conversion routines had to be completely
-    rewritten to support AFP 3.x. For more indepth information on character
-    sets please read the <link linkend="charsets">Unicode/charsets</link>
-    section in the manual. </para>
+    <para>For Netatalk 2.0 the charset conversion routines had to be
+    completely rewritten to support AFP 3.x. For more indepth information on
+    character sets please read the <link linkend="charsets">Unicode/charsets</link>
+    section in the manual.</para>
 
     <para>As a consequence, Netatalk 2.0 now stores filenames in UTF-8 by
     default. Additionally you <emphasis role="bold">have</emphasis> to specify
@@ -71,9 +73,9 @@
 
     <para>The format of the metadata files stored in the .AppleDouble folders
     has changed from AppleDouble v1 to AppleDouble v2. Netatalk 2.0 is still
-    able to use AD1 files, if configured. Otherwise ADv1<indexterm><primary>ADv1</primary><secondary>AppleDouble v1</secondary></indexterm> files will silently
-    be updated to the new ADv2 format, which will prevent you from using this
-    volume with 1.x again.</para>
+    able to use AD1 files, if configured. Otherwise ADv1<indexterm><primary>ADv1</primary><secondary>AppleDouble
+    v1</secondary></indexterm> files will silently be updated to the new ADv2
+    format, which will prevent you from using this volume with 1.x again.</para>
 
     <warning>
       <para>Do not share a 1.x volume with Netatalk 2.0 without setting the
@@ -91,16 +93,22 @@
 
     <para></para>
 
-    <sect2>
+    <sect2 id="volupgrade">
       <title>How to upgrade a volume to 2.0</title>
 
-      <para>Currently, we provide no utility to convert a 1.x volume to 2.0.</para>
+      <para>To convert the 1.x CAP or NLS encoded volumes on the server, we
+      provide the <citerefentry><refentrytitle>uniconv</refentrytitle><manvolnum>1</manvolnum></citerefentry> 
+      utility. Please see the man page for details.
+      </para>
 
-      <para>You&#39;ll have to copy all files to a Mac and then back to your
-      Netatalk server running 2.0.</para>
+      <para>Another option to perform an upgrade, is to copy all files using a
+      Mac client. Either copy the volume to a Mac while you are still
+      running 1.6, then install 2.0 and copy the data back to a fresh share,
+      or try to set up the volume with the compatibility options described
+      below and do a share to share copy.</para>
     </sect2>
 
-    <sect2>
+    <sect2 id="capvol">
       <title>How to use a 1.x CAP encoded volume with 2.0</title>
 
       <para>Using a 1.x CAP encoded volume is still possible with Netatalk
@@ -129,7 +137,7 @@
 
       <para>You have to make sure <option>maccodepage</option> matches your
       Apple clients codepage. For western users the default
-      <emphasis>Mac_Roman</emphasis> should be fine. </para>
+      <emphasis>Mac_Roman</emphasis> should be fine.</para>
 
       <para>Set <option>volcharset</option> to <emphasis>ASCII</emphasis>.</para>
 
@@ -176,7 +184,9 @@
 
           <listitem>
             <para>Sorry, you&#39;re out of luck. This NLS contains a non
-            standard mapping and is not supported anymore.</para>
+            standard mapping and is not supported by afpd anymore. You&#39;ll
+            have to <link linkend="volupgrade">convert</link> the volume to a
+            supported encoding.</para>
           </listitem>
         </varlistentry>
 
@@ -203,7 +213,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term> maccode.koi8-r</term>
+          <term>maccode.koi8-r</term>
 
           <listitem>
             <para>Using the following settings in <filename>AppleVolumes.default</filename>
@@ -219,7 +229,7 @@
       <note>
         <para>All of the above require <ulink
         url="http://www.gnu.org/software/libiconv/">iconv</ulink> to be
-        installed and to supply the volcharset codepage! </para>
+        installed and to supply the volcharset codepage!</para>
       </note>
 
       <para></para>
