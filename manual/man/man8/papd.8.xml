@@ -123,67 +123,6 @@
   </refsect1>
 
   <refsect1>
-    <title>Examples</title>
-
-    <example>
-      <title>papd.conf System V printing system example</title>
-      
-      <para>The following papd configuration file sets up three print spoolers.
-    The first spooler is known by the NBP name Mac Printer Spooler, and uses a
-    PPD file located in <filename>/usr/share/lib/ppd</filename>. In addition,
-    the user mcs will be the owner of all jobs that are spooled. The second
-    spooler is known as HP Printer and all options are the default. The third
-    spooler is known as HP 8100. It pipes the print job to lpr for printing.
-    PSSP authenticated printing is enabled, as is CAP-style authenticated
-    printing. Both methods support guest and cleartext authentication as
-    specified by the &#39;<option>am</option>&#39; option. The PPD used is
-    <filename>/etc/atalk/ppds/hp8100.ppd</filename>.
-    <programlisting>Mac Printer Spooler:\
-   :pr=ps:\
-   :pd=/usr/share/lib/ppd/HPLJ_4M.PPD:\
-   :op=mcs:
-
-HP Printer:\
-   :
-
-HP 8100:\
-   :pr=|/usr/bin/lpr -Plp:\
-   :sp:\
-   :ca=/tmp/print:\
-   :am=uams_guest.so,uams_pam.so:\
-   :pd=/etc/atalk/ppds/hp8100.ppd:
-</programlisting></para>
-
-</example>
-
-    <example>
-      <title>papd.conf CUPS example</title>
-
-	<para>We assume the server is connected to an AppleTalk LAN with 2 zone names
-	("1st floor" and "2nd floor") registered. The first entry sets up automatic 
-	sharing of all CUPS printers. All those shares appear in the zone "1st floor" 
-	and since no additional settings have been made, they use the CUPS printer 
-	name as NBP name and use the PPD configured in CUPS. The second entry defines 
-	different settings for one single CUPS printer. It's NBP name is differing 
-	from the printer's name and the registration happens in another zone. 
-	The third entry simply spools jobs into the filesystem making use
-	of papd recognizing some wildcards when printing to pipes.
-	<programlisting>cupsautoadd@1st floor:op=root:
-	
-Boss' LaserWriter@2nd floor:\
-   :pr=laserwriter-chief:
-
-Dump PostScript:LaserWriter@Server:\
-   :pr=| cat >/home/%U/%J-prn.out:\
-   :pd=/usr/share/lib/ppd/mooralana.ppd:\
-   :sp:au:op=lp:\
-   :am=uams_clrtxt.so:
-</programlisting></para>
-
-	</example>
-  </refsect1>
-
-  <refsect1>
     <title>Notes</title>
 
     <para>PSSP (Print Server Security Protocol) is an authentication protocol
