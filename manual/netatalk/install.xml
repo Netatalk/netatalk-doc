@@ -282,7 +282,7 @@ U netatalk/COPYING
     <sect2 id="build-bdb">
       <title>Compiling a new Berkeley DB for Netatalk</title>
 
-      <para>Netatalk 2.0 requires Berkeley DB version 4.0 or newer. Even if
+      <para>Netatalk 2.0 requires Berkeley DB version 4.1.25 or newer. Even if
       you already have a supported version of Berkely DB installed on your
       system, there are several reasons, why you might still want to consider
       building a new version for Netatalk.</para>

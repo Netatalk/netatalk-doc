@@ -315,7 +315,7 @@
       called cnid2_create that comes with Netatalk 2.0 does most of the work.
       The steps you have to take depend on what version of Berkeley DB is
       installed on your system. If you already use one of the supported
-      versions of Berkeley DB (4.0.14, 4.1.25 or 4.2.50) for your old Netatalk
+      versions of Berkeley DB (4.1.25 or 4.2.52) for your old Netatalk
       installation and plan to use it for Netatalk 2.0 as well just use the
       db_dump and db_load utilities that came with it as indicated below.
       Otherwise it is probably best to have the old and the new (to be used

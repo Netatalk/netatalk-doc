@@ -164,21 +164,21 @@ HP 8100:\
 	sharing of all CUPS printers. All those shares appear in the zone "1st floor" 
 	and since no additional settings have been made, they use the CUPS printer 
 	name as NBP name and use the PPD configured in CUPS. The second entry defines 
-	different settings for one single CUPS printer. Its NBP name is differing 
+	different settings for one single CUPS printer. It's NBP name is differing 
 	from the printer's name and the registration happens in another zone. 
 	The third entry simply spools jobs into the filesystem making use
 	of papd recognizing some wildcards when printing to pipes.
 	<programlisting>cupsautoadd@1st floor:op=root:
 	
-	Boss' LaserWriter@2nd floor:\
-	     :pr=laserwriter-chief:
-	     
-	Dump PostScript:LaserWriter@Server:\
-         :pr=| cat >/home/%U/%J-prn.out:\
-         :pd=/usr/share/lib/ppd/mooralana.ppd:\
-         :sp:au:op=lp:\
-         :am=uams_clrtxt.so:
-    </programlisting></para>
+Boss' LaserWriter@2nd floor:\
+   :pr=laserwriter-chief:
+
+Dump PostScript:LaserWriter@Server:\
+   :pr=| cat >/home/%U/%J-prn.out:\
+   :pd=/usr/share/lib/ppd/mooralana.ppd:\
+   :sp:au:op=lp:\
+   :am=uams_clrtxt.so:
+</programlisting></para>
 
 	</example>
   </refsect1>
@@ -193,7 +193,7 @@ HP 8100:\
     It may be necessary to re-setup the printer on each client the first time
     PSSP is enabled, so that the client can figure out that authentication is
     required to print. You can enable PSSP on a per-printer basis. PSSP is the
-    recommended method of authenticating printers as it is more robust that
+    recommended method of authenticating printers as it is more robust than
     CAP-style authentication, described below.</para>
 
     <para>CAP-style authentication gets its name from the method the CAP
@@ -269,10 +269,11 @@ HP 8100:\
     <para><command>papd</command> accepts characters with the high bit set (a
     full 8-bits) from the clients, but some PostScript printers (including
     Apple Computer&#39;s LaserWriter family) only accept 7-bit characters on
-    their serial interface by default. You will need to configure your printer
-    to accept a full 8 bits or take special precautions and convert the print 
-    job's encoding (eg. by using <emphasis remap="B">co="protocol=BCP"</emphasis>
-    when using CUPS 1.1.19 or above).</para>
+    their serial interface by default. The same applies for some printers when
+    they're accessed via TCP/IP methods (remote LPR or socket). You will need 
+    to configure your printer to accept a full 8 bits or take special 
+    precautions and convert the printjob's encoding (eg. by using <emphasis 
+    remap="B">co="protocol=BCP"</emphasis> when using CUPS 1.1.19 or above).</para>
     
     <para>When printing clients run MacOS 10.2 or above, take care that PPDs do
     not make use of <emphasis remap="B">*cupsFilter:</emphasis> comments unless 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="papd.conf.5">
-  <!--  $Id: papd.conf.5.xml,v 1.4 2004-06-14 02:11:26 tkaiser Exp $ -->
+  <!--  $Id: papd.conf.5.xml,v 1.5 2004-06-21 15:54:49 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>papd.conf</refentrytitle>
@@ -76,7 +76,7 @@
           <emphasis remap="B">uams_guest.so</emphasis> and <emphasis remap="B">
           uams_clrtxt.so</emphasis> only. The first method requires a valid 
           username, but no password. The second requires both a valid username 
-          and the correct password</para>. 
+          and the correct password</para> 
         </listitem>
       </varlistentry>
 
