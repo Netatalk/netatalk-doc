@@ -485,138 +485,139 @@
       clients. As I said, make sure you know the consequences and don't mind
       them.</para>
     </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Setting up a test server on the same machine</title>
+
+    <para>Providing a test environment in parallel with the existing
+    production installation is not difficult and, if done properly, it should
+    not in any way disrupt the normal operation. However, as always, it is
+    recommended to make a backup of the existing installation before
+    proceeding. When compiling a newer netatalk version you should also take
+    care that you do not overwrite the binaries of an older version (make use
+    of the --prefix= configure option).</para>
+
+    <para>There could be more than two afpd servers running on one UNIX box.
+    You just have to be careful to keep them from running into each
+    other:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>the shares/volumes (AppleVolumes.default)</para>
+      </listitem>
+
+      <listitem>
+        <para>the PID file (afpd -P command line option)</para>
+      </listitem>
+
+      <listitem>
+        <para>the port number (-port option in afpd.conf)</para>
+      </listitem>
+
+      <listitem>
+        <para>no use of AppleTalk (-noddp option in afpd.conf)</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>You should test the new Netatalk version with both a freshly created
+    new share and another one that has been duplicated/converted from an
+    already existing volume. This helps finding mistakes you probably made in
+    the upgrade process when the first share behaves well and the latter
+    not.</para>
 
     <sect2>
-      <title>Setting up a test server on the same machine</title>
+      <title>Setting up an empty test share</title>
 
-      <para>Providing a test environment in parallel with the existing
-      production installation is not difficult and, if done properly, it
-      should not in any way disrupt the normal operation. However, as always,
-      it is recommended to make a backup of the existing installation before
-      proceeding.</para>
+      <para>First, you have to provide some space for the test share. Just
+      create a directory on one of your data filesystems. However, this
+      directory must not be accessible from the production afpd server. Don't
+      forget to set appropriate permissions for the share. For example:</para>
 
-      <para>There could be more than two afpd servers running on one UNIX box.
-      You just have to be careful to keep them from running into each
-      other:</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>the shares/volumes (AppleVolumes.default)</para>
-        </listitem>
-
-        <listitem>
-          <para>the PID file (afpd -P command line option)</para>
-        </listitem>
-
-        <listitem>
-          <para>the port number (-port option in afpd.conf)</para>
-        </listitem>
-
-        <listitem>
-          <para>no use of AppleTalk (-noddp option in afpd.conf)</para>
-        </listitem>
-      </itemizedlist>
-
-      <para>You should test the new Netatalk version with both a freshly
-      created new share and another one that has been duplicated/converted
-      from an already existing volume. This helps finding mistakes you
-      probably made in the upgrade process when the first share behaves well
-      and the latter not.</para>
-
-      <sect3>
-        <title>Setting up an empty test share</title>
-
-        <para>First, you have to provide some space for the test share. Just
-        create a directory on one of your data filesystems. However, this
-        directory must not be accessible from the production afpd server.
-        Don't forget to set appropriate permissions for the share. For
-        example:</para>
-
-        <programlisting>mkdir /macdata/testshare
+      <programlisting>mkdir /macdata/testshare
 chown root.macusers /macdata/testshare
 chmod g+wrx,g+s /macdata/testshare</programlisting>
-      </sect3>
+    </sect2>
 
-      <sect3>
-        <title>Duplicating an already existing share</title>
+    <sect2>
+      <title>Duplicating an already existing share</title>
 
-        <para>Ensure that users cannot access the share in question and copy
-        the whole contents (including all the metadata directories like
-        .AppleDB) to another location.</para>
+      <para>Ensure that users cannot access the share in question and copy the
+      whole contents (including all the metadata directories like .AppleDB) to
+      another location.</para>
 
-        <programlisting>cp -pr /production/testshare /macdata/</programlisting>
+      <programlisting>cp -pr /production/testshare /macdata/</programlisting>
 
-        <para>Then do the somewhat extensive upgrade of CNID databases and
-        filename encodings outlined earlier in this chapter.</para>
-      </sect3>
+      <para>Then do the somewhat extensive upgrade of CNID databases and
+      filename encodings outlined earlier in this chapter.</para>
+    </sect2>
 
-      <sect3>
-        <title>Configuring and running the test afpd</title>
+    <sect2>
+      <title>Configuring and running the test afpd</title>
 
-        <para>Normally the test afpd cannot listen on the standard afpovertcp
-        port, because that one is already bound by the production afpd. So the
-        afpd.conf should look like</para>
+      <para>Normally the test afpd cannot listen on the standard afpovertcp
+      port, because that one is already bound by the production afpd. So the
+      afpd.conf should look like</para>
 
-        <programlisting>- -noddp -nouservol -port 5480 -loginmsg "WARNING: test server"</programlisting>
+      <programlisting>- -noddp -nouservol -port 5480 -loginmsg "WARNING: test server"</programlisting>
 
-        <para>You also have to present the share to the Mac users by editing
-        the AppleVolumes.default file. Remove the line containing a single "~"
-        at the end of the file and append something like:</para>
+      <para>You also have to present the share to the Mac users by editing the
+      AppleVolumes.default file. Remove the line containing a single "~" at
+      the end of the file and append something like:</para>
 
-        <programlisting>/macdata/testshare "Test Volume (not production)"</programlisting>
+      <programlisting>/macdata/testshare "Test Volume (not production)"</programlisting>
 
-        <para>That should be the only uncommented line in the file. Do not
-        forget to adjust encoding and AppleDouble setting when you're not
-        using the recommended defaults UTF8 and ADv2.</para>
+      <para>That should be the only uncommented line in the file. Do not
+      forget to adjust encoding and AppleDouble setting when you're not using
+      the recommended defaults UTF8 and ADv2.</para>
 
-        <para>In case you have many users and want to restrict access to the
-        test server, there is a provision for that in the AppleVolumes.default
-        file. First, create a group named, say, afpdtest, and put in it all
-        users you would want to enable access to the test volumes. Then,
-        instead of the line above, append a line like this one:</para>
+      <para>In case you have many users and want to restrict access to the
+      test server, there is a provision for that in the AppleVolumes.default
+      file. First, create a group named, say, afpdtest, and put in it all
+      users you would want to enable access to the test volumes. Then, instead
+      of the line above, append a line like this one:</para>
 
-        <programlisting>/macdata/testshare "Test Volume (not production)" allow:@afpdtest</programlisting>
+      <programlisting>/macdata/testshare "Test Volume (not production)" allow:@afpdtest</programlisting>
 
-        <para>The test afpd server can be started now:</para>
+      <para>The test afpd server can be started now:</para>
 
-        <programlisting>$TESTDIR/sbin/afpd -P /var/run/afpd-test.pid</programlisting>
+      <programlisting>$TESTDIR/sbin/afpd -P /var/run/afpd-test.pid</programlisting>
 
-        <para>You can also put this line in the production netatalk start
-        script, in the "start" case. In the "stop" case, you should
-        insert</para>
+      <para>You can also put this line in the production netatalk start
+      script, in the "start" case. In the "stop" case, you should
+      insert</para>
 
-        <programlisting>[ -f /var/run/afpd-test.pid ] &amp;&amp; kill `cat /var/run/afpd-test.pid`</programlisting>
+      <programlisting>[ -f /var/run/afpd-test.pid ] &amp;&amp; kill `cat /var/run/afpd-test.pid`</programlisting>
 
-        <para>The production server has to know about the test server.
-        Otherwise the Mac users would not be able to see the test server in
-        their choosers. Append the following line to the production afpd.conf
-        (usually in /etc/netatalk/afpd.conf):</para>
+      <para>The production server has to know about the test server. Otherwise
+      the Mac users would not be able to see the test server in their
+      choosers. Append the following line to the production afpd.conf (usually
+      in /etc/netatalk/afpd.conf):</para>
 
-        <programlisting>"Test server (not production)" -proxy -uamlist "" -port 5480</programlisting>
+      <programlisting>"Test server (not production)" -proxy -uamlist "" -port 5480</programlisting>
 
-        <para>and restart the production netatalk. Note that the port
-        directive here should match the one which appears above in the test
-        afpd.conf.</para>
+      <para>and restart the production netatalk. Note that the port directive
+      here should match the one which appears above in the test
+      afpd.conf.</para>
 
-        <important>
-          <para>Note that there is a limit of 31 characters for the server's
-          name. Should the name be longer, the afpd will just refuse to
-          register the server.</para>
-        </important>
+      <important>
+        <para>Note that there is a limit of 31 characters for the server's
+        name. Should the name be longer, the afpd will just refuse to register
+        the server.</para>
+      </important>
 
-        <para>The test server should appear in the chooser on Macs. You can
-        also test that from the UNIX command line:</para>
+      <para>The test server should appear in the chooser on Macs. You can also
+      test that from the UNIX command line:</para>
 
-        <programlisting>$ nbplkup =:AFPServer</programlisting>
+      <programlisting>$ nbplkup =:AFPServer</programlisting>
 
-        <para>or</para>
+      <para>or</para>
 
-        <programlisting>$ netstat -an | grep 5480</programlisting>
+      <programlisting>$ netstat -an | grep 5480</programlisting>
 
-        <para>If everything went fine spread the word about the test server
-        among your more experienced Mac users and see whether things work as
-        expected.</para>
-      </sect3>
+      <para>If everything went fine spread the word about the test server
+      among your more experienced Mac users and see whether things work as
+      expected.</para>
     </sect2>
   </sect1>
 </chapter>
