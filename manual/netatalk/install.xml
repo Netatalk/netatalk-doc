@@ -312,7 +312,7 @@ U netatalk/COPYING
         the same location.</para>
 
         <screen><prompt>root#</prompt> <userinput>cd build_unix</userinput>
-<prompt>root#</prompt> <userinput>../../configure --prefix=/install/path --disable-shared</userinput>
+<prompt>root#</prompt> <userinput>../dist/configure --prefix=/install/path --disable-shared</userinput>
 <prompt>root#</prompt> <userinput>make</userinput>
 <prompt>root#</prompt> <userinput>make install</userinput></screen>
 
@@ -336,7 +336,7 @@ U netatalk/COPYING
         DB on your system.</para>
 
         <screen><prompt>root#</prompt> <userinput>cd build_unix</userinput>
-<prompt>root#</prompt> <userinput>../../configure --prefix=/install/path --with-uniquename</userinput>
+<prompt>root#</prompt> <userinput>../dist/configure --prefix=/install/path --with-uniquename</userinput>
 <prompt>root#</prompt> <userinput>make</userinput>
 <prompt>root#</prompt> <userinput>make install</userinput></screen>
 
