@@ -60,7 +60,7 @@
         <listitem>
           <para>Using only one interface: You've to add the interface's name 
           (en1, le0, eth2, ... for example) to atalkd.conf on a single line. Do 
-          only list <emphasis>one</interface> here.</para>
+          only list <emphasis>one</emphasis> here.</para>
           
           <para>After startup, atalkd will add the real settings (address and 
           network and eventually a zone) to atalkd.conf on its own</para>
