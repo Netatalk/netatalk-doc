@@ -6,10 +6,10 @@
 
   <title>Installation</title>
 
-  <note>
+  <warning>
     <para>If you have previously used an older version of Netatalk, please
     read the chapter about <link linkend="upgrade">upgrading</link> first !!!</para>
-  </note>
+  </warning>
 
   <para></para>
 
@@ -125,7 +125,11 @@ U netatalk/COPYING
         <para>To be able to compile with AFP3 support, your system has to
         support large files (&#62;2GB).</para>
 
-        <remark>On linux systems glibc &#62; 2.2 is required.</remark>
+        <note>
+          <para>On linux systems glibc &#62; 2.2 is required.</para>
+        </note>
+
+        <para></para>
       </sect3>
 
       <sect3>

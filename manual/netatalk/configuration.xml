@@ -675,10 +675,9 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone &#34;Testing&#34;</programlis
           <para>To complicate things, Unicode defines several
           <emphasis><ulink
           url="http://www.unicode.org/reports/tr15/index.html">normalization</ulink></emphasis>
-          forms. Contrary to the larger part of the IT industrie, which uses
-          <emphasis>precomposed</emphasis>, Apple decided to use the
-          <emphasis>decomposed</emphasis> normalization (Is that what they
-          mean by <emphasis>&#34;think different&#34;</emphasis>?).</para>
+          forms. While <ulink url="http://www.samba.org">samba</ulink> uses <emphasis>precomposed</emphasis> 
+          Unicode, which most Unix tools prefer as well, Apple decided to use the <emphasis>decomposed</emphasis>
+          normalization.</para>
 
           <para>For example lets take the German character &#39;<keycode>ä</keycode>&#39;.
           Using the precomposed normalization, Unicode maps this character to
@@ -806,26 +805,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone &#34;Testing&#34;</programlis
     <sect2>
       <title>Setting up the PAP print server</title>
 
-      <para># Attributes are: # # Name Type Default Description # pd str
-      &#34;.ppd&#34; Pathname to ppd file. # pr str &#34;lp&#34; LPD printer
-      name. # pa str &#34;0.0&#34; AppleTalk address (not usually needed). #
-      op str &#34;operator&#34; Operator name, for LPD spooling. # au flag
-      not-present If present, authentication required # note that if ca and sp
-      are both set, # ca will be tried first and then sp # am str none Comma
-      separated list of uams to use # (for every printer) whenever #
-      authentication is on # ca str not-present If present, use cap-style
-      authentication # directory to place print authentication files # sp flag
-      not-present use PSSP authentication. # # Some examples: # A simple
-      example: # # terminator:\ # :pr=lp:op=wes:\ #
-      :pd=/usr/share/lib/ppd/HPLJ_4M.PPD: # # An example with authenticated
-      printing: # authprn:\ # :pr=|/usr/bin/lpr -Plp:\ #
-      :pd=/usr/share/lib/ppd/HPLJ_4M.PPD:\ # :sp:ca=/tmp/print:\ #
-      :am=uams_clrtxt.so: # # Note also that papd.conf can list several
-      printers. # # The printer name in papd may be a full NBP-name of the
-      form # name:type@zone, for example: # Printer 1:LaserWriter@Printing and
-      Mailing:\ # :pr=|/usr/bin/lpr -Plp1: # # Warning: If you are using more
-      than 15 printers and you do not # specify the zone in the printer name,
-      only some of the printers may # appear in the Chooser.</para>
+      <para>This section didn't make it into the manual yet.</para>
     </sect2>
   </sect1>
 
@@ -843,4 +823,5 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone &#34;Testing&#34;</programlis
       Time Protocol</secondary></indexterm> instead.</para>
     </sect2>
   </sect1>
+
 </chapter>
