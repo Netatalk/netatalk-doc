@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.15 2004-09-06 22:01:59 tkaiser Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.16 2005-01-03 14:57:02 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">06 September 2004</refmiscinfo>
+    <refmiscinfo class="date">03 January 2005</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -634,6 +634,10 @@
                 <emphasis>Warning</emphasis>: This is <emphasis>NOT</emphasis>
                 recommened for volumes mainly used by Macs. Please make sure
                 you fully understand this option before using it.</para>
+                <warning>
+                 <para>This option breaks direct saving to netatalk volumes from
+                 some applications, i.e. OfficeX.</para>
+                </warning>
               </listitem>
             </varlistentry>
 
