@@ -47,7 +47,7 @@
     system init scripts. It first reads from its configuration file,
     <filename>:ETCDIR:/papd.conf</filename>. The file is in the same format as
     <filename>/etc/printcap</filename>. See <citerefentry><refentrytitle>printcap</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-    for details. The name of the entry is registered with NBP. </para>
+    for details. The name of the entry is registered with NBP.</para>
 
     <para>The following options are supported: <informaltable frame="none"
     pgwide="0"><tgroup cols="4"><colspec align="center" /><thead><row><entry
@@ -197,10 +197,9 @@ HP 8100:\
         <listitem>
           <para>PostScript Printer Description file. papd answers
           configuration and font queries from printing clients by consulting
-          the configured PPD file. Such files are available from Adobe, Inc,
-          via anonymous ftp from ftp.adobe.com in
-          /pub/adobe/printer­drivers/mac/all/ppdfiles/ (<ulink
-          url="ftp://ftp.adobe.com//pub/adobe/printer­drivers/mac/all/ppdfiles/">ftp://ftp.adobe.com//pub/adobe/printer­drivers/mac/all/ppdfiles/</ulink>),
+          the configured PPD file. Such files are available for download from
+          Adobe, Inc. (<ulink
+          url="http://www.adobe.com/support/downloads/main.html#Printer">http://www.adobe.com/support/downloads/main.htm</ulink>),
           or from the printer&#39;s manufacturer. If no PPD file is
           configured, papd will return the default answer, possibly causing
           the client to send excessively large jobs.</para>
