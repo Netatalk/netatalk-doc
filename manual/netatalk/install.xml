@@ -16,12 +16,10 @@
   <sect1>
     <title>How to obtain Netatalk</title>
 
-    <sect2>
-	  <para>Please have a look at the netatalk page on sourceforge for the most 
+   <para>Please have a look at the netatalk page on sourceforge for the most 
 	  recent informations on this issue.</para>
 	  
-	  <para><ulink url="http://sourceforge.net/projects/netatalk/">http://sourceforge.net/projects/netatalk/</ulink></para>
-	</sect 2>
+   <para><ulink url="http://sourceforge.net/projects/netatalk/">http://sourceforge.net/projects/netatalk/</ulink></para>
 	
     <sect2>
       <title>Binary packages</title>
