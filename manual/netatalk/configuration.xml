@@ -513,7 +513,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone &#34;Testing&#34;</programlis
           <title>dbd<indexterm><primary>DBD</primary><secondary>&#34;dbd&#34;
           CNID backend</secondary></indexterm></title>
 
-          <para>Access to the CNID database is restricted to a the cnid_metad
+          <para>Access to the CNID database is restricted to the cnid_dbd
           daemon process. afpd processes communicate with the daemon for
           database reads and updates. If built with Berkeley DB transactions
           the probability for database corruption is practically zero, but
@@ -822,6 +822,66 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone &#34;Testing&#34;</programlis
       these days. Use NTP<indexterm><primary>NTP</primary><secondary>Network
       Time Protocol</secondary></indexterm> instead.</para>
     </sect2>
+    <sect2>
+      <title>Starting and stopping Netatalk</title>
+
+      <para>The Netatalk distribution comes with several operating system specific
+      startup script templates that are taylored according to the options 
+      given to the &#34;configure&#34; script before compiling. Currently,
+      templates are provided for Netbsd, Bsd, Redhat, Suse and True64.  You can
+      select to install the generated startup script(s) by specifying a system
+      type to &#34;configure&#34;. To automatically install startup scripts for e.g. the
+      Suse Linux distribution try to give the --enable-suse option to
+      &#34;configure&#34;. Some of the scripts can be further parametrized by the
+      configuration file netatalk.conf (described in the
+      <citerefentry><refentrytitle>netatalk.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry> manual page),
+      some obtain that information in another, operating system specific way (like Netbsd).</para>
+
+      <para>Since new releases of Linux distributions appear all the time and the
+      startup procedure for the other systems mentioned above might change as
+      well, it is probably a good idea to not blindly install a startup script but
+      to look at it first to see if it will work on your system. If you use
+      Netatalk as part of a fixed setup, like a Linux distribution, an RPM or a
+      Bsd package, things will probably have been arranged properly for you. The
+      following therefore applies mostly for people who have compiled Netatalk
+      themselves. </para>
+
+      <para>The following daemons need to be started by whatever startup script
+      mechanism is used:</para>
+
+      <itemizedlist>
+      <listitem>
+        <para>atalkd (if you use the AppleTalk protocol)</para>
+      </listitem>
+      <listitem>
+        <para>afpd</para>
+      </listitem>
+      <listitem>
+        <para>cnid_metad (if the dbd CNID backend is used)</para>
+      </listitem>
+      <listitem>
+        <para>papd (if you want to use printing via AppleTalk)</para>
+      </listitem>
+      <listitem>
+        <para>timelord (for old style time synchronisation via AppleTalk)</para>
+      </listitem>
+      </itemizedlist>
+
+      <para>Additionally, make sure that the various configuration files
+      (afpd.conf, AppleVolumes.default, papd.conf etc.) are in the right place and
+      that netatalk.conf (if used) contains the right entries. If you want
+      e.g. papd to be started using this mechanism, set the environment variable
+      &#34;PAPD_RUN&#34; to &#34;yes&#34; in netatalk.conf. See the manual pages
+      for details.
+      </para>
+
+    </sect2>
   </sect1>
 
 </chapter>
+
+
+
+
+
+

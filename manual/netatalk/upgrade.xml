@@ -286,6 +286,16 @@
     same database format. You just have to shut down all processes accessing the
     database cleanly, make the necessary configuration changes and restart.</para>
 
+    <para>Note that the <emphasis remap="B">dbd</emphasis> backend
+    needs an auxiliary daemon, called cnid_metad, to work. It should
+    be started together with afpd. If the <emphasis
+    remap="B">dbd</emphasis> backend is compiled into afpd (the
+    default), this should happen automatically. If you cannot find it
+    in the process list even though the <emphasis
+    remap="B">dbd</emphasis> backend is used please check for errors
+    in the startup scripts.</para>
+
+
     <para>If you compile Netatalk 2.0 yourself and invoke configure --help,
     you&#39;ll notice that there are in fact more CNID backends to chose from.
     Don&#39;t use any of them. They are either broken or incomplete. Some of

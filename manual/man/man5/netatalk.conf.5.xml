@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="netatalk.conf.5">
-  <!--  $Id: netatalk.conf.5.xml,v 1.2 2004-01-05 09:33:07 bfernhomberg Exp $ -->
+  <!--  $Id: netatalk.conf.5.xml,v 1.3 2004-01-13 20:06:09 lenneis Exp $ -->
 
   <refmeta>
     <refentrytitle>netatalk.conf</refentrytitle>
@@ -70,6 +70,15 @@
 
           <para><emphasis remap="I">Example:</emphasis> <emphasis remap="B">AFPD_UAMLIST</emphasis>=<emphasis
           remap="B">&#34;-U uams_guest.so,uams_randnum.so&#34;</emphasis></para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis remap="B">CNID_METAD_RUN</emphasis></term>
+
+        <listitem>
+          <para>Enables the cnid_metad daemon if set to &#34;yes&#34;. This should
+          be enabled if you are going to use the dbd CNID backend.</para>
         </listitem>
       </varlistentry>
 
