@@ -8,7 +8,8 @@
 
   <warning>
     <para>If you have previously used an older version of Netatalk, please
-    read the chapter about <link linkend="upgrade">upgrading</link> first !!!</para>
+    read the chapter about <link linkend="upgrade">upgrading</link> first
+    !!!</para>
   </warning>
 
   <para></para>
@@ -19,22 +20,32 @@
     <para>Please have a look at the netatalk page on sourceforge for the most
     recent informations on this issue.</para>
 
-    <para><ulink url="http://sourceforge.net/projects/netatalk/">http://sourceforge.net/projects/netatalk/</ulink></para>
+    <para><ulink
+    url="http://sourceforge.net/projects/netatalk/">http://sourceforge.net/projects/netatalk/</ulink></para>
 
     <sect2>
       <title>Binary packages</title>
 
       <para>Binary packages of Netatalk are included in some Linux and UNIX
-      distributions. You might want to have a look at the usual locations, too (<ulink url="http://rpmfind.net/">http://rpmfind.net/</ulink>, <ulink url="http://packages.debian.org/">http://packages.debian.org/</ulink>, <ulink url="http://www.blastwave.org/">http://www.blastwave.org/</ulink> <ulink url="http://www.freebsd.org/ports/index.html">http://www.freebsd.org/ports/index.html</ulink>, etc.)<indexterm>
-        <primary>RPM</primary>
-        <secondary>Red Hat Package Manager package</secondary>
-      </indexterm><indexterm>
-        <primary>Deb</primary>
-        <secondary>Debian package</secondary>
-      </indexterm><indexterm>
-        <primary>Ports</primary>
-        <secondary>FreeBSD port</secondary>
-      </indexterm></para>
+      distributions. You might want to have a look at the usual locations, too
+      (<ulink url="http://rpmfind.net/">http://rpmfind.net/</ulink>, <ulink
+      url="http://packages.debian.org/">http://packages.debian.org/</ulink>,
+      <ulink url="http://www.blastwave.org/">http://www.blastwave.org/</ulink>
+      <ulink
+      url="http://www.freebsd.org/ports/index.html">http://www.freebsd.org/ports/index.html</ulink>,
+      etc.)<indexterm>
+          <primary>RPM</primary>
+
+          <secondary>Red Hat Package Manager package</secondary>
+        </indexterm><indexterm>
+          <primary>Deb</primary>
+
+          <secondary>Debian package</secondary>
+        </indexterm><indexterm>
+          <primary>Ports</primary>
+
+          <secondary>FreeBSD port</secondary>
+        </indexterm></para>
     </sect2>
 
     <sect2>
@@ -48,33 +59,37 @@
       </sect3>
 
       <sect3>
-        <title>Anonymous CVS<indexterm><primary>CVS</primary><secondary>Concurrent
-        Versioning System</secondary></indexterm></title>
+        <title>Anonymous CVS<indexterm>
+            <primary>CVS</primary>
 
-        <para>Downloading of the CVS source can be done quickly and easily.</para>
+            <secondary>Concurrent Versioning System</secondary>
+          </indexterm></title>
+
+        <para>Downloading of the CVS source can be done quickly and
+        easily.</para>
 
         <orderedlist>
           <listitem>
-            <para>Make sure you have cvs installed. <command>which cvs</command>
-            should produce a path to cvs.</para>
+            <para>Make sure you have cvs installed. <command>which
+            cvs</command> should produce a path to cvs.</para>
 
-            <screen><prompt>$&#62;</prompt> <userinput>which cvs</userinput>
+            <screen><prompt>$&gt;</prompt> <userinput>which cvs</userinput>
 <computeroutput>/usr/bin/cvs</computeroutput></screen>
           </listitem>
 
           <listitem>
-            <para>If you don&#39;t have one make a source directory.
+            <para>If you don't have one make a source directory.
             <command>cd</command> to this directory.</para>
 
-            <screen><prompt>$&#62;</prompt> <userinput>mkdir /path/to/new/source/dir</userinput>
-<prompt>$&#62;</prompt> <userinput>cd /path/to/new/source/dir</userinput></screen>
+            <screen><prompt>$&gt;</prompt> <userinput>mkdir /path/to/new/source/dir</userinput>
+<prompt>$&gt;</prompt> <userinput>cd /path/to/new/source/dir</userinput></screen>
           </listitem>
 
           <listitem>
             <para>Authenticate yourself with cvs. Just hit enter for the
             password for the anonymous user.</para>
 
-            <screen><prompt>$&#62;</prompt> <userinput>cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/netatalk login</userinput>
+            <screen><prompt>$&gt;</prompt> <userinput>cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/netatalk login</userinput>
 <computeroutput>Logging in to :pserver:anonymous@cvs.sourceforge.net:2401/cvsroot/netatalk
 CVS password: </computeroutput><userinput>[Enter]</userinput>
 </screen>
@@ -83,7 +98,7 @@ CVS password: </computeroutput><userinput>[Enter]</userinput>
           <listitem>
             <para>Now get the source:</para>
 
-            <screen><prompt>$&#62;</prompt> <userinput>cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/netatalk
+            <screen><prompt>$&gt;</prompt> <userinput>cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/netatalk
     -r branch-netatalk-afp-3x-dev co netatalk
 </userinput><computeroutput>cvs server: Updating netatalk
 U netatalk/.cvsignore
@@ -92,17 +107,18 @@ U netatalk/COPYING
 ...
 </computeroutput></screen>
 
-            <para>This will create a local directory called "netatalk" and downloads a
-            complete and fresh copy of the netatalk source from the CVS
-            repository.</para>
+            <para>This will create a local directory called "netatalk" and
+            downloads a complete and fresh copy of the netatalk source from
+            the CVS repository.</para>
           </listitem>
 
           <listitem>
             <para>Now <command>cd</command> to the netatalk directory and run
             <command>./autogen.sh</command>. This will create the
-            <filename>configure</filename> script required in the next step.</para>
+            <filename>configure</filename> script required in the next
+            step.</para>
 
-            <screen><prompt>$&#62;</prompt> <userinput>./autogen.sh</userinput></screen>
+            <screen><prompt>$&gt;</prompt> <userinput>./autogen.sh</userinput></screen>
           </listitem>
         </orderedlist>
 
@@ -115,7 +131,7 @@ U netatalk/COPYING
     <title>Compiling Netatalk</title>
 
     <sect2>
-      <title>Prequisites</title>
+      <title>Prerequisites</title>
 
       <sect3>
         <title>System requirements</title>
@@ -124,15 +140,16 @@ U netatalk/COPYING
 
         <itemizedlist>
           <listitem>
-            <para>A C compiler, Netatalk compiles fine with gcc &#62; 2.7.95</para>
+            <para>A C compiler, Netatalk compiles fine with gcc &gt;
+            2.7.95</para>
           </listitem>
         </itemizedlist>
 
         <para>To be able to compile with AFP3 support, your system has to
-        support large files (&#62;2GB).</para>
+        support large files (&gt;2GB).</para>
 
         <note>
-          <para>On linux systems glibc &#62; 2.2 is required.</para>
+          <para>On linux systems glibc &gt; 2.2 is required.</para>
         </note>
 
         <para></para>
@@ -141,9 +158,12 @@ U netatalk/COPYING
       <sect3>
         <title>Required third party software</title>
 
-        <para>Netatalk makes use of sleepycats&#39; Berkeley DB<indexterm><primary>BDB</primary><secondary>Berkeley
-        DB</secondary></indexterm>. At the time of writing, the following
-        versions are supported:</para>
+        <para>Netatalk makes use of sleepycats' Berkeley DB<indexterm>
+            <primary>BDB</primary>
+
+            <secondary>Berkeley DB</secondary>
+          </indexterm>. At the time of writing, the following versions are
+        supported:</para>
 
         <itemizedlist>
           <listitem>
@@ -158,7 +178,8 @@ U netatalk/COPYING
         <para>In case Berkeley DB is not installed on your system, please
         download it from:</para>
 
-        <para><ulink url="http://www.sleepycat.com/download/db/index.shtml">http://www.sleepycat.com/download/db/index.shtml</ulink></para>
+        <para><ulink
+        url="http://www.sleepycat.com/download/db/index.shtml">http://www.sleepycat.com/download/db/index.shtml</ulink></para>
 
         <para>and follow the <link linkend="build-bdb">installation
         instructions</link>.</para>
@@ -168,20 +189,20 @@ U netatalk/COPYING
         <title>Optional third party software</title>
 
         <para>Netatalk can use the following third party software to enhance
-        it&#39;s functionality.</para>
+        it's functionality.</para>
 
         <itemizedlist>
           <listitem>
             <para>OpenSSL (recommended)</para>
 
-            <para>OpenSSL is required for encrypted passwords. Without it,
-            the password will be sent over the network in cleartext.</para>
+            <para>OpenSSL is required for encrypted passwords. Without it, the
+            password will be sent over the network in clear text.</para>
           </listitem>
 
           <listitem>
             <para>TCP wrappers</para>
 
-            <para>Wietse Venema&#39;s network logger, also known as TCPD or
+            <para>Wietse Venema's network logger, also known as TCPD or
             LOG_TCP.</para>
 
             <para>Security options are: access control per host, domain and/or
@@ -193,30 +214,41 @@ U netatalk/COPYING
           </listitem>
 
           <listitem>
-            <para>PAM<indexterm><primary>PAM</primary><secondary>Pluggable
-            Authentication Modules</secondary></indexterm></para>
+            <para>PAM<indexterm>
+                <primary>PAM</primary>
+
+                <secondary>Pluggable Authentication Modules</secondary>
+              </indexterm></para>
 
             <para>PAM provides a flexible mechanism for authenticating users.
-            PAM was invented by SUN<indexterm><primary>SUN</primary><secondary>Sun
-            Microsystems</secondary></indexterm> Microsystems. Linux-PAM is a
-            suite of shared libraries that enable the local system
-            administrator to choose how applications authenticate users.</para>
+            PAM was invented by SUN<indexterm>
+                <primary>SUN</primary>
+
+                <secondary>Sun Microsystems</secondary>
+              </indexterm> Microsystems. Linux-PAM is a suite of shared
+            libraries that enable the local system administrator to choose how
+            applications authenticate users.</para>
 
             <para>You can get the Linux PAM documentation and sources from
-            <ulink url="http://www.kernel.org/pub/linux/libs/pam/">http://www.kernel.org/pub/linux/libs/pam/</ulink>.</para>
+            <ulink
+            url="http://www.kernel.org/pub/linux/libs/pam/">http://www.kernel.org/pub/linux/libs/pam/</ulink>.</para>
           </listitem>
 
           <listitem>
             <para>OpenSLP</para>
 
-            <para>SLP<indexterm><primary>SLP</primary><secondary>Service
-            Location Protocol</secondary></indexterm> (Service Location
-            Protocol) is an IETF<indexterm><primary>IETF</primary>
-            <secondary>Internet Engineering Task Force</secondary></indexterm> 
-            standards track protocol that provides a
-            framework to allow networking applications to discover the
-            existence, location, and configuration of networked services in
-            enterprise networks.</para>
+            <para>SLP<indexterm>
+                <primary>SLP</primary>
+
+                <secondary>Service Location Protocol</secondary>
+              </indexterm> (Service Location Protocol) is an IETF<indexterm>
+                <primary>IETF</primary>
+
+                <secondary>Internet Engineering Task Force</secondary>
+              </indexterm> standards track protocol that provides a framework
+            to allow networking applications to discover the existence,
+            location, and configuration of networked services in enterprise
+            networks.</para>
 
             <para>Mac OS X uses it to locate AFP servers, even though newer
             version prefer Rendezvous.</para>
@@ -242,18 +274,21 @@ U netatalk/COPYING
     </sect2>
 
     <sect2 id="compiling-netatalk">
-      <title>Compiling<indexterm><primary>Compile</primary>
-            <secondary>Compiling Netatalk from Source</secondary></indexterm> Netatalk</title>
+      <title>Compiling<indexterm>
+          <primary>Compile</primary>
+
+          <secondary>Compiling Netatalk from Source</secondary>
+        </indexterm> Netatalk</title>
 
       <sect3>
         <title>Configuring the build</title>
 
-        <para>To build the binaries, first run the program <command>./configure</command>
-        in the source directory. This should automatically configure Netatalk
-        for your operating system. If you have unusual needs, then you may
-        wish to run</para>
+        <para>To build the binaries, first run the program
+        <command>./configure</command> in the source directory. This should
+        automatically configure Netatalk for your operating system. If you
+        have unusual needs, then you may wish to run</para>
 
-        <screen>$&#62; <userinput>./configure --help</userinput></screen>
+        <screen>$&gt; <userinput>./configure --help</userinput></screen>
 
         <para>to see what special options you can enable.</para>
 
@@ -278,22 +313,24 @@ U netatalk/COPYING
 
         <para>Now run configure with any options you need</para>
 
-        <screen><prompt>$&#62;</prompt> <userinput>./configure [arguments] [--with-bdb=/bdb/install/path]</userinput></screen>
+        <screen><prompt>$&gt;</prompt> <userinput>./configure [arguments] [--with-bdb=/bdb/install/path]</userinput></screen>
 
-        <para>Configure will end up in an overview showing the settings the Netatalk Makefiles have been created with.</para>
-        
-        <para>If this step fails please visit the <ulink url="http://netatalk.sourceforge.net/wiki/index.php/Troubleshooting">troubleshooting guide</ulink>.</para>
+        <para>Configure will end up in an overview showing the settings the
+        Netatalk Makefiles have been created with.</para>
+
+        <para>If this step fails please visit the <ulink
+        url="http://netatalk.sourceforge.net/wiki/index.php/Troubleshooting">troubleshooting
+        guide</ulink>.</para>
 
         <note>
           <para>With recent RedHat releases, Berkeley DB links to libpthread.
-          Netatalk does not link to libpthread, so detection of Berkely DB
-          fails when running configure. It&#39;s recommended to <link
+          Netatalk does not link to libpthread, so detection of Berkeley DB
+          fails when running configure. It's recommended to <link
           linkend="build-bdb">(re)compile Berkeley DB</link> with
-          <option>--with-mutex=&#34;x86/gcc-assembly&#34;</option> (on x86
-          platforms) to disable the use of libpthread. Alternatively you could
-          use</para>
+          <option>--with-mutex="x86/gcc-assembly"</option> (on x86 platforms)
+          to disable the use of libpthread. Alternatively you could use</para>
 
-          <screen><prompt>$&#62;</prompt><userinput> LIBS=&#34;-lpthread&#34; ./configure [arguments]</userinput></screen>
+          <screen><prompt>$&gt;</prompt><userinput> LIBS="-lpthread" ./configure [arguments]</userinput></screen>
 
           <para>to trick Netatalk into linking to libpthread. However, this is
           not recommended, as there have been some trouble reports indicating
@@ -302,15 +339,17 @@ U netatalk/COPYING
 
         <para>Next, running</para>
 
-        <screen><prompt>$&#62;</prompt> <userinput>make</userinput></screen>
+        <screen><prompt>$&gt;</prompt> <userinput>make</userinput></screen>
 
-        <para>should produce the Netatalk binaries (this step can take several minutes to complete).</para>
+        <para>should produce the Netatalk binaries (this step can take several
+        minutes to complete).</para>
 
         <para>When the process finished you can use</para>
 
-        <screen><prompt>$&#62;</prompt> <userinput>make install</userinput></screen>
+        <screen><prompt>$&gt;</prompt> <userinput>make install</userinput></screen>
 
-        <para>to install the binaries and documentation (must be done as "root" when using default locations).</para>
+        <para>to install the binaries and documentation (must be done as
+        "root" when using default locations).</para>
       </sect3>
     </sect2>
 
@@ -327,7 +366,7 @@ U netatalk/COPYING
       update your system to a newer release, the installed version of Berkeley
       DB may change. This can lead to a number of problems, starting with
       strange behaviour of Netatalk, unreadable CNID Databases. Most likely
-      Netatalk(afpd) won&#39;t start anymore, so you&#39;ll have to recompile
+      Netatalk(afpd) won't start anymore, so you'll have to recompile
       Netatalk.</para>
 
       <para>For instructions compiling Berkeley DB, you should generally refer
@@ -335,8 +374,8 @@ U netatalk/COPYING
       meant to help you avoid problems, users experienced in the past.</para>
 
       <para>In case you are building on a recent RedHat release, please use
-      <option>--with-mutex=&#34;x86/gcc-assembly&#34;</option> on x86
-      platforms to prevent Berkeley DB from linking against libpthread.</para>
+      <option>--with-mutex="x86/gcc-assembly"</option> on x86 platforms to
+      prevent Berkeley DB from linking against libpthread.</para>
 
       <sect3>
         <title>Using a statically linked Berkeley DB</title>
@@ -351,8 +390,8 @@ U netatalk/COPYING
 <prompt>root#</prompt> <userinput>make</userinput>
 <prompt>root#</prompt> <userinput>make install</userinput></screen>
 
-        <para>You should now continue with <link linkend="compiling-netatalk">building
-        Netatalk</link>.</para>
+        <para>You should now continue with <link
+        linkend="compiling-netatalk">building Netatalk</link>.</para>
       </sect3>
 
       <sect3>
@@ -365,28 +404,28 @@ U netatalk/COPYING
         another, i.e. older, version of Berkeley DB, linking afpd to a newer
         version can lead to unexpected results.</para>
 
-        <para>You need to configure Berkeley DB with the <option>--with-uniquename</option>
-        configure switch to avoid these kind of problems. This insures your
-        new version will not interfere with another installation of Berkeley
-        DB on your system.</para>
+        <para>You need to configure Berkeley DB with the
+        <option>--with-uniquename</option> configure switch to avoid these
+        kind of problems. This insures your new version will not interfere
+        with another installation of Berkeley DB on your system.</para>
 
         <screen><prompt>root#</prompt> <userinput>cd build_unix</userinput>
 <prompt>root#</prompt> <userinput>../dist/configure --prefix=/install/path --with-uniquename</userinput>
 <prompt>root#</prompt> <userinput>make</userinput>
 <prompt>root#</prompt> <userinput>make install</userinput></screen>
 
-        <para>If you select an install path other than <filename>/usr/local</filename>,
-        you will have to configure your linker to look for libraries in this
-        directory.</para>
+        <para>If you select an install path other than
+        <filename>/usr/local</filename>, you will have to configure your
+        linker to look for libraries in this directory.</para>
 
         <para>On many operating systems, this is done by adding a new entry to
         <filename>/etc/ld.so.conf</filename>.</para>
 
-        <screen><prompt>root#</prompt> <userinput>echo /install/path/lib &#62;/etc/ld.so.conf</userinput>
+        <screen><prompt>root#</prompt> <userinput>echo /install/path/lib &gt;/etc/ld.so.conf</userinput>
 <prompt>root#</prompt> <userinput>ldconfig</userinput></screen>
 
-        <para>You should now continue with <link linkend="compiling-netatalk">building
-        Netatalk</link>.</para>
+        <para>You should now continue with <link
+        linkend="compiling-netatalk">building Netatalk</link>.</para>
       </sect3>
     </sect2>
   </sect1>

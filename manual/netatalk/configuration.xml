@@ -127,8 +127,8 @@ eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone "Printers"</programlisti
             On eth0 and eth1, there are no other routers present, so atalkd
             chooses an address from within the startup range. But on eth2
             there lives an already connected AppleTalk router, publishing one
-            zone called "Printers" and forcing clients to assign theirselves
-            an address in a netrange between 1 and 1000.</para>
+            zone called "Printers" and forcing clients to assign themselves an
+            address in a netrange between 1 and 1000.</para>
           </example>
 
           <para>In this case, atalkd will handle each interface as it would be
@@ -300,12 +300,12 @@ eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone "Printers"</programlisti
         <para><programlisting>eth0 -seed -phase 2 -net 1-1000 -addr 1000.142 -zone "Printers" -zone "Spoolers"
 eth1 -seed -phase 2 -net 1001-2000 -addr 2000.142 -zone "Macs" -zone "Servers"</programlisting>
         The settings for eth0 force AppleTalk devices within the connected
-        network to assign theirselves an address in the netrange 1-1000. Two
+        network to assign themselves an address in the netrange 1-1000. Two
         zone names are published into this segment, "Printers" being the so
-        called "standard zone", forcing dumb AppleTalk devices like
-        Laserprinters to show up automatically into this zone. AppleTalk
-        printer queues supplied by netatalk's papd can be registered into the
-        zone "Spoolers" simply by adjusting the settings in <citerefentry>
+        called "standard zone", forcing dumb AppleTalk devices like Laser
+        printers to show up automatically into this zone. AppleTalk printer
+        queues supplied by netatalk's papd can be registered into the zone
+        "Spoolers" simply by adjusting the settings in <citerefentry>
             <refentrytitle>papd.conf</refentrytitle>
 
             <manvolnum>5</manvolnum>
@@ -425,7 +425,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         <title>afpd.conf</title>
 
         <para>afpd.conf is the configuration file used by afpd to determine
-        the behavior and configuration of the different virtual file servers
+        the behaviour and configuration of the different virtual file servers
         that it provides. Any line not prefixed with <keycode>'#</keycode>' is
         interpreted.</para>
 
@@ -1073,7 +1073,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
                 <secondary>"AFS Kerberos" UAM (Kerberos IV)</secondary>
               </indexterm> UAMs (suitable to use <ulink
             url="http://web.mit.edu/macdev/KfM/Common/Documentation/faq.html">Kerberos
-            v4 based authentication</ulink> and AFS fileservers)</para>
+            v4 based authentication</ulink> and AFS file servers)</para>
 
             <para>Use <filename>"--enable-krb4-uam"</filename> at compile time
             to activate the build of this UAM.</para>
@@ -1230,9 +1230,15 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
       </sect3>
 
       <sect3>
+         
+
         <title>Netatalk UAM overview table</title>
 
+         
+
         <para>A small overview of the most common used UAMs.</para>
+
+         
 
         <table orient="land">
           <title>Netatalk UAM overview</title>
@@ -1327,11 +1333,11 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
                 <entry>Password will be sent in cleartext over the wire. Just
                 as bad as it sounds, therefore avoid at all if possible (note:
-                providing NetBoot services requires the ClearText UAM)</entry>
+                providing NetBoot services requires the ClearTxt UAM)</entry>
 
                 <entry>8-byte random numbers are sent over the wire,
                 comparable with DES, 56 bits. Vulnerable to offline dictionary
-                attack. Requires a cleartext password on the server.</entry>
+                attack. Requires passwords in clear on the server.</entry>
 
                 <entry>Password will be encrypted with 128 bit SSL, user will
                 be authenticated against the server but not vice versa.
@@ -1367,17 +1373,25 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
                 (/etc/shadow) or PAM</entry>
 
                 <entry align="center" valign="middle">Passwords stored in
-                cleartext in a separate textfile</entry>
+                clear text in a separate text file</entry>
 
                 <entry align="center" valign="middle">Either /etc/passwd
                 (/etc/shadow) or PAM</entry>
 
                 <entry align="center" valign="middle">At the Kerberos Key
-                Distribution Center</entry>
+                Distribution Center*</entry>
               </row>
             </tbody>
           </tgroup>
         </table>
+
+         &nbsp;
+
+        <para>* Have a look at this <ulink
+        url="http://cryptnet.net/fdp/admin/kerby-infra/en/kerby-infra.html">Kerberos
+        overview</ulink></para>
+
+         
       </sect3>
 
       <sect3 id="sshtunnel">
