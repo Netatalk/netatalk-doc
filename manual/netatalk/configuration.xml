@@ -505,12 +505,12 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       <para>Netatalk needs to map IDs to files and folders in the host
       filesystem. To achieve this, several different CNID backends<indexterm>
           <primary>CNID backend</primary>
-        </indexterm> are available and can be choosed by the <emphasis
-      role="bold">cnidscheme<indexterm>
+        </indexterm> are available and can be choosed by the
+      <option>cnidscheme</option><indexterm>
           <primary>cnidscheme</primary>
 
           <secondary>specifying a CNID backend</secondary>
-        </indexterm></emphasis> option in the <citerefentry>
+        </indexterm> option in the <citerefentry>
           <refentrytitle>AppleVolumes.default</refentrytitle>
 
           <manvolnum>5</manvolnum>
@@ -991,22 +991,41 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
         <itemizedlist>
           <listitem>
-            <para>"No User Authent" UAM (guest access without
-            authentication)</para>
+            <para>"No User Authent"<indexterm>
+                <primary>No User Authent</primary>
+
+                <secondary>"No User Authent" UAM (guest access)</secondary>
+              </indexterm> UAM (guest access without authentication)</para>
           </listitem>
 
           <listitem>
-            <para>"Cleartxt Passwrd" UAM (no password encryption)</para>
+            <para>"Cleartxt Passwrd"<indexterm>
+                <primary>Cleartxt Passwrd</primary>
+
+                <secondary>"Cleartxt Passwrd" UAM</secondary>
+              </indexterm> UAM (no password encryption)</para>
           </listitem>
 
           <listitem>
-            <para>"Randnum exchange"/"2-Way Randnum exchange" UAMs (weak
-            password encryption, separate password storage)</para>
+            <para>"Randnum exchange"<indexterm>
+                <primary>Randnum exchange</primary>
+
+                <secondary>"Randnum exchange" UAM</secondary>
+              </indexterm>/"2-Way Randnum exchange"<indexterm>
+                <primary>2-Way Randnum exchange</primary>
+
+                <secondary>"2-Way Randnum exchange" UAM</secondary>
+              </indexterm> UAMs (weak password encryption, separate password
+            storage)</para>
           </listitem>
 
           <listitem>
-            <para>"DHCAST128" UAM (stronger password encryption, should be
-            used these days)</para>
+            <para>"DHCAST128"<indexterm>
+                <primary>DHCAST128</primary>
+
+                <secondary>"DHCAST128" UAM</secondary>
+              </indexterm> UAM (stronger password encryption, should be used
+            these days)</para>
           </listitem>
         </itemizedlist>
 
@@ -1014,7 +1033,15 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
         <itemizedlist>
           <listitem>
-            <para>"PGPuam 1.0" UAM (PGP-based authentication for pre-Mac OS X
+            <para>"PGPuam 1.0"<indexterm>
+                <primary>PGPuam 1.0</primary>
+
+                <secondary>"PGPuam 1.0" UAM</secondary>
+              </indexterm><indexterm>
+                <primary>uams_pgp.so</primary>
+
+                <secondary>"PGPuam 1.0" UAM</secondary>
+              </indexterm> UAM (PGP-based authentication for pre-Mac OS X
             clients. You'll also need the <ulink
             url="http://www.vmeng.com/vinnie/papers/pgpuam.html">PGPuam
             client</ulink> to let this work)</para>
@@ -1024,7 +1051,19 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           </listitem>
 
           <listitem>
-            <para>"Kerberos IV"/"AFS Kerberos" UAMs (suitable to use <ulink
+            <para>"Kerberos IV"<indexterm>
+                <primary>Kerberos IV</primary>
+
+                <secondary>"Kerberos IV" UAM</secondary>
+              </indexterm><indexterm>
+                <primary>uams_krb4.so</primary>
+
+                <secondary>"Kerberos IV" UAM</secondary>
+              </indexterm>/"AFS Kerberos"<indexterm>
+                <primary>AFS Kerberos</primary>
+
+                <secondary>"AFS Kerberos" UAM (Kerberos IV)</secondary>
+              </indexterm> UAMs (suitable to use <ulink
             url="http://web.mit.edu/macdev/KfM/Common/Documentation/faq.html">Kerberos
             v4 based authentication</ulink> and AFS fileservers)</para>
 
@@ -1033,8 +1072,12 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           </listitem>
 
           <listitem>
-            <para>"Client Krb v2" UAM (Kerberos V, suitable for "Single Sign
-            On" Scenarios with Mac OS X clients -- see below)</para>
+            <para>"Client Krb v2"<indexterm>
+                <primary>Client Krb v2</primary>
+
+                <secondary>"Client Krb v2" UAM (Kerberos V)</secondary>
+              </indexterm> UAM (Kerberos V, suitable for "Single Sign On"
+            Scenarios with Mac OS X clients -- see below)</para>
 
             <para><filename>"--enable-krbV-uam"</filename> will provide you
             with the ability to use this UAM.</para>
@@ -1070,7 +1113,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       </sect3>
 
       <sect3>
-        <title>Which UAMs to activate</title>
+        <title>Which UAMs to activate?</title>
 
         <para>It depends primarily on your needs and on the kind of Mac OS
         versions you have to support. Basically one should try to use
@@ -1129,16 +1172,27 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           </listitem>
 
           <listitem>
-            <para>Using the Kerberos V ("Client Krb v2") UAM, it's possible to
-            implement real single sign on scenarios using Kerberos
-            tickets.</para>
+            <para>Using the Kerberos V<indexterm>
+                <primary>Kerberos V</primary>
+
+                <secondary>"Client Krb v2" UAM</secondary>
+              </indexterm> ("Client Krb v2") UAM, it's possible to implement
+            real single sign on scenarios using Kerberos tickets. The password
+            is not sent over the network. Instead, the user password is used
+            to decrypt a service ticket for the appleshare server. The service
+            ticket contains an encryption key for the client and some
+            encrypted data (which only the appleshare server can decrypt). The
+            encrypted portion of the service ticket is sent to the server and
+            used to authenticate the user. Because of the way that the afpd
+            service principal detection is implemented, this authentication
+            method is vulnerable to man-in-the-middle attacks.</para>
           </listitem>
         </itemizedlist>
 
         <para>For a more detailed overview over the technical implications of
         the different UAMs, please have a look at Apple's <ulink
         url="http://developer.apple.com/documentation/Networking/Conceptual/AFP/Chapter_1/chapter_2_section_6.html">File
-        Server Security</ulink> chapter.</para>
+        Server Security</ulink> pages.</para>
       </sect3>
 
       <sect3>
@@ -1168,12 +1222,6 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
       </sect3>
 
       <sect3>
-        <title>Single Sign On with "Kerberos V"</title>
-
-        <para>(not yet)</para>
-      </sect3>
-
-      <sect3>
         <title>Netatalk UAM overview table</title>
 
         <para>A small overview of the most common used UAMs.</para>
@@ -1198,15 +1246,36 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               <row>
                 <entry align="center" rotate="0" valign="middle">UAM</entry>
 
-                <entry>No User Authent</entry>
+                <entry>No User Authent<indexterm>
+                    <primary>uams_guest.so</primary>
 
-                <entry>Cleartxt Passwrd</entry>
+                    <secondary>"No User Authent" UAM (guest
+                    access)</secondary>
+                  </indexterm></entry>
 
-                <entry>(2-Way) Randnum exchange</entry>
+                <entry>Cleartxt Passwrd<indexterm>
+                    <primary>uams_cleartxt.so</primary>
 
-                <entry>DHCAST128</entry>
+                    <secondary>"Cleartxt Passwrd" UAM</secondary>
+                  </indexterm></entry>
 
-                <entry>Client Krb v2</entry>
+                <entry>(2-Way) Randnum exchange<indexterm>
+                    <primary>uams_randnum.so</primary>
+
+                    <secondary>"(2-Way) Randnum exchange" UAM</secondary>
+                  </indexterm></entry>
+
+                <entry>DHCAST128<indexterm>
+                    <primary>uams_dhx.so</primary>
+
+                    <secondary>"DHCAST128" UAM</secondary>
+                  </indexterm></entry>
+
+                <entry>Client Krb v2<indexterm>
+                    <primary>uams_gss.so</primary>
+
+                    <secondary>"Client Krb v2" UAM (Kerberos V)</secondary>
+                  </indexterm></entry>
               </row>
 
               <row>
@@ -1238,7 +1307,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
                 <entry>built-in since AppleShare client 3.8.4, available as a
                 plug-in for 3.8.3, integrated in Mac OS X' AFP client</entry>
 
-                <entry>built-in since MacOS X 10.3</entry>
+                <entry>built-in since MacOS X 10.2</entry>
               </row>
 
               <row>
@@ -1260,7 +1329,9 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
                 be authenticated against the server but not vice versa.
                 Therefor weak against man-in-the-middle attacks.</entry>
 
-                <entry>(not yet)</entry>
+                <entry>Password is not sent over the network. Due to the
+                service principal detection method, this authentication method
+                is vulnerable to man-in-the-middle attacks.</entry>
               </row>
 
               <row>
@@ -1275,7 +1346,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
                 <entry align="center" valign="middle">uams_dhx.so</entry>
 
-                <entry align="center" valign="middle">uam_gss.so</entry>
+                <entry align="center" valign="middle">uams_gss.so</entry>
               </row>
 
               <row>

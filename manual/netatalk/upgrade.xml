@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="upgrade">
   <chapterinfo>
-    <date>05.01.2004</date>
+    <date>06.09.2004</date>
 
     <author>
       <firstname>Jörg</firstname>
@@ -168,11 +168,11 @@
 
       <para><filename>afpd.conf</filename>:</para>
 
-      <programlisting>- -transall -maccodepage:MAC_CENTRALEUROPE</programlisting>
+      <programlisting> - -transall -maccodepage:MAC_CENTRALEUROPE</programlisting>
 
       <para><filename>AppleVolumes.default</filename>:</para>
 
-      <programlisting>/path/to/share "1.x Volume" adouble:v1 volcharset:ASCII</programlisting>
+      <programlisting> /path/to/share "1.x Volume" adouble:v1 volcharset:ASCII</programlisting>
 
       <para></para>
     </sect2>
@@ -194,7 +194,7 @@
             <para>Use the following settings in
             <filename>AppleVolumes.default</filename>:</para>
 
-            <programlisting>/path/to/share "1.x Volume" adouble:v1 volcharset:ISO-8859-1</programlisting>
+            <programlisting> /path/to/share "1.x Volume" adouble:v1 volcharset:ISO-8859-1</programlisting>
           </listitem>
         </varlistentry>
 
@@ -217,7 +217,7 @@
             <filename>AppleVolumes.default</filename> might work, but is
             untested:</para>
 
-            <programlisting>/path/to/share "1.x Volume" adouble:v1 volcharset:CP437</programlisting>
+            <programlisting> /path/to/share "1.x Volume" adouble:v1 volcharset:CP437</programlisting>
           </listitem>
         </varlistentry>
 
@@ -229,7 +229,7 @@
             <filename>AppleVolumes.default</filename> might work, but is
             untested:</para>
 
-            <programlisting>/path/to/share "1.x Volume" adouble:v1 volcharset:CP850</programlisting>
+            <programlisting> /path/to/share "1.x Volume" adouble:v1 volcharset:CP850</programlisting>
           </listitem>
         </varlistentry>
 
@@ -241,7 +241,7 @@
             <filename>AppleVolumes.default</filename> might work, but is
             untested:</para>
 
-            <programlisting>/path/to/share "1.x Volume" adouble:v1 volcharset:KOI8-R</programlisting>
+            <programlisting> /path/to/share "1.x Volume" adouble:v1 volcharset:KOI8-R</programlisting>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -261,6 +261,8 @@
   <sect1 id="choosecnidscheme">
     <title>Choosing a CNID<indexterm>
         <primary>CNID</primary>
+
+        <secondary>Catalog Node ID</secondary>
       </indexterm> storage scheme</title>
 
     <para>Previous versions of Netatalk allocated CNIDs either on the fly or
@@ -420,10 +422,8 @@
             <filename>didname.db</filename> using the old (installed) version
             of Berkeley DB like this:</para>
 
-            <programlisting> 
-      db_dump -f cnid.dump cnid.db 
-      db_dump -f didname.dump didname.db 
-      </programlisting>
+            <programlisting> db_dump -f cnid.dump cnid.db 
+ db_dump -f didname.dump didname.db</programlisting>
 
             <para>Make sure the db_dump utility you are using is the correct
             (currently used) one. Use the full path to the db_dump executable
@@ -546,9 +546,9 @@
       directory must not be accessible from the production afpd server. Don't
       forget to set appropriate permissions for the share. For example:</para>
 
-      <programlisting>mkdir /macdata/testshare
-chown root.macusers /macdata/testshare
-chmod g+wrx,g+s /macdata/testshare</programlisting>
+      <programlisting> mkdir /macdata/testshare
+ chown root.macusers /macdata/testshare
+ chmod g+wrx,g+s /macdata/testshare</programlisting>
     </sect2>
 
     <sect2>
@@ -558,7 +558,7 @@ chmod g+wrx,g+s /macdata/testshare</programlisting>
       whole contents (including all the metadata directories like
       <filename>.AppleDB</filename>) to another location.</para>
 
-      <programlisting>cp -pr /production/testshare /macdata/</programlisting>
+      <programlisting> cp -pr /production/testshare /macdata/</programlisting>
 
       <para>Then do the somewhat extensive upgrade of CNID databases and
       filename encodings outlined earlier in this chapter.</para>
@@ -571,14 +571,14 @@ chmod g+wrx,g+s /macdata/testshare</programlisting>
       port, because that one is already bound by the production afpd. So the
       <filename>afpd.conf</filename> should look like</para>
 
-      <programlisting>- -noddp -nouservol -port 5480 -loginmsg "WARNING: test server"</programlisting>
+      <programlisting> - -noddp -nouservol -port 5480 -loginmsg "WARNING: test server"</programlisting>
 
       <para>You also have to present the share to the Mac users by editing the
       <filename>AppleVolumes.default</filename> file. Remove the line
       containing a single "~" at the end of the file and append something
       like:</para>
 
-      <programlisting>/macdata/testshare "Test Volume (not production)"</programlisting>
+      <programlisting> /macdata/testshare "Test Volume (not production)"</programlisting>
 
       <para>That should be the only uncommented line in the file. Do not
       forget to adjust encoding and AppleDouble setting when you're not using
@@ -591,17 +591,17 @@ chmod g+wrx,g+s /macdata/testshare</programlisting>
       want to enable access to the test volumes. Then, instead of the line
       above, append a line like this one:</para>
 
-      <programlisting>/macdata/testshare "Test Volume (not production)" allow:@afpdtest</programlisting>
+      <programlisting> /macdata/testshare "Test Volume (not production)" allow:@afpdtest</programlisting>
 
       <para>The test afpd server can be started now:</para>
 
-      <programlisting>$TESTDIR/sbin/afpd -P /var/run/afpd-test.pid</programlisting>
+      <programlisting> $TESTDIR/sbin/afpd -P /var/run/afpd-test.pid</programlisting>
 
       <para>You can also put this line in the production netatalk start
       script, in the "start" case. In the "stop" case, you should
       insert</para>
 
-      <programlisting>[ -f /var/run/afpd-test.pid ] &amp;&amp; kill `cat /var/run/afpd-test.pid`</programlisting>
+      <programlisting> [ -f /var/run/afpd-test.pid ] &amp;&amp; kill `cat /var/run/afpd-test.pid`</programlisting>
 
       <para>The production server has to know about the test server. Otherwise
       the Mac users would not be able to see the test server in their
@@ -609,7 +609,7 @@ chmod g+wrx,g+s /macdata/testshare</programlisting>
       <filename>afpd.conf</filename> (usually in
       <filename>/etc/netatalk/afpd.conf</filename>):</para>
 
-      <programlisting>"Test server (not production)" -proxy -uamlist "" -port 5480</programlisting>
+      <programlisting> "Test server (not production)" -proxy -uamlist "" -port 5480</programlisting>
 
       <para>and restart the production netatalk. Note that the port directive
       here should match the one which appears above in the test
@@ -624,11 +624,11 @@ chmod g+wrx,g+s /macdata/testshare</programlisting>
       <para>The test server should appear in the chooser on Macs. You can also
       test that from the UNIX command line:</para>
 
-      <programlisting>$ nbplkup =:AFPServer</programlisting>
+      <programlisting> nbplkup =:AFPServer</programlisting>
 
       <para>or</para>
 
-      <programlisting>$ netstat -an | grep 5480</programlisting>
+      <programlisting> netstat -an | grep 5480</programlisting>
 
       <para>If everything went fine spread the word about the test server
       among your more experienced Mac users and see whether things work as

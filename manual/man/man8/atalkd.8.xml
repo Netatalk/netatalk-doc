@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">17 Nov 1995</refmiscinfo>
+    <refmiscinfo class="date">06 Sep 2004</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -18,27 +18,29 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>atalkd<indexterm><primary>atalkd</primary></indexterm><indexterm>
-        <primary>RTMP</primary>
+      <command>atalkd<indexterm>
+          <primary>atalkd</primary>
+        </indexterm><indexterm>
+          <primary>RTMP</primary>
 
-        <secondary>Routing Table Maintainance Protocol</secondary>
-      </indexterm><indexterm>
-        <primary>NBP</primary>
+          <secondary>Routing Table Maintainance Protocol</secondary>
+        </indexterm><indexterm>
+          <primary>NBP</primary>
 
-        <secondary>Name Binding Protocol</secondary>
-      </indexterm><indexterm>
-        <primary>ZIP</primary>
+          <secondary>Name Binding Protocol</secondary>
+        </indexterm><indexterm>
+          <primary>ZIP</primary>
 
-        <secondary>Zone Information Protocol</secondary>
-      </indexterm><indexterm>
-        <primary>AEP</primary>
+          <secondary>Zone Information Protocol</secondary>
+        </indexterm><indexterm>
+          <primary>AEP</primary>
 
-        <secondary>Apple Echo Protocol</secondary>
-      </indexterm><indexterm>
-              <primary>Phase</primary>
+          <secondary>Apple Echo Protocol</secondary>
+        </indexterm><indexterm>
+          <primary>Phase</primary>
 
-              <secondary>AppleTalk phase 1 or 2</secondary>
-            </indexterm></command>
+          <secondary>AppleTalk phase 1 or 2</secondary>
+        </indexterm></command>
 
       <arg>-f <replaceable>configfile</replaceable></arg>
 
@@ -73,8 +75,8 @@
     <option>-zone</option> <replaceable>zonename</replaceable> ] ...</para>
 
     <para>Note that all fields except the interface are optional. The loopback
-    interface is configured automatically. If <option>-seed</option>
-    is specified, all other fields must be present. Also,
+    interface is configured automatically. If <option>-seed</option> is
+    specified, all other fields must be present. Also,
     <command>atalkd</command> will exit during bootstrap­ping, if a router
     disagrees with its seed information. If <option>-seed</option> is not
     given, all other information may be overriden during auto-configuration.
@@ -84,10 +86,8 @@
     assumed.</para>
 
     <para>The first -zone directive for each interface is the ``default''
-    zone. Under Phase 1<indexterm>
-        <primary>Phase</primary>
-      </indexterm>, there is only one zone. Under Phase 2, all routers on the
-    network are configured with the default zone and must agree.
+    zone. Under Phase 1, there is only one zone. Under Phase 2, all routers on
+    the network are configured with the default zone and must agree.
     <command>atalkd</command> maps ``*'' to the default zone of the first
     interface. Note: The default zone for a machine is determined by the
     configuration of the local routers; to appear in a non-default zone, each
@@ -143,5 +143,15 @@
 
     <para>On some systems, <command>atalkd</command> can not be
     restarted.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para><citerefentry>
+        <refentrytitle>atalkd.conf</refentrytitle>
+
+        <manvolnum>5</manvolnum>
+      </citerefentry></para>
   </refsect1>
 </refentry>
