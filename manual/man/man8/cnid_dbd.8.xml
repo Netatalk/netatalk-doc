@@ -87,14 +87,16 @@
     updates during recovery (transactions).</para>
     
     <para>If transactions are used the <emphasis remap="B">Berkleley DB</emphasis>
-    database subsystem will create files named log.xxxxxxxxxx  in the 
-    database home directory <emphasis remap="I">dbdir</emphasis>, where xxxxxxxxxx 
-    is a monotonically increasing integer. These files contain information to 
-    replay database changes and are not automatically removed. Please see the sections 
+    database subsystem will create files named log.xxxxxxxxxx in the database home
+    directory <emphasis remap="I">dbdir</emphasis>, where xxxxxxxxxx is a monotonically
+    increasing integer. These files contain information to replay database changes and are
+    not automatically removed, unless the <emphasis
+    remap="B">logfile_autoremove</emphasis> option is specified in the <emphasis
+    remap="I">db_param</emphasis> configuration file (see below). Please see the sections
     <emphasis remap="B">Database and log file archival</emphasis>, <emphasis remap="B">
     Log file removal</emphasis> and the documentation of the <emphasis remap="B">
     db_archive</emphasis> command line utility in the Berkeley DB Tutorial and Reference
-    for information when and how it is safe to remove these files.</para>
+    for information when and how it is safe to remove these files manually.</para>
 
     <para>Do not use <command>cnid_dbd</command> for databases on NFS mounted file
     systems. It makes the whole point of securing database changes properly moot. Use
@@ -115,6 +117,19 @@
     following parameters are currently recognized:</para>
 
     <variablelist remap="TP">
+      <varlistentry>
+        <term><emphasis remap="B">logfile_autoremove</emphasis></term>
+
+        <listitem>
+          <para>This flag is ignored unless transactional support is enabled. If set to 1,
+          unused Berkeley DB transactional logfiles (log.xxxxxxxxxx in the database home
+          directory) are removed on startup of <command>cnid_dbd</command>. This is
+          usually safe if the content of the database directory is backed up on a
+          regular basis. Default: 0.
+	  </para>
+        </listitem>
+      </varlistentry>
+
       <varlistentry>
         <term><emphasis remap="B">cachesize</emphasis></term>
 
@@ -138,7 +153,7 @@
         <term><emphasis remap="B">nosync</emphasis></term>
 
         <listitem>
-          <para>This flag is only valid if transactional support is enabled.
+          <para>This flag is ignored unless transactional support is enabled.
           If it is set to 1, transactional changes to the database are not
           synchronously written to disk when the transaction completes. This
           will increase performance considerably at the risk of recent changes
