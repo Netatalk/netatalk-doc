@@ -248,33 +248,38 @@
     Netatalk 2.0 supports two: <emphasis remap="B">cdb</emphasis> and
     <emphasis remap="B">dbd</emphasis>. Both are based on the Berkeley DB
     database library as before. One difference is, though, that you are not
-    restricted to using a single scheme for all of your volumes that has to be
-    determined at compile time. The CNID scheme (also called a &#34;CNID
+    restricted to using a single scheme for all of your volumes that has to
+    be determined at compile time. The CNID scheme (also called a &#34;CNID
     backend&#34;) is now a runtime option for a volume. That means that you
     can make the choice per volume based on your requirements. Here are the
     properties as well as the advantages and disadvantages of the three
-    supported schemes: <orderedlist><listitem><para><emphasis role="bold">last:</emphasis>
-    See above. Avoid, if at all possible.</para></listitem><listitem><para><emphasis
-    role="bold">cdb: </emphasis>Roughly analogous to the Netatalk 1.6.x
-    versions with what was called then the &#34;DID schmeme&#34; set to
-    &#34;cnid&#34; and the &#34;CNID with Concurrent Data Store&#34; set to
-    &#34;yes&#34;. Access to the CNID database for a volume happens directly
-    from the Netatalk afpd daemons. A Berkeley DB locking scheme (the
-    &#34;Concurrent Data Store&#34; bit) is used to avoid database
-    inconsistencies. Robustness is much improved compared to previous
-    releases. The CNID database can only become corrupted if an afpd daemon
-    crashes unexpectedly, is killed by the administrator or the whole machine
-    chrashes.</para></listitem><listitem><para><emphasis role="bold">bdb:</emphasis>
-    There is only a single daemon that accesses the CNID database for a given
-    volume. Any afpd process that wishes to retrieve or update CNIDs for that
-    volume needs to do it via the daemon. The CNID database is (normally, this
-    is a compile time option) updated under Berkeley DB transactional
-    protection. This design combined with the transactional updates makes the
-    CNID database crashproof: Any of the participating afpd daemons, the
-    database daemon itself or the whole machine can crash and the CNID
-    database should still be in a consistent state. The downside to this is
-    that the speed of updates and retrieval is slower than with the <emphasis
-    remap="B">cdb</emphasis> scheme.</para></listitem></orderedlist></para>
+    supported schemes: <orderedlist><listitem><para><emphasis
+    role="bold">last:</emphasis> See above. Avoid, if at all
+    possible.</para></listitem><listitem><para><emphasis role="bold">cdb:
+    </emphasis>Roughly analogous to the Netatalk 1.6.x versions with what was
+    called then the &#34;DID schmeme&#34; set to &#34;cnid&#34; and the
+    &#34;CNID with Concurrent Data Store&#34; set to &#34;yes&#34;. Access to
+    the CNID database for a volume happens directly from the Netatalk afpd
+    daemons. A Berkeley DB locking scheme (the &#34;Concurrent Data
+    Store&#34; bit) is used to avoid database inconsistencies. Robustness is
+    much improved compared to previous releases. The CNID database can only
+    become corrupted if an afpd daemon crashes unexpectedly, is killed by the
+    administrator or the whole machine
+    chrashes.</para></listitem><listitem><para><emphasis
+    role="bold">dbd:</emphasis> There is only a single daemon that accesses
+    the CNID database for a given volume. Any afpd process that wishes to
+    retrieve or update CNIDs for that volume needs to do it via the
+    daemon. The CNID database is (normally, this is a compile time option)
+    updated under Berkeley DB transactional protection. This design combined
+    with the transactional updates makes the CNID database crashproof: Any of
+    the participating afpd daemons, the database daemon itself or the whole
+    machine can crash and the CNID database should still be in a consistent
+    state. The downside to this is that the speed of updates and retrieval is
+    slower than with the <emphasis remap="B">cdb</emphasis> scheme. If this
+    is a problem, you might want to disable transactions at Netatalk compile
+    time. That will give you safety against afpd crashing, but not if the
+    machine goes down unexpectedly. Also, have a look at nosync option
+    documented in the cnid_dbd manual page. </para></listitem></orderedlist></para>
 
     <para>If you compile Netatalk 2.0 yourself and invoke configure --help,
     you&#39;ll notice that there are in fact more CNID backends to chose from.
