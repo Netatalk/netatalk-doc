@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry id="cnid_index.1">
+  <refmeta>
+    <refentrytitle>cnid_index</refentrytitle>
+
+    <manvolnum>1</manvolnum>
+
+    <refmiscinfo class="date">3 Jan 2005</refmiscinfo>
+
+    <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname>cnid_index</refname>
+
+    <refpurpose>check and repair Netatalk CNID database indexes</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>cnid_index<indexterm><primary>cnid_index</primary></indexterm><indexterm>
+        <primary>CNID backend</primary>
+      </indexterm></command>
+
+      <arg choice="plain"><replaceable>dbdir</replaceable></arg>
+
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para><command>cnid_index</command> is a utility to check CNID databases
+    for consistency. If needed, the indexes are repaired. It works for 
+    databases created by the cdb and dbd backends.</para>
+
+    <para>Volumes usind the dbd CNID scheme can also be checked automatically, 
+    for further information please see the <citerefentry><refentrytitle>cnid_dbd</refentrytitle>
+    <manvolnum>8</manvolnum></citerefentry> man page.</para>
+
+    <warning>When using <command>cnid_index</command> on cdb handled databases, 
+    <command>cnid_index</command> cannot check if another process (afpd) accesses
+    the CNID databases. In this case, you have to manually ensure no other process 
+    accesses the database when running <command>cnid_index</command>.</warning>
+  </refsect1>
+
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para><citerefentry>
+        <refentrytitle>cnid_dbd</refentrytitle>
+
+        <manvolnum>8</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>afpd</refentrytitle>
+
+        <manvolnum>8</manvolnum>
+      </citerefentry></para>
+  </refsect1>
+</refentry>
