@@ -77,7 +77,6 @@
     <title>SEE ALSO</title>
 
     <para><citerefentry><refentrytitle>atalk_aton</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
-    <citerefentry><refentrytitle>zip</refentrytitle><manvolnum>4</manvolnum></citerefentry>,
     <citerefentry><refentrytitle>atalkd</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
   </refsect1>
 </refentry>

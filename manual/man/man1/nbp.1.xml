@@ -130,8 +130,6 @@
     <title>See also</title>
 
     <para><citerefentry><refentrytitle>nbp_name</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
-    <citerefentry><refentrytitle>nbp</refentrytitle><manvolnum>4</manvolnum></citerefentry>,
-    <citerefentry><refentrytitle>zip</refentrytitle><manvolnum>4</manvolnum></citerefentry>,
     <citerefentry><refentrytitle>atalkd</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
   </refsect1>
 </refentry>
