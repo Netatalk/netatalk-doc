@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="atalkd.conf.5">
-  <!--  $Id: atalkd.conf.5.xml,v 1.2 2004-01-05 09:33:07 bfernhomberg Exp $ -->
+  <!--  $Id: atalkd.conf.5.xml,v 1.3 2004-01-16 13:54:48 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>atalkd.conf</refentrytitle>
@@ -29,7 +29,7 @@
     <para>Any line not prefixed with <emphasis remap="B">#</emphasis> is
     interpreted. The configuration lines are composed like:</para>
 
-    <para><emphasis remap="I">nterface</emphasis> <emphasis remap="B">[</emphasis>
+    <para><emphasis remap="I">Interface</emphasis> <emphasis remap="B">[</emphasis>
     <emphasis remap="I">options</emphasis> <emphasis remap="B">]</emphasis></para>
 
     <para>The simplest case is to have either no atalkd.conf, or to have one
@@ -67,6 +67,18 @@
 
         <listitem>
           <para>Allows the available net to be set, optionally as a range.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>-noallmulti</option> (linux only)</term>
+
+        <listitem>
+          <para>On linux the interfaces, atalkd uses, are set to ALLMULTI by default
+          caused by countless NICs having problems without being forced into this mode
+          (some even don't work with allmulti set). In case, you've a NIC known to 
+          support multicasts properly, you might want to set this option causing less
+          packets to be processed</para>
         </listitem>
       </varlistentry>
 
