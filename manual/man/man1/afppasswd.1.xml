@@ -22,10 +22,12 @@
 
       <arg choice="opt">-acfn</arg>
 
-      <arg choice="opt"><arg choice="plain">-p <replaceable>passwd</replaceable></arg><arg
+      <arg choice="opt"><arg choice="plain">-p
+      <replaceable>passwd</replaceable></arg><arg
       choice="plain"><replaceable>file</replaceable></arg></arg>
 
-      <arg choice="opt"><arg choice="plain">-u <replaceable>minimum</replaceable></arg><arg
+      <arg choice="opt"><arg choice="plain">-u
+      <replaceable>minimum</replaceable></arg><arg
       choice="plain"><replaceable>uid</replaceable></arg></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
@@ -35,7 +37,11 @@
 
     <para><command>afppasswd</command> allows the maintenance of afppasswd
     files created by netatalk for use by some User Authentication Modules
-    (UAMs)</para>
+    (UAMs<indexterm>
+        <primary>UAM</primary>
+
+        <secondary>User Authentication Module</secondary>
+      </indexterm>)</para>
 
     <para><command>afppasswd</command> can either be called by root with
     parameters, or can be called by local system users with no parameters to
@@ -62,7 +68,8 @@
         <term><option>-a</option></term>
 
         <listitem>
-          <para>Add a new user to the <command>afppasswd</command> file.</para>
+          <para>Add a new user to the <command>afppasswd</command>
+          file.</para>
         </listitem>
       </varlistentry>
 
@@ -95,15 +102,16 @@
         <term><option>-n</option></term>
 
         <listitem>
-          <para>If cracklib support is built into <emphasis remap="B">netatalk</emphasis>
-          this option will cause cracklib checking to be disabled, if the
-          superuser does not want to have the password run against the
-          cracklib dictionary.</para>
+          <para>If cracklib support is built into <emphasis
+          remap="B">netatalk</emphasis> this option will cause cracklib
+          checking to be disabled, if the superuser does not want to have the
+          password run against the cracklib dictionary.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><option>-u</option><replaceable> minimum uid</replaceable></term>
+        <term><option>-u</option><replaceable> minimum
+        uid</replaceable></term>
 
         <listitem>
           <para>This is the minimum <emphasis remap="I">user id</emphasis>
@@ -117,7 +125,14 @@
   <refsect1>
     <title>SEE ALSO</title>
 
-    <para><citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-    <citerefentry><refentrytitle>atalkd</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
+    <para><citerefentry>
+        <refentrytitle>afpd</refentrytitle>
+
+        <manvolnum>8</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>atalkd</refentrytitle>
+
+        <manvolnum>8</manvolnum>
+      </citerefentry>.</para>
   </refsect1>
 </refentry>

@@ -25,7 +25,16 @@
       <title>Binary packages</title>
 
       <para>Binary packages of Netatalk are included in some Linux and UNIX
-      distributions.</para>
+      distributions. You might want to have a look at the usual locations, too (<ulink url="http://rpmfind.net/">http://rpmfind.net/</ulink>, <ulink url="http://packages.debian.org/">http://packages.debian.org/</ulink>, <ulink url="http://www.blastwave.org/">http://www.blastwave.org/</ulink> <ulink url="http://www.freebsd.org/ports/index.html">http://www.freebsd.org/ports/index.html</ulink>, etc.)<indexterm>
+        <primary>RPM</primary>
+        <secondary>Red Hat Package Manager package</secondary>
+      </indexterm><indexterm>
+        <primary>Deb</primary>
+        <secondary>Debian package</secondary>
+      </indexterm><indexterm>
+        <primary>Ports</primary>
+        <secondary>FreeBSD port</secondary>
+      </indexterm></para>
     </sect2>
 
     <sect2>
@@ -82,7 +91,7 @@ U netatalk/COPYING
 ...
 </computeroutput></screen>
 
-            <para>This will create a netatalk directory and download a
+            <para>This will create a local directory called "netatalk" and downloads a
             complete and fresh copy of the netatalk source from the CVS
             repository.</para>
           </listitem>
@@ -148,7 +157,7 @@ U netatalk/COPYING
         <para>In case Berkeley DB is not installed on your system, please
         download it from:</para>
 
-        <para><ulink url="http://www.sleepycat.com/download/patchlogs.shtml">http://www.sleepycat.com/download/patchlogs.shtml</ulink></para>
+        <para><ulink url="http://www.sleepycat.com/download/db/index.shtml">http://www.sleepycat.com/download/db/index.shtml</ulink></para>
 
         <para>and follow the <link linkend="build-bdb">installation
         instructions</link>.</para>
@@ -165,7 +174,7 @@ U netatalk/COPYING
             <para>OpenSSL (recommended)</para>
 
             <para>OpenSSL is required for encrypted passwords. Without it,
-            password will be sent over the network in cleartext.</para>
+            the password will be sent over the network in cleartext.</para>
           </listitem>
 
           <listitem>
@@ -193,7 +202,7 @@ U netatalk/COPYING
             administrator to choose how applications authenticate users.</para>
 
             <para>You can get the Linux PAM documentation and sources from
-            <ulink url="http://www.kernel.org/pub/linux/libs/pam/">http://www.kernel.org/pub/linux/libs/pam/</ulink></para>
+            <ulink url="http://www.kernel.org/pub/linux/libs/pam/">http://www.kernel.org/pub/linux/libs/pam/</ulink>.</para>
           </listitem>
 
           <listitem>
@@ -201,7 +210,9 @@ U netatalk/COPYING
 
             <para>SLP<indexterm><primary>SLP</primary><secondary>Service
             Location Protocol</secondary></indexterm> (Service Location
-            Protocol) is an IETF standards track protocol that provides a
+            Protocol) is an IETF<indexterm><primary>IETF</primary>
+            <secondary>Internet Engineering Task Force</secondary></indexterm> 
+            standards track protocol that provides a
             framework to allow networking applications to discover the
             existence, location, and configuration of networked services in
             enterprise networks.</para>
@@ -210,7 +221,7 @@ U netatalk/COPYING
             version prefer Rendevouz.</para>
 
             <para>You can download OpenSLP from: <ulink
-            url="http://www.openslp.org/">http://www.openslp.org/</ulink></para>
+            url="http://www.openslp.org/">http://www.openslp.org/</ulink>.</para>
           </listitem>
 
           <listitem>
@@ -218,19 +229,20 @@ U netatalk/COPYING
 
             <para>iconv provides conversion routines for many character
             encodings. Netatalk uses it to provide charsets it does not have
-            built in coversions for, like ISO-8859-1. On glibc systems,
+            built in conversions for, like ISO-8859-1. On glibc systems,
             Netatalk can use the glibc provided iconv implementation.
             Otherwise you can use the GNU libiconv implementation.</para>
 
             <para>You can download GNU libiconv from: <olink><ulink
-            url="http://www.gnu.org/software/libiconv/">http://www.gnu.org/software/libiconv/</ulink></olink></para>
+            url="http://www.gnu.org/software/libiconv/">http://www.gnu.org/software/libiconv/</ulink></olink>.</para>
           </listitem>
         </itemizedlist>
       </sect3>
     </sect2>
 
     <sect2 id="compiling-netatalk">
-      <title>Compiling Netatalk</title>
+      <title>Compiling<indexterm><primary>Compile</primary>
+            <secondary>Compiling Netatalk from Source</secondary></indexterm> Netatalk</title>
 
       <sect3>
         <title>Configuring the build</title>
@@ -267,7 +279,9 @@ U netatalk/COPYING
 
         <screen><prompt>$&#62;</prompt> <userinput>./configure [arguments] [--with-bdb=/bdb/install/path]</userinput></screen>
 
-        <para>If this step fails please visit the troubleshooting guide</para>
+        <para>Configure will end up in an overview showing the settings the Netatalk Makefiles have been created with.</para>
+        
+        <para>If this step fails please visit the <ulink url="http://netatalk.sourceforge.net/wiki/index.php/Troubleshooting">troubleshooting guide</ulink>.</para>
 
         <note>
           <para>With recent RedHat releases, Berkeley DB links to libpthread.
@@ -289,13 +303,13 @@ U netatalk/COPYING
 
         <screen><prompt>$&#62;</prompt> <userinput>make</userinput></screen>
 
-        <para>should produce the Netatalk binaries.</para>
+        <para>should produce the Netatalk binaries (this step can take several minutes to complete).</para>
 
         <para>When the process finished you can use</para>
 
         <screen><prompt>$&#62;</prompt> <userinput>make install</userinput></screen>
 
-        <para>to install the binaries and documentation.</para>
+        <para>to install the binaries and documentation (must be done as "root" when using default locations).</para>
       </sect3>
     </sect2>
 

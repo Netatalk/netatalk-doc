@@ -25,7 +25,11 @@
     <title>DESCRIPTION</title>
 
     <para><command>aecho</command> repeatedly sends an Apple Echo Protocol
-    (AEP) packet to the host specified by the given AppleTalk
+    (AEP<indexterm>
+        <primary>AEP</primary>
+
+        <secondary>Apple Echo Protocol</secondary>
+      </indexterm>) packet to the host specified by the given AppleTalk
     <command>address</command> or <command>nbpname</command> and reports
     whether a reply was received. Requests are sent at the rate of one per
     second.</para>

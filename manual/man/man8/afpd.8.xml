@@ -195,7 +195,7 @@
 
         <listitem>
           <para>Specifies the name of the guest account. The default is
-          <emphasis>nobody</emphasis>&#39;.</para>
+          &#39;<emphasis>nobody</emphasis>&#39;.</para>
         </listitem>
       </varlistentry>
 

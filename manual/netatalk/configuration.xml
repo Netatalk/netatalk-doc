@@ -3,14 +3,18 @@
   <title>Setting up Netatalk</title>
 
   <sect1>
-    <title>Appletalk</title>
+    <title>Appletalk<indexterm>
+        <primary>Appletalk</primary>
+
+        <secondary>The AppleTalk protocol suite</secondary>
+      </indexterm></title>
 
     <para>AppleTalk, the network protocol family founded by Apple, contains
     different protocols for different uses (address resolution, address/name
     mapping, service location, establishing connections, and the like)</para>
 
     <para>A complete overview can be found inside the developer
-    documentation</para>
+    documentation.</para>
 
     <sect2>
       <title>To use AppleTalk or not</title>
@@ -30,14 +34,14 @@
           <refentrytitle>timelord</refentrytitle>
 
           <manvolnum>8</manvolnum>
-        </citerefentry> for older Mac clients</para>
+        </citerefentry> for older Mac clients.</para>
 
       <para>But even if you don't need PAP or AFP over AppleTalk, you might
       consider using AppleTalk for service propagation/location, having the
       ease of use for your network clients in mind. The Apple engineers
       implemented a way to easily locate an AFP server via AppleTalk but
       establishing the AFP connection itself via AFP over TCP (see the
-      developer documentation for details on this cool feature, too)</para>
+      developer documentation for details on this cool feature, too).</para>
 
       <para>To use the different base AppleTalk protocols with netatalk, one
       has to use <citerefentry>
@@ -48,10 +52,10 @@
       different independent network segments to each other.</para>
 
       <para>To use AppleTalk/atalkd, your system has to have kernel support
-      for AppleTalk. On some systems, that netatalk supports, this isn't
+      for AppleTalk. On some systems supported by netatalk, this isn't
       currently true (notably True64 Unix) so you can use only netatalk
       services that do not rely on AppleTalk (which means "AFP over TCP" and
-      requires the -noddp switch in afpd.conf )</para>
+      requires the -noddp switch in afpd.conf).</para>
     </sect2>
 
     <sect2>
@@ -68,9 +72,9 @@
 
       <itemizedlist>
         <listitem>
-          <para>Using only one interface: You've to add the interface's name
-          (en1, le0, eth2, ... for example) to atalkd.conf on a single line.
-          Do only list <emphasis>one</emphasis> here.</para>
+          <para>Using only one interface: Just add the interface name (en1,
+          le0, eth2, ... for example) to atalkd.conf on a single line. Do only
+          list <emphasis>one</emphasis> interface here.</para>
 
           <example>
             <title>atalkd.conf containing one entry</title>
@@ -80,8 +84,8 @@
             configuration will be fetched from the network</para>
           </example>
 
-          <para>After startup, atalkd will add the real settings (address and
-          network and eventually a zone) to atalkd.conf on its own</para>
+          <para>At startup time, atalkd will add the real settings (address
+          and network and eventually a zone) to atalkd.conf on its own</para>
 
           <example>
             <title>atalkd.conf containing one entry after atalkd
@@ -89,17 +93,17 @@
 
             <para><programlisting>eth0 -phase 2 -net 0-65534 -addr 65280.166</programlisting>
             atalkd filled in the AppleTalk settings that apply to this network
-            segment. A netrange of 0-65534 is a sign that there is no
+            segment. A netrange of 0-65534 indicates that there is no
             AppleTalk router present, so atalkd will fetch an address that
             matches the following criteria: netrange from inside the so called
             "startup range" 65280-65533 and a node address between 142 and
-            255</para>
+            255.</para>
           </example>
         </listitem>
 
         <listitem>
           <para>When using several interfaces you have to add them line by
-          line following the "-dontroute" switch in atalkd.conf</para>
+          line following the "-dontroute" switch in atalkd.conf.</para>
 
           <example>
             <title>atalkd.conf containing several entries with the -dontroute
@@ -108,9 +112,9 @@
             <para><programlisting>eth0 -dontroute
 eth1 -dontroute
 eth2 -dontroute</programlisting>Appletalk networking should be enabled on all
-            three interfaces but no routing should be done between the
+            three interfaces, but no routing should be done between the
             different segments. Again, all the necessary configuration will be
-            fetched from the connected networks</para>
+            fetched from the connected networks.</para>
           </example>
 
           <example>
@@ -120,17 +124,17 @@ eth2 -dontroute</programlisting>Appletalk networking should be enabled on all
             <para><programlisting>eth0 -dontroute -phase 2 -net 0-65534 -addr 65280.152
 eth1 -dontroute -phase 2 -net 0-65534 -addr 65280.208
 eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone "Printers"</programlisting>
-            On eth0 and eth1 no other routers are present, so atalkd chooses
-            an address from within the startup range. But on eth2 there lives
-            an already connected AppleTalk router, publishing one zone called
-            "Printers" and forcing clients to assign theirselves an address in
-            a netrange between 1 and 1000</para>
+            On eth0 and eth1, there are no other routers present, so atalkd
+            chooses an address from within the startup range. But on eth2
+            there lives an already connected AppleTalk router, publishing one
+            zone called "Printers" and forcing clients to assign theirselves
+            an address in a netrange between 1 and 1000.</para>
           </example>
 
-          <para>In this case atalkd will handle each interface as it would be
+          <para>In this case, atalkd will handle each interface as it would be
           the only active one. This can have some side effects when it comes
           to the point where AFP clients want to do the magic switch from
-          AppleTalk to TCP, so use this with caution</para>
+          AppleTalk to TCP, so use this with caution.</para>
         </listitem>
       </itemizedlist>
 
@@ -145,11 +149,15 @@ eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone "Printers"</programlisti
           <refentrytitle>atalkd.conf</refentrytitle>
 
           <manvolnum>5</manvolnum>
-        </citerefentry> and the developer documentation</para>
+        </citerefentry> and the developer documentation.</para>
     </sect2>
 
     <sect2>
-      <title>atalkd acting as an AppleTalk router</title>
+      <title>atalkd acting as an AppleTalk router<indexterm>
+          <primary>Router</primary>
+
+          <secondary>AppleTalk router</secondary>
+        </indexterm></title>
 
       <para>There exist several types of AppleTalk routers: seed, non-seed and
       so called soft-seed routers.</para>
@@ -157,7 +165,7 @@ eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone "Printers"</programlisti
       <itemizedlist>
         <listitem>
           <para>A seed router has its own configuration and publishes this
-          into the network segments it is configured for</para>
+          into the network segments it is configured for.</para>
         </listitem>
 
         <listitem>
@@ -181,12 +189,12 @@ eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone "Printers"</programlisti
 
       <para>If you leave your atalkd.conf completely empty or simply add all
       active interfaces line by line without using seed settings (atalkd will
-      act identically in both cases) then atalkd is forced to act as a
+      act identically in both cases), then atalkd is forced to act as a
       soft-seed router on each interface, so it will fail on the first
       interface, where no seed router is accessible to fetch routing
       information from.</para>
 
-      <para>In this case other services, that depend on atalkd, might also
+      <para>In this case, other services, that depend on atalkd, might also
       fail.</para>
 
       <para>So you should have atalkd act as a seed router on one or all
@@ -199,7 +207,7 @@ eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone "Printers"</programlisti
         </listitem>
 
         <listitem>
-          <para>The own AppleTalk address</para>
+          <para>Its own AppleTalk address</para>
         </listitem>
 
         <listitem>
@@ -211,10 +219,12 @@ eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone "Printers"</programlisti
         </listitem>
       </itemizedlist>
 
-      <para><emphasis>Unless you are the network admin yourself, consider
-      asking her/him before changing anything related to AppleTalk routing, as
-      changing these settings might have side effects for all of your
-      AppleTalk network clients</emphasis></para>
+      <warning>
+        <para>Unless you are the network admin yourself, consider asking
+        her/him before changing anything related to AppleTalk routing, as
+        changing these settings might have side effects for all of your
+        AppleTalk network clients!</para>
+      </warning>
 
       <para>In an AppleTalk network netranges have to be unique and must not
       overlap each other. Fortunately netatalk's atalkd is polite enough to
@@ -242,13 +252,13 @@ eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone "Printers"</programlisti
       letting them locate network ressources in a more comfortable/faster way.
       You can either use one zone name accross multiple physical segments as
       well as more than one zone name on a single segment (and various
-      combinations of this)</para>
+      combinations of this).</para>
 
       <para>So all you have to do is to <emphasis>draw a network
       chart</emphasis> containing the physical segments, the netranges you
       want to assign to each one, the zone names you want to publish in which
       segments and the default zone per segment (this is always the first zone
-      name, you supply with the "-zone" switch in atalkd.conf)</para>
+      name, you supply with the "-zone" switch in atalkd.conf).</para>
 
       <para>Given, you finished the steps outlined above, you might want to
       edit atalkd.conf to fit your needs.</para>
@@ -360,7 +370,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         acting as a seed router itself.</para>
       </example>
 
-      <para>By the way: it is perfectly legal to have more than one seed
+      <para>By the way: It is perfectly legal to have more than one seed
       router connected to a network segment. But in this case, you should take
       care that the configuration of all connected routers is exactly the same
       regarding netranges, published zone names and also the "standard zone"
@@ -369,7 +379,11 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
   </sect1>
 
   <sect1>
-    <title>File Services</title>
+    <title>File Services<indexterm>
+        <primary>File Services</primary>
+
+        <secondary>Netatalk's File Services</secondary>
+      </indexterm></title>
 
     <para>Netatalk supplies two different transport protocols for
     AFP<indexterm>
@@ -416,10 +430,10 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         interpreted.</para>
 
         <para>If afpd switches set on the command line are in conflict with
-        afpd.conf settings, the latter will have higher priority</para>
+        afpd.conf settings, the latter will have higher priority.</para>
 
         <para>Format: - [options] to specify options for the default server
-        and/or "Server name" [options] to specify an additional server</para>
+        and/or "Server name" [options] to specify an additional server.</para>
 
         <para>Leaving the afpd.conf file empty equals to the following
         configuration:</para>
@@ -458,11 +472,16 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             <primary>CNID</primary>
 
             <secondary>Catalog Node ID</secondary>
-          </indexterm> backends</title>
+          </indexterm> backends<indexterm>
+            <primary>Backend</primary>
+
+            <secondary>CNID backend</secondary>
+          </indexterm></title>
 
         <para>Unlike other protocols like smb or nfs, the AFP protocol mostly
-        refers to files and directories by ID and not by a path. A typical AFP
-        request uses a directory ID<indexterm>
+        refers to files and directories by ID and not by a path (the IDs are
+        also called CNID, that means Catalog Node ID). A typical AFP request
+        uses a directory ID<indexterm>
             <primary>DID</primary>
 
             <secondary>Directory ID</secondary>
@@ -546,7 +565,11 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
               database will get corrupted. You can work around this by either
               using the -dbpath option and put the database files into another
               location or, if you use quotas, make sure the .AppleDB folder is
-              owned by a user/group without a quota.</para>
+              owned by a user/group without a quota<indexterm>
+                  <primary>Quotas</primary>
+
+                  <secondary>Disk usage quotas</secondary>
+                </indexterm>.</para>
             </listitem>
 
             <listitem>
@@ -555,8 +578,12 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
               anyway, but putting a database there as well is really asking
               for trouble, i.e. database corruption. Use the dbpath: directive
               in the <filename>AppleVolumes.*</filename> configuration files
-              to put the databases onto a local disk if you must use NFS
-              mounted volumes.</para>
+              to put the databases onto a local disk if you must use
+              NFS<indexterm>
+                  <primary>NFS</primary>
+
+                  <secondary>Network File System</secondary>
+                </indexterm> mounted volumes.</para>
             </listitem>
           </itemizedlist>
         </note>
@@ -571,7 +598,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             </indexterm></title>
 
           <para>The "concurrent database" backend is based on sleepycat's
-          Berkeley DB. With this backend several afpd deamons access the CNID
+          Berkeley DB. With this backend, several afpd deamons access the CNID
           database directly. Berkeley DB locking is used to synchronize
           access, if more than one afpd process is active for a volume. The
           drawback is, that the crash of a single afpd process might corrupt
@@ -587,7 +614,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
           <para>Access to the CNID database is restricted to the cnid_dbd
           daemon process. afpd processes communicate with the daemon for
-          database reads and updates. If built with Berkeley DB transactions
+          database reads and updates. If built with Berkeley DB transactions,
           the probability for database corruption is practically zero, but
           performance can be slower than with cdb. As a database process gets
           spawned for each volume, you're probably better off using cdb for
@@ -601,7 +628,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
               <secondary>"last" CNID backend</secondary>
             </indexterm></title>
 
-          <para>The last backend is a semi persistent backend. ID's will be
+          <para>The last backend is a semi-persistent backend. IDs will be
           reused and, what is much worse, you can get duplicate IDs. You
           should use it for sharing cdroms only, <emphasis>don't</emphasis>
           use it for sharing normal volumes.</para>
@@ -609,26 +636,40 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       </sect3>
 
       <sect3 id="charsets">
-        <title>Charsets/Unicode</title>
+        <title>Charsets<indexterm>
+            <primary>Charset</primary>
+
+            <secondary>character set</secondary>
+          </indexterm>/Unicode<indexterm>
+            <primary>Unicode</primary>
+          </indexterm></title>
 
         <para></para>
 
         <sect4>
           <title>Why Unicode?</title>
 
-          <para>Internally computers don't know anything about characters and
+          <para>Internally, computers don't know anything about characters and
           texts, they only know numbers. Therefore, each letter is assigned a
           number. A character set, often referred to as
-          <emphasis>charset</emphasis> or <emphasis>codepage</emphasis>,
-          defines the mappings between numbers and letters.</para>
+          <emphasis>charset</emphasis> or
+          <emphasis>codepage</emphasis><indexterm>
+              <primary>Codepage</primary>
+            </indexterm>, defines the mappings between numbers and
+          letters.</para>
 
           <para>If two or more computer systems need to communicate with each
-          other, the have to use the same charater set. In the 1960s the ASCII
-          (American Standard Code for Information Interchange) character set
-          was defined by the American Standards Association. The original form
-          of ASCII represented 128 characters, more than enough to cover the
-          English alphabet and numerals. Up to date, ASCII has been the
-          normative character scheme used by computers.</para>
+          other, the have to use the same charater set. In the 1960s the
+          ASCII<indexterm>
+              <primary>ASCII</primary>
+
+              <secondary>American Standard Code for Information
+              Interchange</secondary>
+            </indexterm> (American Standard Code for Information Interchange)
+          character set was defined by the American Standards Association. The
+          original form of ASCII represented 128 characters, more than enough
+          to cover the English alphabet and numerals. Up to date, ASCII has
+          been the normative character scheme used by computers.</para>
 
           <para>Later versions defined 256 characters to produce a more
           international fluency and to include some slightly esoteric
@@ -641,11 +682,15 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           the ISO-8859 character sets. Most operating system vendors
           introduced their own characters sets to satisfy their needs, e.g.
           IBM defined the <emphasis>codepage 437 (DOSLatinUS)</emphasis>,
-          Apple introduced the <emphasis>MacRoman</emphasis> codepage and so
-          on. The characters that were assigned number larger than 127 were
-          referred to as <emphasis>extended</emphasis> characters. These
-          character sets conflict with another, as they use the same number
-          for different characters, or vice versa.</para>
+          Apple introduced the <emphasis>MacRoman</emphasis><indexterm>
+              <primary>MacRoman</primary>
+
+              <secondary>MacRoman charset</secondary>
+            </indexterm> codepage and so on. The characters that were assigned
+          number larger than 127 were referred to as
+          <emphasis>extended</emphasis> characters. These character sets
+          conflict with another, as they use the same number for different
+          characters, or vice versa.</para>
 
           <para>Almost all of those characters sets defined 256 characters,
           where the first 128 (0-127) character mappings are identical to
@@ -749,10 +794,19 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
           <para>To complicate things, Unicode defines several <emphasis><ulink
           url="http://www.unicode.org/reports/tr15/index.html">normalization</ulink></emphasis>
-          forms. While <ulink url="http://www.samba.org">samba</ulink> uses
-          <emphasis>precomposed</emphasis> Unicode, which most Unix tools
-          prefer as well, Apple decided to use the
-          <emphasis>decomposed</emphasis> normalization.</para>
+          forms. While <ulink
+          url="http://www.samba.org">samba</ulink><indexterm>
+              <primary>Samba</primary>
+            </indexterm> uses <emphasis>precomposed</emphasis><indexterm>
+              <primary>Precomposed</primary>
+
+              <secondary>Precomposed Unicode normalization</secondary>
+            </indexterm> Unicode, which most Unix tools prefer as well, Apple
+          decided to use the <emphasis>decomposed</emphasis><indexterm>
+              <primary>Decomposed</primary>
+
+              <secondary>Decomposed Unicode normalization</secondary>
+            </indexterm> normalization.</para>
 
           <para>For example lets take the German character
           '<keycode>ä</keycode>'. Using the precomposed normalization, Unicode
@@ -761,9 +815,17 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           mapping for an 'a', 0x308 is the mapping for a <emphasis>COMBINING
           DIAERESIS</emphasis>.</para>
 
-          <para>Netatalk referres to precomposed UTF-8 as
-          <emphasis>UTF8</emphasis> and to decomposed UTF-8 as
-          <emphasis>UTF8-MAC</emphasis>.</para>
+          <para>Netatalk refers to precomposed UTF-8 as
+          <emphasis>UTF8</emphasis><indexterm>
+              <primary>UTF8</primary>
+
+              <secondary>Netatalk's precomposed UTF-8 encoding</secondary>
+            </indexterm> and to decomposed UTF-8 as
+          <emphasis>UTF8-MAC</emphasis><indexterm>
+              <primary>UTF8-MAC</primary>
+
+              <secondary>Netatalk's decomposed UTF-8 encoding</secondary>
+            </indexterm>.</para>
         </sect4>
 
         <sect4>
@@ -803,7 +865,11 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
           <variablelist>
             <varlistentry>
-              <term>unixcodepage</term>
+              <term>unixcodepage<indexterm>
+                  <primary>unixcodepage</primary>
+
+                  <secondary>afpd's unixcodepage setting</secondary>
+                </indexterm></term>
 
               <listitem>
                 <para>This is the codepage used internally by your operating
@@ -815,15 +881,19 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
                     <refentrytitle>afpd.conf</refentrytitle>
 
                     <manvolnum>5</manvolnum>
-                  </citerefentry></para>
+                  </citerefentry>.</para>
               </listitem>
             </varlistentry>
 
             <varlistentry>
-              <term>maccodepage</term>
+              <term>maccodepage<indexterm>
+                  <primary>maccodepage</primary>
+
+                  <secondary>afpd's maccodepage setting</secondary>
+                </indexterm></term>
 
               <listitem>
-                <para>As already mentioned, older MacOS clients ( up to AFP
+                <para>As already mentioned, older MacOS clients (up to AFP
                 2.2) use codepages to communicate with afpd. However, there is
                 no support for negotiating the codepage used by the client in
                 the AFP protocol. If not specified otherwise, afpd assumes the
@@ -835,32 +905,43 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
                     <refentrytitle>afpd.conf</refentrytitle>
 
                     <manvolnum>5</manvolnum>
-                  </citerefentry></para>
+                  </citerefentry>.</para>
               </listitem>
             </varlistentry>
 
             <varlistentry>
-              <term>volcharset</term>
+              <term>volcharset<indexterm>
+                  <primary>volcharset</primary>
+
+                  <secondary>afpd's volcharset setting</secondary>
+                </indexterm></term>
 
               <listitem>
                 <para>This defines the charset afpd should use for filenames
                 on disk. The default is UTF8. If you have <ulink
-                url="http://www.gnu.org/software/libiconv/">iconv</ulink>
-                installed, you can use any iconv provided charset as
-                well.</para>
+                url="http://www.gnu.org/software/libiconv/">iconv</ulink><indexterm>
+                    <primary>iconv</primary>
+
+                    <secondary>iconv encoding conversion engine</secondary>
+                  </indexterm> installed, you can use any iconv provided
+                charset as well.</para>
 
                 <para>afpd needs a way to preserve extended macintosh
                 characters, or characters illegal in unix filenames, when
                 saving files on a unix filesystem. Earlier versions used the
-                the so called CAP encoding. An extended character (&gt;0x7F)
-                would be converted to a :xx hex sequence, e.g. the Apple Logo
+                the so called CAP encoding<indexterm>
+                    <primary>CAP encoding</primary>
+
+                    <secondary>CAP style character encoding</secondary>
+                  </indexterm>. An extended character (&gt;0x7F) would be
+                converted to a :xx hex sequence, e.g. the Apple Logo
                 (MacRoman: 0XF0) was saved as :f0. Some special characters
                 will be converted as to :xx notation as well. '/' will be
                 encoded to :2f, if -usedots is not specified, a leading dot
                 '.' will be encoded as :2e. Even though this version now uses
                 UTF-8 as the default encoding for filenames, special
                 characters, like '/' and a leading '.' will still be CAP style
-                encoded . For western users another useful setting could be
+                encoded. For western users another useful setting could be
                 <emphasis>-volcharset ISO-8859-15</emphasis>.</para>
 
                 <para>If a character cannot be converted from the mac codepage
@@ -873,7 +954,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
                     <refentrytitle>AppleVolumes.default</refentrytitle>
 
                     <manvolnum>5</manvolnum>
-                  </citerefentry></para>
+                  </citerefentry>.</para>
               </listitem>
             </varlistentry>
           </variablelist>
@@ -883,7 +964,9 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
   </sect1>
 
   <sect1>
-    <title>Printing</title>
+    <title>Printing<indexterm>
+        <primary>Printing</primary>
+      </indexterm></title>
 
     <para>Netatalk can act as both a PAP<indexterm>
         <primary>PAP</primary>
@@ -962,13 +1045,13 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         </indexterm> file. That said, it's always necessary to carefully
       choose the right PPD at the server's side.</para>
 
-      <para>Netatalk had built-in support for System V lpd printing in a way
-      that papd saved the printed job directly into the spooldir and calls
-      <command>lpd</command> afterwards, to pick up the file and do the rest.
-      Due to incompatibilities with many lpd implementations the normal
+      <para>Netatalk formerly had built-in support for System V lpd printing
+      in a way that papd saved the printed job directly into the spooldir and
+      calls <command>lpd</command> afterwards, to pick up the file and do the
+      rest. Due to incompatibilities with many lpd implementations the normal
       behaviour was to print directly into a pipe instead of specifying a
       printer by name and using lpd interaction. With Netatalk 2.0 another
-      alternative has been implemented: directly integrating with CUPS (Note:
+      alternative has been implemented: direct interaction with CUPS (Note:
       when CUPS support is compiled in, then the SysV lpd support doesn't work
       at all). Detailed examples can be found in the <citerefentry>
           <refentrytitle>papd.conf</refentrytitle>
@@ -1000,8 +1083,9 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             <term>%F</term>
 
             <listitem>
-               <para>will be substituted with the contents of the 
-              <emphasis>%%For:</emphasis> comment in the PostScript stream.</para>
+              <para>will be substituted with the contents of the
+              <emphasis>%%For:</emphasis> comment in the PostScript
+              stream.</para>
             </listitem>
           </varlistentry>
 
@@ -1009,8 +1093,10 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             <term>%U</term>
 
             <listitem>
-               <para>If authenticated printing has been enabled then this will 
-		be substituted with the user name of the printjob's originator.</para>
+              <para>If authenticated printing<indexterm>
+                  <primary>authenticated printing</primary>
+                </indexterm> has been enabled then this will be substituted
+              with the user name of the printjob's originator.</para>
             </listitem>
           </varlistentry>
 
@@ -1018,8 +1104,9 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             <term>%J</term>
 
             <listitem>
-               <para>will be substituted with the contents of the <emphasis>%%Title:</emphasis> 
-		comment of the PostScript stream.</para>
+              <para>will be substituted with the contents of the
+              <emphasis>%%Title:</emphasis> comment of the PostScript
+              stream.</para>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -1032,17 +1119,17 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       <sect3>
         <title>Using direct CUPS support</title>
 
-        <para>Starting with Netatalk 2.0 direct CUPS integration is available.
-        In this case, defining only a queue name as <option>pr</option>
-        parameter won't invoke the SysV lpd daemon but uses CUPS instead.
-        Unless a specific PPD has been assigned using the <option>pd</option>
-        switch, the PPD configured in CUPS will be used by
+        <para>Starting with Netatalk 2.0, direct CUPS integration is
+        available. In this case, defining only a queue name as
+        <option>pr</option> parameter won't invoke the SysV lpd daemon but
+        uses CUPS instead. Unless a specific PPD has been assigned using the
+        <option>pd</option> switch, the PPD configured in CUPS will be used by
         <command>papd</command>, too.</para>
 
         <para>There exists one special share named "cupsautoadd". If this is
-        present as the first entry of papd.conf then all available CUPS queues
-        will be served automagically using the parameters assigned to this
-        global share. But subsequent printer definitions can be used to
+        present as the first entry of papd.conf, then all available CUPS
+        queues will be served automagically using the parameters assigned to
+        this global share. But subsequent printer definitions can be used to
         override these global settings for individual spoolers.</para>
       </sect3>
     </sect2>
@@ -1064,7 +1151,9 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           <manvolnum>8</manvolnum>
         </citerefentry> there exists a lpd filter program suitable for
       converting other formats (like text) to PostScript output, do page
-      accounting and eventually change the page order using <citerefentry>
+      accounting<indexterm>
+          <primary>page accounting</primary>
+        </indexterm> and eventually change the page order using <citerefentry>
           <refentrytitle><command>psorder</command></refentrytitle>
 
           <manvolnum>1</manvolnum>
@@ -1072,8 +1161,12 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       do the latter tasks for themselves in a more realiable way.</para>
 
       <para><command>pap</command> can be used stand-alone or as part of an
-      output filter or a CUPS backend (which is the preferred method since one
-      does not have to deal with all the options).</para>
+      output filter or a CUPS backend<indexterm>
+          <primary>backend</primary>
+
+          <secondary>CUPS backend</secondary>
+        </indexterm> (which is the preferred method since one does not have to
+      deal with all the options).</para>
 
       <example>
         <title><command>pap</command> printing to a PostScript
@@ -1105,6 +1198,8 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
   <sect1>
     <title>Time Services<indexterm>
+        <primary>Time Services</primary>
+      </indexterm><indexterm>
         <primary>Timelord</primary>
 
         <secondary>AppleTalk time server</secondary>
@@ -1129,11 +1224,15 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
     specific startup script templates that are taylored according to the
     options given to the "configure" script before compiling. Currently,
     templates are provided for Netbsd, Bsd, Redhat, Suse and True64. You can
-    select to install the generated startup script(s) by specifying a system
-    type to "configure". To automatically install startup scripts for e.g. the
-    Suse Linux distribution try to give the --enable-suse option to
-    "configure". Some of the scripts can be further parametrized by the
-    configuration file netatalk.conf (described in the <citerefentry>
+    select to install the generated startup script(s)<indexterm>
+        <primary>Startscript</primary>
+
+        <secondary>startup script</secondary>
+      </indexterm> by specifying a system type to "configure". To
+    automatically install startup scripts for e.g. the Suse Linux distribution
+    try to give the --enable-suse option to "configure". Some of the scripts
+    can be further parametrized by the configuration file netatalk.conf
+    (described in the <citerefentry>
         <refentrytitle>netatalk.conf</refentrytitle>
 
         <manvolnum>5</manvolnum>

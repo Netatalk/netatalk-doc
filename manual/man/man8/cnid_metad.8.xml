@@ -71,7 +71,7 @@
         <listitem>
           <para>Use <emphasis remap="I">hostname</emphasis> as the network
           interface for requests as opposed to the default <emphasis remap="B">localhost
-          </emphasis></para>
+          </emphasis>.</para>
         </listitem>
       </varlistentry>
 

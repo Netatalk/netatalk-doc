@@ -48,7 +48,7 @@
     <title>DESCRIPTION</title>
 
     <para><command>netatalk-config</command> is a tool that is used to
-    configure to determine the compiler and linker flags that should be used
+    determine the compiler and linker flags that should be used
     to compile and link programs that use the <emphasis remap="I">netatalk</emphasis>
     run-time libraries.</para>
   </refsect1>

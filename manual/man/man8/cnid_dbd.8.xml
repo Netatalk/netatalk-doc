@@ -38,13 +38,15 @@
     Macintosh based file systems with semantics that map not easily onto Unix
     file systems. This makes separate storage in a database necessary.
     <command>cnid_dbd</command> is part of the <emphasis remap="B">CNID
-    backend</emphasis> framework of <emphasis remap="B">afpd</emphasis> and
+    backend</emphasis><indexterm>
+        <primary>CNID backend</primary>
+      </indexterm> framework of <emphasis remap="B">afpd</emphasis> and
     implements the <emphasis remap="B">dbd</emphasis> backend.</para>
 
     <para><command>cnid_dbd</command> is never started via the command line or
-    system startup scripts but only by the <emphasis remap="B">cnid_metad</emphasis>
-    daemon. There is at most one instance of <command>cnid_dbd</command> per
-    netatalk volume.</para>
+    system startup scripts but only by the <emphasis
+    remap="B">cnid_metad</emphasis> daemon. There is at most one instance of
+    <command>cnid_dbd</command> per netatalk volume.</para>
 
     <para><command>cnid_dbd</command> uses the <emphasis remap="B">Berkleley
     DB</emphasis> database library and optionally supports transactionally
@@ -59,21 +61,21 @@
     the <emphasis remap="B">cdb</emphasis> backend. It is therefore possible
     to switch between the two backends as necessary.</para>
 
-    <para><command>cnid_dbd</command> inherits the effective userid and groupid
-    from <emphasis remap="B">cnid_metad</emphasis> on startup, which is normally
-    caused by <emphasis remap="B">afpd</emphasis> serving a netatalk volume to a
-    client. It changes to the <emphasis remap="B">Berkleley DB</emphasis>
-    database home directory <emphasis remap="I">dbdir</emphasis> that is
-    associated with the volume. If the userid inherited from <emphasis
-    remap="B">cnid_metad</emphasis> is 0 (root), <command>cnid_dbd</command>
-    will change userid and groupid to the owner and group of the database home
-    directory. Otherwise, it will continue to use the inherited values.
-    <command>cnid_dbd</command> will then attempt to open the database and
-    start serving requests using filedescriptor <emphasis
-    remap="I">clntfd</emphasis>.  Subsequent instances of <emphasis
-    remap="B">afpd</emphasis> that want to access the same volume are redirected
-    to the running <command>cnid_dbd</command> process by <emphasis
-    remap="B">cnid_metad</emphasis> via the filedescriptor <emphasis
+    <para><command>cnid_dbd</command> inherits the effective userid and
+    groupid from <emphasis remap="B">cnid_metad</emphasis> on startup, which
+    is normally caused by <emphasis remap="B">afpd</emphasis> serving a
+    netatalk volume to a client. It changes to the <emphasis
+    remap="B">Berkleley DB</emphasis> database home directory <emphasis
+    remap="I">dbdir</emphasis> that is associated with the volume. If the
+    userid inherited from <emphasis remap="B">cnid_metad</emphasis> is 0
+    (root), <command>cnid_dbd</command> will change userid and groupid to the
+    owner and group of the database home directory. Otherwise, it will
+    continue to use the inherited values. <command>cnid_dbd</command> will
+    then attempt to open the database and start serving requests using
+    filedescriptor <emphasis remap="I">clntfd</emphasis>. Subsequent instances
+    of <emphasis remap="B">afpd</emphasis> that want to access the same volume
+    are redirected to the running <command>cnid_dbd</command> process by
+    <emphasis remap="B">cnid_metad</emphasis> via the filedescriptor <emphasis
     remap="I">ctrlfd</emphasis>.</para>
 
     <para><command>cnid_dbd</command> can be configured to run forever or to
@@ -85,24 +87,28 @@
     handled and will cause an immediate exit, possibly leaving the CNID
     database in an inconsistent state (no transactions) or losing recent
     updates during recovery (transactions).</para>
-    
-    <para>If transactions are used the <emphasis remap="B">Berkleley DB</emphasis>
-    database subsystem will create files named log.xxxxxxxxxx in the database home
-    directory <emphasis remap="I">dbdir</emphasis>, where xxxxxxxxxx is a monotonically
-    increasing integer. These files contain information to replay database changes and are
-    not automatically removed, unless the <emphasis
-    remap="B">logfile_autoremove</emphasis> option is specified in the <emphasis
-    remap="I">db_param</emphasis> configuration file (see below). Please see the sections
-    <emphasis remap="B">Database and log file archival</emphasis>, <emphasis remap="B">
-    Log file removal</emphasis> and the documentation of the <emphasis remap="B">
-    db_archive</emphasis> command line utility in the Berkeley DB Tutorial and Reference
-    for information when and how it is safe to remove these files manually.</para>
 
-    <para>Do not use <command>cnid_dbd</command> for databases on NFS mounted file
-    systems. It makes the whole point of securing database changes properly moot. Use
-    the dbdir: Option in the appropriate <emphasis remap="B">AppleVolumes</emphasis>
-    configuration file to put the database onto a local disk.</para>
+    <para>If transactions are used the <emphasis remap="B">Berkleley
+    DB</emphasis> database subsystem will create files named log.xxxxxxxxxx in
+    the database home directory <emphasis remap="I">dbdir</emphasis>, where
+    xxxxxxxxxx is a monotonically increasing integer. These files contain
+    information to replay database changes and are not automatically removed,
+    unless the <emphasis remap="B">logfile_autoremove</emphasis> option is
+    specified in the <emphasis remap="I">db_param</emphasis> configuration
+    file (see below). Please see the sections <emphasis remap="B">Database and
+    log file archival</emphasis>, <emphasis remap="B"> Log file
+    removal</emphasis> and the documentation of the <emphasis remap="B">
+    db_archive</emphasis> command line utility in the Berkeley DB Tutorial and
+    Reference for information when and how it is safe to remove these files
+    manually.</para>
 
+    <para>Do not use <command>cnid_dbd</command> for databases on
+    NFS<indexterm>
+        <primary>NFS</primary>
+      </indexterm> mounted file systems. It makes the whole point of securing
+    database changes properly moot. Use the dbdir: Option in the appropriate
+    <emphasis remap="B">AppleVolumes</emphasis> configuration file to put the
+    database onto a local disk.</para>
   </refsect1>
 
   <refsect1>
@@ -121,12 +127,12 @@
         <term><emphasis remap="B">logfile_autoremove</emphasis></term>
 
         <listitem>
-          <para>This flag is ignored unless transactional support is enabled. If set to 1,
-          unused Berkeley DB transactional logfiles (log.xxxxxxxxxx in the database home
-          directory) are removed on startup of <command>cnid_dbd</command>. This is
-          usually safe if the content of the database directory is backed up on a
-          regular basis. Default: 0.
-	  </para>
+          <para>This flag is ignored unless transactional support is enabled.
+          If set to 1, unused Berkeley DB transactional logfiles
+          (log.xxxxxxxxxx in the database home directory) are removed on
+          startup of <command>cnid_dbd</command>. This is usually safe if the
+          content of the database directory is backed up on a regular basis.
+          Default: 0.</para>
         </listitem>
       </varlistentry>
 
@@ -137,15 +143,16 @@
           <para>Determines the size of the Berkeley DB cache in kilobytes.
           Default: 1024. Each <command>cnid_dbd</command> process grabs that
           much memory on top of its normal memory footprint. It can be used to
-          tune database performance. The <emphasis remap="B">db_stat</emphasis>
-          utility with the <option>-m</option> option that comes with Berkely
-          DB can help you determine wether you need to change this value. The
-          default is pretty conservative so that a large percentage of
-          requests should be satisfied from the cache directly. If memory is
-          not a bottleneck on your system you might want to leave it at that
-          value. The <emphasis remap="B">Berkeley DB Tutorial and Reference
-          Guide</emphasis> has a section <emphasis remap="B">Selecting a cache
-          size</emphasis> that gives more detailed information.</para>
+          tune database performance. The <emphasis
+          remap="B">db_stat</emphasis> utility with the <option>-m</option>
+          option that comes with Berkely DB can help you determine wether you
+          need to change this value. The default is pretty conservative so
+          that a large percentage of requests should be satisfied from the
+          cache directly. If memory is not a bottleneck on your system you
+          might want to leave it at that value. The <emphasis
+          remap="B">Berkeley DB Tutorial and Reference Guide</emphasis> has a
+          section <emphasis remap="B">Selecting a cache size</emphasis> that
+          gives more detailed information.</para>
         </listitem>
       </varlistentry>
 
@@ -158,8 +165,9 @@
           synchronously written to disk when the transaction completes. This
           will increase performance considerably at the risk of recent changes
           getting lost in case of a crash. The database will still be
-          consistent, though. See <emphasis remap="B">Transaction Throughput</emphasis>
-          in the Berkeley DB Tutorial for more information. Default: 0.</para>
+          consistent, though. See <emphasis remap="B">Transaction
+          Throughput</emphasis> in the Berkeley DB Tutorial for more
+          information. Default: 0.</para>
         </listitem>
       </varlistentry>
 
@@ -180,12 +188,12 @@
           have elapsed since the last save/checkpoint. If you use transactions
           with <emphasis remap="I">nosync</emphasis> set to zero these
           parameters only influence how long recovery takes after a crash,
-          there should never be any lost data. If <emphasis remap="I">nosync</emphasis>
-          is 1, changes might be lost, but only since the last checkpoint. Be
-          careful to check your harddisk configuration for on disk cache
-          settings. Many IDE disks just cache writes as the default behaviour,
-          so even flushing database files to disk will not have the desired
-          effect.</para>
+          there should never be any lost data. If <emphasis
+          remap="I">nosync</emphasis> is 1, changes might be lost, but only
+          since the last checkpoint. Be careful to check your harddisk
+          configuration for on disk cache settings. Many IDE disks just cache
+          writes as the default behaviour, so even flushing database files to
+          disk will not have the desired effect.</para>
         </listitem>
       </varlistentry>
 
@@ -224,7 +232,14 @@
   <refsect1>
     <title>SEE ALSO</title>
 
-    <para><citerefentry><refentrytitle>cnid_metad</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-    <citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry></para>
+    <para><citerefentry>
+        <refentrytitle>cnid_metad</refentrytitle>
+
+        <manvolnum>8</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>afpd</refentrytitle>
+
+        <manvolnum>8</manvolnum>
+      </citerefentry></para>
   </refsect1>
 </refentry>

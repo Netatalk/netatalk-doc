@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="netatalk.conf.5">
-  <!--  $Id: netatalk.conf.5.xml,v 1.4 2004-06-24 19:13:23 bfernhomberg Exp $ -->
+  <!--  $Id: netatalk.conf.5.xml,v 1.5 2004-07-19 21:31:34 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>netatalk.conf</refentrytitle>
@@ -44,7 +44,9 @@
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis remap="B">AFPD_MAX_CLIENTS</emphasis></term>
+        <term><emphasis remap="B">AFPD_MAX_CLIENTS<indexterm>
+        <primary>$AFPD_MAX_CLIENTS</primary>
+      </indexterm></emphasis></term>
 
         <listitem>
           <para>Sets the maximum number of clients that can simultaneously
