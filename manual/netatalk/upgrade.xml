@@ -24,8 +24,8 @@
     now supported which allows UTF8 encoded filenames of up to 255 characters
     in length amongst other things. The Catalogue Node ID (CNID) subsystem has
     been reworked as well and should now be much more robust. For an overview
-    of what CNIDs are and why you need them please see (Link to the section in
-    configuration.xml, Bjoern?).</para>
+    of what CNIDs are and why you need them please see <link
+    linkend="CNID-backends">CNID</link> section in the manual.</para>
 
     <para>The downside of these enhancemants is that upgrading to Netatalk 2.0
     is not a process that can be easily automated. Too many factors depend on
@@ -159,8 +159,9 @@
       the old Berkeley DB environment and logfiles (if present):</para><programlisting> rm __db.* log.*</programlisting></listitem><listitem><para>Load
       cnid2.dump into the new database. You should use the db_load utility of
       Berkeley DB that will be used with version 2.0 of Netatalk. So if
-      Berkeley DB 4.xx lives in /usr/local/db4 use</para><programlisting> /usr/local/db4/bin/db_load -f cnid2.dump
-  cnid2.db </programlisting><para>This will create the new database file,
+      Berkeley DB 4.xx lives in /usr/local/db4 use</para><programlisting> /usr/local/db4/bin/db_load -f cnid2.dump cnid2.db </programlisting>
+
+      <para>This will create the new database file,
       cnid2.db. Remove the old database files cnid.db, didname.db and
       devino.db. The intermediate files cnid.dump, didname.dump and cnid2.dump
       can be removed now or at some later time.</para></listitem></itemizedlist></para>
@@ -186,3 +187,4 @@
     </sect2>
   </sect1>
 </chapter>
+

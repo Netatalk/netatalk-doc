@@ -159,7 +159,7 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
         <para>--&#62; man AppleVolumes.default</para>
       </sect3>
 
-      <sect3>
+      <sect3 id="CNID-backends">
         <title>CNID backends</title>
 
         <para>Unlike other protocols like smb or nfs, the AFP protocol mostly
