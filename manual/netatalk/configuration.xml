@@ -968,15 +968,15 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         <para>Apple chose a flexible model called "User Authentication
         Modules" (UAMs) for authentication purposes between AFP client and
         server. An AFP client initially connecting to an AFP server will ask
-        for the list of UAMs, the server provides, and will choose the one
-        with strongest encryption, that the client supports, too.</para>
+        for the list of UAMs which the server provides, and will choose the one
+        with strongest encryption that the client supports.</para>
 
         <para>Several UAMs have been developed by Apple over the time, some by
-        3rd-party developers, also.</para>
+        3rd-party developers.</para>
       </sect3>
 
       <sect3>
-        <title>UAMs, Netatalk supports</title>
+        <title>UAMs supported by Netatalk</title>
 
         <para>Netatalk supports the following ones by default:</para>
 
@@ -1032,7 +1032,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           </listitem>
         </itemizedlist>
 
-        <para>You can configure, which UAMs should be active by defining
+        <para>You can configure which UAMs should be activated by defining
         <command>$AFPD_UAM_LIST</command> in <citerefentry>
             <refentrytitle>netatalk.conf</refentrytitle>
 
@@ -1047,14 +1047,14 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         servers as well.</para>
 
         <para>Having a specific UAM available at the server does not
-        automatically mean, that a client can use it. Client-side support is
+        automatically mean that a client can use it. Client-side support is
         also necessary. Fortunately this isn't such a problem these days since
         Mac OS X' AFP-client supports DHCAST128 from the beginning on. For
         older Macintoshes running Mac OS &lt; X DHCAST128 support exists since
         AppleShare client 3.8.x.</para>
 
-        <para>On Mac OS X there exist some client-side techniques to make the
-        AFP-client more verbose so one can have a look what's happening while
+        <para>On Mac OS X, there exist some client-side techniques to make the
+        AFP-client more verbose, so one can have a look what's happening while
         negotiating the UAMs to use. Compare with this <ulink
         url="http://article.gmane.org/gmane.network.netatalk.devel/7383/">hint</ulink>.</para>
       </sect3>
@@ -1139,7 +1139,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         "backends", namely <command>uams_cleartext.so</command> and
         <command>uams_dhx.so</command>. They can both use either classic Unix
         passwords from <command>/etc/passwd</command>
-        (<command>/etc/shadow</command>) or PAM instead, if the system
+        (<command>/etc/shadow</command>) or PAM if the system
         supports that. <command>uams_cleartext.so</command> can be symlinked
         to either <command>uams_passwd.so</command> or
         <command>uams_pam.so</command>, <command>uams_dhx.so</command> to
@@ -1150,9 +1150,9 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
         otherwise classic Unix passwords. The main advantage of using PAM is
         that one can integrate Netatalk in centralized authentication
-        scenarios, eg. via LDAP, NIS and the like. Please keep always in mind,
-        that in such scenarios, the protection of your user's logon
-        credentials also depends on the strength of encryption, the UAM in
+        scenarios, eg. via LDAP, NIS and the like. Please always keep in mind
+        that the protection of your user's login credentials in such scenarios
+        also depends on the strength of encryption that the UAM in
         question supplies. So think about eliminating weak UAMs like
         "ClearText Passwrd" and "Randnum exchange" completely from your
         network.</para>
