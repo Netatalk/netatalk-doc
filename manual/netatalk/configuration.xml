@@ -878,9 +878,13 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
               <para>This is the codepage used internally by your operating
               system. If not specified and your system support Unix locales,
               afpd tries to detect the codepage, otherwise it defaults to
-              ASCII. afpd uses this codepage to read its configuration files,
-              so you can use extended characters for volume names, login
-              messages, etc. see <citerefentry>
+              ASCII<indexterm>
+                  <primary>ASCII</primary>
+
+                  <secondary>afpd's unixcodepage setting</secondary>
+                </indexterm>. afpd uses this codepage to read its
+              configuration files, so you can use extended characters for
+              volume names, login messages, etc. see <citerefentry>
                   <refentrytitle>afpd.conf</refentrytitle>
 
                   <manvolnum>5</manvolnum>

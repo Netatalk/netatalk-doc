@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.14 2004-09-04 21:29:34 tkaiser Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.15 2004-09-06 22:01:59 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">05 January 2004</refmiscinfo>
+    <refmiscinfo class="date">06 September 2004</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -16,8 +16,13 @@
     <refname>AppleVolumes.default</refname>
 
     <refpurpose>Configuration file used by <command>afpd</command>(8) to
-    determine the shares made available through Appletalk<indexterm><primary>AppleVolumes.default</primary></indexterm><indexterm>
-        <primary>cnidscheme</primary><secondary>specifying a CNID backend</secondary></indexterm></refpurpose>
+    determine the shares made available through Appletalk<indexterm>
+        <primary>AppleVolumes.default</primary>
+      </indexterm><indexterm>
+        <primary>cnidscheme</primary>
+
+        <secondary>specifying a CNID backend</secondary>
+      </indexterm></refpurpose>
   </refnamediv>
 
   <refsect1>
@@ -496,7 +501,23 @@
       </citerefentry> provided charset. If a character cannot be converted
     from the mac codepage to the selected volcharset, afpd will save it as a
     CAP encoded character. For AFP3 clients, <command>afpd</command> will
-    convert the UTF-8 character to <option>-maccharset</option> first. If this
+    convert the UTF-8<indexterm>
+        <primary>UTF8</primary>
+
+        <secondary>afpd's volcharset setting</secondary>
+      </indexterm><indexterm>
+        <primary>UTF8-MAC</primary>
+
+        <secondary>afpd's volcharset setting</secondary>
+      </indexterm><indexterm>
+        <primary>ISO-8859-15</primary>
+
+        <secondary>afpd's volcharset setting</secondary>
+      </indexterm><indexterm>
+        <primary>ISO-8859-1</primary>
+
+        <secondary>afpd's volcharset setting</secondary>
+      </indexterm> character to <option>-maccharset</option> first. If this
     conversion fails, you'll receive a -50 error on the mac.</para>
 
     <para><emphasis>Note</emphasis>: Whenever you can, please stick with the
@@ -512,7 +533,11 @@
     <example>
       <title>use a 1.x style volume</title>
 
-      <programlisting>/path/to/volume "Volname" adouble:v1 volcharset:ASCII</programlisting>
+      <programlisting>/path/to/volume "Volname" adouble:v1 volcharset:ASCII<indexterm>
+                <primary>ASCII</primary>
+
+                <secondary>afpd's volcharset setting</secondary>
+              </indexterm></programlisting>
     </example>
 
     <para>In case you used an NLS you could try using a compatible iconv
