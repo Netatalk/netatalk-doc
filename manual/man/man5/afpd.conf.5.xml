@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.10 2004-06-22 00:35:53 bfernhomberg Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.11 2004-06-24 20:41:28 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -307,6 +307,26 @@
     <title>Transport Options</title>
 
     <variablelist>
+      <varlistentry>
+        <term>-advertise_ssh</term>
+
+        <listitem>
+          <para>Allows Mac OS X clients (10.3.3 or above) to automagically 
+          establish a tunneled AFP connection through SSH. If this option is set, 
+          the server's answers to client's FPGetSrvrInfo requests contain an 
+          additional entry. It depends on both client's settings and a correctly
+          configured and running <citerefentry><refentrytitle>sshd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+          on the server to let things work.</para>
+          
+        <note>
+            <para>Setting this option is not recommended since globally encrypting 
+            AFP connections via SSH will increase the server's load significantly. 
+            On the other hand, Apple's client side implementation of this feature
+            in MacOS X versions prior to 10.3.4 contained a security flaw</para>
+          </note>
+        </listitem>
+      </varlistentry>
+      
       <varlistentry>
         <term>-ddpaddr <replaceable>[ddp address]</replaceable></term>
 
