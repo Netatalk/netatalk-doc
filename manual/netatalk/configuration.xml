@@ -958,6 +958,287 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           </variablelist>
         </sect4>
       </sect3>
+
+      <sect3 id="authentication">
+        <title>Authentication<indexterm>
+            <primary>Authentication</primary>
+
+            <secondary>between AFP client and server</secondary>
+          </indexterm></title>
+
+        <sect4>
+          <title>AFP authentication basics</title>
+
+          <para>Apple chose a flexible model called "User Authentication
+          Modules" (UAMs) for authentication purposes between AFP client and
+          server. An AFP client initially connecting to an AFP server will ask
+          for the list of UAMs, the server provides, and will choose the one
+          with strongest encryption, that the client supports, too.</para>
+
+          <para>Several UAMs have been developed by Apple over the time, some
+          by 3rd-party developers, also.</para>
+        </sect4>
+
+        <sect4>
+          <title>UAMs, Netatalk supports</title>
+
+          <para>Netatalk supports the following ones by default:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>"No User Authent" UAM (guest access without
+              authentication)</para>
+            </listitem>
+
+            <listitem>
+              <para>"Cleartxt Passwrd" UAM (no password encryption)</para>
+            </listitem>
+
+            <listitem>
+              <para>"Randnum exchange"/"2-Way Randnum exchange" UAMs (weak
+              password encryption, separate password storage)</para>
+            </listitem>
+
+            <listitem>
+              <para>"DHCAST128" UAM (stronger password encryption, should be
+              used these days)</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>There exist other optional UAMs as well:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>"PGPuam 1.0" UAM (PGP-based authentication for pre-Mac OS
+              X clients. You'll also need the <ulink
+              url="http://www.vmeng.com/vinnie/papers/pgpuam.html">PGPuam
+              client</ulink> to let this work)</para>
+
+              <para>You'll have to add <command>"--enable-pgp-uam"</command>
+              to your configure switches to have this UAM available.</para>
+            </listitem>
+
+            <listitem>
+              <para>"Kerberos IV"/"AFS Kerberos" UAMs (suitable to use <ulink
+              url="http://web.mit.edu/macdev/KfM/Common/Documentation/faq.html">Kerberos
+              v4 based authentication</ulink> and AFS fileservers)</para>
+
+              <para>Use <command>"--enable-krb4-uam"</command> at compile time
+              to activate the build of this UAM.</para>
+            </listitem>
+
+            <listitem>
+              <para>"Client Krb v2" UAM (Kerberos V, suitable for "Single Sign
+              On" Scenarios with Mac OS X clients -- see below)</para>
+
+              <para><command>"--enable-krbV-uam"</command> will provide you
+              with the ability to use this UAM.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>You can configure, which UAMs should be active by defining
+          <command>$AFPD_UAM_LIST</command> in <citerefentry>
+              <refentrytitle>netatalk.conf</refentrytitle>
+
+              <manvolnum>5</manvolnum>
+            </citerefentry>. <command>afpd</command> will log which UAMs it's
+          using and if problems occur while activating them in either
+          netatalk.log or syslog at startup time. <citerefentry>
+              <refentrytitle>asip-status.pl</refentrytitle>
+
+              <manvolnum>1</manvolnum>
+            </citerefentry> can be used to query the available UAMs of AFP
+          servers as well.</para>
+
+          <para>Having a specific UAM available at the server does not
+          automatically mean, that a client can use it. Client-side support is
+          also necessary. Fortunately this isn't such a problem these days,
+          since Mac OS X' AFP-client supports DHCAST128 from the beginning on.
+          For older Macintoshes running Mac OS &lt; X DHCAST128 support exists
+          since AppleShare client 3.8.x.</para>
+
+          <para>On Mac OS X there exist some client-side techniques to make
+          the AFP-client more verbose, so one can have a look what's happening
+          while negotiating the UAMs to use. Compare with this <ulink
+          url="http://article.gmane.org/gmane.network.netatalk.devel/7383/">hint</ulink>.</para>
+        </sect4>
+
+        <sect4>
+          <title>Which UAMs to provide</title>
+
+          <para>It depends primarily on your needs and on the kind of Mac OS
+          versions, you have to support. Basically one should try to use
+          DHCAST128 where possible because of its strength of password
+          encryption.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para></para>
+            </listitem>
+
+            <listitem>
+              <para></para>
+            </listitem>
+
+            <listitem>
+              <para></para>
+            </listitem>
+
+            <listitem>
+              <para></para>
+            </listitem>
+
+            <listitem>
+              <para></para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+
+        <sect4>
+          <title>Using different authentication sources with specific
+          UAMs</title>
+
+          <para>Some UAMs provide the ability to use different authentication
+          "backends", namely <command>uams_cleartext.so</command> and
+          <command>uams_dhx.so</command>. They can both use either classic
+          Unix passwords from <command>/etc/passwd</command>
+          (<command>/etc/shadow</command>) or PAM instead, if the system
+          supports that. <command>uams_cleartext.so</command> can be symlinked
+          to either <command>uams_passwd.so</command> or
+          <command>uams_pam.so</command>, <command>uams_dhx.so</command> to
+          <command>uams_dhx_passwd.so</command> or
+          <command>uams_dhx_pam.so</command>. So, if it looks like this in
+          Netatalk's UAMs folder (per default
+          <command>/etc/netatalk/uams/</command>):<programlisting>uams_clrtxt.so -&gt; uams_pam.so
+uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
+          otherwise classic Unix passwords. The main advantage of using PAM is
+          that one can integrate Netatalk in centralized authentication
+          scenarios, eg. via LDAP, NIS and the like. Please keep always in
+          mind, that in such scenarios, the protection of your user's logon
+          credentials also depends on the strength of encryption, the UAM in
+          question supplies. So think about eliminating weak UAMs like
+          "ClearText Passwrd" and "Randnum exchange" completely from your
+          network.</para>
+        </sect4>
+
+        <sect4>
+          <title>Single Sign On with "Kerberos V"</title>
+
+          <para>(not yet)</para>
+        </sect4>
+
+        <sect4>
+          <title>Complete UAM overview table</title>
+
+          <table>
+            <title>Netatalk UAM overview</title>
+
+            <tgroup cols="6">
+              <tbody>
+                <row>
+                  <entry>Client-side UAM support</entry>
+
+                  <entry>"No User Authent" UAM (built-in into all Mac OS
+                  versions)</entry>
+
+                  <entry>"Randnum exchange"/"2-Way Randnum exchange" UAMs
+                  (built-in into almost all Mac OS versions)</entry>
+
+                  <entry>ClearText UAM (built-in in all Mac OS versions except
+                  10.0. Has to be activated explicitly in certain Mac OS X
+                  versions)</entry>
+
+                  <entry>DHCAST128 UAM (built-in since AppleShare client
+                  3.8.4, available as a plug-in for 3.8.3, integrated in Mac
+                  OS X' AFP client)</entry>
+
+                  <entry>Kerberos V UAM (built-in since MacOS X 10.3)</entry>
+                </row>
+
+                <row>
+                  <entry>Encryption and authentication between AFP client and
+                  server</entry>
+
+                  <entry>Enables guest access without authentication between
+                  client and server.</entry>
+
+                  <entry>Password (up to 8 characters long) will be
+                  transmitted encrypted (8-byte random numbers are sent over
+                  the wire, comparable with DES, 56 bits). Vulnerable to
+                  offline dictionary attack, only the client is authenticated
+                  (With 2-Way RandNum the server as well). Requires a
+                  cleartext password on the server.</entry>
+
+                  <entry>Password (up to 8 characters long) will be sent in
+                  cleartext over the wire. Just as bad as it sounds, therefor
+                  avoid at all if possible (note: providing NetBoot services
+                  requires the ClearText UAM)</entry>
+
+                  <entry>Password (up to 64 bytes in length) will be encrypted
+                  with 128 bit SSL, user will be authenticated against the
+                  server, but not vice versa. Therefor weak against
+                  man-in-the-middle attacks.</entry>
+
+                  <entry>(not yet)</entry>
+                </row>
+
+                <row>
+                  <entry>Server-side UAM support</entry>
+
+                  <entry align="center" valign="middle">uams_guest.so</entry>
+
+                  <entry align="center"
+                  valign="middle">uams_randnum.so</entry>
+
+                  <entrytbl cols="2">
+                    <tbody>
+                      <row>
+                        <entry align="center">uams_cleartxt.so</entry>
+                      </row>
+
+                      <row>
+                        <entry align="center">uams_passwd.so</entry>
+
+                        <entry align="center">uams_pam.so</entry>
+                      </row>
+                    </tbody>
+                  </entrytbl>
+
+                  <entrytbl cols="2">
+                    <tbody>
+                      <row>
+                        <entry align="center">uams_dhx.so</entry>
+                      </row>
+
+                      <row>
+                        <entry align="center">uams_dhx_passwd.so</entry>
+
+                        <entry align="center">uams_dhx_pam.so</entry>
+                      </row>
+                    </tbody>
+                  </entrytbl>
+
+                  <entry align="center" valign="middle">uam_gss.so</entry>
+                </row>
+
+                <row>
+                  <entry>Authentication scheme</entry>
+
+                  <entry>No authentication needed</entry>
+
+                  <entry></entry>
+
+                  <entry></entry>
+
+                  <entry></entry>
+
+                  <entry></entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </sect4>
+      </sect3>
     </sect2>
   </sect1>
 
@@ -1206,7 +1487,9 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
     <sect2>
       <title>Using Netatalk as a time server for Macintoshes</title>
 
-      <para>"timelord"<indexterm><primary>timelord</primary></indexterm>, an AppleTalk based time server, is deprecated these
+      <para>"timelord"<indexterm>
+          <primary>timelord</primary>
+        </indexterm>, an AppleTalk based time server, is deprecated these
       days. Use NTP<indexterm>
           <primary>NTP</primary>
 
@@ -1251,33 +1534,47 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
     <itemizedlist>
       <listitem>
-        <para>atalkd<indexterm><primary>atalkd</primary></indexterm> (if you use the AppleTalk protocol)</para>
+        <para>atalkd<indexterm>
+            <primary>atalkd</primary>
+          </indexterm> (if you use the AppleTalk protocol)</para>
       </listitem>
 
       <listitem>
-        <para>afpd<indexterm><primary>afpd</primary></indexterm></para>
+        <para>afpd<indexterm>
+            <primary>afpd</primary>
+          </indexterm></para>
       </listitem>
 
       <listitem>
-        <para>cnid_metad<indexterm><primary>cnid_metad</primary></indexterm> (if the dbd CNID backend is used)</para>
+        <para>cnid_metad<indexterm>
+            <primary>cnid_metad</primary>
+          </indexterm> (if the dbd CNID backend is used)</para>
       </listitem>
 
       <listitem>
-        <para>papd<indexterm><primary>papd</primary></indexterm> (if you want to provide print services via
+        <para>papd<indexterm>
+            <primary>papd</primary>
+          </indexterm> (if you want to provide print services via
         AppleTalk)</para>
       </listitem>
 
       <listitem>
-        <para>timelord<indexterm><primary>timelord</primary></indexterm> (for old style time synchronisation via
+        <para>timelord<indexterm>
+            <primary>timelord</primary>
+          </indexterm> (for old style time synchronisation via
         AppleTalk)</para>
       </listitem>
     </itemizedlist>
 
     <para>Additionally, make sure that the various configuration files
     (afpd.conf, AppleVolumes.default, papd.conf etc.) are in the right place
-    and that netatalk.conf<indexterm><primary>netatalk.conf</primary></indexterm> (if used) contains the right entries. If you want
-    e.g. papd to be started using this mechanism, set the environment variable
-    "PAPD_RUN"<indexterm><primary>PAPD_RUN</primary></indexterm> to "yes" in netatalk.conf. See the manual pages for
+    and that netatalk.conf<indexterm>
+        <primary>netatalk.conf</primary>
+      </indexterm> (if used) contains the right entries. If you want e.g. papd
+    to be started using this mechanism, set the environment variable
+    "PAPD_RUN"<indexterm>
+        <primary>PAPD_RUN</primary>
+      </indexterm> to "yes" in netatalk.conf. See the manual pages for
     details.</para>
   </sect1>
 </chapter>

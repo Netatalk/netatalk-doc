@@ -38,13 +38,14 @@
 <!ENTITY timeout.1 SYSTEM "man/man1/timeout.1.xml">
 <!ENTITY uniconv.1 SYSTEM "man/man1/uniconv.1.xml">
 <!ENTITY atalk_aton.3 SYSTEM "man/man3/atalk_aton.3.xml">
+<!ENTITY asip-status.pl.1 SYSTEM "man/man1/asip-status.pl.1.xml">
 ]>
 <book id="netatalk-manual">
   <title revision="0.1 initial version">Netatalk 2.0 Manual</title>
   
 
   <bookinfo>
-    <date>24-06-2004</date>
+    <date>22-08-2004</date>
   </bookinfo>
 
   <toc/>
@@ -60,7 +61,7 @@
   <chapter id="man-pages">
     <title>Manual Pages</title>
 
-    <para>This a collection of the man pages delivered with Netatalk.</para>
+    <para>This is a collection of the man pages delivered with Netatalk.</para>
 
     &achfile.1;
 
@@ -83,6 +84,8 @@
     &apple_mv.1;
 
     &apple_rm.1;
+
+    &asip-status.pl.1;
 
     &atalk.4;
 
