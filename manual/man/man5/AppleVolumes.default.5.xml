@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.4 2004-01-06 07:39:58 bfernhomberg Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.5 2004-01-06 13:44:51 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -477,7 +477,7 @@
     <example>
       <title>use a 1.x style volume</title>
 
-      <programlisting>/path/to/volume &#34;Volname&#34; adouble:v1 -volcharset:ASCII</programlisting>
+      <programlisting>/path/to/volume &#34;Volname&#34; adouble:v1 volcharset:ASCII</programlisting>
     </example>
 
     <para>In case you used an NLS you could try using a compatible iconv
@@ -486,7 +486,7 @@
     <example>
       <title>use a 1.x style volume, created with maccode.iso8859-1</title>
 
-      <programlisting>/path/to/volume &#34;Volname&#34; adouble:v1 -volcharset:ISO-8859-1</programlisting>
+      <programlisting>/path/to/volume &#34;Volname&#34; adouble:v1 volcharset:ISO-8859-1</programlisting>
     </example>
 
     <para>You should consider converting old style volumes to the new
