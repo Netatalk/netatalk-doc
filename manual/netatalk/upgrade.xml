@@ -218,7 +218,7 @@
 
       <note>
         <para>All of the above require <ulink
-        url="http://ww.gnu.org/software/libiconv/">iconv</ulink> to be
+        url="http://www.gnu.org/software/libiconv/">iconv</ulink> to be
         installed and to supply the volcharset codepage! </para>
       </note>
 
