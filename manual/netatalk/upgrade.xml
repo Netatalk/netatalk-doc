@@ -617,7 +617,7 @@
 
       <important>
         <para>Note that there is a limit of 31 characters for the server's
-        name. Should the name be longer, the afpd will just refuse to register
+        name. Should the name be longer, then afpd will just refuse to register
         the server.</para>
       </important>
 

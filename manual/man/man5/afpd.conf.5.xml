@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.15 2004-09-24 13:51:44 tkaiser Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.16 2004-09-29 10:38:11 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -358,7 +358,9 @@
           port. This is discarded if the server cannot resolve it. This option
           is not honored by AppleShare clients &lt;= 3.8.3. This option is
           disabled by default. Use with caution as this will involve a second
-          name resolution step.</para>
+          name resolution step on the client side. Also note that afpd will
+          advertise this name:port combination but not automatically listen to
+          it.</para>
         </listitem>
       </varlistentry>
 
@@ -366,14 +368,16 @@
         <term>-ipaddr <replaceable>[ip address]</replaceable></term>
 
         <listitem>
-          <para>Specifies the IP address that the server should advertise (the
-          default is the first IP address of the system). This option also
-          allows to use one machine to advertise the AFP-over-TCP/IP settings
-          of another machine via NBP<indexterm>
+          <para>Specifies the IP address that the server should advertise
+          <emphasis role="bold">and</emphasis> listens to (the default is the
+          first IP address of the system). This option also allows to use one
+          machine to advertise the AFP-over-TCP/IP settings of another machine
+          via NBP<indexterm>
               <primary>NBP</primary>
 
               <secondary>Name Binding Protocol</secondary>
-            </indexterm>.</para>
+            </indexterm> when used together with the <option>-proxy</option>
+          option.</para>
         </listitem>
       </varlistentry>
 

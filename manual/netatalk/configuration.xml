@@ -980,13 +980,13 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
         <para>Apple chose a flexible model called "User Authentication
         Modules"<indexterm>
-          <primary>UAM</primary>
+            <primary>UAM</primary>
 
-          <secondary>User Authentication Module</secondary>
-        </indexterm> (UAMs) for authentication purposes between AFP client and
-        server. An AFP client initially connecting to an AFP server will ask
-        for the list of UAMs which the server provides, and will choose the
-        one with strongest encryption that the client supports.</para>
+            <secondary>User Authentication Module</secondary>
+          </indexterm> (UAMs) for authentication purposes between AFP client
+        and server. An AFP client initially connecting to an AFP server will
+        ask for the list of UAMs which the server provides, and will choose
+        the one with strongest encryption that the client supports.</para>
 
         <para>Several UAMs have been developed by Apple over the time, some by
         3rd-party developers.</para>
@@ -1148,7 +1148,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           </listitem>
 
           <listitem>
-            <para>The "ClearText Passwrd" UAM is as bad as it sounds since
+            <para>The "ClearTxt Passwrd" UAM is as bad as it sounds since
             passwords go unencrypted over the wire. Try to avoid it at both
             the server's side as well as on the client's. Note: If you want to
             provide Mac OS 8/9 clients with NetBoot-services then you need
@@ -1372,16 +1372,13 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
                 <entry align="center" valign="middle">Either /etc/passwd
                 (/etc/shadow) or PAM</entry>
 
-                <entry align="center" valign="middle">At the Kerberos
-                KDC*</entry>
+                <entry align="center" valign="middle">At the Kerberos <ulink
+                url="http://cryptnet.net/fdp/admin/kerby-infra/en/kerby-infra.html#howitworks">Key
+                Distribution Center</ulink></entry>
               </row>
             </tbody>
           </tgroup>
         </table>
-
-        <para>* KDC means <ulink
-        url="http://cryptnet.net/fdp/admin/kerby-infra/en/kerby-infra.html#howitworks">Key
-        Distribution Center</ulink></para>
       </sect3>
 
       <sect3 id="sshtunnel">
@@ -1414,9 +1411,9 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
           access an AFP server providing weak authentications mechanisms
           through the Internet without having the ability to use a "real" VPN.
           Note that you can let <command>ssh</command> compress the data by
-          using its <filename>"-C"</filename> switch and that the tunnel
-          endpoints can be different from both AFP client and server (compare
-          with the SSH documentation for details).</para>
+          using its "-C" switch and that the tunnel endpoints can be different
+          from both AFP client and server (compare with the SSH documentation
+          for details).</para>
         </sect4>
 
         <sect4 id="autosshtunnel">
@@ -1429,8 +1426,8 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
           automagically sends all AFP traffic through it.</para>
 
           <para>But it took until the release of Mac OS X 10.3 that this
-          feature worked the first time... partly. In case, the SSH tunnel can't
-          be established the AFP client <emphasis
+          feature worked the first time... partly. In case, the SSH tunnel
+          can't be established the AFP client <emphasis
           role="strong">silently</emphasis> fell back to an unencrypted AFP
           connection attempt.</para>
 
@@ -1479,11 +1476,11 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
             </listitem>
 
             <listitem>
-              <para>...when you're using 10.2 - 10.3.3 then you get the opposite
-              of what you'd expect: potentially unencrypted AFP communication
-              (including logon credentials) on the network without a single
-              notification that establishing the tunnel failed. Apple fixed
-              that not until Mac OS X 10.3.4.</para>
+              <para>...when you're using 10.2 - 10.3.3 then you get the
+              opposite of what you'd expect: potentially unencrypted AFP
+              communication (including logon credentials) on the network
+              without a single notification that establishing the tunnel
+              failed. Apple fixed that not until Mac OS X 10.3.4.</para>
             </listitem>
 
             <listitem>
