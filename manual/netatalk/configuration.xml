@@ -1000,11 +1000,8 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             <term>%F</term>
 
             <listitem>
-               will be substituted with the contents of the 
-
-              <emphasis>%%For:</emphasis>
-
-               comment in the PostScript stream. 
+               <para>will be substituted with the contents of the 
+              <emphasis>%%For:</emphasis> comment in the PostScript stream.</para>
             </listitem>
           </varlistentry>
 
@@ -1012,7 +1009,8 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             <term>%U</term>
 
             <listitem>
-               If authenticated printing has been enabled then this will be substituted with the user name of the printjob's originator. 
+               <para>If authenticated printing has been enabled then this will 
+		be substituted with the user name of the printjob's originator.</para>
             </listitem>
           </varlistentry>
 
@@ -1020,11 +1018,8 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             <term>%J</term>
 
             <listitem>
-               will be substituted with the contents of the 
-
-              <emphasis>%%Title:</emphasis>
-
-               comment of the PostScript stream. 
+               <para>will be substituted with the contents of the <emphasis>%%Title:</emphasis> 
+		comment of the PostScript stream.</para>
             </listitem>
           </varlistentry>
         </variablelist>
