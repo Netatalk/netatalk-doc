@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.7 2004-01-13 22:47:59 tkaiser Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.8 2004-01-14 14:24:53 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -28,7 +28,7 @@
     well as their behaviour. Any line not prefixed with # is interpreted. The
     configuration lines are composed like:</para>
 
-    <para><term>path <replaceable>[ volume name ] [ options ]</replaceable></term></para>
+    <para><filename>path</filename> <replaceable>[ volume name ] [ options ]</replaceable></para>
 
     <para>The path name must be a fully qualified path name, or a path name
     using either the ~ shell shorthand or any of the substitution variables,
@@ -602,14 +602,17 @@
                 written. This option is only useful if you want to share files
                 mostly used NOT by macs, causing <command>afpd</command> to
                 not automatically create .AppleDouble subdirs containing AD
-                header files in every directory it enters (which is the
+                header files in every directory it enters (which will it do by
                 default).</para>
 
-                <para>In case, you write or change files from mac clients, AD
+                <para>In case, you save or change files from mac clients, AD
                 metadata files have to be written even in case you set this
                 option. So you can&#39;t avoid the creation of .AppleDouble
                 directories and its contents when you give macs write access
-                and they make use of it</para>
+                to a share and they make use of it.</para>
+
+                <para>Try to avoid <option>noadouble</option> whenever
+                possible</para>
               </listitem>
             </varlistentry>
 
@@ -618,7 +621,7 @@
 
               <listitem>
                 <para>always use 0 for device number, helps when the device
-                number is not constant across a reboot, cluster, ....</para>
+                number is not constant across a reboot, cluster, ...</para>
               </listitem>
             </varlistentry>
 
@@ -663,7 +666,9 @@
               <term>upriv</term>
 
               <listitem>
-                <para>use AFP3 unix privileges</para>
+                <para>use AFP3 unix privileges. Become familiar with the new
+                &#34;unix privileges&#34; AFP permissions concepts in MacOS X
+                before using this option.</para>
               </listitem>
             </varlistentry>
           </variablelist>
