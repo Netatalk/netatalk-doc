@@ -200,8 +200,8 @@ eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone &#34;Printers&#34;</prog
       changing these settings might have side effects for all of your
       AppleTalk network clients</emphasis></para>
 
-      <para>In an AppleTalk network netranges have to be unique and zone
-      settings have to match each other router&#39;s configuration.
+      <para>In an AppleTalk network netranges have to be unique and must
+      not overlap each other.
       Fortunately netatalk&#39;s atalkd is polite enough to check whether your
       settings are in conflict with already existing ones on the net. In such
       a case it simply discards your settings and tries to adapt the already
