@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="upgrade">
+  <chapterinfo>
+    <date>05.01.2004</date>
+  </chapterinfo>
+
+  <title>Upgrading from a previous version of Netatalk</title>
+
+  <sect1>
+    <title>Overview</title>
+
+    <para>Version 2.0 of the Netatalk suite includes significant
+    changes and enhancements in functionality compared to previous
+    versions. AFP v3.0 is now supported which allows UTF8 encoded
+    filenames of up to 255 characters in length amongst other
+    things. The Catalogue Node ID (CNID) subsystem has been reworked
+    as well and should now be much more robust. For an overview of
+    what CNIDs are and why you need them please see (Link to the
+    section in configuration.xml, Björn?).</para>
+
+    <para>The downside of these enhancemants is that upgrading to
+    Netatalk 2.0 is not a process that can be easily automated.
+    Too many factors depend on site specific configuration and
+    administrators have to make choices that suit their
+    requirements. This document attempts to clarify the issues and
+    outline the steps that need to be taken for a successful
+    upgrade. As usual, the first of these steps should be to make a
+    complete backup of all volumes and home directories that were in
+    use with Netatalk before. Afterwards, you&#39;ll have to decide
+    
+    <orderedlist>
+
+       <listitem>what encoding to use for filenames in the future and
+       how to convert existing filenames</listitem>
+       
+       <listitem>what storage scheme to use for CNIDs and maybe
+       convert an existing database to that scheme</listitem>
+    
+    </orderedlist>
+    </para>
+    
+    <para>The following two sections deal with each of these areas in turn</para>
+
+    </sect1>    
+
+    <setc1>
+         <title>Filenames ...</title>
+    </setc1>
+
+    <setc1>
+         <title>Chosing a CNID storage scheme</title>
+
+	 <para>Previous versions of Netatalk allocated CNIDs either on the fly
+	 using a scheme called <emphasis remap="B">last</emphasis> or <emphasis
+	 remap="B">hash</emphasis> or CNIDs were recorded in a persistent
+	 database. <emphasis remap="B">hash</emphasis> generates a CNID for a
+	 file or directory by mangling the inode number. <emphasis
+	 remap="B">last</emphasis> just assigns a counter to each file and
+	 directory that is increased by one upon access from a client. Those
+	 numbers are only the same for a given file for the lifetime of the afpd
+	 process serving the client. Both schemes therefore violate a
+	 fundamenatal assumption: A CNID once assigned must never be reused for the
+	 lifetime of a volume. <emphasis remap="B">hash</emphasis> has
+	 disappeared from recent Netatalk releases.  <emphasis
+	 remap="B">last</emphasis> is still supported in Netatalk 2.0 but you
+	 should think twice about using it in production. It will probably be OK
+	 on read only volumes, but even there we are not certain if OS X clients
+	 will work properly.</para>
+
+	 <para>That leaves the CNID schemes that use persistent storage for
+	 CNIDs. Netatalk 2.0 supports two: <emphasis remap="B">cdb</emphasis> and
+	 <emphasis remap="B">dbd</emphasis>. Both are based on the Berkeley DB
+	 database library as before. One difference is, though, that you are not
+	 restricted to using a single scheme for all of your volumes that has to
+	 be determined at compile time. The CNID scheme (also called a "CNID
+	 backend") is now a runtime option for a volume. That means that you can
+	 make the choice per volume based on your reqirements. Here are the
+	 properties as well as the advantages and disadvantages of the three
+	 supported schemes:
+
+	 <orderedlist>
+
+	 <listitem><emphasis remap="B">last</emphasis>: See above.  Avoid, if at
+	 all possible.</listitem>
+
+	 <listitem><emphasis remap="B">cdb</emphasis>: Roughly analogous to the
+	 Netatalk 1.6.x versions with what was called then the "DID schmeme" set
+	 to "cnid" and the "CNID with Concurrent Data Store" set to "yes". Access
+	 to the CNID database for a volume happens directly from the Netatalk
+	 afpd daemons. A Berkeley DB locking scheme (the "Concurrent Data Store"
+	 bit) is used to avoid database inconsistencies. Robustness is much
+	 improved compared to previous releases. The CNID database can only
+	 become corrupted if an afpd daemon crashes unexpectedly, is killed by
+	 the administrator or the whole machine chrashes. </listitem>
+	 
+	 <listitem><emphasis remap="B">dbd</emphasis>: There is only a single
+	 daemon that accesses the CNID database for a given volume. Any afpd
+	 process that wishes to retrieve or update CNIDs for that volume needs to
+	 do it via the daemon. The CNID database is (normally, this is a compile
+	 time option) updated under Berkeley DB transactional protection. This
+	 design combined with the transactional updates makes the CNID database
+	 crashproof: Any of the participating afpd daemons, the database daemon
+	 itself or the whole machine can crash and the CNID database should still
+	 be in a consistent state. The downside to this is that the speed of updates
+	 and retrieval is slower than with the <emphasis remap="B">cdb</emphasis>
+	 scheme.</listitem>
+
+	 </orderedlist>
+	 </para>
+	 
+	 <para>If you compile Netatalk 2.0 yourself and invoke configure --help,
+	 you&#39;ll notice that there are in fact more CNID backends to chose
+	 from. Don&#39;t use any of them. They are either broken or incomplete. Some of
+	 them might turn into something useful in the future. </para>
+
+	 <sect2>
+	 <title>How to upgrade if no persistent CNID storage was used</title>
+	 
+	 <para>That is easy. Just pick a CNID backend from above, configure it
+	 properly in afpd.conf and the AppleVolumes file and start up the
+	 necessary Netatalk processes. The databases will be automatically
+	 created in a subdirectory .AppleDB of the volume in question.
+	 </para>
+	 </sect2>
+
+	 <sect2>
+	 <title>How to upgrade if a persistent CNID storage scheme was used</title>
+	 
+	 <para>In that case the CNID databases need to be upgraded. A script
+	 called cnid2_create that comes with Netatalk 2.0 does most of the
+	 work. The steps you have to take depend on what version of Berkeley DB
+	 is installed on your system. If you already use one of the supported
+	 versions of Berkeley DB (4.0.14, 4.1.25 or 4.2.50) for your old Netatalk
+	 installation and plan to use it for Netatalk 2.0 as well just use the
+	 db_dump and db_load utilities that came with it as indicated
+	 below. Otherwise it is probably best to have the old and the new (to be
+	 used with Netatalk 2.0) version of Berkeley DB installed side by side
+	 until you have finished the upgrade. The reason for this is that we will
+	 dump out the old databases with the currently installed version of
+	 Berkeley DB in ASCII format and reload them with the new version. This
+	 avoids any incompatibility problems between Berkeley DB releases with
+	 respect to the on-disk format.  </para>
+
+
+	 <para>
+	 For each volume to be upgraded, follow these steps
+
+	 <itemizedlist>
+	 <listitem>
+	 Stop all afpd daemons accessing the volume.
+	 </listitem>
+
+	 <listitem>
+	 Change to the database directory for that volume, most likely the
+	 .AppleDB subdirectory of the volume top level directory in question.
+	 </listitem>
+	 
+	 <listitem>
+	 Dump the contents of cnid.db and didname.db using the old (installed)
+	 version of Berkeley DB like this:
+	 
+	 <programlisting>
+	 db_dump -f cnid.dump cnid.db
+	 db_dump -f didname.dump didname.db
+	 </programlisting>
+	 
+
+	 
+	 Make sure the db_dump utility you are using is the correct (currently used)
+	 one. Use the full path to the db_dump executeable if in doubt. So if this
+         database was created with Berkeley DB 3.xx installed in /usr/local/db3
+         use /usr/local/db3/bin/db_dump instead. This will create two files, cnid.dump and 
+	 didname.dump in the current directory.
+	 
+	 </listitem>
+
+	 <listitem>
+
+	 Run the cnid2_create script:
+
+	 <programlisting>
+	 /path/to/netatalk/bin/cnid2_create
+	 </programlisting>
+
+	 The script assumes that .AppleDB is a subdirctory of the volume
+         directory to be upgraded. If that is not the case give the full path name
+         of the volume as the first argument to cnid2_create. The script will
+         create a file cnid2.dump in ASCII format.
+
+	 </listitem>
+
+	 <listitem>
+	 Remove the old Berkeley DB environment and logfiles (if present):
+	 <programlisting>
+	 rm __db.* log.*
+	 </programlisting>
+	 </listitem>
+
+	 <listitem>
+	 Load cnid2.dump into the new database. You should use the db_load
+         utility of Berkeley DB that will be used with version 2.0 of
+         Netatalk. So if Berkeley DB 4.xx lives in /usr/local/db4 use
+	 <programlisting>
+	 /usr/local/db4/bin/db_load -f cnid2.dump cnid2.db
+	 </programlisting>
+	 This will create the new database file, cnid2.db. Remove the old
+	 database files cnid.db, didname.db and devino.db. The intermediate files
+	 cnid.dump, didname.dump and cnid2.dump can be removed now or at some
+	 later time.
+	 </listitem>
+
+	 </itemizedlist>
+
+	 </para>
+
+	 <para>
+	    If you do not want to have two versions of Berkeley DB installed side
+	    by side during the upgrade, you should first dump out the old
+	    databases as indicated above for all volumes, upgrade Berkeley DB and
+	    then load them with db_load. The cnid2_create script can be run
+	    before or after the upgrade. Berkeley DB environment and logfiles
+	    should still be removed before running db_load.
+	 </para>
+	 
+	 </sect2>
+	 
+	 <sect2>
+
+	  <title>How to upgrade if a persistent CNID storage scheme was used, the
+	  brute force approach</title>
+
+	  <para>
+
+	  If you are absolutely sure what you are doing, you can also just clear
+	  out all database files from the .AppleDB directories. They will be
+	  recreated, but will not contain the same CNIDs as before!! That might
+	  lead to all sorts of problems, like aliases not working any more on
+	  clients. As I said, make sure you know the consequences and dont&#39;t mind
+	  them.
+
+	  </para>
+	 </sect2>
+
+
+    </setc1>
+  
+</chapter>
+
+
+
+
+
+
+
