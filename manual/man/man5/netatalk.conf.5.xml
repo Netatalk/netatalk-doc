@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="netatalk.conf.5">
-  <!--  $Id: netatalk.conf.5.xml,v 1.3 2004-01-13 20:06:09 lenneis Exp $ -->
+  <!--  $Id: netatalk.conf.5.xml,v 1.4 2004-06-24 19:13:23 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>netatalk.conf</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">28 September 2000</refmiscinfo>
+    <refmiscinfo class="date">24 June 2004</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -77,8 +77,8 @@
         <term><emphasis remap="B">CNID_METAD_RUN</emphasis></term>
 
         <listitem>
-          <para>Enables the cnid_metad daemon if set to &#34;yes&#34;. This should
-          be enabled if you are going to use the dbd CNID backend.</para>
+          <para>Enables the cnid_metad daemon if set to &#34;yes&#34;. This
+          should be enabled if you are going to use the dbd CNID backend.</para>
         </listitem>
       </varlistentry>
 
@@ -122,6 +122,25 @@
         <listitem>
           <para>Enables the papd daemon if set to &#34;yes&#34;. This should
           be enabled if you are planning on using netatalk as a print server.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis remap="B">ATALK_MAC_CHARSET</emphasis></term>
+
+        <listitem>
+          <para>Set the Mac client codepage, used by atalkd and papd to
+          convert extended characters from the Unix to the Mac codepage.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis remap="B">ATALK_UNIX_CHARSET</emphasis></term>
+
+        <listitem>
+          <para>Set the Unix codepage, used by atalkd and papd to convert
+          extended characters from the Unix to the Mac codepage. Has to match
+          the codepage of the configuration files.</para>
         </listitem>
       </varlistentry>
     </variablelist>
