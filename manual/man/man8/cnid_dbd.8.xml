@@ -22,6 +22,10 @@
       <command>cnid_dbd</command>
 
       <arg choice="plain"><replaceable>dbdir</replaceable></arg>
+
+      <arg choice="plain"><replaceable>ctrlfd</replaceable></arg>
+
+      <arg choice="plain"><replaceable>clntfd</replaceable></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -61,9 +65,11 @@
     netatalk volume to a client. It changes to the <emphasis remap="B">Berkleley
     DB</emphasis> database home directory <emphasis remap="I">dbdir</emphasis>
     that is associated with the volume, opens the database and starts serving
-    requests. Subsequent instances of <emphasis remap="B">afpd</emphasis> that
+    requests using the filedescriptor <emphasis remap="I">clntfd</emphasis>.
+    Subsequent instances of <emphasis remap="B">afpd</emphasis> that
     want to access the same volume are redirected to the running
-    <command>cnid_dbd</command> by <emphasis remap="B">cnid_metad.</emphasis></para>
+    <command>cnid_dbd</command> by <emphasis remap="B">cnid_metad</emphasis>
+    via the filedescriptor <emphasis remap="I">ctrlfd</emphasis>.</para>
 
     <para><command>cnid_dbd</command> can be configured to run forever or to
     exit after a period of inactivity. If <command>cnid_dbd</command> receives
@@ -74,6 +80,17 @@
     handled and will cause an immediate exit, possibly leaving the CNID
     database in an inconsistent state (no transactions) or losing recent
     updates during recovery (transactions).</para>
+    
+    <para>If transactions are used the <emphasis remap="B">Berkleley DB</emphasis>
+    database subsystem will create files named log.xxxxxxxxxx  in the 
+    database home directory <emphasis remap="I">dbdir</emphasis>, where xxxxxxxxxx 
+    is a monotonically increasing integer. These files contain information to 
+    replay database changes and are not automatically removed. Please see the sections 
+    <emphasis remap="B">Database and log file archival</emphasis>, <emphasis remap="B">
+    Log file removal</emphasis> and the documentation of the <emphasis remap="B">
+    db_archive</emphasis> command line utility in the Berkeley DB Tutorial and Reference
+    for information when and how it is safe to remove these files.</para>
+
   </refsect1>
 
   <refsect1>
