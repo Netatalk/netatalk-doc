@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.11 2004-07-19 21:31:34 tkaiser Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.12 2004-07-20 07:05:41 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -13,7 +13,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname>AppleVolumes.default</refname>
+    <refname>AppleVolumes.default<indexterm><primary>AppleVolumes.default</primary></indexterm></refname>
 
     <refpurpose>Configuration file used by <command>afpd</command>(8) to
     determine the shares made available through Appletalk</refpurpose>

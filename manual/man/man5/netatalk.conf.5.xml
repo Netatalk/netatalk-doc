@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="netatalk.conf.5">
-  <!--  $Id: netatalk.conf.5.xml,v 1.5 2004-07-19 21:31:34 tkaiser Exp $ -->
+  <!--  $Id: netatalk.conf.5.xml,v 1.6 2004-07-20 07:05:41 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>netatalk.conf</refentrytitle>
@@ -13,7 +13,22 @@
   </refmeta>
 
   <refnamediv>
-    <refname>netatalk.conf</refname>
+    <refname>netatalk.conf<indexterm><primary>netatalk.conf</primary></indexterm><indexterm><primary>AFPD_GUEST</primary></indexterm>
+<indexterm><primary>AFPD_MAX_CLIENTS</primary></indexterm>
+<indexterm><primary>AFPD_RUN</primary></indexterm>
+<indexterm><primary>AFPD_UAM_LIST</primary></indexterm>
+<indexterm><primary>CNID_METAD_RUN</primary></indexterm>
+<indexterm><primary>ATALK_BGROUND</primary></indexterm>
+<indexterm><primary>ATALK_NAME</primary></indexterm>
+<indexterm><primary>ATALK_ZONE</primary></indexterm>
+<indexterm><primary>ATALKD_RUN</primary></indexterm>
+<indexterm><primary>PAPD_RUN</primary></indexterm>
+<indexterm><primary>ATALK_MAC_CHARSET</primary></indexterm>
+<indexterm><primary>ATALK_UNIX_CHARSET</primary></indexterm><indexterm>
+        <primary>Startscript</primary>
+
+        <secondary>startup script</secondary>
+      </indexterm></refname>
 
     <refpurpose>Configuration file used by netatalk(8) to determine its
     general configuration</refpurpose>
@@ -44,9 +59,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis remap="B">AFPD_MAX_CLIENTS<indexterm>
-        <primary>$AFPD_MAX_CLIENTS</primary>
-      </indexterm></emphasis></term>
+        <term><emphasis remap="B">AFPD_MAX_CLIENTS</emphasis></term>
 
         <listitem>
           <para>Sets the maximum number of clients that can simultaneously

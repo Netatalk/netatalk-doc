@@ -19,7 +19,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>afile</command>
+      <command>afile<indexterm><primary>afile</primary></indexterm></command>
 
       <arg choice="opt">-a</arg>
 

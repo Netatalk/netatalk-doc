@@ -17,7 +17,7 @@
 
 
 <refsect1><title>DESCRIPTION</title>
-<para><emphasis remap='B'>apple_rm</emphasis>
+<para><emphasis remap='B'>apple_rm<indexterm><primary>apple_rm</primary></indexterm></emphasis>
 is a perl script that removes FILE(s) as well as the .AppleDouble
 resource fork file(s) that corresponds to FILE(s). 
 <emphasis remap='B'>apple_rm</emphasis>

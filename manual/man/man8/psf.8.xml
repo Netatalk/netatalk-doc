@@ -18,7 +18,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>psf</command>
+      <command>psf<indexterm><primary>psf</primary></indexterm></command>
 
       <arg choice="opt"><arg choice="plain">-n </arg><arg choice="plain"><replaceable>name</replaceable></arg></arg>
 

@@ -22,7 +22,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>nbplkup </command>
+      <command>nbplkup<indexterm><primary>nbp</primary></indexterm><indexterm><primary>nbplkup</primary></indexterm> </command>
 
       <arg>-r <replaceable>maxresponses</replaceable></arg>
 
@@ -34,7 +34,7 @@
     </cmdsynopsis>
 
     <cmdsynopsis>
-      <command>nbprgstr </command>
+      <command>nbprgstr<indexterm><primary>nbprgstr</primary></indexterm> </command>
 
       <arg>-A <replaceable>address</replaceable></arg>
 
@@ -46,7 +46,7 @@
     </cmdsynopsis>
 
     <cmdsynopsis>
-      <command>nbpunrgstr</command>
+      <command>nbpunrgstr<indexterm><primary>nbpunrgstr</primary></indexterm> </command>
 
       <arg>-A <replaceable>address</replaceable></arg>
 

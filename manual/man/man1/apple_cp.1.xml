@@ -19,7 +19,7 @@
   <!-- body begins here -->
 
   <refsynopsisdiv>
-    <para><emphasis remap="B">:BINDIR:/apple_cp</emphasis> <emphasis remap="I">SOURCE
+    <para><emphasis remap="B">:BINDIR:/apple_cp<indexterm><primary>apple_cp</primary></indexterm></emphasis> <emphasis remap="I">SOURCE
     DEST</emphasis> <emphasis remap="B">:BINDIR:/apple_cp</emphasis> <emphasis
     remap="I">SOURCE</emphasis>... <emphasis remap="I">DIRECTORY</emphasis></para>
   </refsynopsisdiv>

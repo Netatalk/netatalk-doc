@@ -18,7 +18,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>:SBINDIR:/papstatus</command>
+      <command>:SBINDIR:/papstatus<indexterm><primary>papstatus</primary></indexterm></command>
 
       <arg choice="opt">-d</arg>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="uniconv.1">
-  <!--  $Id: uniconv.1.xml,v 1.3 2004-06-24 19:11:57 bfernhomberg Exp $ -->
+  <!--  $Id: uniconv.1.xml,v 1.4 2004-07-20 07:05:40 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>uniconv</refentrytitle>
@@ -20,7 +20,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>uniconv</command>
+      <command>uniconv<indexterm><primary>uniconv</primary></indexterm></command>
 
       <arg choice="opt">-ndv</arg>
 

@@ -80,7 +80,11 @@
     <emphasis>MacRoman</emphasis>.</para>
 
     <para>The format of the metadata files stored in the .AppleDouble folders
-    has changed from AppleDouble v1 to AppleDouble v2. Netatalk 2.0 is still
+    has changed from AppleDouble v1 to AppleDouble v2<indexterm>
+            <primary>ADv2</primary>
+
+            <secondary>AppleDouble v2</secondary>
+          </indexterm>. Netatalk 2.0 is still
     able to use AD1 files, if configured. Otherwise ADv1<indexterm>
         <primary>ADv1</primary>
 
@@ -287,14 +291,18 @@
     <orderedlist>
         <listitem>
           <para><emphasis role="bold">last<indexterm>
-              <primary>last</primary>
+              <primary>Last</primary>
+
+              <secondary>"last" CNID backend</secondary>
             </indexterm>:</emphasis> See above. Avoid, if at all
           possible.</para>
         </listitem>
 
         <listitem>
           <para><emphasis role="bold">cdb<indexterm>
-              <primary>cdb</primary>
+              <primary>CDB</primary>
+
+              <secondary>"cdb" CNID backend</secondary>
             </indexterm>: </emphasis>Roughly analogous to the Netatalk 1.6.x
           versions with what was called then the "DID scheme" option set to
           "cnid" and the "CNID with Concurrent Data Store" option set to
@@ -309,7 +317,9 @@
 
         <listitem>
           <para><emphasis role="bold">dbd<indexterm>
-              <primary>dbd</primary>
+              <primary>DBD</primary>
+
+              <secondary>"dbd" CNID backend</secondary>
             </indexterm>:</emphasis> There is only a single daemon that
           accesses the CNID database for a given volume. Any afpd process that
           wishes to retrieve or update CNIDs for that volume needs to do it

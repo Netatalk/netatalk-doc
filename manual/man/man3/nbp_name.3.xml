@@ -13,7 +13,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname>nbp_name</refname>
+    <refname>nbp_name<indexterm><primary>nbp_name</primary></indexterm></refname>
 
     <refpurpose>NBP name parsing</refpurpose>
   </refnamediv>

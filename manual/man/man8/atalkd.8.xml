@@ -29,12 +29,16 @@
         <primary>AEP</primary>
 
         <secondary>Apple Echo Protocol</secondary>
-      </indexterm> manager</refpurpose>
+      </indexterm><indexterm>
+              <primary>Phase</primary>
+
+              <secondary>AppleTalk phase 1 or 2</secondary>
+            </indexterm> manager</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>atalkd</command>
+      <command>atalkd<indexterm><primary>atalkd</primary></indexterm></command>
 
       <arg>-f <replaceable>configfile</replaceable></arg>
 
@@ -69,9 +73,8 @@
     <option>-zone</option> <replaceable>zonename</replaceable> ] ...</para>
 
     <para>Note that all fields except the interface are optional. The loopback
-    interface is configured automatically. If <option>-seed</option><indexterm>
-        <primary>Seed Router</primary>
-      </indexterm> is specified, all other fields must be present. Also,
+    interface is configured automatically. If <option>-seed</option>
+    is specified, all other fields must be present. Also,
     <command>atalkd</command> will exit during bootstrap­ping, if a router
     disagrees with its seed information. If <option>-seed</option> is not
     given, all other information may be overriden during auto-configuration.

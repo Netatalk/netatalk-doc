@@ -13,7 +13,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname>atalk_aton</refname>
+    <refname>atalk_aton<indexterm><primary>atalk_aton</primary></indexterm></refname>
 
     <refpurpose>AppleTalk address parsing</refpurpose>
   </refnamediv>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="papd.conf.5">
-  <!--  $Id: papd.conf.5.xml,v 1.7 2004-07-19 21:31:34 tkaiser Exp $ -->
+  <!--  $Id: papd.conf.5.xml,v 1.8 2004-07-20 07:05:41 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>papd.conf</refentrytitle>
@@ -13,7 +13,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname>papd.conf</refname>
+    <refname>papd.conf<indexterm><primary>papd.conf</primary></indexterm></refname>
 
     <refpurpose>Configuration file used by papd(8) to determine the
     configuration of printers used by the Netatalk printing

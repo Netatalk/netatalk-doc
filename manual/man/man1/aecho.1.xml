@@ -17,7 +17,11 @@
   </refnamediv>
 
   <refsynopsisdiv>
-    <para><command>aecho</command> [ <option>-c</option><replaceable> count</replaceable>
+    <para><command>aecho<indexterm><primary>aecho</primary></indexterm><indexterm>
+        <primary>AEP</primary>
+
+        <secondary>Apple Echo Protocol</secondary>
+      </indexterm></command> [ <option>-c</option><replaceable> count</replaceable>
     ] ( <command>address</command> | <command>nbpname</command> )</para>
   </refsynopsisdiv>
 
@@ -25,11 +29,7 @@
     <title>DESCRIPTION</title>
 
     <para><command>aecho</command> repeatedly sends an Apple Echo Protocol
-    (AEP<indexterm>
-        <primary>AEP</primary>
-
-        <secondary>Apple Echo Protocol</secondary>
-      </indexterm>) packet to the host specified by the given AppleTalk
+    (AEP) packet to the host specified by the given AppleTalk
     <command>address</command> or <command>nbpname</command> and reports
     whether a reply was received. Requests are sent at the rate of one per
     second.</para>

@@ -505,8 +505,6 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         <para>Netatalk needs to map IDs to files and folders in the host
         filesystem. To achieve this, several different CNID backends<indexterm>
             <primary>CNID backend</primary>
-
-            <secondary>CNID database</secondary>
           </indexterm> are available. A CNID backend is basically a database
         storing ID &lt;-&gt; name mappings.</para>
 
@@ -920,7 +918,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
                 <para>This defines the charset afpd should use for filenames
                 on disk. The default is UTF8. If you have <ulink
                 url="http://www.gnu.org/software/libiconv/">iconv</ulink><indexterm>
-                    <primary>iconv</primary>
+                    <primary>Iconv</primary>
 
                     <secondary>iconv encoding conversion engine</secondary>
                   </indexterm> installed, you can use any iconv provided
@@ -1162,7 +1160,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
       <para><command>pap</command> can be used stand-alone or as part of an
       output filter or a CUPS backend<indexterm>
-          <primary>backend</primary>
+          <primary>Backend</primary>
 
           <secondary>CUPS backend</secondary>
         </indexterm> (which is the preferred method since one does not have to
@@ -1208,7 +1206,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
     <sect2>
       <title>Using Netatalk as a time server for Macintoshs</title>
 
-      <para>"timelord", an AppleTalk based time server, is deprecated these
+      <para>"timelord"<indexterm><primary>timelord</primary></indexterm>, an AppleTalk based time server, is deprecated these
       days. Use NTP<indexterm>
           <primary>NTP</primary>
 
@@ -1253,33 +1251,33 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
     <itemizedlist>
       <listitem>
-        <para>atalkd (if you use the AppleTalk protocol)</para>
+        <para>atalkd<indexterm><primary>atalkd</primary></indexterm> (if you use the AppleTalk protocol)</para>
       </listitem>
 
       <listitem>
-        <para>afpd</para>
+        <para>afpd<indexterm><primary>afpd</primary></indexterm></para>
       </listitem>
 
       <listitem>
-        <para>cnid_metad (if the dbd CNID backend is used)</para>
+        <para>cnid_metad<indexterm><primary>cnid_metad</primary></indexterm> (if the dbd CNID backend is used)</para>
       </listitem>
 
       <listitem>
-        <para>papd (if you want to provide print services via
+        <para>papd<indexterm><primary>papd</primary></indexterm> (if you want to provide print services via
         AppleTalk)</para>
       </listitem>
 
       <listitem>
-        <para>timelord (for old style time synchronisation via
+        <para>timelord<indexterm><primary>timelord</primary></indexterm> (for old style time synchronisation via
         AppleTalk)</para>
       </listitem>
     </itemizedlist>
 
     <para>Additionally, make sure that the various configuration files
     (afpd.conf, AppleVolumes.default, papd.conf etc.) are in the right place
-    and that netatalk.conf (if used) contains the right entries. If you want
+    and that netatalk.conf<indexterm><primary>netatalk.conf</primary></indexterm> (if used) contains the right entries. If you want
     e.g. papd to be started using this mechanism, set the environment variable
-    "PAPD_RUN" to "yes" in netatalk.conf. See the manual pages for
+    "PAPD_RUN"<indexterm><primary>PAPD_RUN</primary></indexterm> to "yes" in netatalk.conf. See the manual pages for
     details.</para>
   </sect1>
 </chapter>

@@ -19,7 +19,13 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>cnid_dbd</command>
+      <command>cnid_dbd<indexterm><primary>cnid_dbd</primary></indexterm><indexterm>
+        <primary>CNID backend</primary>
+      </indexterm><indexterm>
+                  <primary>NFS</primary>
+
+                  <secondary>Network File System</secondary>
+                </indexterm></command>
 
       <arg choice="plain"><replaceable>dbdir</replaceable></arg>
 
@@ -38,9 +44,7 @@
     Macintosh based file systems with semantics that map not easily onto Unix
     file systems. This makes separate storage in a database necessary.
     <command>cnid_dbd</command> is part of the <emphasis remap="B">CNID
-    backend</emphasis><indexterm>
-        <primary>CNID backend</primary>
-      </indexterm> framework of <emphasis remap="B">afpd</emphasis> and
+    backend</emphasis> framework of <emphasis remap="B">afpd</emphasis> and
     implements the <emphasis remap="B">dbd</emphasis> backend.</para>
 
     <para><command>cnid_dbd</command> is never started via the command line or
@@ -103,9 +107,7 @@
     manually.</para>
 
     <para>Do not use <command>cnid_dbd</command> for databases on
-    NFS<indexterm>
-        <primary>NFS</primary>
-      </indexterm> mounted file systems. It makes the whole point of securing
+    NFS mounted file systems. It makes the whole point of securing
     database changes properly moot. Use the dbdir: Option in the appropriate
     <emphasis remap="B">AppleVolumes</emphasis> configuration file to put the
     database onto a local disk.</para>

@@ -18,7 +18,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>psorder</command>
+      <command>psorder<indexterm><primary>psorder</primary></indexterm></command>
 
       <arg choice="opt">-duf</arg>
 

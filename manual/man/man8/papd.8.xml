@@ -18,7 +18,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>papd</command>
+      <command>papd<indexterm><primary>papd</primary></indexterm></command>
 
       <arg>-d</arg>
 

@@ -13,15 +13,13 @@
   <refnamediv>
     <refname>pap</refname>
 
-    <refname>papstatus</refname>
-
     <refpurpose>client interface to remote printers using Printer Access
     Protocol</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>pap</command>
+      <command>pap<indexterm><primary>pap</primary></indexterm></command>
 
       <arg choice="opt"><arg choice="plain">-A </arg><arg choice="plain"><replaceable>address</replaceable></arg></arg>
 
@@ -42,10 +40,6 @@
       <arg choice="opt">-W</arg>
 
       <arg choice="opt"><replaceable>FILES</replaceable></arg>
-
-      <arg choice="plain"><replaceable>papstatus</replaceable></arg>
-
-      <arg choice="opt"><arg choice="plain">-p </arg><arg choice="plain"><replaceable>nbpname</replaceable></arg></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 

@@ -13,7 +13,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname>timeout</refname>
+    <refname>timeout<indexterm><primary>timeout</primary></indexterm></refname>
 
     <refpurpose>Send a signal to a program after a certain time</refpurpose>
   </refnamediv>

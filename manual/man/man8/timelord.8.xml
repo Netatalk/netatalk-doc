@@ -13,7 +13,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname>timelord</refname>
+    <refname>timelord<indexterm><primary>timelord</primary></indexterm></refname>
 
     <refpurpose>Macintosh time server daemon</refpurpose>
   </refnamediv>

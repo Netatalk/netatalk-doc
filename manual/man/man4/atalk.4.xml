@@ -11,7 +11,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname>atalk</refname>
+    <refname>atalk<indexterm><primary>atalk</primary></indexterm></refname>
 
     <refpurpose>AppleTalk protocol family</refpurpose>
   </refnamediv>

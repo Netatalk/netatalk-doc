@@ -18,7 +18,11 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>afppasswd</command>
+      <command>afppasswd<indexterm><primary>afppasswd</primary></indexterm><indexterm>
+        <primary>UAM</primary>
+
+        <secondary>User Authentication Module</secondary>
+      </indexterm></command>
 
       <arg choice="opt">-acfn</arg>
 
@@ -37,11 +41,7 @@
 
     <para><command>afppasswd</command> allows the maintenance of afppasswd
     files created by netatalk for use by some User Authentication Modules
-    (UAMs<indexterm>
-        <primary>UAM</primary>
-
-        <secondary>User Authentication Module</secondary>
-      </indexterm>)</para>
+    (UAMs).</para>
 
     <para><command>afppasswd</command> can either be called by root with
     parameters, or can be called by local system users with no parameters to

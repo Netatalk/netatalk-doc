@@ -18,7 +18,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>getzones</command>
+      <command>getzones<indexterm><primary>getzones</primary></indexterm></command>
 
       <group choice="opt">
         <arg choice="plain">-m</arg>
