@@ -1,5 +1,5 @@
 #!/bin/sh
-# ($Id: dump-faq.sh,v 1.2 2004-08-16 16:03:43 tkaiser Exp $)
+# ($Id: dump-faq.sh,v 1.3 2004-08-21 15:07:59 tkaiser Exp $)
 # 
 # quick&dirty script to extract the contents of the Netatalk FAQ PhpWiki. Set 
 # $BaseURL to the index page. The script will output the stuff to stdout
@@ -9,8 +9,8 @@ URLFilter="http://netatalk.sourceforge.net/wiki/index.php/"
 
 ExtractFAQ=false
 MyCounter=1
-MyTOC="$(mktemp /tmp/Netatalk-FAQ.XXXXX)"
-MyContents="$(mktemp /tmp/Netatalk-FAQ.XXXXX)"
+MyTOC="$(mktemp /tmp/Netatalk-FAQ.XXXXXX || exit 1)"
+MyContents="$(mktemp /tmp/Netatalk-FAQ.XXXXXX || exit 1)"
 
 echo -e "Extracting PhpWiki contents\c" >&2
 # Check lynx version
