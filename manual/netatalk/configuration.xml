@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>Setting up Netatalk</title>
+
+  <sect1>
+    <title>Appletalk</title>
+
+    <sect2>
+      <title>Setting up AppleTalk</title>
+
+      <para>The AppleTalk protocol is configured in atalkd.conf. For detailed
+      information please reference <ulink
+      url="http://www.neon.com/atalk_routing.html">http://www.neon.com/atalk_routing.html</ulink>
+      and <ulink url="http://www-commeng.cso.uiuc.edu/docs/appletalk/">http://www-commeng.cso.uiuc.edu/docs/appletalk/</ulink></para>
+
+      <para>The whole point of setting up atalkd is to allow AppleTalk routing
+      to the localhost as a file and print server. The atalkd.conf file sets
+      up the AppleTalk routing by assigning AppleTalk zone (or zones)
+      information to the networks it is attached to.</para>
+
+      <para>Within AppleTalk there are three different types of routers:
+      seed,nonseed and soft seed.</para>
+
+      <para>Seed publishes the network and zone information to the network. In
+      the case of a conflict, this router takes precedence. Nonseed acts as a
+      forwarder in that all network and zone information for its network
+      segment is pulled from an upstream router. A soft seed router is
+      configured like a seed router, but will defer and use upstream seeded
+      zone information if there is a conflict.</para>
+
+      <para>Netatalk has the option to behave like a nonseed router or a soft
+      seed router. Netatalk will defer to an upstream seed if there is a
+      conflict. Any missing configurations will be filled from the network.
+      Appletalk phases are of two types. The unused, unsupported, obsolete
+      phase 1, or the new useful phase 2. Phase 1 was Apple&#39;s original
+      protocol for Appletalk over LocalTalk. It treated an entire network
+      segment as one AppleTalk network capable of holding 254 nodes. Don&#39;t
+      use this unless you are directly connected to a LocalTalk network
+      (unlikely these days). Phase 2 is the new version. It allows a
+      configurable network range between the numbers 1 and 65279, each network
+      capable of hosting 253 nodes for a total of 16,515,587 AppleTalk
+      interfaces. That&#39;s a lot of iMacs. :-)</para>
+
+      <para>Within an AppleTalk network addressing is a Network:Node:Socket
+      triplet. The socket number is generally dropped because nothing uses the
+      information. Using ethernet and phase 2 the network number can be
+      singular, &#39;1&#39; or a range, &#39;1-20&#39;. Node assignment is the
+      responsibility of the clients so you don&#39;t have to worry about it.
+      The range of 65280-65534 is called the startup range and is used by the
+      Mac when it is on a network without any routers, you probably
+      shouldn&#39;t publish a network within this range. If you&#39;re
+      publishing to a LocalTalk network segment (Hello? Welcome to Y2K. :)
+      your maximum network range is _one_ network. <emphasis>Zones must be
+      less then 32 characters long</emphasis>. Format of lines in this file:
+      interface [ -seed ] [ -router | -dontroute ] [ -phase { 1 | 2 } ] [
+      -addr net.node ] [ -net first[-last] ] [ -zone ZoneName ] ...</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>interface: the interface that is publishing the appletalk
+          server. e.g. eth0</para>
+        </listitem>
+
+        <listitem>
+          <para>-seed - requires two interfaces. The router is acting as a
+          bridge between the two networks. A soft seed router.</para>
+        </listitem>
+
+        <listitem>
+          <para>-router - only requires one interface.</para>
+        </listitem>
+
+        <listitem>
+          <para>-dontroute - don&#39;t publish routing information</para>
+        </listitem>
+
+        <listitem>
+          <para>-addr this machines network.node address.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Examples:</para>
+
+      <example>
+        <title>atalk.conf for automatic configuration</title>
+
+        <para><programlisting>eth0</programlisting>Appletalk network is on the
+        eth0 interface, no routing information published, get it all off the
+        network.</para>
+      </example>
+
+      <example>
+        <title>a little more complicated atalk.conf example</title>
+
+        <para><programlisting>eth0 -router -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programlisting>Appletalk
+        network is on eth0, this server is not a bridge, it publishes zone
+        information for Networks 100-110. The servers appletalk node address
+        is node 10 of network 100. This zone is called Upstairs.</para>
+      </example>
+
+      <example>
+        <title>atalk.conf for configuring a seed router</title>
+
+        <para><programlisting>eth0 -phase 2
+eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programlisting>This
+        allows routing between the appletalk networks on eth0 and eth1, for
+        eth1 this server acts as a soft seed router of a phase 2 network
+        segment of 100-110 where this machine is 100.</para>
+      </example>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>File Services</title>
+
+    <para>Netatalk supplies two different types of AFP servers and both can
+    run at the same time. Classic AFP over AppleTalk requires the
+    <command>afpd</command> and <command>atalkd</command> daemons. AFP over IP
+    only requires <command>afpd</command>.</para>
+
+    <sect2>
+      <title>Setting up a the AFP file server</title>
+
+      <para>AFP (the Apple Filing Protocol) is the protocol Apple Macintoshs
+      use for file services. The protocol has evolved over the years, at the
+      time of this writing 6 different &#34;dialects&#34; exist. The latest
+      changes to the protocol, called &#34;AFP 3.1&#34;, were added with the
+      release of Panther (OSX 10.3).</para>
+
+      <para>AFP3 brought some big changes. For the first time, Apple Clients
+      can use filenames up to 255 characters (actually 255 bytes), UTF-8 is
+      used on the wire and large files (&#62;4GB) are supported.</para>
+
+      <para>The afpd deamon offers the fileservices to Apple Clients. It&#39;s
+      configured using the <filename>afpd.conf</filename> and the
+      <filename>AppleVolumes.*</filename> files.</para>
+
+      <sect3>
+        <title>afpd.conf</title>
+
+        <para>afpd.conf is the configuration file used by afpd to determine
+        the behavior and configuration of the different virtual file servers
+        that it provides. Any line not prefixed with <keycode>&#39;#</keycode>&#39;
+        is interpreted.</para>
+
+        <para>Format: - [options] to specify options for the default server
+        and/or &#34;Server name&#34; [options] to specify an additional server</para>
+
+        <para>Leaving the afpd.conf file empty equals to the following
+        configuration:</para>
+
+        <para><programlisting>- -transall -uamlist uams_guest.so,uams_clrtxt.so,uams_dhx.so -nosavepassword</programlisting>--&#62;
+        man afpd.conf</para>
+      </sect3>
+
+      <sect3>
+        <title>AppleVolumes.default</title>
+
+        <para>--&#62; man AppleVolumes.default</para>
+      </sect3>
+
+      <sect3>
+        <title>CNID backends</title>
+
+        <para>Unlike other protocols like smb or nfs, the AFP protocol mostly
+        refers to files and directories by ID and not by a path. A typical AFP
+        request uses a directory ID and a filename, something like
+        <phrase><phrase>&#34;server, please open the file named &#39;Test&#39;
+        in the directory with id 167&#34;</phrase>. For example
+        &#34;Aliases&#34; on the Mac basically work by ID.</phrase></para>
+
+        <para>Every file in an AFP volume has to have a unique ID, IDs must,
+        according to the specs, never be reused, and ID&#39;s are 32 bit
+        numbers. So, after ~4 billion files have been written to an AFP
+        volume, the ID pool is depleted and no new file can be written to the
+        volume. No whining please :-)</para>
+
+        <para>Netatalk needs to map IDs to files and folders in the host
+        filesystem. To achive this, several different CNID backends are
+        available. A CNID backend is basically a database storing ID
+        &#60;-&#62; name mappings.</para>
+
+        <para>In the past, many users used the so called &#34;last&#34; CNID
+        scheme. However, this scheme has some serious drawbacks, as it is
+        based on the device and inode of a file. Therefore, IDs will be
+        eventually be reused and you can get duplicate IDs as well.</para>
+
+        <para>The CNID Databases are by default located in the .AppleDB folder
+        in every afpd volume root. With the new AD2 format, afpd stores the
+        files/directories ID in the corresponding .AppleDouble file as well.</para>
+
+        <note>
+          <para>There are some CNID related things you should keep in mind
+          when working with netatalk:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Don&#39;t use unix symlinks. Just don&#39;t. With a
+              symlink a file/directory &#34;exists&#34; twice, something AFP
+              doesn&#39;t allow. There&#39;s currently no way this can be
+              resolved, as we either end up with two file/dirs having the same
+              id, or a files having two parents. If you still insist on using
+              them, be aware you&#39;re <emphasis>heavily</emphasis> violating
+              the specs. You have been warned...</para>
+            </listitem>
+
+            <listitem>
+              <para>Don&#39;t nest volumes.</para>
+            </listitem>
+
+            <listitem>
+              <para>CNID backends are databases, so they turn afpd into a file
+              server/database mix. Keep this in mind, killing an afpd process
+              with <command>kill -9</command> will likely leave the database
+              unusable.</para>
+            </listitem>
+
+            <listitem>
+              <para>If there&#39;s no more space on the filesystem left, the
+              database will get corrupted. You can work around this by either
+              using the -dbpath option and put the database files into another
+              location or, if you use quotas, make sure the .AppleDB folder is
+              owned by a user/group without a quota.</para>
+            </listitem>
+          </itemizedlist>
+        </note>
+
+        <para></para>
+
+        <sect4>
+          <title>cdb</title>
+
+          <para>The &#34;concurrent database&#34; backend is based on
+          sleepycat&#39;s Berkely DB. With this backend several afpd deamons
+          access the CNID database directly. Berkeley DB locking is used to
+          synchronize access, if more than one afpd process is active for a
+          volume. The drawback is, that the crash of a single afpd process
+          might corrupt the database.</para>
+        </sect4>
+
+        <sect4>
+          <title>bdb</title>
+
+          <para>Access to the CNID database is restricted to a the cnid_metad
+          daemon process. afpd processes communicate with the daemon for
+          database reads and updates. If built with Berkeley DB transactions
+          the probability for database corruption is practically zero, but
+          performance can be slower than with cdb. As a database process gets
+          spawned for each volume, you&#39;re probably better off using cdb
+          for sharing home directories for a larger number of users.</para>
+        </sect4>
+
+        <sect4>
+          <title>last</title>
+
+          <para>The last backend is a semi persistent backend. ID&#39;s will
+          be reused and, what is much worse, you can get duplicate IDs. You
+          should use it for sharing cdroms only, <emphasis>don&#39;t</emphasis>
+          use it for sharing normal volumes.</para>
+        </sect4>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Printing</title>
+
+    <para></para>
+
+    <sect2>
+      <title>Setting up the PAP print server</title>
+
+      <para># Attributes are: # # Name Type Default Description # pd str
+      &#34;.ppd&#34; Pathname to ppd file. # pr str &#34;lp&#34; LPD printer
+      name. # pa str &#34;0.0&#34; AppleTalk address (not usually needed). #
+      op str &#34;operator&#34; Operator name, for LPD spooling. # au flag
+      not-present If present, authentication required # note that if ca and sp
+      are both set, # ca will be tried first and then sp # am str none Comma
+      separated list of uams to use # (for every printer) whenever #
+      authentication is on # ca str not-present If present, use cap-style
+      authentication # directory to place print authentication files # sp flag
+      not-present use PSSP authentication. # # Some examples: # A simple
+      example: # # terminator:\ # :pr=lp:op=wes:\ #
+      :pd=/usr/share/lib/ppd/HPLJ_4M.PPD: # # An example with authenticated
+      printing: # authprn:\ # :pr=|/usr/bin/lpr -Plp:\ #
+      :pd=/usr/share/lib/ppd/HPLJ_4M.PPD:\ # :sp:ca=/tmp/print:\ #
+      :am=uams_clrtxt.so: # # Note also that papd.conf can list several
+      printers. # # The printer name in papd may be a full NBP-name of the
+      form # name:type@zone, for example: # Printer 1:LaserWriter@Printing and
+      Mailing:\ # :pr=|/usr/bin/lpr -Plp1: # # Warning: If you are using more
+      than 15 printers and you do not # specify the zone in the printer name,
+      only some of the printers may # appear in the Chooser.</para>
+    </sect2>
+  </sect1>
+</chapter>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry id="acleandir1">
+  <refmeta>
+    <refentrytitle>acleandir</refentrytitle>
+
+    <manvolnum>1</manvolnum>
+
+    <refmiscinfo class="date">26 Feb 1998</refmiscinfo>
+
+    <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname>acleandir</refname>
+
+    <refpurpose>clean up a directory containing netatalk Apple Macintosh files</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>acleandir</command>
+
+      <arg choice="opt">-rnvi</arg>
+
+      <arg choice="plain"><replaceable>dirname</replaceable></arg>
+
+      <sbr />
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para><command>acleandir</command> cleans up the directory <emphasis
+    remap="I">dirname.</emphasis> By default it simply removes
+    &#34;orphan&#34; AppleDouble files, i.e. those which do not have a
+    corresponding data file.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>OPTIONS</title>
+
+    <variablelist remap="TP">
+      <varlistentry>
+        <term><option>-d</option></term>
+
+        <listitem>
+          <para>Also remove the .AppleDouble directory if it contains no
+          AppleDouble files after &#34;orphan&#34; removal. This will result
+          in the finder location of <emphasis remap="I">dirname</emphasis>
+          within its parent being lost.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>-r</option></term>
+
+        <term><option>-R</option></term>
+
+        <listitem>
+          <para>Recursive. Clean up directories recursively.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>-n</option></term>
+
+        <listitem>
+          <para>Display the filenames of &#34;orphans&#34; but don&#39;t
+          remove any. Display size if &#34;orphan&#34; appears to contain a
+          resource fork.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>-i</option></term>
+
+        <listitem>
+          <para>Interactive. Prompt for confirmation before a removal. A y in
+          answer confirms that the removal should proceed.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>-v</option></term>
+
+        <listitem>
+          <para>Verbose. Display the names of all &#34;orphans&#34; and
+          .AppleDouble directories removed. Reports the size if the
+          &#34;orphan&#34; appears to contain a resource fork.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>-a</option></term>
+
+        <listitem>
+          <para>Aggressive. Remove all AppleDouble files, not just
+          &#34;orphans&#34;. Also remove the .AppleDesktop directory if
+          present. Impies <option>-d</option> option. Use with caution as the
+          Macintosh type/creator and finder location of all files will be lost
+          and the content of some documents, such as Symantec Projects, will
+          be destroyed.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>DIAGNOSTICS</title>
+
+    <para>returns exit status 0 unless bad options are provided or a directory
+    is not given on the command line.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para><citerefentry><refentrytitle>afile</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+    <citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>1</manvolnum></citerefentry></para>
+  </refsect1>
+</refentry>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry id="timeout1">
+  <refmeta>
+    <refentrytitle>timeout</refentrytitle>
+
+    <manvolnum>1</manvolnum>
+
+    <refmiscinfo class="date">19 Jul 2001</refmiscinfo>
+
+    <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
+
+    <refmiscinfo class="manual">The Netatalk Project</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname>timeout</refname>
+
+    <refpurpose>Send a signal to a program after a certain time</refpurpose>
+  </refnamediv>
+
+  <refsect1>
+    <title>SYNTAX</title>
+
+    <para>timeout [-s <emphasis remap="I">signal</emphasis>] <emphasis
+    remap="I">seconds</emphasis> <emphasis remap="I">program</emphasis> [<emphasis
+    remap="I">args</emphasis>]</para>
+  </refsect1>
+
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para><emphasis remap="B">timeout</emphasis> executes a <emphasis
+    remap="I">program</emphasis> (with arguments <emphasis remap="I">args</emphasis>)
+    and sends a <emphasis remap="I">signal</emphasis> to it after a certain
+    amount of <emphasis remap="I">seconds</emphasis>.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>OPTIONS</title>
+
+    <variablelist remap="TP">
+      <varlistentry>
+        <term><option>-s</option> <replaceable>signal</replaceable></term>
+
+        <listitem>
+          <para>Signal to send to the spawned process. This can be a numerical
+          or symbolic ID. This defaults to <envar>TERM</envar>.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>EXAMPLES</title>
+
+    <variablelist remap="TP">
+      <varlistentry>
+        <term>timeout 10 pap foo.ps</term>
+
+        <listitem>
+          <para>Execute &#34;pap foo.ps&#34; and send a <constant>SIGTERM</constant>
+          if <emphasis remap="B">pap</emphasis> doesn&#39;t return after 10
+          seconds.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>timeout -s HUP 60 sh</term>
+
+        <listitem>
+          <para>Spawn a shell and send a hangup signal after one minute.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>timeout -s 9 10 evilprog</term>
+
+        <listitem>
+          <para>Execute a program and <emphasis remap="B">KILL</emphasis> it
+          if it doesn&#39;t quit after 10 seconds.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+</refentry>

@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry id="afpd.conf.5">
+  <!--  $Id: afpd.conf.5.xml,v 1.1 2004-01-04 22:22:25 bfernhomberg Exp $ -->
+
+  <refmeta>
+    <refentrytitle>afpd.conf</refentrytitle>
+
+    <manvolnum>5</manvolnum>
+
+    <refmiscinfo class="date">28 November 2003</refmiscinfo>
+
+    <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname>afpd.conf</refname>
+
+    <refpurpose>Configuration file used by afpd(8) to determine the setup of
+    its file sharing services</refpurpose>
+  </refnamediv>
+
+  <refsect1>
+    <title>Description</title>
+
+    <para><filename>:ETCDIR:/afpd.conf</filename> is the configuration file
+    used by <command>afpd</command> to determine the behavior and
+    configuration of the different virtual file servers that it provides.</para>
+
+    <para>Any line not prefixed with # is interpreted. The configuration lines
+    are composed like: server name [ options ] If a - is used instead of a
+    server name, the default server is specified. Server names must be quoted
+    if they contain spaces. The path name must be a fully qualified path name,
+    or a path name using either the ~ shell shorthand or any of the
+    substitution variables, which are listed below.</para>
+
+    <para><note><para>Each server has to be configured on a <emphasis
+    role="bold">single</emphasis> line.</para></note>The possible options and
+    their meanings are:</para>
+  </refsect1>
+
+  <refsect1>
+    <title>AppleVolumes Files</title>
+
+    <variablelist>
+      <varlistentry>
+        <term>-defaultvol <replaceable>[path]</replaceable></term>
+
+        <listitem>
+          <para>Specifies path to AppleVolumes.default file (default is
+          <filename>:ETCDIR:/AppleVolumes.default</filename>).</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-systemvol <replaceable>[path]</replaceable></term>
+
+        <listitem>
+          <para>Specifies path to AppleVolumes.system file (default is
+          <filename>:ETCDIR:/AppleVolumes.system</filename>).</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-[no]uservol</term>
+
+        <listitem>
+          <para>Enables or disables reading of the users&#39; individual
+          volumes file entirely.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-[no]uservolfirst</term>
+
+        <listitem>
+          <para>Enables or disables reading of the users&#39; individual
+          volumes file before processing the global <filename>AppleVolumes.default</filename>
+          file.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Authentication Methods</title>
+
+    <variablelist>
+      <varlistentry>
+        <term>-uamlist <replaceable>[uams list]</replaceable></term>
+
+        <listitem>
+          <para>Comma separated list of UAMs. (The default is
+          uams_guest.so,uams_clrtxt.so,uams_dhx.so).</para>
+
+          <para>The most commonly used UAMs are:</para>
+
+          <variablelist>
+            <varlistentry>
+              <term>uams_guest.so</term>
+
+              <listitem>
+                <para>allows guest logins</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>uams_clrtxt.so</term>
+
+              <listitem>
+                <para>(uams_pam.so or uams_passwd.so) Allow logins with
+                passwords transmitted in the clear.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>uams_randum.so</term>
+
+              <listitem>
+                <para>allows Random Number and Two-Way Random Number Exchange
+                for authentication (requires
+                /usr/local/netatalk-head-testing//etc/netatalk/afppaswd file)</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>uams_dhx.so</term>
+
+              <listitem>
+                <para>(uams_dhx_pam.so or uams_dhx_passwd.so) Allow
+                Diffie-Hellman eXchange (DHX) for authentication.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>uam_gss.so</term>
+
+              <listitem>
+                <para>Allow Kerberos V for authetication (optional)</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-uampath <replaceable>[path]</replaceable></term>
+
+        <listitem>
+          <para>Sets the default path for UAMs for this server (default is
+          /usr/local/netatalk-head-testing//etc/netatalk/uams).</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-k5keytab <replaceable>[path]</replaceable></term>
+
+        <term>-k5service <replaceable>[service]</replaceable></term>
+
+        <term>-k5realm <replaceable>[realm]</replaceable></term>
+
+        <listitem>
+          <para>These are required if the server supports the Kerberos 5
+          authentication UAM.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Codepage Options</title>
+
+    <para>With OS X Apple introduced the AFP3 protocol. One of the big changes
+    was, that AFP3 uses Unicode names encoded as UTF-8 decomposed. Previous
+    AFP/OS versions used codepages, like MacRoman, MacCentralEurope, etc.</para>
+
+    <para>To be able to serve AFP3 and older clients at the same time,
+    <command>afpd</command> needs to be able to convert betweend UTF-8 and Mac
+    codepages. Even OS X clients partly still rely on codepages. As
+    there&#39;s no way, <command>afpd</command> can detect the codepage a pre
+    AFP3 client uses, you have to specify it using the <option>-maccodepage</option>
+    option. The default is MacRoman, which should be fine for most western
+    users.</para>
+
+    <para>As <command>afpd</command> needs to interact with unix operating
+    system as well, it need&#39;s to be able to convert from UTF-8/MacCodepage
+    to the unix codepage. By default <command>afpd</command> uses the systems
+    LOCALE, or ASCII if your system doesn&#39;t support locales. You can set
+    the unix codepage using the <option>-unixcodepage</option> option. If
+    you&#39;re using extended characters in the configuration files for
+    <command>afpd</command>, make sure your terminal matches the
+    <option>-unixcodepage</option>.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>-unixcodepage [<parameter>CODEPAGE</parameter>]</term>
+
+        <listitem>
+          <para>Specifies the servers unix codepage, e.g.
+          &#34;ISO-8859-15&#34; or &#34;UTF8&#34;. This is used to convert
+          strings to/from the systems locale, e.g. for authenthication, server
+          messages and volume names. Defaults to LOCALE if your system
+          supports it, otherwise ASCII will be used.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-maccodepage [<parameter>CODEPAGE</parameter>]</term>
+
+        <listitem>
+          <para>Specifies the mac clients codepage, e.g. &#34;MAC_ROMAN&#34;.
+          This is used to convert strings and filename to the clients codepage
+          for OS9 and Classic, i.e. for authentication and SIGUSR2 messaging.
+          This will also be the default for the volumes maccharset. Defaults
+          to MAC_ROMAN.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Password Options</title>
+
+    <variablelist>
+      <varlistentry>
+        <term>-loginmaxmail [<parameter>number</parameter>]</term>
+
+        <listitem>
+          <para>Sets the maximum number of failed logins, if supported by the
+          UAM</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-passwdfile [<parameter>path</parameter>]</term>
+
+        <listitem>
+          <para>Sets the path to the Randnum UAM passwd file for this server
+          (default is
+          /usr/local/netatalk-head-testing//etc/netatalk/afppasswd).</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-passwdminlen [<parameter>number</parameter>]</term>
+
+        <listitem>
+          <para>Sets the minimum password length, if supported by the UAM</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-[no]savepassword</term>
+
+        <listitem>
+          <para>Enables or disables the ability of clients to save passwords
+          locally</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-[no]setpassword</term>
+
+        <listitem>
+          <para>Enables or disables the ability of clients to change their
+          passwords</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Transport Protocols</title>
+
+    <variablelist>
+      <varlistentry>
+        <term>-[no]ddp</term>
+
+        <listitem>
+          <para>Enables or disables AFP-over-Appletalk. If -proxy is
+          specified, you must instead use -uamlist &#34;&#34; to prevent DDP
+          connections from working.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-[no]tcp</term>
+
+        <listitem>
+          <para>Enables or disables AFP-over-TCP</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-transall</term>
+
+        <listitem>
+          <para>Make both available (default)</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Transport Options</title>
+
+    <variablelist>
+      <varlistentry>
+        <term>-ddpaddr <replaceable>[ddp address]</replaceable></term>
+
+        <listitem>
+          <para>Specifies the DDP address of the server. The default is to
+          auto-assign an address (0.0). This is only useful if you are running
+          on a multihomed host.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-fqdn <replaceable>[name:port]</replaceable></term>
+
+        <listitem>
+          <para>Specifies a fully-qualified domain name, with an optional
+          port. This is discarded if the server cannot resolve it. This option
+          is not honored by AppleShare clients &#60;= 3.8.3. This option is
+          disabled by default.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-ipaddr <replaceable>[ip address]</replaceable></term>
+
+        <listitem>
+          <para>Specifies the IP that the server should respond to (the
+          default is the first IP address of the system). This option also
+          allows one machine to advertise TCP/IP for another machine.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-port <replaceable>[port number]</replaceable></term>
+
+        <listitem>
+          <para>Allows a different TCP port to be specified for AFP-over-TCP.
+          The default is 548.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-proxy</term>
+
+        <listitem>
+          <para>Runs an AppleTalk proxy server for the specified AFP-over-TCP
+          server. If the address and port aren&#39;t given, then the first IP
+          address of the system and port 548 will be used. If you don&#39;t
+          want the proxy server to act as a DDP server as well, set -uamlist
+          &#34;&#34;.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-server_quantum <replaceable>[number]</replaceable></term>
+
+        <listitem>
+          <para>This specifoes the DSI server quantum. The minimum value is
+          303840 (0x4A2E0). The maximum value is 0xFFFFFFFFF. If you specify a
+          value that is out of range, the default value will be set (which is
+          the minimum).</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-noslp</term>
+
+        <listitem>
+          <para>Do not register this server using the Service Location
+          Protocol (if SLP support was compiled in). This is useful if you are
+          running multiple servers and want one to be hidden, perhaps because
+          it is advertised elsewhere.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Miscellaneous Options</title>
+
+    <variablelist>
+      <varlistentry>
+        <term>-admingroup <replaceable>[group]</replaceable></term>
+
+        <listitem>
+          <para>Allows users of a certain group to be seen as the superuser
+          when they log in. This option is disabled, by default.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-authprintdir <replaceable>[path]</replaceable></term>
+
+        <listitem>
+          <para>Specifies the path to be used (per server) to store the files
+          required to do CAP-style print authentication which papd will
+          examine to determine if a print job should be allowed. These files
+          are created at login and if they are to be properly removed, this
+          directory probably needs to be umode 1777.</para>
+
+          <note>
+            <para><option>-authprintdir</option> will only work for clients
+            connecting via DDP. Most modern Clients will use TCP.</para>
+          </note>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-client_polling</term>
+
+        <listitem>
+          <para>With this switch enabled, afpd won&#39;t advertise that it is
+          capable of server notifications, so that connected clients poll the
+          server every 10 seconds to detect changes in opened server windows.
+          <emphasis>Note</emphasis>: Depending on the number of simultaneously
+          connected clients and the network&#39;s speed, this can lead to a
+          significant higher load on your network!</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-cnidserver <replaceable>[ipaddress:port]</replaceable></term>
+
+        <listitem>
+          <para>Specifies the IP address and port of a cnid_metad server,
+          required for CNID bdb backend.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-guestname <replaceable>[name]</replaceable></term>
+
+        <listitem>
+          <para>Specifies the user that guests should use (default is
+          &#34;nobody&#34;). The name should be quoted.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-icon</term>
+
+        <listitem>
+          <para>Use the platform-specific icon</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-loginmesg <replaceable>[message]</replaceable></term>
+
+        <listitem>
+          <para>Sets a message to be displayed when clients logon to the
+          server. The message should be in <option>unixcodepage</option> and
+          should be quoted. Extended characters are allowed.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-nodebug</term>
+
+        <listitem>
+          <para>Disables debugging</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-sleep <replaceable>[number]</replaceable></term>
+
+        <listitem>
+          <para>AFP 3.x waits <parameter>number</parameter> hours before
+          disconnecting clients in sleep mode. Default is 10 hours</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-signature { user:&#60;text&#62; | host }</term>
+
+        <listitem>
+          <para>Specify a server signature. This option is useful while
+          running multiple independent instances of afpd on one machine (eg.
+          in clustered environments, to provide fault isolation etc.).
+          &#34;host&#34; signature type allows afpd generating signature
+          automatically (based on machine primary IP address). &#34;user&#34;
+          signature type allows administrator to set up a signature string
+          manually.</para>
+
+          <para>Examples: three servers running on one machine: first
+          -signature user:USERS second -signature user:USERS third -signature
+          user:ADMINS</para>
+
+          <para>First two servers will act as one logical AFP service - if
+          user logs in to first one and then connects to second one, session
+          will be automatically redirected to the first one. But if client
+          connects to first and then to third, will be asked for password
+          twice and will see resources of both servers. Traditional method of
+          signature generation causes two independent afpd instancesto have
+          the same signature and thus cause clients to be redirected
+          automatically to server (s)he logged in first.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Logging Options</title>
+
+    <variablelist>
+      <varlistentry>
+        <term>-[un]setuplog &#34;<parameter>&#60;logtype&#62;
+        &#60;loglevel&#62; [&#60;filename&#62;]</parameter>&#34;</term>
+
+        <listitem>
+          <para>Specify that the given loglevel should be applied to log
+          messages of the given logtype and that these messages should be
+          logged to the given file. If the filename is ommited the loglevel
+          applies to messages passed to syslog. Each logtype may have a
+          loglevel applied to syslog and a loglevel applied to a single file.
+          Latter <option>-setuplog</option> settings will override earlier
+          ones of the same logtype (file or syslog).</para>
+
+          <para>logtypes: Default, Core, Logger, CNID, AFPDaemon loglevels:
+          LOG_SEVERE, LOG_ERROR, LOG_WARN, LOG_NOTE, LOG_INFO, LOG_DEBUG,
+          LOG_DEBUG6, LOG_DEBUG7, LOG_DEBUG8, LOG_DEBUG9, LOG_MAXDEBUG</para>
+
+          <para>Example: -setuplog &#34;logger log_maxdebug
+          /var/log/netatalk-logger.log&#34; -setuplog &#34;afpdaemon
+          log_maxdebug /var/log/netatalk-afp.log&#34; -unsetuplog &#34;default
+          level file&#34; -setuplog &#34;default log_maxdebug&#34;</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Debug Options</title>
+
+    <para>These options are useful for debugging only.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>-tickleval <replaceable>[number]</replaceable></term>
+
+        <listitem>
+          <para>Sets the tickle timeout interval (in seconds).</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-timeout <replaceable>[number]</replaceable></term>
+
+        <listitem>
+          <para>Specify the number of tickles to send before timing out a
+          connection. The default is 4, therefore a connection will timeout in
+          2 minutes.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Examples</title>
+
+    <example>
+      <title>Default configuration</title>
+
+      <programlisting>- -transall -uamlist uams_clrtxt.so,uams_dhx.so,uams_guest.so</programlisting>
+    </example>
+
+    <example>
+      <title>MacCyrillic setup / UTF8 unix locale</title>
+
+      <programlisting>- -transall -maccodepage mac_cyrillic -unixcodepage utf8</programlisting>
+    </example>
+
+    <example>
+      <title>Setup for Kerberos V auth</title>
+
+      <programlisting>- -transall -uamlist uams_clrtxt.so,uams_dhx.so,uams_guest.so,uams_gss.so -k5service afpserver -k5keytab /path/to/afpserver.keytab -k5realm YOUR.REALM -fqdn your.fqdn.namel:548</programlisting>
+    </example>
+
+    <example>
+      <title>Three servers on one machine</title>
+
+      <programlisting>&#34;Guest Server&#34; -uamlist uams_guest.so -loginmesg &#34;Welcome guest!&#34;
+&#34;User Server&#34; -uamlist uams_dhx.so -port 12000
+&#34;special&#34; -notcp -defaultvol &#60;path&#62; -systemvol &#60;path&#62;</programlisting>
+    </example>
+  </refsect1>
+
+  <refsect1>
+    <title>See also</title>
+
+    <para><citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+    AppleVolumes.<citerefentry><refentrytitle>default</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
+  </refsect1>
+</refentry>

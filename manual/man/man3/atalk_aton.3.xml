@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<!-- lifted from troff+man by doclifter -->
+<refentry id="atalk_aton3">
+  <refmeta>
+    <refentrytitle>ATALK_ATON</refentrytitle>
+
+    <manvolnum>3</manvolnum>
+
+    <refmiscinfo class="date">12 Jan 1994</refmiscinfo>
+
+    <refmiscinfo class="source">netatalk 1.3</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname>atalk_aton</refname>
+
+    <refpurpose>AppleTalk address parsing</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include &#60;sys/types.h&#62;
+#include &#60;netatalk/at.h&#62;
+
+</funcsynopsisinfo>
+
+      <funcprototype>
+        <funcdef><function>atalk_aton</function></funcdef>
+
+        <paramdef>* <parameter>cp</parameter></paramdef>
+
+        <paramdef>struct at_addr * <parameter>ata</parameter></paramdef>
+      </funcprototype>
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para>The <function>atalk_aton()</function> routine converts an ascii
+    representation of an AppleTalk address to a format appropriate for system
+    calls. Acceptable ascii representations include both hex and base 10, in
+    triples or doubles. For instance, the address `0x1f6b.77&#39; has a
+    network part of `8043&#39; and a node part of `119&#39;. This same address
+    could be written `8043.119&#39;, `31.107.119&#39;, or `0x1f.6b.77&#39;. If
+    the address is in hex and the first digit is one of `A-F&#39;, a leading
+    `0x&#39; is redundant.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para><citerefentry><refentrytitle>atalk</refentrytitle><manvolnum>4</manvolnum></citerefentry>.</para>
+  </refsect1>
+</refentry>

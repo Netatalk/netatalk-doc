@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry id="netatalkconf5tmpl">
+  <!--  $Id: netatalk.conf.5.xml,v 1.1 2004-01-04 22:22:25 bfernhomberg Exp $ -->
+
+  <refmeta>
+    <refentrytitle>netatalk.conf</refentrytitle>
+
+    <manvolnum>5</manvolnum>
+
+    <refmiscinfo class="date">28 September 2000</refmiscinfo>
+
+    <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname>netatalk.conf</refname>
+
+    <refpurpose>Configuration file used by netatalk(8) to determine its
+    general configuration</refpurpose>
+  </refnamediv>
+
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para><emphasis remap="B">:ETCDIR:/netatalk.conf</emphasis> is the
+    configuration file used by afpd to determine what portions of the file
+    system will be shared via Appletalk, as well as their behaviors.</para>
+
+    <para>Any line not prefixed with <emphasis remap="B">#</emphasis> is
+    interpreted. The configuration lines are composed like:</para>
+
+    <para><emphasis remap="I">option</emphasis> <emphasis remap="B">=</emphasis>
+    <emphasis remap="I">value</emphasis></para>
+
+    <para>The possible options and their meanings are:</para>
+
+    <variablelist remap="TP">
+      <varlistentry>
+        <term><emphasis remap="B">AFPD_GUEST</emphasis></term>
+
+        <listitem>
+          <para>Sets the id of the guest user to a local user on the system.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis remap="B">AFPD_MAX_CLIENTS</emphasis></term>
+
+        <listitem>
+          <para>Sets the maximum number of clients that can simultaneously
+          connect to the server.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis remap="B">AFPD_RUN</emphasis></term>
+
+        <listitem>
+          <para>Enables the afpd daemon if set to &#34;yes&#34;. This should
+          be enabled if you are planning on using netatalk as a file server.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis remap="B">AFPD_UAM_LIST</emphasis></term>
+
+        <listitem>
+          <para>Sets the default UAMs for afpd (and papd, if printer
+          authentication is compiled in) to use.</para>
+
+          <para><emphasis remap="I">Example:</emphasis> <emphasis remap="B">AFPD_UAMLIST</emphasis>=<emphasis
+          remap="B">&#34;-U uams_guest.so,uams_randnum.so&#34;</emphasis></para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis remap="B">ATALK_BGROUND</emphasis></term>
+
+        <listitem>
+          <para>&#34;yes&#34; will set netatalk to initialize in the
+          background, and &#34;no&#34; will cause normal initialization.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis remap="B">ATALK_NAME</emphasis></term>
+
+        <listitem>
+          <para>Sets the machines&#39; Appletalk name.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis remap="B">ATALK_ZONE</emphasis></term>
+
+        <listitem>
+          <para>Sets the machines&#39; Appletalk zone.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis remap="B">ATALKD_RUN</emphasis></term>
+
+        <listitem>
+          <para>Enables the atalkd daemon if set to &#34;yes&#34;. This should
+          be enabled if you are planning on providing Appletalk services.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><emphasis remap="B">PAPD_RUN</emphasis></term>
+
+        <listitem>
+          <para>Enables the papd daemon if set to &#34;yes&#34;. This should
+          be enabled if you are planning on using netatalk as a print server.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para><citerefentry><refentrytitle>atalkd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+    atalkd.<citerefentry><refentrytitle>conf</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
+  </refsect1>
+</refentry>

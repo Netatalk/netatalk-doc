@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<refentry id='apple_rm1tmpl'>
+<refmeta>
+<refentrytitle>apple_rm</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class='date'>16 Oct 2001</refmiscinfo>
+<refmiscinfo class='source'>Netatalk 1.5</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>apple_rm</refname>
+<refpurpose>Do an apple remove, remove the resource fork as well</refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+<para><emphasis remap='B'>:BINDIR:/apple_rm</emphasis>
+<emphasis remap='I'>FILE</emphasis>...</para>
+</refsynopsisdiv>
+
+
+<refsect1><title>DESCRIPTION</title>
+<para><emphasis remap='B'>apple_rm</emphasis>
+is a perl script that removes FILE(s) as well as the .AppleDouble
+resource fork file(s) that corresponds to FILE(s). 
+<emphasis remap='B'>apple_rm</emphasis>
+does not delete directories.</para>
+
+</refsect1>
+
+<refsect1><title>EXAMPLES</title>
+<para><emphasis remap='B'>:BINDIR:/apple_rm</emphasis>
+test.text</para> 
+
+<para><emphasis remap='B'>:BINDIR:/apple_rm</emphasis>
+test.text testing.text</para>
+
+</refsect1>
+
+<refsect1><title>REPORTING BUGS</title>
+<para>Report bugs to the Netatalk-devel list &lt;netatalk-devel@lists.sourceforge.net&gt;.</para>
+
+</refsect1>
+
+<refsect1><title>SEE ALSO</title>
+<para><citerefentry><refentrytitle>apple_cp</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+<citerefentry><refentrytitle>apple_mv</refentrytitle><manvolnum>1</manvolnum></citerefentry>.</para>
+</refsect1>
+</refentry>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter>
+  <title>Introduction to Netatalk</title>
+
+  <para>Netatalk is a collection of server programs and utilities for handling
+  various protocols employed by Apple Macintosh computers on Unix compatible
+  systems.</para>
+
+  <para>This allows Unix hosts to act as file, print, and time servers for
+  Apple Macintosh (classic MacOS as well as MacOS X) computers.</para>
+
+  <sect1>
+    <title>Background</title>
+
+    <para>Not yet ...</para>
+  </sect1>
+</chapter>
