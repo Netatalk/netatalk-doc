@@ -148,7 +148,7 @@ U netatalk/COPYING
           </listitem>
 
           <listitem>
-            <para>4.2.50</para>
+            <para>4.2.52</para>
           </listitem>
         </itemizedlist>
 
@@ -157,7 +157,8 @@ U netatalk/COPYING
 
         <para><ulink url="http://www.sleepycat.com/download/patchlogs.shtml">http://www.sleepycat.com/download/patchlogs.shtml</ulink></para>
 
-        <para>and follow the installation instructions.</para>
+        <para>and follow the <link linkend="build-bdb">installation
+        instructions</link>.</para>
       </sect3>
 
       <sect3>
@@ -231,7 +232,7 @@ U netatalk/COPYING
       </sect3>
     </sect2>
 
-    <sect2>
+    <sect2 id="compiling-netatalk">
       <title>Compiling Netatalk</title>
 
       <sect3>
@@ -246,7 +247,7 @@ U netatalk/COPYING
 
         <para>to see what special options you can enable.</para>
 
-        <para>Here&#39;s a short summary of the most used configure options:</para>
+        <para>The most used configure options are:</para>
 
         <itemizedlist>
           <listitem>
@@ -257,13 +258,17 @@ U netatalk/COPYING
           </listitem>
 
           <listitem>
-            <para>what else ???</para>
+            <para><option>--with-bdb</option>=<replaceable>/path/to/bdb/installation/</replaceable></para>
+
+            <para>In case you installed Berkeley DB in a non-standard
+            location, you will <emphasis>have</emphasis> to give the install
+            location to netatalk, using this switch. </para>
           </listitem>
         </itemizedlist>
 
         <para>Now run configure with any options you need</para>
 
-        <screen><prompt>$&#62;</prompt> <userinput>./configure [arguments]</userinput></screen>
+        <screen><prompt>$&#62;</prompt> <userinput>./configure [arguments] [--with-bdb=/bdb/install/path]</userinput></screen>
 
         <para>If this step fails please visit the troubleshooting guide</para>
 
@@ -280,5 +285,78 @@ U netatalk/COPYING
         <para>to install the binaries and documentation.</para>
       </sect3>
     </sect2>
+
+    <sect2 id="build-bdb">
+      <title>Compiling a new Berkeley DB for Netatalk</title>
+
+      <para>Netatalk 2.0 requires Berkeley DB version 4.0 or newer. Even if
+      you already have a supported version of Berkely DB installed on your
+      system, there are several reasons, why you might still want to consider
+      building a new version for Netatalk.</para>
+
+      <para>Many linux distributions provide a precompiled Berkeley DB
+      version. This is usually nice, but also has one major drawback: If you
+      update your system to a newer release, the installed version of Berkeley
+      DB may change. This can lead to a number of problems, starting with
+      strange behaviour of Netatalk, unreadable CNID Databases. Most likely
+      Netatalk(afpd) won&#39;t start anymore, so you&#39;ll have to recompile
+      Netatalk.</para>
+
+      <para>For instructions compiling Berkeley DB, you should generally refer
+      to the documentation provided by Sleepycat. The following information is
+      meant to help you avoid problems, users experienced in the past.</para>
+
+      <sect3>
+        <title>Using a statically linked Berkeley DB</title>
+
+        <para>To link Netatalk statically to Berkeley DB, you have to disable
+        shared libraries when building Berkeley DB. If shared libraries exist,
+        Netatalk will always link to them, even if a static version exists in
+        the same location.</para>
+
+        <screen><prompt>root#</prompt> <userinput>cd build_unix</userinput>
+<prompt>root#</prompt> <userinput>../../configure --prefix=/install/path --disable-shared</userinput>
+<prompt>root#</prompt> <userinput>make</userinput>
+<prompt>root#</prompt> <userinput>make install</userinput></screen>
+
+        <para>You should now continue with <link linkend="compiling-netatalk">building
+        Netatalk</link>.</para>
+      </sect3>
+
+      <sect3>
+        <title>Using a dynamically linked Berkeley DB</title>
+
+        <para>Building a shared version of Berkeley DB is rather
+        straightforward. However, especially under Linux, some care needs to
+        be taken. Underlying system libraries, i.e. libnss_db, might be using
+        Berkeley DB as well. As these libraries have likely been build with
+        another, i.e. older, version BDB, linking afpd to a newer version can
+        lead to unexpected results.</para>
+
+        <para>You need to configure Berkeley DB with the <option>--with-uniquename</option>
+        configure switch to avoid these kind of problems. It makes sure, your
+        new version will not interfere with another installation of Berkeley
+        DB on your system.</para>
+
+        <screen><prompt>root#</prompt> <userinput>cd build_unix</userinput>
+<prompt>root#</prompt> <userinput>../../configure --prefix=/install/path --with-uniquename</userinput>
+<prompt>root#</prompt> <userinput>make</userinput>
+<prompt>root#</prompt> <userinput>make install</userinput></screen>
+
+        <para>If you select an install path other than <filename>/usr/local</filename>,
+        you will have to configure your linker to look for libraries in this
+        directory.</para>
+
+        <para>On many operating systems, this is done by adding a new entry to
+        <filename>/etc/ld.so.conf</filename>. </para>
+
+        <screen><prompt>root#</prompt> <userinput>echo /install/path/lib &#62;/etc/ld.so.conf</userinput>
+<prompt>root#</prompt> <userinput>ldconfig</userinput></screen>
+
+        <para>You should now continue with <link linkend="compiling-netatalk">building
+        Netatalk</link>.</para>
+      </sect3>
+    </sect2>
   </sect1>
 </chapter>
+
