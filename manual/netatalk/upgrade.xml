@@ -258,7 +258,7 @@
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="choosecnidscheme">
     <title>Choosing a CNID<indexterm>
         <primary>CNID</primary>
       </indexterm> storage scheme</title>
