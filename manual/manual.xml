@@ -39,24 +39,45 @@
 <!ENTITY uniconv.1 SYSTEM "man/man1/uniconv.1.xml">
 <!ENTITY atalk_aton.3 SYSTEM "man/man3/atalk_aton.3.xml">
 <!ENTITY asip-status.pl.1 SYSTEM "man/man1/asip-status.pl.1.xml">
+<!ENTITY cnid_index.1 SYSTEM "man/man1/cnid_index.1.xml">
 ]>
 <book id="netatalk-manual">
   <title revision="0.1 initial version">Netatalk 2.0 Manual</title>
   
 
   <bookinfo>
-    <date>22-08-2004</date>
+    <date>03-01-2005</date>
+    <releaseinfo>:VERSION:</releaseinfo>
   </bookinfo>
 
+ <?latex \setcounter{page}{3} ?>
+<preface>
+        <title>Legal Notice</title>
+<para>
+This documentation is distributed under the GNU General Public License (GPL) version 2.  
+A copy of the license is included in this documentation, as well as within the Netatalk source
+distribution.  An on-line copy can be found at <ulink
+url="http://www.fsf.org/licenses/gpl.txt">http://www.fsf.org/licenses/gpl.txt</ulink>
+</para>
+</preface>
+
+  <?latex \cleardoublepage ?>
+  <!-- Contents -->
   <toc/>
+  <?latex \cleardoublepage ?>
+  <?latex \pagenumbering{arabic} ?>
 
   &Intro;
+  <?latex \cleardoublepage ?>
 
   &Install;
+  <?latex \cleardoublepage ?>
 
   &Configuration;
+  <?latex \cleardoublepage ?>
 
   &Upgrade;
+  <?latex \cleardoublepage ?>
 
   <chapter id="man-pages">
     <title>Manual Pages</title>
@@ -93,7 +114,11 @@
 
     &atalkd.conf.5;
 
+    &atalk_aton.3;
+
     &cnid_dbd.8;
+
+    &cnid_index.1;
 
     &cnid_metad.8;
 
@@ -102,6 +127,8 @@
     &megatron.1;
 
     &nbp.1;
+
+    &nbp_name.3;
 
     &netatalk.conf.5;
 
@@ -125,6 +152,10 @@
 
     &uniconv.1;
   </chapter>
+  <?latex \cleardoublepage ?>
+
+  <?latex \include{gpl}?>
+  <?latex \cleardoublepage ?>
 
   <index id="manual-index"><title>Index</title></index>
 </book>
