@@ -6,235 +6,359 @@
     <title>Appletalk</title>
 
     <para>AppleTalk, the network protocol family founded by Apple, contains
-    different protocols for different uses (address resolution, address/name 
+    different protocols for different uses (address resolution, address/name
     mapping, service location, establishing connections, and the like)</para>
-    
-    <para>A complete overview can be found inside the developer documentation
-    </para>
+
+    <para>A complete overview can be found inside the developer documentation</para>
 
     <sect2>
       <title>To use AppleTalk or not</title>
-      
-      <para>You'll need the AppleTalk support built into netatalk in case you
-      want to provide printing services via PAP by <citerefentry><refentrytitle> 
-      papd</refentrytitle><manvolnum>8</manvolnum></citerefentry> or file 
-      services via AppleTalk via <citerefentry><refentrytitle>afpd
-      </refentrytitle><manvolnum>8</manvolnum></citerefentry> for older AFP 
-      clients not capable of using AFP over TCP. You'll need it also, if you 
-      want to use the depreciated AppleTalk-based timeserver<citerefentry>
-      <refentrytitle>timelord</refentrytitle><manvolnum>8</manvolnum>
-      </citerefentry> for older Mac clients</para>
-      
-      <para>But even if you don't need PAP or AFP over AppleTalk, you might 
-      consider using AppleTalk for service propagation/location, having the 
-      ease of use for your network clients in mind. The Apple engineers
-      implemented a way to easily locate an AFP server via AppleTalk 
-      but establishing the AFP connection itself via AFP over TCP (see the 
+
+      <para>You&#39;ll need the AppleTalk support built into netatalk in case
+      you want to provide printing services via PAP by
+      <citerefentry><refentrytitle>papd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+      or file services via AppleTalk via <citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+      for older AFP clients not capable of using AFP over TCP. You&#39;ll need
+      it also, if you want to use the depreciated AppleTalk-based timeserver
+      <citerefentry><refentrytitle>timelord</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+      for older Mac clients</para>
+
+      <para>But even if you don&#39;t need PAP or AFP over AppleTalk, you
+      might consider using AppleTalk for service propagation/location, having
+      the ease of use for your network clients in mind. The Apple engineers
+      implemented a way to easily locate an AFP server via AppleTalk but
+      establishing the AFP connection itself via AFP over TCP (see the
       developer documentation for details on this cool feature, too)</para>
-      
+
       <para>To use the different base AppleTalk protocols with netatalk, one
-      has to use <citerefentry><refentrytitle>atalkd</refentrytitle> 
-      <manvolnum>8</manvolnum></citerefentry>. It can also be used as an 
-      AppleTalk router to connect different independent network segments to each 
-      other.</para>
-      
-      <para>To use AppleTalk/atalkd, your system has to have kernel support for 
-      AppleTalk. On some systems, that netatalk supports, this isn't currently
-      true (notably True64 Unix) so you can use only services that do not rely     
-      on AppleTalk (read: AFP over TCP)</para>
+      has to use <citerefentry><refentrytitle>atalkd</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
+      It can also be used as an AppleTalk router to connect different
+      independent network segments to each other.</para>
+
+      <para>To use AppleTalk/atalkd, your system has to have kernel support
+      for AppleTalk. On some systems, that netatalk supports, this isn&#39;t
+      currently true (notably True64 Unix) so you can use only netatalk
+      services that do not rely on AppleTalk (which means &#34;AFP over
+      TCP&#34; and requires the -noddp switch in afpd.conf )</para>
     </sect2>
-    
+
     <sect2>
       <title>No AppleTalk routing</title>
-      
-      <para>This is the most simple form, you can use AppleTalk with netatalk. 
-      In case, you have only one network interface up and running, you haven't 
-      to deal with atalkd's config at all: atalkd will use AppleTalk's 
-      self-configuration features to get an AppleTalk address and to register 
-      itself in the network automagically.</para>
-      
-      <para>In case, you have more than one active network interface, you have 
+
+      <para>This is the most simple form, you can use AppleTalk with netatalk.
+      In case, you have only one network interface up and running, you
+      haven&#39;t to deal with atalkd&#39;s config at all: atalkd will use
+      AppleTalk&#39;s self-configuration features to get an AppleTalk address
+      and to register itself in the network automagically.</para>
+
+      <para>In case, you have more than one active network interface, you have
       to make a decision:</para>
-      
+
       <itemizedlist>
         <listitem>
-          <para>Using only one interface: You've to add the interface's name 
-          (en1, le0, eth2, ... for example) to atalkd.conf on a single line. Do 
-          only list <emphasis>one</emphasis> here.</para>
-          
-          <para>After startup, atalkd will add the real settings (address and 
+          <para>Using only one interface: You&#39;ve to add the
+          interface&#39;s name (en1, le0, eth2, ... for example) to
+          atalkd.conf on a single line. Do only list <emphasis>one</emphasis>
+          here.</para>
+
+          <example>
+            <title>atalkd.conf containing one entry</title>
+
+            <para><programlisting>eth0</programlisting>Appletalk networking
+            should be enabled on eth0 interface. All the necessary
+            configuration will be fetched from the network</para>
+          </example>
+
+          <para>After startup, atalkd will add the real settings (address and
           network and eventually a zone) to atalkd.conf on its own</para>
+
+          <example>
+            <title>atalkd.conf containing one entry after atalkd started</title>
+
+            <para><programlisting>eth0 -phase 2 -net 0-65534 -addr 65280.166</programlisting>
+            atalkd filled in the AppleTalk settings that apply to this network
+            segment. A netrange of 0-65534 is a sign that there is no
+            AppleTalk router present, so atalkd will fetch an address that
+            matches the following criteria: netrange from inside the so called
+            &#34;startup range&#34; 65280-65533 and a node address between 142
+            and 255</para>
+          </example>
         </listitem>
-        
+
         <listitem>
-          <para>When using several interfaces you have to add them line by line 
-          following the "-dontroute" switch in atalkd.conf</para>
-          
-          <para>In this case atalkd will handle each interface as it would be 
-          the only active one. This can have some side effects when it comes to  
-          the point where AFP clients want to do the magic switch from AppleTalk 
-          to TCP, so use this with caution</para>
+          <para>When using several interfaces you have to add them line by
+          line following the &#34;-dontroute&#34; switch in atalkd.conf</para>
+
+          <example>
+            <title>atalkd.conf containing several entries with the -dontroute
+            option</title>
+
+            <para><programlisting>eth0 -dontroute
+eth1 -dontroute
+eth2 -dontroute</programlisting>Appletalk networking should be enabled on all
+            three interfaces but no routing should be done between the
+            different segments. Again, all the necessary configuration will be
+            fetched from the connected networks</para>
+          </example>
+
+          <example>
+            <title>atalkd.conf containing several entries with the -dontroute
+            option after atalkd started</title>
+
+            <para><programlisting>eth0 -dontroute -phase 2 -net 0-65534 -addr 65280.152
+eth1 -dontroute -phase 2 -net 0-65534 -addr 65280.208
+eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone &#34;Printers&#34;</programlisting>
+            On eth0 and eth1 no other routers are present, so atalkd chooses
+            an address from within the startup range. But on eth2 there lives
+            an already connected AppleTalk router, publishing one zone called
+            &#34;Printers&#34; and forcing clients to assign theirselves an
+            address in a netrange between 1 and 1000</para>
+          </example>
+
+          <para>In this case atalkd will handle each interface as it would be
+          the only active one. This can have some side effects when it comes
+          to the point where AFP clients want to do the magic switch from
+          AppleTalk to TCP, so use this with caution</para>
         </listitem>
       </itemizedlist>
 
-      <para>In case, you have more than one active network interface and do not 
-      take special precautions as outlined above, then autoconfiguration of the
-      interfaces might fail in a situation where one of your network interfaces 
-      is connected to a network where <emphasis>no</emphasis> other active 
-      AppleTalk router is present and supplies appropriate routing settings.
-      </para>
-      
-      <para>For further information see <citerefentry><refentrytitle>atalkd.conf
-      </refentrytitle><manvolnum>5</manvolnum></citerefentry> and the developer 
-      documentation</para>
+      <para>In case, you have more than one active network interface and do
+      not take special precautions as outlined above, then autoconfiguration
+      of the interfaces might fail in a situation where one of your network
+      interfaces is connected to a network where <emphasis>no</emphasis> other
+      active AppleTalk router is present and supplies appropriate routing
+      settings.</para>
+
+      <para>For further information see <citerefentry><refentrytitle>atalkd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+      and the developer documentation</para>
     </sect2>
 
     <sect2>
       <title>atalkd acting as an AppleTalk router</title>
 
-	  <para>There exist several types of AppleTalk routers: seed, non-seed and 
+      <para>There exist several types of AppleTalk routers: seed, non-seed and
       so called soft-seed routers.</para>
 
       <itemizedlist>
         <listitem>
-          <para>A seed router has its own configuration and publishes this into 
-          the network segments it is configured for</para>
+          <para>A seed router has its own configuration and publishes this
+          into the network segments it is configured for</para>
         </listitem>
-        
+
         <listitem>
-          <para>A non-seed router needs a seed router on the interface to which 
-          it is connected to learn the network configuration. So this type of  
-          AppleTalk router can work completely without manual configuration. 
-          </para>
+          <para>A non-seed router needs a seed router on the interface to
+          which it is connected to learn the network configuration. So this
+          type of AppleTalk router can work completely without manual
+          configuration.</para>
         </listitem>
-        
+
         <listitem>
-          <para>A so called soft-seed router is exactly the same as a non-seed 
-          router except the fact, that it can also remember the configuration of  
-          a seed router and act as a replacement in case, the real seed router 
-          disappears from the net. 
-          </para>
+          <para>A so called soft-seed router is exactly the same as a non-seed
+          router except the fact, that it can also remember the configuration
+          of a seed router and act as a replacement in case, the real seed
+          router disappears from the net.</para>
         </listitem>
       </itemizedlist>
-	  
-	  <para>Netatalk's atalkd can act as both a seed and a soft-seed router, 
-      even in a mixed mode, where it acts on one interface in this way and on 
-      the other in another.</para>
-      
+
+      <para>Netatalk&#39;s atalkd can act as both a seed and a soft-seed
+      router, even in a mixed mode, where it acts on one interface in this way
+      and on the other in another.</para>
+
       <para>If you leave your atalkd.conf completely empty or simply add all
-      active interfaces line by line without using seed settings (atalkd will 
-      act identically in both cases) then atalkd is forced to act as a soft-seed 
-      router on each interface, so it will fail on the first interface, where no 
-      seed router is accessible.
-	  </para>
-	  
-	  <para>In this case other services, that depend on atalkd, might also fail
-      </para>
-	  
-	  <para>So you should have atalkd act as a seed router on one or all active 
-      interfaces. A seed router has to supply informations about:</para>
+      active interfaces line by line without using seed settings (atalkd will
+      act identically in both cases) then atalkd is forced to act as a
+      soft-seed router on each interface, so it will fail on the first
+      interface, where no seed router is accessible to fetch routing
+      information from.</para>
+
+      <para>In this case other services, that depend on atalkd, might also
+      fail.</para>
+
+      <para>So you should have atalkd act as a seed router on one or all
+      active interfaces. A seed router has to supply informations about:</para>
 
       <itemizedlist>
         <listitem>
           <para>The specific netrange on this segment</para>
         </listitem>
-        
-         <listitem>
+
+        <listitem>
           <para>The own AppleTalk address</para>
         </listitem>
-        
+
         <listitem>
           <para>The zones (one to many) available in this segment</para>
         </listitem>
 
         <listitem>
-          <para>The so called "default zone" for this segment</para>
+          <para>The so called &#34;default zone&#34; for this segment</para>
         </listitem>
       </itemizedlist>
 
-	  <para><emphasis>Unless you are the network admin yourself, consider asking 
-      her/him before changing anything related to AppleTalk routing, as changing 
-      these settings might have side effects for all of your AppleTalk network 
-      clients</emphasis></para>
-      
-      <para>In an AppleTalk network netranges have to be unique and zone 
-      settings have to match each other router's configuration. Fortunately 
-      netatalk's atalkd is polite enough to check whether your settings are in 
-      conflict with already existing ones on the net. In such a case it simply 
-      discards your settings and tries to adapt the already established ones on 
-      the net (if in doubt, always check syslog for details).</para>
-      
-      <para>Netranges, you can use, include pretty small ones, eg. 42-42, to  
-      very large ones, eg. 1-65279 - the latter one representing the maximum. In 
-      routed environments you can use any numbers in the range between 1 and 
-      65279 unless they do not overlap with settings of other connected subnets. 
-      </para>
-	  
-	  <para>The own AppleTalk address consists of a net part and a node part 
-      (the former 16 bit, the latter 8 bit, for example 12057.143). Apple 
-      recommends using node addresses of 128 or above for servers, letting 
-      client Macs assign themselves an address faster (as they will primarily 
-      search for a node address within 1-127 in the supplied netrange). As we 
-      don't want to get in conflict with Apple servers, we prefer using node 
-      addresses of 142 or above</para>
+      <para><emphasis>Unless you are the network admin yourself, consider
+      asking her/him before changing anything related to AppleTalk routing, as
+      changing these settings might have side effects for all of your
+      AppleTalk network clients</emphasis></para>
 
-      <para>AppleTalk zones have <emphasis>nothing</emphasis> to do with 
-      physical networks. They're just a hint for your client's 
-      convenience, letting them locate network ressources in a more 
-      comfortable/faster way. You can either use one zone name accross multiple 
-      physical segments as well as more than one zone name on a single segment 
-      (and various combinations of this)</para>
-      
-      <para>So all you have to do is to draw a network chart containing the 
-      physical segments, the netranges you want to assign to each one, the zone 
-      names you want to publish in which segments and the default zone per 
-      segment (this is always the first zone name, you supply with the "-zone" 
-      switch in atalkd.conf)</para>
-      
-      <para>Given, you finished the steps outlined above, you might want to edit 
-      atalkd.conf to fit your needs.</para>
+      <para>In an AppleTalk network netranges have to be unique and zone
+      settings have to match each other router&#39;s configuration.
+      Fortunately netatalk&#39;s atalkd is polite enough to check whether your
+      settings are in conflict with already existing ones on the net. In such
+      a case it simply discards your settings and tries to adapt the already
+      established ones on the net (if in doubt, always check syslog for
+      details).</para>
 
-      <para>You'll have to set the following options in atalkd.conf:</para>
+      <para>Netranges, you can use, include pretty small ones, eg. 42-42, to
+      very large ones, eg. 1-65279 - the latter one representing the maximum.
+      In routed environments you can use any numbers in the range between 1
+      and 65279 unless they do not overlap with settings of other connected
+      subnets.</para>
+
+      <para>The own AppleTalk address consists of a net part and a node part
+      (the former 16 bit, the latter 8 bit, for example 12057.143). Apple
+      recommends using node addresses of 128 or above for servers, letting
+      client Macs assign themselves an address faster (as they will primarily
+      search for a node address within 1-127 in the supplied netrange). As we
+      don&#39;t want to get in conflict with Apple servers, we prefer using
+      node addresses of 142 or above.</para>
+
+      <para>AppleTalk zones have <emphasis>nothing</emphasis> to do with
+      physical networks. They&#39;re just a hint for your client&#39;s
+      convenience, letting them locate network ressources in a more
+      comfortable/faster way. You can either use one zone name accross
+      multiple physical segments as well as more than one zone name on a
+      single segment (and various combinations of this)</para>
+
+      <para>So all you have to do is to <emphasis>draw a network chart</emphasis>
+      containing the physical segments, the netranges you want to assign to
+      each one, the zone names you want to publish in which segments and the
+      default zone per segment (this is always the first zone name, you supply
+      with the &#34;-zone&#34; switch in atalkd.conf)</para>
+
+      <para>Given, you finished the steps outlined above, you might want to
+      edit atalkd.conf to fit your needs.</para>
+
+      <para>You&#39;ll have to set the following options in atalkd.conf:</para>
 
       <itemizedlist>
         <listitem>
-          <para>-net (use reasonable values between 1-65279 for each 
+          <para>-net (use reasonable values between 1-65279 for each
           interface)</para>
-          
-          <para>In case, this value is suppressed but -addr is present, the 
+
+          <para>In case, this value is suppressed but -addr is present, the
           netrange from this specific address will be used</para>
         </listitem>
-        
+
         <listitem>
-          <para>-addr (the net part must match the -net settings if present, the  
-          node address should be 142 or above)</para>
+          <para>-addr (the net part must match the -net settings if present,
+          the node address should be between 142 and 255)</para>
         </listitem>
-        
+
         <listitem>
-          <para>-zone (can be used multiple times in one single line, the first 
-          entry is the default zone)</para>
+          <para>-zone (can be used multiple times in one single line, the
+          first entry is the default zone)</para>
         </listitem>
       </itemizedlist>
 
-      <para>Note that you are able to set up "zone mapping", that means 
-      publishing exactly the same zone name on all AppleTalk segments, as well 
-      as providing more than one single zone name per interface. Dumb AppleTalk 
-      devices, like LaserWriters, will always register themselves in the default 
-      zone (the first zone entry you use in atalkd.conf per interface), more 
-      intelligent ones will have the ability to choose one specific zone via 
-      their user interface.</para>
+      <para>Note that you are able to set up &#34;zone mapping&#34;, that
+      means publishing exactly the same zone name on all AppleTalk segments,
+      as well as providing more than one single zone name per interface. Dumb
+      AppleTalk devices, like LaserWriters, will always register themselves in
+      the default zone (the first zone entry you use in atalkd.conf per
+      interface), more intelligent ones will have the ability to choose one
+      specific zone via a user interface.</para>
 
+      <example>
+        <title>atalkd.conf making netatalk a seed router on two interfaces</title>
+
+        <para><programlisting>eth0 -seed -phase 2 -net 1-1000 -addr 1000.142 -zone &#34;Printers&#34; -zone &#34;Spoolers&#34;
+eth1 -seed -phase 2 -net 1001-2000 -addr 2000.142 -zone &#34;Macs&#34; -zone &#34;Servers&#34;</programlisting>
+        The settings for eth0 force AppleTalk devices within the connected
+        network to assign theirselves an address in the netrange 1-1000. Two
+        zone names are published into this segment, &#34;Printers&#34; being
+        the so called &#34;standard zone&#34;, forcing dumb AppleTalk devices
+        like Laserprinters to show up automatically into this zone. AppleTalk
+        printer queues supplied by netatalk&#39;s papd can be registered into
+        the zone &#34;Spoolers&#34; simply by adjusting the settings in
+        <citerefentry><refentrytitle>papd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>.
+        On eth1 we use the different and non-overlapping netrange 1001-2000,
+        set the default zone to &#34;Macs&#34; and publish a fourth zone name
+        &#34;Servers&#34;.</para>
+      </example>
+
+      <example>
+        <title>atalkd.conf configured for &#34;zone mapping&#34;</title>
+
+        <para><programlisting>eth0 -seed -phase 2 -net 1-1000 -addr 1000.142 -zone &#34;foo&#34;
+lo0 -phase 1 -net 1 -addr 1.142 -zone &#34;foo&#34;</programlisting> We use
+        the same network settings as in the example above but let atalkd
+        publish the same zone name on both segments. As the same zone name
+        will be used on all segments of the AppleTalk network no zone names
+        will show up at all... but AppleTalk routing will still be active. In
+        this case, we connect a so called &#34;non-extended&#34; LocalTalk
+        network (phase 1) to an EtherTalk &#34;extended&#34; network (phase 2)
+        transparently.</para>
+      </example>
+
+      <example>
+        <title>atalkd.conf for a soft-seed router configuration</title>
+
+        <para><programlisting>eth0
+eth1
+eth2</programlisting> As we have more than one interface, atalkd will try to
+        act as an AppleTalk router between both segments. As we don&#39;t
+        supply any network configuration on our own we depend on the
+        availability of seed routers in every connected segment. If only one
+        segment is without such an available seed router the whole thing will
+        fail.</para>
+      </example>
+
+      <example>
+        <title>atalkd.conf for a soft-seed router configuration after atalkd
+        started</title>
+
+        <para><programlisting>eth0 -phase 2 -net 10-10 -addr 10.166 -zone &#34;Parking&#34;
+eth1 -phase 2 -net 10000-11000 -addr 10324.151 -zone &#34;No Parking&#34; -zone &#34;Parking&#34;
+eth2 -phase 2 -net 65279-65279 -addr 65279.142 -zone &#34;Parking&#34; -zone &#34;No Parking&#34;</programlisting>
+        In this case, active seed routers are present in all three connected
+        networks, so atalkd was able to fetch the network configuration from
+        them and, since the settings do not conflict, act as a soft-seed
+        router from now on between the segments. So even in case, all of the
+        three seed routers would disappear from the net, atalkd would still
+        supply the connected network with the network configuration once
+        learned from them. Only in case, atalkd would be restarted afterwards,
+        the routing information will be lost (as we&#39;re not acting as seed
+        router).</para>
+      </example>
+
+      <example>
+        <title>atalkd.conf ready for mixed seed/soft-seed mode</title>
+
+        <para><programlisting>eth0
+eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone &#34;Testing&#34;</programlisting>
+        In case in the network connected to eth0 lives no active seed router
+        or one with a mismatching configuration (eg. an overlapping netrange
+        of 1-200) atalkd will fail. Otherwise it will fetch the configuration
+        from this machine and will route between eth0 and eth1, on the latter
+        acting as a seed router itself.</para>
+      </example>
+
+      <para>By the way: it is perfectly legal to have more than one seed
+      router connected to a network segment. But in this case, you should take
+      care that the configuration of all connected routers is exactly the same
+      regarding netranges, published zone names and also the &#34;standard
+      zone&#34; per segment</para>
     </sect2>
-    
   </sect1>
 
   <sect1>
     <title>File Services</title>
 
-    <para>Netatalk supplies two different transport protocols for AFP<indexterm><primary>AFP</primary><secondary>Apple Filing Protocol</secondary></indexterm> services and both can
-    run at the same time. Classic AFP over AppleTalk requires the
-    <command>afpd</command> and <command>atalkd</command> daemons. AFP over IP
-    only requires <command>afpd</command>.</para>
+    <para>Netatalk supplies two different transport protocols for AFP<indexterm><primary>AFP</primary><secondary>Apple
+    Filing Protocol</secondary></indexterm> services and both can run at the
+    same time. Classic AFP over AppleTalk requires the <command>afpd</command>
+    and <command>atalkd</command> daemons. AFP over IP only requires
+    <command>afpd</command>.</para>
 
     <sect2>
       <title>Setting up the AFP file server</title>
@@ -243,11 +367,14 @@
       use for file services. The protocol has evolved over the years, at the
       time of this writing 7 different &#34;versions&#34; exist. The latest
       changes to the protocol, called &#34;AFP 3.1&#34;, were added with the
-      release of Panther<indexterm><primary>Panther</primary><secondary>Mac OS X 10.3</secondary></indexterm> (Mac OS X 10.3).</para>
+      release of Panther<indexterm><primary>Panther</primary><secondary>Mac OS
+      X 10.3</secondary></indexterm> (Mac OS X 10.3).</para>
 
-      <para>AFP3 brought some big changes. For the first time, AppleShare<indexterm><primary>AppleShare</primary><secondary>Synonym for an AFP server</secondary></indexterm> Clients
-      can use filenames up to 255 characters (actually 255 bytes leading to 85-255 chars depending on the glyphs used), UTF-8 is
-      used on the wire and large files (&#62;4GB) are supported.</para>
+      <para>AFP3 brought some big changes. For the first time, AppleShare<indexterm><primary>AppleShare</primary><secondary>Synonym
+      for an AFP server</secondary></indexterm> Clients can use filenames up
+      to 255 characters (actually 255 bytes leading to 85-255 chars depending
+      on the glyphs used), UTF-8 is used on the wire and large files
+      (&#62;4GB) are supported.</para>
 
       <para>The afpd deamon offers the fileservices to Apple Clients. It&#39;s
       configured using the <filename>afpd.conf</filename> and the
@@ -261,9 +388,9 @@
         that it provides. Any line not prefixed with <keycode>&#39;#</keycode>&#39;
         is interpreted.</para>
 
-        <para>If afpd switches set on the command line are in conflict with 
+        <para>If afpd switches set on the command line are in conflict with
         afpd.conf settings, the latter will have higher priority</para>
-        
+
         <para>Format: - [options] to specify options for the default server
         and/or &#34;Server name&#34; [options] to specify an additional server</para>
 
@@ -280,10 +407,10 @@
       <sect3>
         <title>AppleVolumes.default</title>
 
-        <para>The AppleVolumes.default file is used to define volumes that will
-        by default be shown to all users, including users logged in as guest.
-        A volume will not be presented in the chooser, if the user has no read
-        access to the specified volume path.</para>
+        <para>The AppleVolumes.default file is used to define volumes that
+        will by default be shown to all users, including users logged in as
+        guest. A volume will not be presented in the chooser, if the user has
+        no read access to the specified volume path.</para>
 
         <para>You can limit access to a specific volume by using the
         <option>allow</option> and <option>deny</option> options.</para>
@@ -294,24 +421,29 @@
       </sect3>
 
       <sect3 id="CNID-backends">
-        <title>CNID<indexterm><primary>CNID</primary><secondary>Catalog Node ID</secondary></indexterm> backends</title>
+        <title>CNID<indexterm><primary>CNID</primary><secondary>Catalog Node
+        ID</secondary></indexterm> backends</title>
 
         <para>Unlike other protocols like smb or nfs, the AFP protocol mostly
         refers to files and directories by ID and not by a path. A typical AFP
-        request uses a directory ID<indexterm><primary>DID</primary><secondary>Directory ID</secondary></indexterm> and a filename, something like
-        <phrase>&#34;server, please open the file named &#39;Test&#39;
-        in the directory with id 167&#34;</phrase>. For example
-        &#34;Aliases&#34; on the Mac basically work by ID (with a fallback to the absolute path in more recent AFP clients. But this applies only to Finder, not to applications).</para>
+        request uses a directory ID<indexterm><primary>DID</primary><secondary>Directory
+        ID</secondary></indexterm> and a filename, something like
+        <phrase>&#34;server, please open the file named &#39;Test&#39; in the
+        directory with id 167&#34;</phrase>. For example &#34;Aliases&#34; on
+        the Mac basically work by ID (with a fallback to the absolute path in
+        more recent AFP clients. But this applies only to Finder, not to
+        applications).</para>
 
-        <para>Every file in an AFP volume has to have a unique file ID<indexterm><primary>FID</primary><secondary>File ID</secondary></indexterm>, IDs must,
-        according to the specs, never be reused, and IDs are 32 bit
-        numbers (Directory IDs use the same ID pool). So, after ~4 
-        billion files/folders have been written to an AFP volume, the 
-        ID pool is depleted and no new file can be written to the
+        <para>Every file in an AFP volume has to have a unique file ID<indexterm><primary>FID</primary><secondary>File
+        ID</secondary></indexterm>, IDs must, according to the specs, never be
+        reused, and IDs are 32 bit numbers (Directory IDs use the same ID
+        pool). So, after ~4 billion files/folders have been written to an AFP
+        volume, the ID pool is depleted and no new file can be written to the
         volume. No whining please :-)</para>
 
         <para>Netatalk needs to map IDs to files and folders in the host
-        filesystem. To achieve this, several different CNID backends<indexterm><primary>CNID backend</primary><secondary>CNID database</secondary></indexterm> are
+        filesystem. To achieve this, several different CNID backends<indexterm><primary>CNID
+        backend</primary><secondary>CNID database</secondary></indexterm> are
         available. A CNID backend is basically a database storing ID
         &#60;-&#62; name mappings.</para>
 
@@ -320,9 +452,11 @@
         based on the device and inode of a file. Therefore, IDs will be
         eventually be reused and you can get duplicate IDs as well.</para>
 
-        <para>The CNID Databases are by default located in the .AppleDB<indexterm><primary>AppleDB</primary><secondary>CNID database folder</secondary></indexterm> folder
-        in every afpd volume root. With the new ADv2<indexterm><primary>ADv2</primary><secondary>AppleDouble v2</secondary></indexterm> format, afpd stores the
-        files/directories ID in the corresponding .AppleDouble file as well.</para>
+        <para>The CNID Databases are by default located in the .AppleDB<indexterm><primary>AppleDB</primary><secondary>CNID
+        database folder</secondary></indexterm> folder in every afpd volume
+        root. With the new ADv2<indexterm><primary>ADv2</primary><secondary>AppleDouble
+        v2</secondary></indexterm> format, afpd stores the files/directories
+        ID in the corresponding .AppleDouble file as well.</para>
 
         <note>
           <para>There are some CNID related things you should keep in mind
@@ -330,8 +464,9 @@
 
           <itemizedlist>
             <listitem>
-              <para>Don&#39;t use unix symlinks<indexterm><primary>Symlink</primary><secondary>Unix softlink</secondary></indexterm>. Just don&#39;t. With a
-              symlink a file/directory &#34;exists&#34; twice, something AFP
+              <para>Don&#39;t use unix symlinks<indexterm><primary>Symlink</primary><secondary>Unix
+              softlink</secondary></indexterm>. Just don&#39;t. With a symlink
+              a file/directory &#34;exists&#34; twice, something AFP
               doesn&#39;t allow. There&#39;s currently no way this can be
               resolved, as we either end up with two file/dirs having the same
               id, or a file having two parents. If you still insist on using
@@ -363,7 +498,8 @@
         <para></para>
 
         <sect4>
-          <title>cdb<indexterm><primary>CDB</primary><secondary>"cdb" CNID backend</secondary></indexterm></title>
+          <title>cdb<indexterm><primary>CDB</primary><secondary>&#34;cdb&#34;
+          CNID backend</secondary></indexterm></title>
 
           <para>The &#34;concurrent database&#34; backend is based on
           sleepycat&#39;s Berkeley DB. With this backend several afpd deamons
@@ -374,7 +510,8 @@
         </sect4>
 
         <sect4>
-          <title>dbd<indexterm><primary>DBD</primary><secondary>"dbd" CNID backend</secondary></indexterm></title>
+          <title>dbd<indexterm><primary>DBD</primary><secondary>&#34;dbd&#34;
+          CNID backend</secondary></indexterm></title>
 
           <para>Access to the CNID database is restricted to a the cnid_metad
           daemon process. afpd processes communicate with the daemon for
@@ -386,7 +523,8 @@
         </sect4>
 
         <sect4>
-          <title>last<indexterm><primary>Last</primary><secondary>"last" CNID backend</secondary></indexterm></title>
+          <title>last<indexterm><primary>Last</primary><secondary>&#34;last&#34;
+          CNID backend</secondary></indexterm></title>
 
           <para>The last backend is a semi persistent backend. ID&#39;s will
           be reused and, what is much worse, you can get duplicate IDs. You
@@ -527,11 +665,12 @@
             </listitem>
           </itemizedlist>
 
-          <para>Starting with Mac OS X and AFP3, <ulink url="http://www.utf-8.com/">UTF-8</ulink>
-          is used. UTF-8 encodes Unicode characters in an ASCII compatible
-          way, each Unicode character is encoded into 1-6 ASCII characters.
-          UTF-8 is therefore not really a charset itself, it&#39;s an encoding
-          of the Unicode charset.</para>
+          <para>Starting with Mac OS X and AFP3, <ulink
+          url="http://www.utf-8.com/">UTF-8</ulink> is used. UTF-8 encodes
+          Unicode characters in an ASCII compatible way, each Unicode
+          character is encoded into 1-6 ASCII characters. UTF-8 is therefore
+          not really a charset itself, it&#39;s an encoding of the Unicode
+          charset.</para>
 
           <para>To complicate things, Unicode defines several
           <emphasis><ulink
@@ -691,16 +830,17 @@
   </sect1>
 
   <sect1>
-    <title>Time Services<indexterm><primary>Timelord</primary><secondary>AppleTalk time server</secondary></indexterm></title>
+    <title>Time Services<indexterm><primary>Timelord</primary><secondary>AppleTalk
+    time server</secondary></indexterm></title>
 
     <para></para>
 
     <sect2>
       <title>Using Netatalk as a time server for Macintoshs</title>
 
-      <para>"timelord", an AppleTalk based time server, is depreciated these days.
-      Use NTP<indexterm><primary>NTP</primary><secondary>Network Time Protocol</secondary></indexterm> instead.</para>
+      <para>&#34;timelord&#34;, an AppleTalk based time server, is depreciated
+      these days. Use NTP<indexterm><primary>NTP</primary><secondary>Network
+      Time Protocol</secondary></indexterm> instead.</para>
     </sect2>
   </sect1>
-
 </chapter>
