@@ -228,6 +228,17 @@
           disable the timeout.</para>
         </listitem>
       </varlistentry>
+
+      <varlistentry>
+        <term><emphasis remap="B">check</emphasis></term>
+
+        <listitem>
+          <para>is a flag value. If set <command>cnid_dbd</command> will 
+          automatically check the database indexes. Default: 0. Set this 
+          to 1 to enable checking. </para>
+        </listitem>
+      </varlistentry>
+
     </variablelist>
   </refsect1>
 
