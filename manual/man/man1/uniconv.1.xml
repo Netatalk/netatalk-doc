@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry>
-  <!--  $Id: uniconv.1.xml,v 1.1 2004-06-24 16:46:26 bfernhomberg Exp $ -->
+  <!--  $Id: uniconv.1.xml,v 1.2 2004-06-24 17:33:24 bfernhomberg Exp $ -->
+
   <refmeta>
     <refentrytitle>uniconv</refentrytitle>
 
@@ -14,7 +15,7 @@
   <refnamediv>
     <refname>uniconv</refname>
 
-    <refpurpose>convert Netatalk volume enconding</refpurpose>
+    <refpurpose>convert Netatalk volume encoding</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -23,7 +24,7 @@
 
       <arg choice="opt">-ndv</arg>
 
-      <arg choice="plain">-c <replaceable>cnid</replaceable></arg>
+      <arg choice="plain">-c <replaceable>cnidbackend</replaceable></arg>
 
       <arg choice="plain">-f <replaceable>fromcode</replaceable></arg>
 
@@ -53,7 +54,7 @@
         <listitem>
           <para>CNID backend used on this volume, usually cdb or dbd. Should
           match the backend selected with afpd for this volume. If not
-          specified, the default cnid backend `:DEFAULT_CNID_SCHEME:&#39; is
+          specified, the default CNID backend `:DEFAULT_CNID_SCHEME:&#39; is
           used</para>
         </listitem>
       </varlistentry>
@@ -63,7 +64,7 @@
 
         <listitem>
           <para>don&#39;t CAP encode leading dots (:2e), equivalent to
-          <option>usedots</option> in AppleVolumes.default(5)</para>
+          <option>usedots</option> in <citerefentry><refentrytitle>AppleVolumes.default</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
         </listitem>
       </varlistentry>
 
@@ -137,7 +138,58 @@
     <para>It is *strongly* recommended to do a `dry run&#39; first and to
     check the output for conversion errors.</para>
 
+    <para><citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    should not be running while you change the volume encoding. Remember to
+    change <option>volcodepage</option> in <citerefentry><refentrytitle>AppleVolumes.default</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+    to the new codepage, before restarting afpd.</para>
+
     <para><emphasis role="bold">USE AT YOUR OWN RISK!!!</emphasis></para>
+  </refsect1>
+
+  <refsect1>
+    <title>Selectable charsets</title>
+
+    <para>Netatalk provides internal support for UTF-8 (pre- and decomposed)
+    and CAP. If you want to use other charsets, they must be provided by
+    <citerefentry><refentrytitle>iconv</refentrytitle><manvolnum>1</manvolnum></citerefentry></para>
+
+    <para><command>uniconv</command> also knows iso-8859.adapted, an old style
+    1.x NLS widely used. This is only intended for upgrading old volumes,
+    <citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    cannot handle iso-8859.adapted anymore.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>CNID background</title>
+
+    <para>The CNID backends maintains name to id mappings. If you change a
+    filename outside afpd(8) (shell, samba), the CNID db, i.e. the DIDNAME
+    index, gets inconsistent. Netatalk tries to recover from such
+    inconsistencies as gracefully as possible. The mechanisms to resolve such
+    inconsistencies may fail sometimes, though, as this is not an easy task to
+    accomplish. I.e. if several names in the path to the file/dir have
+    changed, things may go wrong.</para>
+
+    <para>If you change a lot of filenames at once, chances are higher that
+    the afpds fallback mechanisms fail, i.e. files will be assigned new ids,
+    even though the file hasn&#39;t changed. <command>uniconv</command>
+    therefore updates the CNID entry for each file/dir directly after it
+    changes the name to avoid inconsistencies. The two supported backends for
+    volumes, dbd and cdb, use the same CNID db format. Therefore, you
+    <emphasis>could</emphasis> use <command>uniconv</command> with cdb and
+    <command>afpd</command> with dbd later.</para>
+
+    <para><emphasis role="bold">Warning</emphasis>: There must not be two
+    processes opening the CNID database using different backends at once! If a
+    volume is still opened with dbd (cnid_metad/cnid_dbd) and you start
+    <command>uniconv</command> with cdb, the result will be a corrupted CNID
+    database, as the two backends use different locking schemes. You might run
+    into additional problems, e.g. if dbd is compiled with transactions, cdb
+    will not update the transaction logs.</para>
+
+    <para>In general, it is recommended to use the same backend for
+    <command>uniconv</command> you are using with
+    <citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
   </refsect1>
 
   <refsect1>
@@ -164,6 +216,6 @@
   <refsect1>
     <title>See also</title>
 
-    <para><citerefentry><refentrytitle>AppleVolumes.default</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
+    <para><citerefentry><refentrytitle>AppleVolumes.default</refentrytitle><manvolnum>5</manvolnum></citerefentry>,<citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,<citerefentry><refentrytitle>iconv</refentrytitle><manvolnum>1</manvolnum></citerefentry>,<citerefentry><refentrytitle>cnid_metad</refentrytitle><manvolnum>8</manvolnum></citerefentry>,<citerefentry><refentrytitle>cnid_dbd</refentrytitle><manvolnum>8</manvolnum></citerefentry></para>
   </refsect1>
 </refentry>
