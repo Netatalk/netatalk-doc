@@ -1135,7 +1135,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             it might lead accidentally to unauthorized access. In case you
             must enable guest access take care that you enforce this on a per
             volume base using the access controls the <citerefentry>
-                <refentrytitle>AppleVolume.default</refentrytitle>
+                <refentrytitle>AppleVolumes.default</refentrytitle>
 
                 <manvolnum>5</manvolnum>
               </citerefentry> config file supplies or think about setting up
@@ -1436,11 +1436,11 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
           and <filename>-fqdn</filename> options are set in <citerefentry>
               <refentrytitle>afpd.conf</refentrytitle>
 
-              <manvolnum>1</manvolnum>
+              <manvolnum>5</manvolnum>
             </citerefentry> (double check with <citerefentry>
               <refentrytitle>asip-status.pl</refentrytitle>
 
-              <manvolnum>5</manvolnum>
+              <manvolnum>1</manvolnum>
             </citerefentry> after you restarted afpd when you made changes to
           the settings). But there are a couple of reasons why you don't want
           to use this option at all:</para>
