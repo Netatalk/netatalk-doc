@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">15 Oct 2001</refmiscinfo>
+    <refmiscinfo class="date">22 Aug 2004</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -13,7 +13,7 @@
   <refnamediv>
     <refname>apple_cp</refname>
 
-    <refpurpose>Do an apple copy, copying the resource fork as well</refpurpose>
+    <refpurpose>Do an apple copy, copying file metadata and the resource fork as well</refpurpose>
   </refnamediv>
 
   <!-- body begins here -->
@@ -28,10 +28,10 @@
     <title>DESCRIPTION</title>
 
     <para><emphasis remap="B">apple_cp</emphasis> is a perl script to copy
-    SOURCE to DEST or multiple SOURCE(s) to DIRECTORY. It also copies the
-    resource forks to the .AppleDouble directory for DEST or DIRECTORY. If the
-    .AppleDouble directory doesn&#39;t exist for DEST or DIRECTORY it will
-    create it.</para>
+    SOURCE to DEST or multiple SOURCE(s) to DIRECTORY. It also copies the file 
+    specific metadata (including resource forks) to the .AppleDouble directory
+    for DEST or DIRECTORY. If the .AppleDouble directory doesn&#39;t exist for 
+    DEST or DIRECTORY it will create it.</para>
   </refsect1>
 
   <refsect1>
