@@ -273,7 +273,7 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
         </sect4>
       </sect3>
 
-      <sect3>
+      <sect3 id="charsets">
         <title>Charsets/Unicode</title>
 
         <para></para>
@@ -444,23 +444,23 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
 
           <itemizedlist>
             <listitem>
-              <para>MacCentralEurope</para>
+              <para>MAC_CENTRALEUROPE</para>
             </listitem>
 
             <listitem>
-              <para>MacCyrillic</para>
+              <para>MAC_CYRILLIC</para>
             </listitem>
 
             <listitem>
-              <para>MacHebrew</para>
+              <para>MAC_HEBREW</para>
             </listitem>
 
             <listitem>
-              <para>MacRoman</para>
+              <para>MAC_ROMAN</para>
             </listitem>
 
             <listitem>
-              <para>MacTurkish</para>
+              <para>MAC_TURKISH</para>
             </listitem>
           </itemizedlist>
 
@@ -476,8 +476,7 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
                 afpd tries to detect the codepage, otherwise it defaults to
                 ASCII. afpd uses this codepage to read its configuration
                 files, so you can use extended characters for volume names,
-                login messages, etc. see <citerefentry><refentrytitle>afpd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-                </para>
+                login messages, etc. see <citerefentry><refentrytitle>afpd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
 
                 <para></para>
               </listitem>
@@ -506,8 +505,7 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
                 <para>This defines the charset afpd should use for filenames
                 on disk. The default is UTF8. If you have <ulink
                 url="http://www.gnu.org/software/libiconv/">iconv</ulink>
-                installed, you can use any iconv provided charset as well.
-                </para>
+                installed, you can use any iconv provided charset as well.</para>
 
                 <para>afpd needs a way to preserve extended macintosh
                 characters, or characters illegal in unix filenames, when
@@ -521,8 +519,7 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
                 now uses UTF-8 as the default encoding for filenames, special
                 characters, like &#39;/&#39; and a leading &#39;.&#39; will
                 still be CAP style encoded . For western users another useful
-                setting could be <emphasis>-volcharset ISO-8859-15</emphasis>.
-                </para>
+                setting could be <emphasis>-volcharset ISO-8859-15</emphasis>.</para>
 
                 <para>If a character cannot be converted from the mac codepage
                 to the selected volcharset, afpd will save it as a CAP encoded
@@ -531,8 +528,7 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
                 conversion fails, you&#39;ll receive a -50 error on the mac.
                 <emphasis>Note</emphasis>: Whenever you can, please stick with
                 the default UTF-8 volume format. see
-                <citerefentry><refentrytitle>AppleVolumes.default</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-                </para>
+                <citerefentry><refentrytitle>AppleVolumes.default</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
               </listitem>
             </varlistentry>
           </variablelist>

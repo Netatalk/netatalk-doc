@@ -6,6 +6,13 @@
 
   <title>Installation</title>
 
+  <note>
+    <para>If you have previously used an older version of Netatalk, please
+    read the chapter about <link linkend="upgrade">upgrading</link> first !!!</para>
+  </note>
+
+  <para></para>
+
   <sect1>
     <title>How to obtain Netatalk</title>
 
