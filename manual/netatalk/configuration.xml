@@ -1054,8 +1054,10 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           automatically mean, that a client can use it. Client-side support is
           also necessary. Fortunately this isn't such a problem these days,
           since Mac OS X' AFP-client supports DHCAST128 from the beginning on.
-          For older Macintoshes running Mac OS &lt; X DHCAST128 support exists
-          since AppleShare client 3.8.x.</para>
+          For older
+          Macihttp://developer.apple.com/documentation/Networking/Conceptual/AFP/Chapter_1/chapter_2_section_6.htmlntoshes
+          running Mac OS &lt; X DHCAST128 support exists since AppleShare
+          client 3.8.x.</para>
 
           <para>On Mac OS X there exist some client-side techniques to make
           the AFP-client more verbose, so one can have a look what's happening
@@ -1073,25 +1075,67 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
           <itemizedlist>
             <listitem>
-              <para></para>
+              <para>Unless you really have to supply guest access to your
+              server's volumes, ensure that you disable "No User Authent",
+              since it might lead accidentally to unauthorized access. In
+              case, you must enable guest access, take care, that you enforce
+              this on a per volume base using the access controls, the
+              <citerefentry>
+                  <refentrytitle>AppleVolume.default</refentrytitle>
+
+                  <manvolnum>5</manvolnum>
+                </citerefentry> config file supplies, or think about setting
+              up an own server definition, serving these public shares in
+              <citerefentry>
+                  <refentrytitle>afpd.conf</refentrytitle>
+
+                  <manvolnum>5</manvolnum>
+                </citerefentry>.</para>
             </listitem>
 
             <listitem>
-              <para></para>
+              <para>The "ClearText Passwrd" UAM is as bad as it sounds since
+              passwords go unencrypted over the wire. Try to avoid it at both
+              the server's side as well as on the client's. Note: If you want
+              to provide Mac OS 8/9 clients with NetBoot-services, then you
+              need uams_cleartext.so since the AFP-client integrated into the
+              Mac's firmware can only deal with this basic form of
+              authentication.</para>
             </listitem>
 
             <listitem>
-              <para></para>
+              <para>Since "Randnum exchange"/"2-Way Randnum exchange" uses
+              only 56 bit DES for encryption it should be avoided as well.
+              Another disadvantage is the fact, that the passwords have to be
+              stored in cleartext on the server and that it doesn't integrate
+              into both PAM scenarios or classic /etc/shadow (you have to
+              administrate passwords separately by using the <citerefentry>
+                  <refentrytitle>afppasswd</refentrytitle>
+
+                  <manvolnum>1</manvolnum>
+                </citerefentry> utility, if clients should use these
+              UAMs)</para>
             </listitem>
 
             <listitem>
-              <para></para>
+              <para>"DHCAST128" should be a good compromise for most people
+              since it combines stronger encryption with PAM integration.
+              Hopefully Netatalk will support its successor "DHX2" (Diffie
+              Hellman Exchange 2) in the future, which provides even stronger
+              encryption.</para>
             </listitem>
 
             <listitem>
-              <para></para>
+              <para>Using the Kerberos V ("Client Krb v2") UAM, it's possible
+              to implement real single sign on scenarios using Kerberos
+              tickets.</para>
             </listitem>
           </itemizedlist>
+
+          <para>For a more detailed overview over the technical implications
+          of the different UAMs, please have a look at Apple's <ulink
+          url="http://developer.apple.com/documentation/Networking/Conceptual/AFP/Chapter_1/chapter_2_section_6.html">File
+          Server Security</ulink> chapter.</para>
         </sect4>
 
         <sect4>
@@ -1128,7 +1172,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
         </sect4>
 
         <sect4>
-          <title>Complete UAM overview table</title>
+          <title>Netatalk UAM overview table</title>
 
           <table>
             <title>Netatalk UAM overview</title>
@@ -1141,12 +1185,12 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
                   <entry>"No User Authent" UAM (built-in into all Mac OS
                   versions)</entry>
 
+                  <entry>"Cleartxt Passwrd" UAM (built-in in all Mac OS
+                  versions except 10.0. Has to be activated explicitly in
+                  recent Mac OS X versions)</entry>
+
                   <entry>"Randnum exchange"/"2-Way Randnum exchange" UAMs
                   (built-in into almost all Mac OS versions)</entry>
-
-                  <entry>ClearText UAM (built-in in all Mac OS versions except
-                  10.0. Has to be activated explicitly in certain Mac OS X
-                  versions)</entry>
 
                   <entry>DHCAST128 UAM (built-in since AppleShare client
                   3.8.4, available as a plug-in for 3.8.3, integrated in Mac
@@ -1162,17 +1206,16 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
                   <entry>Enables guest access without authentication between
                   client and server.</entry>
 
-                  <entry>Password (up to 8 characters long) will be
-                  transmitted encrypted (8-byte random numbers are sent over
-                  the wire, comparable with DES, 56 bits). Vulnerable to
-                  offline dictionary attack, only the client is authenticated
-                  (With 2-Way RandNum the server as well). Requires a
-                  cleartext password on the server.</entry>
-
                   <entry>Password (up to 8 characters long) will be sent in
                   cleartext over the wire. Just as bad as it sounds, therefor
                   avoid at all if possible (note: providing NetBoot services
                   requires the ClearText UAM)</entry>
+
+                  <entry>Password itself (up to 8 characters long) will not be
+                  transmitted (8-byte random numbers are sent over the wire,
+                  comparable with DES, 56 bits). Vulnerable to offline
+                  dictionary attack. Requires a cleartext password on the
+                  server.</entry>
 
                   <entry>Password (up to 64 bytes in length) will be encrypted
                   with 128 bit SSL, user will be authenticated against the
@@ -1187,52 +1230,16 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
                   <entry align="center" valign="middle">uams_guest.so</entry>
 
+                  <entry align="center" valign="middle">uams_cleartxt.so
+                  (symlink to either uams_passwd.so or uams_pam.so)</entry>
+
                   <entry align="center"
                   valign="middle">uams_randnum.so</entry>
 
-                  <entrytbl cols="2">
-                    <tbody>
-                      <row>
-                        <entry align="center">uams_cleartxt.so</entry>
-                      </row>
-
-                      <row>
-                        <entry align="center">uams_passwd.so</entry>
-
-                        <entry align="center">uams_pam.so</entry>
-                      </row>
-                    </tbody>
-                  </entrytbl>
-
-                  <entrytbl cols="2">
-                    <tbody>
-                      <row>
-                        <entry align="center">uams_dhx.so</entry>
-                      </row>
-
-                      <row>
-                        <entry align="center">uams_dhx_passwd.so</entry>
-
-                        <entry align="center">uams_dhx_pam.so</entry>
-                      </row>
-                    </tbody>
-                  </entrytbl>
+                  <entry align="center" valign="middle">uams_dhx.so (symlink
+                  to either uams_dhx_passwd.so or uams_dhx_pam.so)</entry>
 
                   <entry align="center" valign="middle">uam_gss.so</entry>
-                </row>
-
-                <row>
-                  <entry>Authentication scheme</entry>
-
-                  <entry>No authentication needed</entry>
-
-                  <entry></entry>
-
-                  <entry></entry>
-
-                  <entry></entry>
-
-                  <entry></entry>
                 </row>
               </tbody>
             </tgroup>
