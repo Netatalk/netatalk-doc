@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.8 2004-01-14 14:24:53 tkaiser Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.9 2004-06-24 20:58:31 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -50,12 +50,21 @@
 
     <variablelist>
       <varlistentry>
-        <term>adouble:<replaceable>[v1/v2]</replaceable></term>
+        <term>adouble:<replaceable>[v1|v2|osx]</replaceable></term>
 
         <listitem>
           <para>specify the format of the metadata files, which are used for
           saving Mac resource fork as well. Earlier versions used AppleDouble
-          V1, the new default format is V2.</para>
+          V1, the new default format is V2. Starting with Netatalk 2.0, the 
+          scheme MacOS X uses currently (10.3.x), is also supported</para>
+          
+          <note>
+            <para>Using <option>adouble:osx</option> is <emphasis role="bold">not</emphasis>
+            recommended for production use. It's only aim is to temporarely share eg. 
+            FAT32 formatted FireWire harddrives written on a Macintosh with afpd. Apples 
+            metadata scheme lacks several essential features, so using it on the server's 
+            side will break both CNIDs and MacOS 9 compatibility</para>
+          </note>
         </listitem>
       </varlistentry>
 
