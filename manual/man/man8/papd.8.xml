@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">06 Mar 2001</refmiscinfo>
+    <refmiscinfo class="date">06 January 2004</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -47,11 +47,12 @@
     system init scripts. It first reads from its configuration file,
     <filename>:ETCDIR:/papd.conf</filename>. The file is in the same format as
     <filename>/etc/printcap</filename>. See <citerefentry><refentrytitle>printcap</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-    for details. The name of the entry is registered with NBP. The following
-    options are supported: <informaltable frame="none" pgwide="0"><tgroup
-    cols="4"><colspec align="center" /><thead><row><entry align="center">Name</entry><entry
-    align="center">Type</entry><entry align="center">Default</entry><entry
-    align="char">Description</entry></row></thead><tbody><row><entry>pd</entry><entry>str</entry><entry>&#39;.ppd&#39;</entry><entry>Pathname
+    for details. The name of the entry is registered with NBP. </para>
+
+    <para>The following options are supported: <informaltable frame="none"
+    pgwide="0"><tgroup cols="4"><colspec align="center" /><thead><row><entry
+    align="center">Name</entry><entry align="center">Type</entry><entry
+    align="center">Default</entry><entry align="char">Description</entry></row></thead><tbody><row><entry>pd</entry><entry>str</entry><entry>&#39;.ppd&#39;</entry><entry>Pathname
     to PPD file</entry></row><row><entry>pr</entry><entry>str</entry><entry>&#39;lp&#39;</entry><entry>LPD
     printer name (or print command)</entry></row><row><entry>op</entry><entry>str</entry><entry>&#39;operator&#39;</entry><entry>Operator
     name for LPD spooling</entry></row><row><entry>ca</entry><entry>str</entry><entry>NULL</entry><entry>Pathname
@@ -77,21 +78,22 @@
       </varlistentry>
 
       <varlistentry>
-        <term>-f <parameter>configfile</parameter></term>
+        <term>-f <replaceable>configfile</replaceable></term>
 
         <listitem>
-          <para>Consult <parameter>configfile</parameter> instead of
+          <para>Consult <replaceable>configfile</replaceable> instead of
           <filename>:ETCDIR:/papd.conf</filename> for the configuration
           information.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>-p <parameter>printcap</parameter></term>
+        <term>-p <replaceable>printcap</replaceable></term>
 
         <listitem>
-          <para>Consult printcap instead of <parameter>/etc/printcap</parameter>
-          for LPD configuration information.</para>
+          <para>Consult <replaceable>printcap</replaceable> instead of
+          <filename>/etc/printcap</filename> for LPD configuration
+          information.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -144,8 +146,10 @@ HP 8100:\
     printing. This method requires that a user login to a file share before
     they print. <command>afpd</command> records the username in a temporary
     file named after the clients Appletalk address, and it deletes the
-    temporary file when the user disconnects. <command>papd</command> gets the
-    username from the file with the same Appletalk address as the machine
+    temporary file when the user disconnects. Therefore CAP style
+    authentification will <emphasis>not</emphasis> work for clients connecting
+    over to <command>afpd</command> via TCP/IP. <command>papd</command> gets
+    the username from the file with the same Appletalk address as the machine
     connecting to it. CAP-style authentication will work with any mac client.
     If both CAP and PSSP are enabled for a particular printer, CAP will be
     tried first, then it will fall back to PSSP.</para>
@@ -158,6 +162,13 @@ HP 8100:\
     printer authentication methods. The guest method requires a valid
     username, but not a password. The passwd and pam methods require both a
     valid username and the correct password.</para>
+
+    <note>
+      <para>The OSX printing system doesn&#39;t seem to support
+      authentification anymore.</para>
+    </note>
+
+    <para></para>
   </refsect1>
 
   <refsect1>

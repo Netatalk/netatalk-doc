@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.3 2004-01-06 06:53:13 bfernhomberg Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.4 2004-01-06 07:39:58 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -498,9 +498,10 @@
     you to downgrade to 1.x netatalk again.</para>
 
     <para><emphasis>Note</emphasis>: Some 1.x NLS files used non standard
-    mappings, e.g. maccode.iso8859-1.adapted. This is not supported anymore.
-    You&#39;ll have to copy the contents of those volumes files to a Mac and
-    then back to the netatalk server, preferably to an UTF-8 volume.</para>
+    mappings, e.g. <filename>maccode.iso8859-1.adapted</filename>. This is not
+    supported anymore. You&#39;ll have to copy the contents of those volumes
+    files to a Mac and then back to the netatalk server, preferably to an
+    UTF-8 volume.</para>
   </refsect1>
 
   <refsect1>
