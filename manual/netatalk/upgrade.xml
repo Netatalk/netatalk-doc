@@ -268,7 +268,7 @@
     either generating a CNID from the device and inode number or simply by
     using a counter that is increased by one on each access to a file or
     directory from the client. The counter only lasts for the lifetime of an
-    afpd daemon process and inode numbers are resused for a different file
+    afpd daemon process and inode numbers are reused for a different file
     once the original file has been deleted. These methods therefore violate a
     fundamental assumption: A CNID once assigned must never be reused for the
     lifetime of a volume. Netatalk 2.0 supports one "On the fly scheme" called

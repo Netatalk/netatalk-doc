@@ -119,7 +119,7 @@ U netatalk/COPYING
       <sect3>
         <title>System requirements</title>
 
-        <para>You system needs to meet the following requirements:</para>
+        <para>Your system needs to meet the following requirements:</para>
 
         <itemizedlist>
           <listitem>
@@ -167,7 +167,7 @@ U netatalk/COPYING
         <title>Optional third party software</title>
 
         <para>Netatalk can use the following third party software to enhance
-        it functionality.</para>
+        it&#39;s functionality.</para>
 
         <itemizedlist>
           <listitem>
@@ -218,7 +218,7 @@ U netatalk/COPYING
             enterprise networks.</para>
 
             <para>Mac OS X uses it to locate AFP servers, even though newer
-            version prefer Rendevouz.</para>
+            version prefer Rendezvous.</para>
 
             <para>You can download OpenSLP from: <ulink
             url="http://www.openslp.org/">http://www.openslp.org/</ulink>.</para>

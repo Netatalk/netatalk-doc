@@ -249,8 +249,8 @@ eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone "Printers"</programlisti
 
       <para>AppleTalk zones have <emphasis>nothing</emphasis> to do with
       physical networks. They're just a hint for your client's convenience,
-      letting them locate network ressources in a more comfortable/faster way.
-      You can either use one zone name accross multiple physical segments as
+      letting them locate network resources in a more comfortable/faster way.
+      You can either use one zone name across multiple physical segments as
       well as more than one zone name on a single segment (and various
       combinations of this).</para>
 
@@ -398,7 +398,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
     <sect2>
       <title>Setting up the AFP file server</title>
 
-      <para>AFP (the Apple Filing Protocol) is the protocol Apple Macintoshs
+      <para>AFP (the Apple Filing Protocol) is the protocol Apple Macintoshes
       use for file services. The protocol has evolved over the years, at the
       time of this writing 7 different "versions" exist. The latest changes to
       the protocol, called "AFP 3.1", were added with the release of
@@ -417,7 +417,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       255 bytes leading to 85-255 chars depending on the glyphs used), UTF-8
       is used on the wire and large files (&gt;4GB) are supported.</para>
 
-      <para>The afpd deamon offers the fileservices to Apple Clients. It's
+      <para>The afpd daemon offers the fileservices to Apple Clients. It's
       configured using the <filename>afpd.conf</filename> and the
       <filename>AppleVolumes.*</filename> files.</para>
 
@@ -596,7 +596,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             </indexterm></title>
 
           <para>The "concurrent database" backend is based on sleepycat's
-          Berkeley DB. With this backend, several afpd deamons access the CNID
+          Berkeley DB. With this backend, several afpd daemons access the CNID
           database directly. Berkeley DB locking is used to synchronize
           access, if more than one afpd process is active for a volume. The
           drawback is, that the crash of a single afpd process might corrupt
@@ -657,7 +657,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           letters.</para>
 
           <para>If two or more computer systems need to communicate with each
-          other, the have to use the same charater set. In the 1960s the
+          other, the have to use the same character set. In the 1960s the
           ASCII<indexterm>
               <primary>ASCII</primary>
 
@@ -693,7 +693,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           <para>Almost all of those characters sets defined 256 characters,
           where the first 128 (0-127) character mappings are identical to
           ASCII. As a result, communication between systems using different
-          codepages was effectivly limited to the ASCII charset.</para>
+          codepages was effectively limited to the ASCII charset.</para>
 
           <para>To solve this problem new, larger character sets were defined.
           To make room for more character mappings, these character sets use
@@ -1003,7 +1003,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
     url="http://partners.adobe.com/asn/tech/ps/archive.jsp">Adobe TechNote
     5133</ulink>) and device status. This allows the LaserWriter driver on the
     Macintosh to generate appropriate device specific PostScript code (color
-    or b/w, only embetting needed fonts, and so on) on the one hand and
+    or b/w, only embedding needed fonts, and so on) on the one hand and
     notifications about the printing process or problems (paper jam for
     example) on the other.</para>
 
@@ -1156,7 +1156,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
           <manvolnum>1</manvolnum>
         </citerefentry>. But these days, modern printing systems like CUPS can
-      do the latter tasks for themselves in a more realiable way.</para>
+      do the latter tasks for themselves in a more reliable way.</para>
 
       <para><command>pap</command> can be used stand-alone or as part of an
       output filter or a CUPS backend<indexterm>
@@ -1204,7 +1204,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       </indexterm></title>
 
     <sect2>
-      <title>Using Netatalk as a time server for Macintoshs</title>
+      <title>Using Netatalk as a time server for Macintoshes</title>
 
       <para>"timelord"<indexterm><primary>timelord</primary></indexterm>, an AppleTalk based time server, is deprecated these
       days. Use NTP<indexterm>
@@ -1219,15 +1219,15 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
     <title>Starting and stopping Netatalk</title>
 
     <para>The Netatalk distribution comes with several operating system
-    specific startup script templates that are taylored according to the
+    specific startup script templates that are tailored according to the
     options given to the "configure" script before compiling. Currently,
-    templates are provided for Netbsd, Bsd, Redhat, Suse and True64. You can
+    templates are provided for NetBSD, BSD, RedHat, SuSE and True64. You can
     select to install the generated startup script(s)<indexterm>
         <primary>Startscript</primary>
 
         <secondary>startup script</secondary>
       </indexterm> by specifying a system type to "configure". To
-    automatically install startup scripts for e.g. the Suse Linux distribution
+    automatically install startup scripts for e.g. the SuSE Linux distribution
     try to give the --enable-suse option to "configure". Some of the scripts
     can be further parametrized by the configuration file netatalk.conf
     (described in the <citerefentry>
