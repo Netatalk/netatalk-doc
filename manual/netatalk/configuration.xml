@@ -1050,10 +1050,8 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         automatically mean, that a client can use it. Client-side support is
         also necessary. Fortunately this isn't such a problem these days,
         since Mac OS X' AFP-client supports DHCAST128 from the beginning on.
-        For older
-        Macihttp://developer.apple.com/documentation/Networking/Conceptual/AFP/Chapter_1/chapter_2_section_6.htmlntoshes
-        running Mac OS &lt; X DHCAST128 support exists since AppleShare client
-        3.8.x.</para>
+        For older Macintoshes running Mac OS &lt; X DHCAST128 support exists
+        since AppleShare client 3.8.x.</para>
 
         <para>On Mac OS X there exist some client-side techniques to make the
         AFP-client more verbose, so one can have a look what's happening while
@@ -1169,32 +1167,55 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
       <sect3>
         <title>Netatalk UAM overview table</title>
 
-        <para>A small overview of the most common used UAMs follows:</para>
+        <para>A small overview of the most common used UAMs:</para>
 
-        <table>
+        <table orient="land">
           <title>Netatalk UAM overview</title>
 
-          <tgroup cols="6">
+          <tgroup align="center" cols="6">
+            <colspec colname="col1" colnum="1" colwidth="0.2*" />
+
+            <colspec colname="col2" colnum="2" colwidth="1*" />
+
+            <colspec colname="col3" colnum="3" colwidth="1*" />
+
+            <colspec colname="col4" colnum="4" colwidth="1*" />
+
+            <colspec colname="col5" colnum="5" colwidth="1*" />
+
+            <colspec colname="col4" colnum="6" colwidth="1*" />
+
             <tbody>
               <row>
-                <entry></entry>
+                <entry rotate="0">UAM</entry>
 
-                <entry>"No User Authent" UAM (guest access)</entry>
+                <entry>No User Authent</entry>
 
-                <entry>"Cleartxt Passwrd" UAM</entry>
+                <entry>Cleartxt Passwrd</entry>
 
-                <entry>"Randnum exchange"/"2-Way Randnum exchange"
-                UAMs</entry>
+                <entry>(2-Way) Randnum exchange</entry>
 
-                <entry>"DHCAST128" UAM (also called "Diffie Hellmann
-                Exchange")</entry>
+                <entry>DHCAST128</entry>
 
-                <entry>"Client Krb v2" UAM (also known as "Kerberos
-                V")</entry>
+                <entry>Client Krb v2</entry>
               </row>
 
               <row>
-                <entry>Client-side UAM support</entry>
+                <entry rotate="0">passwd length</entry>
+
+                <entry>guest access</entry>
+
+                <entry>max. 8 characters</entry>
+
+                <entry>max. 8 characters</entry>
+
+                <entry>max. 64 characters</entry>
+
+                <entry>Kerberos tickets</entry>
+              </row>
+
+              <row>
+                <entry rotate="1">Client-side UAM support</entry>
 
                 <entry>built-in into all Mac OS versions</entry>
 
@@ -1210,33 +1231,28 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry>Encryption and authentication between AFP client and
-                server</entry>
+                <entry rotate="1">Encryption between client and server</entry>
 
                 <entry>Enables guest access without authentication between
                 client and server.</entry>
 
-                <entry>Password (up to 8 characters long) will be sent in
-                cleartext over the wire. Just as bad as it sounds, therefor
-                avoid at all if possible (note: providing NetBoot services
-                requires the ClearText UAM)</entry>
+                <entry>Password will be sent in cleartext over the wire. Just
+                as bad as it sounds, therefor avoid at all if possible (note:
+                providing NetBoot services requires the ClearText UAM)</entry>
 
-                <entry>Password itself (up to 8 characters long) will not be
-                transmitted (8-byte random numbers are sent over the wire,
-                comparable with DES, 56 bits). Vulnerable to offline
-                dictionary attack. Requires a cleartext password on the
-                server.</entry>
+                <entry>8-byte random numbers are sent over the wire,
+                comparable with DES, 56 bits. Vulnerable to offline dictionary
+                attack. Requires a cleartext password on the server.</entry>
 
-                <entry>Password (up to 64 bytes in length) will be encrypted
-                with 128 bit SSL, user will be authenticated against the
-                server but not vice versa. Therefor weak against
-                man-in-the-middle attacks.</entry>
+                <entry>Password will be encrypted with 128 bit SSL, user will
+                be authenticated against the server but not vice versa.
+                Therefor weak against man-in-the-middle attacks.</entry>
 
                 <entry>(not yet)</entry>
               </row>
 
               <row>
-                <entry>Server-side UAM support</entry>
+                <entry rotate="1">Server-side UAM support</entry>
 
                 <entry align="center" valign="middle">uams_guest.so</entry>
 
@@ -1252,7 +1268,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry valign="middle">Password storage</entry>
+                <entry rotate="1">Password storage</entry>
 
                 <entry align="center" valign="middle">None</entry>
 
@@ -1265,12 +1281,16 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
                 <entry align="center" valign="middle">Either /etc/passwd
                 (/etc/shadow) or PAM</entry>
 
-                <entry align="center" valign="middle">At the Kerberos <ulink
-                url="http://cryptnet.net/fdp/admin/kerby-infra/en/kerby-infra.html#howitworks">KDC</ulink></entry>
+                <entry align="center" valign="middle">At the Kerberos
+                KDC*</entry>
               </row>
             </tbody>
           </tgroup>
         </table>
+
+        <para>* KDC means <ulink
+        url="http://cryptnet.net/fdp/admin/kerby-infra/en/kerby-infra.html#howitworks">Key
+        Distribution Center</ulink></para>
       </sect3>
     </sect2>
   </sect1>
