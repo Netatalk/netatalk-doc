@@ -229,20 +229,20 @@
   <sect1>
     <title>Choosing a CNID storage scheme</title>
 
-    <para>Previous versions of Netatalk allocated CNIDs either on the fly
-    using a scheme called <emphasis remap="B">last</emphasis> or <emphasis
-    remap="B">hash</emphasis> or CNIDs were recorded in a persistent database.
-    <emphasis remap="B">hash</emphasis> generates a CNID for a file or
-    directory by mangling the inode number. <emphasis remap="B">last</emphasis>
-    just assigns a counter to each file and directory that is increased by one
-    upon access from a client. Those numbers are only the same for a given
-    file for the lifetime of the afpd process serving the client. Both schemes
-    therefore violate a fundamental assumption: A CNID once assigned must
-    never be reused for the lifetime of a volume. <emphasis remap="B">hash</emphasis>
-    has disappeared from recent Netatalk releases. <emphasis remap="B">last</emphasis>
-    is still supported in Netatalk 2.0 but you should think twice about using
-    it in production. It will probably be OK on read only volumes, but even
-    there we are not certain if OS X clients will work properly.</para>
+    <para>Previous versions of Netatalk allocated CNIDs either on the fly or CNIDs
+    were recorded in a persistent database. &#34;On the fly methods&#34; work by
+    either generating a CNID from the device and inode number or simply by using a
+    counter that is increased by one on each access to a file or directory from the
+    client. The counter only lasts for the lifetime of an afpd daemon process and
+    inode numbers are resused for a different file once the original file has been
+    deleted. These methods therefore violate a fundamental assumption: A CNID once
+    assigned must never be reused for the lifetime of a volume. Netatalk 2.0 supports
+    one &#34;On the fly scheme&#34; called <emphasis remap="B">last</emphasis>. It
+    computes CNIDs for files from device and inode of the file and uses a counter for
+    directories. You should think twice about using it in production. Depending on
+    your needs and the semantics of the underlying file system it might be OK on read
+    only volumes, but even there we are not certain if OS X clients will work
+    properly.</para>
 
     <para>That leaves the CNID schemes that use persistent storage for CNIDs.
     Netatalk 2.0 supports two: <emphasis remap="B">cdb</emphasis> and
@@ -278,8 +278,13 @@
     slower than with the <emphasis remap="B">cdb</emphasis> scheme. If this
     is a problem, you might want to disable transactions at Netatalk compile
     time. That will give you safety against afpd crashing, but not if the
-    machine goes down unexpectedly. Also, have a look at nosync option
+    machine goes down unexpectedly. Also, have a look at the nosync option
     documented in the cnid_dbd manual page. </para></listitem></orderedlist></para>
+
+    <para>It is also possible to switch between <emphasis remap="B">cdb</emphasis>
+    and <emphasis remap="B">dbd</emphasis> for a given volume, since they use the
+    same database format. You just have to shut down all processes accessing the
+    database cleanly, make the necessary configuration changes and restart.</para>
 
     <para>If you compile Netatalk 2.0 yourself and invoke configure --help,
     you&#39;ll notice that there are in fact more CNID backends to chose from.
