@@ -53,7 +53,7 @@
     turn.</para>
   </sect1>
 
-  <sect1>
+  <sect1 id="volumes-and-filenames">
     <title>Volumes and filenames</title>
 
     <para>Previous Netatalk versions saved filenames in the so called
@@ -345,19 +345,19 @@
     shut down all processes accessing the database cleanly, make the necessary
     configuration changes and restart. Please note, that you can easily
     specify a default CNID backend for all shares by applying the
-    cnidscheme<indexterm>
+    <option>cnidscheme</option><indexterm>
         <primary>cnidscheme</primary>
 
         <secondary>specifying a CNID backend</secondary>
-      </indexterm> option to the ":DEFAULT:" share (compare with the
-    <citerefentry>
+      </indexterm> option to the "<option>:DEFAULT:</option>" share (compare
+    with the <citerefentry>
         <refentrytitle>AppleVolumes.default</refentrytitle>
 
         <manvolnum>5</manvolnum>
       </citerefentry> manual page for details).</para>
 
     <para>Note that the <emphasis remap="B">dbd</emphasis> backend needs an
-    auxiliary daemon, called cnid_metad<indexterm>
+    auxiliary daemon, called <command>cnid_metad</command><indexterm>
         <primary>cnid_metad</primary>
 
         <secondary>dbd CNID database daemon</secondary>
@@ -378,7 +378,7 @@
       <para>That is easy. Just pick a CNID backend from above, configure it
       properly in afpd.conf and the AppleVolumes file and start up the
       necessary Netatalk processes. The databases will be automatically
-      created in a subdirectory .AppleDB<indexterm>
+      created in a subdirectory <filename>.AppleDB</filename><indexterm>
           <primary>AppleDB</primary>
 
           <secondary>.AppleDB CNID database store</secondary>
@@ -395,14 +395,14 @@
       installed on your system. If you already use one of the supported
       versions of Berkeley DB (4.1.25 or 4.2.52) for your old Netatalk
       installation and plan to use it for Netatalk 2.0 as well just use the
-      db_dump and db_load utilities that came with it as indicated below.
-      Otherwise it is probably best to have the old and the new (to be used
-      with Netatalk 2.0) version of Berkeley DB installed side by side until
-      you have finished the upgrade. The reason for this is that we will dump
-      out the old databases with the currently installed version of Berkeley
-      DB in ASCII format and reload them with the new version. This avoids any
-      incompatibility problems between Berkeley DB releases with respect to
-      the on-disk format.</para>
+      <command>db_dump</command> and <command>db_load</command> utilities that
+      came with it as indicated below. Otherwise it is probably best to have
+      the old and the new (to be used with Netatalk 2.0) version of Berkeley
+      DB installed side by side until you have finished the upgrade. The
+      reason for this is that we will dump out the old databases with the
+      currently installed version of Berkeley DB in ASCII format and reload
+      them with the new version. This avoids any incompatibility problems
+      between Berkeley DB releases with respect to the on-disk format.</para>
 
       <para>For each volume to be upgraded, follow these steps <itemizedlist>
           <listitem>
@@ -411,13 +411,14 @@
 
           <listitem>
             <para>Change to the database directory for that volume, most
-            likely the .AppleDB subdirectory of the volume toplevel directory
-            in question.</para>
+            likely the <filename>.AppleDB</filename> subdirectory of the
+            volume toplevel directory in question.</para>
           </listitem>
 
           <listitem>
-            <para>Dump the contents of cnid.db and didname.db using the old
-            (installed) version of Berkeley DB like this:</para>
+            <para>Dump the contents of <filename>cnid.db</filename> and
+            <filename>didname.db</filename> using the old (installed) version
+            of Berkeley DB like this:</para>
 
             <programlisting> 
       db_dump -f cnid.dump cnid.db 
@@ -427,9 +428,10 @@
             <para>Make sure the db_dump utility you are using is the correct
             (currently used) one. Use the full path to the db_dump executable
             if in doubt. So if this database was created with Berkeley DB 3.xx
-            installed in /usr/local/db3 use /usr/local/db3/bin/db_dump
-            instead. This will create two files, cnid.dump and didname.dump in
-            the current directory.</para>
+            installed in <filename>/usr/local/db3</filename> use
+            <filename>/usr/local/db3/bin/db_dump</filename> instead. This will
+            create two files, <filename>cnid.dump</filename> and
+            <filename>didname.dump</filename> in the current directory.</para>
           </listitem>
 
           <listitem>
@@ -437,10 +439,11 @@
 
             <programlisting> /path/to/netatalk/bin/cnid2_create </programlisting>
 
-            <para>The script assumes that .AppleDB is a subdirectory of the
-            volume directory to be upgraded. If that is not the case give the
-            full path name of the volume as the first argument to
-            cnid2_create. The script will create a file cnid2.dump in ASCII
+            <para>The script assumes that <filename>.AppleDB</filename> is a
+            subdirectory of the volume directory to be upgraded. If that is
+            not the case give the full path name of the volume as the first
+            argument to <command>cnid2_create</command>. The script will
+            create a file <filename>cnid2.dump</filename> in ASCII
             format.</para>
           </listitem>
 
@@ -452,42 +455,47 @@
           </listitem>
 
           <listitem>
-            <para>Load cnid2.dump into the new database. You should use the
-            db_load utility of Berkeley DB that will be used with version 2.0
-            of Netatalk. So if Berkeley DB 4.xx lives in /usr/local/db4
-            use</para>
+            <para>Load <filename>cnid2.dump</filename> into the new database.
+            You should use the <command>db_load</command> utility of Berkeley
+            DB that will be used with version 2.0 of Netatalk. So if Berkeley
+            DB 4.xx lives in <filename>/usr/local/db4</filename> use</para>
 
             <programlisting> /usr/local/db4/bin/db_load -f cnid2.dump cnid2.db </programlisting>
 
-            <para>This will create the new database file, cnid2.db. Remove the
-            old database files cnid.db, didname.db and devino.db. The
-            intermediate files cnid.dump, didname.dump and cnid2.dump can be
-            removed now or at some later time.</para>
+            <para>This will create the new database file,
+            <filename>cnid2.db</filename>. Remove the old database files
+            <filename>cnid.db</filename>, <filename>didname.db</filename> and
+            <filename>devino.db</filename>. The intermediate files
+            <filename>cnid.dump</filename>, <filename>didname.dump</filename>
+            and <filename>cnid2.dump</filename> can be removed now or at some
+            later time.</para>
           </listitem>
         </itemizedlist></para>
 
       <para>If you do not want to have two versions of Berkeley DB installed
       side by side during the upgrade, you should first dump out the old
       databases as indicated above for all volumes, upgrade Berkeley DB and
-      then load them with db_load. The cnid2_create script can be run before
-      or after the upgrade. Berkeley DB environment and logfiles should still
-      be removed before running db_load.</para>
+      then load them with db_load. The <command>cnid2_create</command> script
+      can be run before or after the upgrade. Berkeley DB environment and
+      logfiles should still be removed before running
+      <command>db_load</command>.</para>
     </sect2>
 
-    <sect2>
+    <sect2 id="bruteforceupgrade">
       <title>How to upgrade if a persistent CNID storage scheme was used, the
       brute force approach</title>
 
       <para>If you are absolutely sure what you are doing, you can also just
-      clear out all database files from the .AppleDB directories. They will be
-      recreated, but will not contain the same CNIDs as before!! That might
+      clear out all database files from the <filename>.AppleDB</filename>
+      directories. They will be recreated, but will <emphasis
+      remap="B">not</emphasis> contain the same CNIDs as before!! That might
       lead to all sorts of problems, like aliases not working any more on
       clients. As I said, make sure you know the consequences and don't mind
       them.</para>
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="testserver">
     <title>Setting up a test server on the same machine</title>
 
     <para>Providing a test environment in parallel with the existing
@@ -496,7 +504,7 @@
     recommended to make a backup of the existing installation before
     proceeding. When compiling a newer netatalk version you should also take
     care that you do not overwrite the binaries of an older version (make use
-    of the --prefix= configure option).</para>
+    of the <option>--prefix=</option> configure option).</para>
 
     <para>There could be more than two afpd servers running on one UNIX box.
     You just have to be careful to keep them from running into each
@@ -504,19 +512,23 @@
 
     <itemizedlist>
       <listitem>
-        <para>the shares/volumes (AppleVolumes.default)</para>
+        <para>the shares/volumes
+        (<filename>AppleVolumes.default</filename>)</para>
       </listitem>
 
       <listitem>
-        <para>the PID file (afpd -P command line option)</para>
+        <para>the PID file (<command>afpd</command> <option>-P</option>
+        command line option)</para>
       </listitem>
 
       <listitem>
-        <para>the port number (-port option in afpd.conf)</para>
+        <para>the port number (<option>-port</option> option in
+        <filename>afpd.conf</filename>)</para>
       </listitem>
 
       <listitem>
-        <para>no use of AppleTalk (-noddp option in afpd.conf)</para>
+        <para>no use of AppleTalk (<option>-noddp</option> option in
+        <filename>afpd.conf</filename>)</para>
       </listitem>
     </itemizedlist>
 
@@ -543,8 +555,8 @@ chmod g+wrx,g+s /macdata/testshare</programlisting>
       <title>Duplicating an already existing share</title>
 
       <para>Ensure that users cannot access the share in question and copy the
-      whole contents (including all the metadata directories like .AppleDB) to
-      another location.</para>
+      whole contents (including all the metadata directories like
+      <filename>.AppleDB</filename>) to another location.</para>
 
       <programlisting>cp -pr /production/testshare /macdata/</programlisting>
 
@@ -557,13 +569,14 @@ chmod g+wrx,g+s /macdata/testshare</programlisting>
 
       <para>Normally the test afpd cannot listen on the standard afpovertcp
       port, because that one is already bound by the production afpd. So the
-      afpd.conf should look like</para>
+      <filename>afpd.conf</filename> should look like</para>
 
       <programlisting>- -noddp -nouservol -port 5480 -loginmsg "WARNING: test server"</programlisting>
 
       <para>You also have to present the share to the Mac users by editing the
-      AppleVolumes.default file. Remove the line containing a single "~" at
-      the end of the file and append something like:</para>
+      <filename>AppleVolumes.default</filename> file. Remove the line
+      containing a single "~" at the end of the file and append something
+      like:</para>
 
       <programlisting>/macdata/testshare "Test Volume (not production)"</programlisting>
 
@@ -572,10 +585,11 @@ chmod g+wrx,g+s /macdata/testshare</programlisting>
       the recommended defaults UTF8 and ADv2.</para>
 
       <para>In case you have many users and want to restrict access to the
-      test server, there is a provision for that in the AppleVolumes.default
-      file. First, create a group named, say, afpdtest, and put in it all
-      users you would want to enable access to the test volumes. Then, instead
-      of the line above, append a line like this one:</para>
+      test server, there is a provision for that in the
+      <filename>AppleVolumes.default</filename> file. First, create a group
+      named, say, <option>afpdtest</option>, and put in it all users you would
+      want to enable access to the test volumes. Then, instead of the line
+      above, append a line like this one:</para>
 
       <programlisting>/macdata/testshare "Test Volume (not production)" allow:@afpdtest</programlisting>
 
@@ -591,14 +605,15 @@ chmod g+wrx,g+s /macdata/testshare</programlisting>
 
       <para>The production server has to know about the test server. Otherwise
       the Mac users would not be able to see the test server in their
-      choosers. Append the following line to the production afpd.conf (usually
-      in /etc/netatalk/afpd.conf):</para>
+      choosers. Append the following line to the production
+      <filename>afpd.conf</filename> (usually in
+      <filename>/etc/netatalk/afpd.conf</filename>):</para>
 
       <programlisting>"Test server (not production)" -proxy -uamlist "" -port 5480</programlisting>
 
       <para>and restart the production netatalk. Note that the port directive
       here should match the one which appears above in the test
-      afpd.conf.</para>
+      <filename>afpd.conf</filename>.</para>
 
       <important>
         <para>Note that there is a limit of 31 characters for the server's

@@ -1019,8 +1019,8 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             url="http://www.vmeng.com/vinnie/papers/pgpuam.html">PGPuam
             client</ulink> to let this work)</para>
 
-            <para>You'll have to add <command>"--enable-pgp-uam"</command> to
-            your configure switches to have this UAM available.</para>
+            <para>You'll have to add <filename>"--enable-pgp-uam"</filename>
+            to your configure switches to have this UAM available.</para>
           </listitem>
 
           <listitem>
@@ -1028,7 +1028,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             url="http://web.mit.edu/macdev/KfM/Common/Documentation/faq.html">Kerberos
             v4 based authentication</ulink> and AFS fileservers)</para>
 
-            <para>Use <command>"--enable-krb4-uam"</command> at compile time
+            <para>Use <filename>"--enable-krb4-uam"</filename> at compile time
             to activate the build of this UAM.</para>
           </listitem>
 
@@ -1036,19 +1036,20 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             <para>"Client Krb v2" UAM (Kerberos V, suitable for "Single Sign
             On" Scenarios with Mac OS X clients -- see below)</para>
 
-            <para><command>"--enable-krbV-uam"</command> will provide you with
-            the ability to use this UAM.</para>
+            <para><filename>"--enable-krbV-uam"</filename> will provide you
+            with the ability to use this UAM.</para>
           </listitem>
         </itemizedlist>
 
         <para>You can configure which UAMs should be activated by defining
-        <command>$AFPD_UAM_LIST</command> in <citerefentry>
+        <filename>$AFPD_UAM_LIST</filename> in <citerefentry>
             <refentrytitle>netatalk.conf</refentrytitle>
 
             <manvolnum>5</manvolnum>
           </citerefentry>. <command>afpd</command> will log which UAMs it's
         using and if problems occur while activating them in either
-        netatalk.log or syslog at startup time. <citerefentry>
+        <filename>netatalk.log</filename> or syslog at startup time.
+        <citerefentry>
             <refentrytitle>asip-status.pl</refentrytitle>
 
             <manvolnum>1</manvolnum>
@@ -1145,17 +1146,17 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         UAMs</title>
 
         <para>Some UAMs provide the ability to use different authentication
-        "backends", namely <command>uams_cleartext.so</command> and
-        <command>uams_dhx.so</command>. They can both use either classic Unix
-        passwords from <command>/etc/passwd</command>
-        (<command>/etc/shadow</command>) or PAM if the system supports that.
-        <command>uams_cleartext.so</command> can be symlinked to either
-        <command>uams_passwd.so</command> or <command>uams_pam.so</command>,
-        <command>uams_dhx.so</command> to
-        <command>uams_dhx_passwd.so</command> or
-        <command>uams_dhx_pam.so</command>. So, if it looks like this in
+        "backends", namely <filename>uams_cleartext.so</filename> and
+        <filename>uams_dhx.so</filename>. They can both use either classic
+        Unix passwords from <filename>/etc/passwd</filename>
+        (<filename>/etc/shadow</filename>) or PAM if the system supports that.
+        <filename>uams_cleartext.so</filename> can be symlinked to either
+        <filename>uams_passwd.so</filename> or
+        <filename>uams_pam.so</filename>, <filename>uams_dhx.so</filename> to
+        <filename>uams_dhx_passwd.so</filename> or
+        <filename>uams_dhx_pam.so</filename>. So, if it looks like this in
         Netatalk's UAMs folder (per default
-        <command>/etc/netatalk/uams/</command>):<programlisting>uams_clrtxt.so -&gt; uams_pam.so
+        <filename>/etc/netatalk/uams/</filename>):<programlisting>uams_clrtxt.so -&gt; uams_pam.so
 uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
         otherwise classic Unix passwords. The main advantage of using PAM is
         that one can integrate Netatalk in centralized authentication
@@ -1312,7 +1313,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
         option called "Allow Secure Connections Using SSH" and many people
         tend to confuse both things, we'll speak about that here too.</para>
 
-        <sect4>
+        <sect4 id="manualsshtunnel">
           <title>Manually tunneling an AFP session</title>
 
           <para>This works since the first AFP servers that spoke "AFP over
@@ -1323,7 +1324,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
           <programlisting>ssh -l $USER $SERVER -L 10548:127.0.0.1:548 sleep 3000</programlisting>
 
           <para>After establishing the tunnel one will use
-          <command>"afp://127.0.0.1:10548"</command> in the "Connect to
+          <filename>"afp://127.0.0.1:10548"</filename> in the "Connect to
           server" dialog. All AFP traffic including the initial connection
           attempts will be sent encrypted over the wire since the local AFP
           client will connect to the Mac's local port 10548 which will be
@@ -1334,12 +1335,12 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
           access an AFP server providing weak authentications mechanisms
           through the Internet without having the ability to use a "real" VPN.
           Note that you can let <command>ssh</command> compress the data by
-          using its <command>"-C"</command> switch and that the tunnel
+          using its <filename>"-C"</filename> switch and that the tunnel
           endpoints can be different from both AFP client and server (compare
           with the SSH documentation for details).</para>
         </sect4>
 
-        <sect4>
+        <sect4 id="autosshtunnel">
           <title>Automatically establishing a tunneled AFP connection</title>
 
           <para>Starting with Mac OS X 10.2 Apple added an "Allow Secure
@@ -1355,8 +1356,8 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
           connection attempt.</para>
 
           <para>Netatalk's afpd will report that it is capable of handling SSH
-          tunneled AFP requests, when both <command>-advertise_ssh</command>
-          and <command>-fqdn</command> options are set in <citerefentry>
+          tunneled AFP requests, when both <filename>-advertise_ssh</filename>
+          and <filename>-fqdn</filename> options are set in <citerefentry>
               <refentrytitle>afpd.conf</refentrytitle>
 
               <manvolnum>1</manvolnum>
@@ -1393,7 +1394,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
             <listitem>
               <para>On the other side you've to limit access to afpd to
-              localhost only (TCPWRAPPERS) and disable AFP over DDP when you
+              localhost only (TCP wrappers) and disable AFP over DDP when you
               want to ensure that all AFP sessions are SSH encrypted
               or…</para>
             </listitem>
@@ -1416,7 +1417,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="printing">
     <title>Printing<indexterm>
         <primary>Printing</primary>
       </indexterm></title>
@@ -1462,7 +1463,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
     notifications about the printing process or problems (paper jam for
     example) on the other.</para>
 
-    <sect2>
+    <sect2 id="papserver">
       <title>Setting up the PAP print server</title>
 
       <para>Netatalk's <command>papd</command> is able to provide AppleTalk
@@ -1512,7 +1513,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
           <manvolnum>5</manvolnum>
         </citerefentry> manual page.</para>
 
-      <sect3>
+      <sect3 id="paplpdsupport">
         <title>Integrating <command>papd</command> with SysV lpd</title>
 
         <para>Unless CUPS support has been compiled in (which is default from
@@ -1522,7 +1523,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
         the default printer will be used.</para>
       </sect3>
 
-      <sect3>
+      <sect3 id="pappipesupport">
         <title>Using pipes with <command>papd</command></title>
 
         <para>An alternative to the technique outlined above is to direct
@@ -1569,7 +1570,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
         system in question.</para>
       </sect3>
 
-      <sect3>
+      <sect3 id="papcupssupport">
         <title>Using direct CUPS support</title>
 
         <para>Starting with Netatalk 2.0, direct CUPS integration is
@@ -1587,7 +1588,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
       </sect3>
     </sect2>
 
-    <sect2>
+    <sect2 id="papclient">
       <title>Using AppleTalk printers</title>
 
       <para>Netatalk's <citerefentry>
@@ -1649,7 +1650,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="timeservices">
     <title>Time Services<indexterm>
         <primary>Time Services</primary>
       </indexterm><indexterm>
@@ -1658,10 +1659,10 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
         <secondary>AppleTalk time server</secondary>
       </indexterm></title>
 
-    <sect2>
+    <sect2 id="timelord">
       <title>Using Netatalk as a time server for Macintoshes</title>
 
-      <para>"timelord"<indexterm>
+      <para><command>timelord</command><indexterm>
           <primary>timelord</primary>
         </indexterm>, an AppleTalk based time server, is deprecated these
       days. Use NTP<indexterm>
@@ -1669,6 +1670,12 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
           <secondary>Network Time Protocol</secondary>
         </indexterm> instead.</para>
+
+      <para>For further information please have a look at the <citerefentry>
+          <refentrytitle>timelord</refentrytitle>
+
+          <manvolnum>8</manvolnum>
+        </citerefentry> manual page.</para>
     </sect2>
   </sect1>
 
@@ -1685,9 +1692,9 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
         <secondary>startup script</secondary>
       </indexterm> by specifying a system type to "configure". To
     automatically install startup scripts for e.g. the SuSE Linux distribution
-    try to give the --enable-suse option to "configure". Some of the scripts
-    can be further parametrized by the configuration file netatalk.conf
-    (described in the <citerefentry>
+    try to give the <option>--enable-suse</option> option to "configure". Some
+    of the scripts can be further parametrized by the configuration file
+    netatalk.conf (described in the <citerefentry>
         <refentrytitle>netatalk.conf</refentrytitle>
 
         <manvolnum>5</manvolnum>
@@ -1741,12 +1748,14 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
     </itemizedlist>
 
     <para>Additionally, make sure that the various configuration files
-    (afpd.conf, AppleVolumes.default, papd.conf etc.) are in the right place
-    and that netatalk.conf<indexterm>
+    (<filename>afpd.conf</filename>,
+    <filename>AppleVolumes.default</filename>, <filename>papd.conf</filename>
+    etc.) are in the right place and that
+    <filename>netatalk.conf</filename><indexterm>
         <primary>netatalk.conf</primary>
       </indexterm> (if used) contains the right entries. If you want e.g. papd
     to be started using this mechanism, set the environment variable
-    "PAPD_RUN"<indexterm>
+    "<option>PAPD_RUN</option>"<indexterm>
         <primary>PAPD_RUN</primary>
       </indexterm> to "yes" in netatalk.conf. See the manual pages for
     details.</para>
