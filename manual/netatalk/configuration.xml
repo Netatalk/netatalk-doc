@@ -1230,16 +1230,9 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
       </sect3>
 
       <sect3>
-         
-
         <title>Netatalk UAM overview table</title>
-
          
-
         <para>A small overview of the most common used UAMs.</para>
-
-         
-
         <table orient="land">
           <title>Netatalk UAM overview</title>
 
@@ -1385,13 +1378,9 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
           </tgroup>
         </table>
 
-         &nbsp;
-
         <para>* Have a look at this <ulink
         url="http://cryptnet.net/fdp/admin/kerby-infra/en/kerby-infra.html">Kerberos
         overview</ulink></para>
-
-         
       </sect3>
 
       <sect3 id="sshtunnel">
