@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.8 2004-01-13 22:03:30 tkaiser Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.9 2004-01-14 10:11:57 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -335,7 +335,7 @@
         <listitem>
           <para>Specifies the IP address that the server should advertise (the
           default is the first IP address of the system). This option also
-          allows also to use one machine to advertise the AFP-over-TCP/IP
+          allows to use one machine to advertise the AFP-over-TCP/IP
           settings of another machine via NBP.</para>
         </listitem>
       </varlistentry>
@@ -504,8 +504,7 @@
             <title>Three server definitions using 2 different server
             signatures</title>
 
-            <para>Examples: three servers running on one machine:
-            <programlisting>first -signature user:USERS 
+            <para><programlisting>first -signature user:USERS 
 second -signature user:USERS 
 third -signature user:ADMINS</programlisting></para>
           </example>
@@ -547,12 +546,12 @@ third -signature user:ADMINS</programlisting></para>
           LOG_MAXDEBUG</para>
 
           <example>
-            <title>Three server definitions using 2 different server
-            signatures</title>
+            <title>Some ways to change afpd's logging behaviour via -[un]setuplog</title>
 
             <para>Example: <programlisting>-setuplog &#34;logger log_maxdebug /var/log/netatalk-logger.log&#34; 
 -setuplog &#34;afpdaemon log_maxdebug /var/log/netatalk-afp.log&#34; 
--unsetuplog &#34;default level file&#34; -setuplog &#34;default log_maxdebug&#34;</programlisting></para>
+-unsetuplog &#34;default level file&#34; 
+-setuplog &#34;default log_maxdebug&#34;</programlisting></para>
           </example>
         </listitem>
       </varlistentry>
@@ -589,25 +588,25 @@ third -signature user:ADMINS</programlisting></para>
     <title>Examples</title>
 
     <example>
-      <title>Default configuration</title>
+      <title>afpd.conf default configuration</title>
 
       <programlisting>- -transall -uamlist uams_clrtxt.so,uams_dhx.so,uams_guest.so</programlisting>
     </example>
 
     <example>
-      <title>MacCyrillic setup / UTF8 unix locale</title>
+      <title>afpd.conf MacCyrillic setup / UTF8 unix locale</title>
 
       <programlisting>- -transall -maccodepage mac_cyrillic -unixcodepage utf8</programlisting>
     </example>
 
     <example>
-      <title>Setup for Kerberos V auth</title>
+      <title>afpd.conf setup for Kerberos V auth</title>
 
       <programlisting>- -transall -uamlist uams_clrtxt.so,uams_dhx.so,uams_guest.so,uams_gss.so -k5service afpserver -k5keytab /path/to/afpserver.keytab -k5realm YOUR.REALM -fqdn your.fqdn.namel:548</programlisting>
     </example>
 
     <example>
-      <title>Three servers on one machine</title>
+      <title>afpd.conf letting afpd appear as three servers on the net</title>
 
       <programlisting>&#34;Guest Server&#34; -uamlist uams_guest.so -loginmesg &#34;Welcome guest!&#34;
 &#34;User Server&#34; -uamlist uams_dhx.so -port 12000
