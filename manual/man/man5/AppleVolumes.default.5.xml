@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.2 2004-01-05 09:33:07 bfernhomberg Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.3 2004-01-06 06:53:13 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">02 December 2003</refmiscinfo>
+    <refmiscinfo class="date">05 January 2003</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -126,23 +126,6 @@
             </varlistentry>
 
             <varlistentry>
-              <term>noadouble</term>
-
-              <listitem>
-                <para>Forces <command>afpd</command> to not create
-                .AppleDouble unless a resource fork needs to be created.</para>
-              </listitem>
-            </varlistentry>
-
-            <varlistentry>
-              <term>prodos</term>
-
-              <listitem>
-                <para>Provides compatibility with Apple II clients.</para>
-              </listitem>
-            </varlistentry>
-
-            <varlistentry>
               <term>ro</term>
 
               <listitem>
@@ -158,7 +141,7 @@
               <listitem>
                 <para>Don&#39;t do :hex translation for dot files. note: when
                 this option gets set, certain file names become illegal. These
-                are .Parent and anything that starts with .Apple. also, dot
+                are .Parent and anything that starts with .Apple. Also, dot
                 files created on the unix side are marked invisible.</para>
               </listitem>
             </varlistentry>
@@ -658,8 +641,7 @@
   <refsect1>
     <title>See Also</title>
 
-    <para>
-    <citerefentry><refentrytitle>afpd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+    <para><citerefentry><refentrytitle>afpd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
     <citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry></para>
   </refsect1>
 </refentry>
