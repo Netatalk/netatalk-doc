@@ -35,7 +35,6 @@
 <!ENTITY pap.1 SYSTEM "man/man1/pap.1.xml">
 <!ENTITY psorder.1 SYSTEM "man/man1/psorder.1.xml">
 <!ENTITY timeout.1 SYSTEM "man/man1/timeout.1.xml">
-<!ENTITY FAQ SYSTEM "netatalk/faq.xml">
 ]>
 <book id="netatalk-manual">
   <title revision="0.1 initial version">Netatalk 2.0 Manual</title>
@@ -118,8 +117,6 @@
 
     &timeout.1;
   </chapter>
-
-  &FAQ;
 
   <index id="manual-index"><title>Index</title></index>
 </book>
