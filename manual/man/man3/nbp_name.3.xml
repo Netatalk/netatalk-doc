@@ -19,15 +19,15 @@
   <refsynopsisdiv>
     <funcsynopsis>
       <funcprototype>
-        <funcdef><type>int </type><function>nbp_name</function></funcdef>
+        <funcdef>int <function>nbp_name</function></funcdef>
 
-        <paramdef><type>char *</type><parameter>name</parameter></paramdef>
+        <paramdef>char *<parameter>name</parameter></paramdef>
 
-        <paramdef><type>char **</type><parameter>obj</parameter></paramdef>
+        <paramdef>char **<parameter>obj</parameter></paramdef>
 
-        <paramdef><type>char **</type><parameter>type</parameter></paramdef>
+        <paramdef>char **<parameter>type</parameter></paramdef>
 
-        <paramdef><type>char **</type><parameter>zone</parameter></paramdef>
+        <paramdef>char **<parameter>zone</parameter></paramdef>
       </funcprototype>
     </funcsynopsis>
   </refsynopsisdiv>

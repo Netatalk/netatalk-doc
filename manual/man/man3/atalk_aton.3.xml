@@ -24,9 +24,9 @@
       <funcprototype>
         <funcdef><function>atalk_aton</function></funcdef>
 
-        <paramdef><type>char *</type><parameter>cp</parameter></paramdef>
+        <paramdef>char * <parameter>cp</parameter></paramdef>
 
-        <paramdef><type>struct at_addr * </type><parameter>ata</parameter></paramdef>
+        <paramdef>struct at_addr * <parameter>ata</parameter></paramdef>
       </funcprototype>
     </funcsynopsis>
   </refsynopsisdiv>
