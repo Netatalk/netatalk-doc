@@ -17,6 +17,13 @@
     <title>How to obtain Netatalk</title>
 
     <sect2>
+	  <para>Please have a look at the netatalk page on sourceforge for the most 
+	  recent informations on this issue.</para>
+	  
+	  <para><ulink url="http://sourceforge.net/projects/netatalk/">http://sourceforge.net/projects/netatalk/</ulink></para>
+	</sect 2>
+	
+    <sect2>
       <title>Binary packages</title>
 
       <para>Binary packages of Netatalk are included in some Linux and UNIX
@@ -31,12 +38,11 @@
 
         <para>Prepacked tarballs in .tar.gz and tar.bz2 format are available
         on the netatalk page on sourceforge</para>
-
-        <para><ulink url="http://sourceforge.net/projects/netatalk/">http://sourceforge.net/projects/netatalk/</ulink></para>
       </sect3>
 
       <sect3>
-        <title>Anonymous CVS</title>
+        <title>Anonymous CVS<indexterm><primary>CVS</primary><secondary>Concurrent
+        Versioning System</secondary></indexterm></title>
 
         <para>Downloading of the CVS source can be done quickly and easily.</para>
 
@@ -127,7 +133,7 @@ U netatalk/COPYING
       <sect3>
         <title>Required third party software</title>
 
-        <para>Netatalk makes use of sleepycats&#39; Berkeley DB. At the time
+        <para>Netatalk makes use of sleepycats&#39; Berkeley DB<indexterm><primary>BDB</primary><secondary>Berkeley DB</secondary></indexterm>. At the time
         of writing, the following versions are supported:</para>
 
         <itemizedlist>
@@ -160,9 +166,9 @@ U netatalk/COPYING
 
         <itemizedlist>
           <listitem>
-            <para>openssl (recommended)</para>
+            <para>OpenSSL (recommended)</para>
 
-            <para>openSSL is required for encrypted passwords. Without it,
+            <para>OpenSSL is required for encrypted passwords. Without it,
             password will be sent over the network in cleartext.</para>
           </listitem>
 
@@ -181,10 +187,10 @@ U netatalk/COPYING
           </listitem>
 
           <listitem>
-            <para>PAM</para>
+            <para>PAM<indexterm><primary>PAM</primary><secondary>Pluggable Authentication Modules</secondary></indexterm></para>
 
             <para>PAM provides a flexible mechanism for authenticating users.
-            PAM was invented by SUN Microsystems. Linux-PAM is a suite of
+            PAM was invented by SUN<indexterm><primary>SUN</primary><secondary>Sun Microsystems</secondary></indexterm> Microsystems. Linux-PAM is a suite of
             shared libraries that enable the local system administrator to
             choose how applications authenticate users.</para>
 
@@ -195,12 +201,12 @@ U netatalk/COPYING
           <listitem>
             <para>OpenSLP</para>
 
-            <para>Service Location Protocol is an IETF standards track
+            <para>SLP<indexterm><primary>SLP</primary><secondary>Service Location Protocol</secondary></indexterm> (Service Location Protocol) is an IETF standards track
             protocol that provides a framework to allow networking
             applications to discover the existence, location, and
             configuration of networked services in enterprise networks.</para>
 
-            <para>OSX uses it to locate AFP servers, even though newer version
+            <para>Mac OS X uses it to locate AFP servers, even though newer version
             prefer Rendevouz.</para>
 
             <para>You can download OpenSLP from: <ulink
@@ -257,7 +263,7 @@ U netatalk/COPYING
 
         <screen><prompt>$&#62;</prompt> <userinput>./configure [arguments]</userinput></screen>
 
-        <para>If this step fails please ... do what?</para>
+        <para>If this step fails please visit the troubleshooting guide</para>
 
         <para>Next, running</para>
 

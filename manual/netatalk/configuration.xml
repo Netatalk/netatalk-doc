@@ -113,22 +113,22 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
   <sect1>
     <title>File Services</title>
 
-    <para>Netatalk supplies two different types of AFP servers and both can
+    <para>Netatalk supplies two different transport protocols for AFP<indexterm><primary>AFP</primary><secondary>Apple Filing Protocol</secondary></indexterm> services and both can
     run at the same time. Classic AFP over AppleTalk requires the
     <command>afpd</command> and <command>atalkd</command> daemons. AFP over IP
     only requires <command>afpd</command>.</para>
 
     <sect2>
-      <title>Setting up a the AFP file server</title>
+      <title>Setting up the AFP file server</title>
 
       <para>AFP (the Apple Filing Protocol) is the protocol Apple Macintoshs
       use for file services. The protocol has evolved over the years, at the
-      time of this writing 6 different &#34;dialects&#34; exist. The latest
+      time of this writing 7 different &#34;versions&#34; exist. The latest
       changes to the protocol, called &#34;AFP 3.1&#34;, were added with the
-      release of Panther (OSX 10.3).</para>
+      release of Panther<indexterm><primary>Panther</primary><secondary>Mac OS X 10.3</secondary></indexterm> (Mac OS X 10.3).</para>
 
-      <para>AFP3 brought some big changes. For the first time, Apple Clients
-      can use filenames up to 255 characters (actually 255 bytes), UTF-8 is
+      <para>AFP3 brought some big changes. For the first time, AppleShare<indexterm><primary>AppleShare</primary><secondary>Synonym for an AFP server</secondary></indexterm> Clients
+      can use filenames up to 255 characters (actually 255 bytes leading to 85-255 chars depending on the glyphs used), UTF-8 is
       used on the wire and large files (&#62;4GB) are supported.</para>
 
       <para>The afpd deamon offers the fileservices to Apple Clients. It&#39;s
@@ -143,6 +143,9 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
         that it provides. Any line not prefixed with <keycode>&#39;#</keycode>&#39;
         is interpreted.</para>
 
+        <para>If afpd switches set on the command line are in conflict with 
+        afpd.conf settings, the latter will have higher priority</para>
+        
         <para>Format: - [options] to specify options for the default server
         and/or &#34;Server name&#34; [options] to specify an additional server</para>
 
@@ -159,7 +162,7 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
       <sect3>
         <title>AppleVolumes.default</title>
 
-        <para>The AppleVolumes.default file is used to define volume that will
+        <para>The AppleVolumes.default file is used to define volumes that will
         by default be shown to all users, including users logged in as guest.
         A volume will not be presented in the chooser, if the user has no read
         access to the specified volume path.</para>
@@ -173,23 +176,24 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
       </sect3>
 
       <sect3 id="CNID-backends">
-        <title>CNID backends</title>
+        <title>CNID<indexterm><primary>CNID</primary><secondary>Catalog Node ID</secondary></indexterm> backends</title>
 
         <para>Unlike other protocols like smb or nfs, the AFP protocol mostly
         refers to files and directories by ID and not by a path. A typical AFP
-        request uses a directory ID and a filename, something like
-        <phrase><phrase>&#34;server, please open the file named &#39;Test&#39;
+        request uses a directory ID<indexterm><primary>DID</primary><secondary>Directory ID</secondary></indexterm> and a filename, something like
+        <phrase>&#34;server, please open the file named &#39;Test&#39;
         in the directory with id 167&#34;</phrase>. For example
-        &#34;Aliases&#34; on the Mac basically work by ID.</phrase></para>
+        &#34;Aliases&#34; on the Mac basically work by ID (with a fallback to the absolute path in more recent AFP clients. But this applies only to Finder, not to applications).</para>
 
-        <para>Every file in an AFP volume has to have a unique ID, IDs must,
-        according to the specs, never be reused, and ID&#39;s are 32 bit
-        numbers. So, after ~4 billion files have been written to an AFP
-        volume, the ID pool is depleted and no new file can be written to the
+        <para>Every file in an AFP volume has to have a unique file ID<indexterm><primary>FID</primary><secondary>File ID</secondary></indexterm>, IDs must,
+        according to the specs, never be reused, and IDs are 32 bit
+        numbers (Directory IDs use the same ID pool). So, after ~4 
+        billion files/folders have been written to an AFP volume, the 
+        ID pool is depleted and no new file can be written to the
         volume. No whining please :-)</para>
 
         <para>Netatalk needs to map IDs to files and folders in the host
-        filesystem. To achive this, several different CNID backends are
+        filesystem. To achieve this, several different CNID backends<indexterm><primary>CNID backend</primary><secondary>CNID database</secondary></indexterm> are
         available. A CNID backend is basically a database storing ID
         &#60;-&#62; name mappings.</para>
 
@@ -198,8 +202,8 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
         based on the device and inode of a file. Therefore, IDs will be
         eventually be reused and you can get duplicate IDs as well.</para>
 
-        <para>The CNID Databases are by default located in the .AppleDB folder
-        in every afpd volume root. With the new AD2 format, afpd stores the
+        <para>The CNID Databases are by default located in the .AppleDB<indexterm><primary>AppleDB</primary><secondary>CNID database folder</secondary></indexterm> folder
+        in every afpd volume root. With the new ADv2<indexterm><primary>ADv2</primary><secondary>AppleDouble v2</secondary></indexterm> format, afpd stores the
         files/directories ID in the corresponding .AppleDouble file as well.</para>
 
         <note>
@@ -208,17 +212,17 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
 
           <itemizedlist>
             <listitem>
-              <para>Don&#39;t use unix symlinks. Just don&#39;t. With a
+              <para>Don&#39;t use unix symlinks<indexterm><primary>Symlink</primary><secondary>Unix softlink</secondary></indexterm>. Just don&#39;t. With a
               symlink a file/directory &#34;exists&#34; twice, something AFP
               doesn&#39;t allow. There&#39;s currently no way this can be
               resolved, as we either end up with two file/dirs having the same
-              id, or a files having two parents. If you still insist on using
+              id, or a file having two parents. If you still insist on using
               them, be aware you&#39;re <emphasis>heavily</emphasis> violating
               the specs. You have been warned...</para>
             </listitem>
 
             <listitem>
-              <para>Don&#39;t nest volumes.</para>
+              <para>Don&#39;t nest volumes<indexterm><primary>Nested volumes</primary></indexterm>.</para>
             </listitem>
 
             <listitem>
@@ -241,10 +245,10 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
         <para></para>
 
         <sect4>
-          <title>cdb</title>
+          <title>cdb<indexterm><primary>CDB</primary><secondary>"cdb" CNID backend</secondary></indexterm></title>
 
           <para>The &#34;concurrent database&#34; backend is based on
-          sleepycat&#39;s Berkely DB. With this backend several afpd deamons
+          sleepycat&#39;s Berkeley DB. With this backend several afpd deamons
           access the CNID database directly. Berkeley DB locking is used to
           synchronize access, if more than one afpd process is active for a
           volume. The drawback is, that the crash of a single afpd process
@@ -252,7 +256,7 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
         </sect4>
 
         <sect4>
-          <title>dbd</title>
+          <title>dbd<indexterm><primary>DBD</primary><secondary>"dbd" CNID backend</secondary></indexterm></title>
 
           <para>Access to the CNID database is restricted to a the cnid_metad
           daemon process. afpd processes communicate with the daemon for
@@ -264,7 +268,7 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
         </sect4>
 
         <sect4>
-          <title>last</title>
+          <title>last<indexterm><primary>Last</primary><secondary>"last" CNID backend</secondary></indexterm></title>
 
           <para>The last backend is a semi persistent backend. ID&#39;s will
           be reused and, what is much worse, you can get duplicate IDs. You
@@ -405,7 +409,7 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
             </listitem>
           </itemizedlist>
 
-          <para>Starting with OSX and AFP3, <ulink url="http://www.utf-8.com/">UTF-8</ulink>
+          <para>Starting with Mac OS X and AFP3, <ulink url="http://www.utf-8.com/">UTF-8</ulink>
           is used. UTF-8 encodes Unicode characters in an ASCII compatible
           way, each Unicode character is encoded into 1-6 ASCII characters.
           UTF-8 is therefore not really a charset itself, it&#39;s an encoding
@@ -567,4 +571,18 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
       only some of the printers may # appear in the Chooser.</para>
     </sect2>
   </sect1>
+
+  <sect1>
+    <title>Time Services<indexterm><primary>Timelord</primary><secondary>AppleTalk time server</secondary></indexterm></title>
+
+    <para></para>
+
+    <sect2>
+      <title>Using Netatalk as a time server for Macintoshs</title>
+
+      <para>"timelord", an AppleTalk based time server, is depreciated these days.
+      Use NTP<indexterm><primary>NTP</primary><secondary>Network Time Protocol</secondary></indexterm> instead.</para>
+    </sect2>
+  </sect1>
+
 </chapter>

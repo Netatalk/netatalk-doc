@@ -20,14 +20,14 @@
     <title>Overview</title>
 
     <para>Version 2.0 of the Netatalk suite includes significant changes and
-    enhancements in functionality compared to previous versions. AFP v3.0 is
-    now supported which allows UTF8 encoded filenames of up to 255 characters
+    enhancements in functionality compared to previous versions. AFP 3.x is
+    now supported which allows UTF-8 encoded filenames of up to 255 bytes (85-255 chars)
     in length amongst other things. The Catalogue Node ID (CNID) subsystem has
     been reworked as well and should now be much more robust. For an overview
     of what CNIDs are and why you need them please see <link
     linkend="CNID-backends">CNID</link> section in the manual.</para>
 
-    <para>The downside of these enhancemants is that upgrading to Netatalk 2.0
+    <para>The downside of these enhancements is that upgrading to Netatalk 2.0
     is not a process that can be easily automated. Too many factors depend on
     site specific configuration and administrators have to make choices that
     suit their requirements. This document attempts to clarify the issues and
@@ -55,11 +55,11 @@
     <title>Volumes and filenames</title>
 
     <para>Previous Netatalk versions saved filenames in the so called
-    <emphasis>CAP</emphasis> encoding by default. Alternatively, there was the
-    NLS system, that allowed you to convert filenames to other codepages, like
+    <emphasis>CAP<indexterm><primary>CAP</primary><secondary>Columbia AppleTalk Package</secondary></indexterm></emphasis> encoding by default. Alternatively, there was the
+    NLS<indexterm><primary>NLS</primary><secondary>Native Language Support</secondary></indexterm> system, that allowed you to convert filenames to other codepages, like
     ISO-8859-1.</para>
 
-    <para>For Netatalk 2.0 the charset conversion routines had to be completly
+    <para>For Netatalk 2.0 the charset conversion routines had to be completely
     rewritten to support AFP 3.x. For more indepth information on character
     sets please read the <link linkend="charsets">Unicode/charsets</link>
     section in the manual. </para>
@@ -71,7 +71,7 @@
 
     <para>The format of the metadata files stored in the .AppleDouble folders
     has changed from AppleDouble v1 to AppleDouble v2. Netatalk 2.0 is still
-    able to use AD1 files, if configured. Otherwise ADv1 files will silently
+    able to use AD1 files, if configured. Otherwise ADv1<indexterm><primary>ADv1</primary><secondary>AppleDouble v1</secondary></indexterm> files will silently
     be updated to the new ADv2 format, which will prevent you from using this
     volume with 1.x again.</para>
 
@@ -84,7 +84,7 @@
 
     <note>
       <para>You should consider &#39;upgrading&#39; your volumes using the new
-      defaults UTF8 and AppleDoublev2, even if this is a time consuming
+      defaults UTF-8 and AppleDouble v2, even if this is a time consuming
       process. AFP 3.x uses UTF-8 and it is impossible to fully map UTF-8 to
       any of the old volume formats.</para>
     </note>
@@ -127,14 +127,14 @@
         </listitem>
       </itemizedlist>
 
-      <para>You have to make sure <option>maccodepage</option> matches you
+      <para>You have to make sure <option>maccodepage</option> matches your
       Apple clients codepage. For western users the default
       <emphasis>Mac_Roman</emphasis> should be fine. </para>
 
       <para>Set <option>volcharset</option> to <emphasis>ASCII</emphasis>.</para>
 
       <para>Set <option>adouble:v1</option>, this will make sure the metadata
-      files will not be changed to AppleDouble V2. If you do not set this
+      files will not be changed to AppleDouble v2. If you do not set this
       option, it will not be possible to use the volume with Netatalk 1.x
       anymore.</para>
 
@@ -155,7 +155,7 @@
       <title>How to use a 1.x NLS volume with 2.0</title>
 
       <para>Whether you can still use an 1.x NLS encoded volume with Netatalk
-      2.0 mainly depends on which NLS you used with 1.x.</para>
+      2.0 mainly depends on which NLS setting you used with 1.x.</para>
 
       <para>Make sure you set the correct <option>maccodepage</option> in
       <filename>afpd.conf</filename> !</para>
@@ -175,7 +175,7 @@
           <term>maccode.iso8859-1.adapted</term>
 
           <listitem>
-            <para>Sorry, you&#39;re out of luck. This NLS contains non
+            <para>Sorry, you&#39;re out of luck. This NLS contains a non
             standard mapping and is not supported anymore.</para>
           </listitem>
         </varlistentry>
@@ -227,7 +227,7 @@
   </sect1>
 
   <sect1>
-    <title>Chosing a CNID storage scheme</title>
+    <title>Choosing a CNID storage scheme</title>
 
     <para>Previous versions of Netatalk allocated CNIDs either on the fly
     using a scheme called <emphasis remap="B">last</emphasis> or <emphasis
@@ -237,7 +237,7 @@
     just assigns a counter to each file and directory that is increased by one
     upon access from a client. Those numbers are only the same for a given
     file for the lifetime of the afpd process serving the client. Both schemes
-    therefore violate a fundamenatal assumption: A CNID once assigned must
+    therefore violate a fundamental assumption: A CNID once assigned must
     never be reused for the lifetime of a volume. <emphasis remap="B">hash</emphasis>
     has disappeared from recent Netatalk releases. <emphasis remap="B">last</emphasis>
     is still supported in Netatalk 2.0 but you should think twice about using
@@ -251,7 +251,7 @@
     restricted to using a single scheme for all of your volumes that has to be
     determined at compile time. The CNID scheme (also called a &#34;CNID
     backend&#34;) is now a runtime option for a volume. That means that you
-    can make the choice per volume based on your reqirements. Here are the
+    can make the choice per volume based on your requirements. Here are the
     properties as well as the advantages and disadvantages of the three
     supported schemes: <orderedlist><listitem><para><emphasis role="bold">last:</emphasis>
     See above. Avoid, if at all possible.</para></listitem><listitem><para><emphasis
@@ -316,12 +316,12 @@
       the contents of cnid.db and didname.db using the old (installed) version
       of Berkeley DB like this:</para><programlisting> db_dump -f cnid.dump cnid.db db_dump -f didname.dump didname.db     </programlisting><para>Make
       sure the db_dump utility you are using is the correct (currently used)
-      one. Use the full path to the db_dump executeable if in doubt. So if
+      one. Use the full path to the db_dump executable if in doubt. So if
       this database was created with Berkeley DB 3.xx installed in
       /usr/local/db3 use /usr/local/db3/bin/db_dump instead. This will create
       two files, cnid.dump and didname.dump in the current directory.</para></listitem><listitem><para>Run
       the cnid2_create script:</para><programlisting> /path/to/netatalk/bin/cnid2_create </programlisting><para>The
-      script assumes that .AppleDB is a subdirctory of the volume directory to
+      script assumes that .AppleDB is a subdirectory of the volume directory to
       be upgraded. If that is not the case give the full path name of the
       volume as the first argument to cnid2_create. The script will create a
       file cnid2.dump in ASCII format.</para></listitem><listitem><para>Remove
