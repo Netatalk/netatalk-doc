@@ -74,8 +74,8 @@
             <para>Authenticate yourself with cvs. Just hit enter for the
             password for the anonymous user.</para>
 
-            <screen><prompt>$&#62;</prompt> <userinput>cvs -d:pserver:anonymous@cvs.netatalk.sourceforge.net:/cvsroot/netatalk login</userinput>
-<computeroutput>Logging in to :pserver:anonymous@cvs.netatalk.sourceforge.net:2401/cvsroot/netatalk
+            <screen><prompt>$&#62;</prompt> <userinput>cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/netatalk login</userinput>
+<computeroutput>Logging in to :pserver:anonymous@cvs.sourceforge.net:2401/cvsroot/netatalk
 CVS password: </computeroutput><userinput>[Enter]</userinput>
 </screen>
           </listitem>
@@ -83,7 +83,8 @@ CVS password: </computeroutput><userinput>[Enter]</userinput>
           <listitem>
             <para>Now get the source:</para>
 
-            <screen><prompt>$&#62;</prompt> <userinput>cvs -z3 -d:pserver:anonymous@cvs.netatalk.sourceforge.net:/cvsroot/netatalk co netatalk
+            <screen><prompt>$&#62;</prompt> <userinput>cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/netatalk
+    -r branch-netatalk-afp-3x-dev co netatalk
 </userinput><computeroutput>cvs server: Updating netatalk
 U netatalk/.cvsignore
 U netatalk/CONTRIBUTORS
