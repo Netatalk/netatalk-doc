@@ -59,17 +59,22 @@
     the <emphasis remap="B">cdb</emphasis> backend. It is therefore possible
     to switch between the two backends as necessary.</para>
 
-    <para><command>cnid_dbd</command> inherits the effective userid and
-    groupid from <emphasis remap="B">cnid_metad</emphasis> on startup, which
-    is normally caused by <emphasis remap="B">afpd</emphasis> serving a
-    netatalk volume to a client. It changes to the <emphasis remap="B">Berkleley
-    DB</emphasis> database home directory <emphasis remap="I">dbdir</emphasis>
-    that is associated with the volume, opens the database and starts serving
-    requests using the filedescriptor <emphasis remap="I">clntfd</emphasis>.
-    Subsequent instances of <emphasis remap="B">afpd</emphasis> that
-    want to access the same volume are redirected to the running
-    <command>cnid_dbd</command> by <emphasis remap="B">cnid_metad</emphasis>
-    via the filedescriptor <emphasis remap="I">ctrlfd</emphasis>.</para>
+    <para><command>cnid_dbd</command> inherits the effective userid and groupid
+    from <emphasis remap="B">cnid_metad</emphasis> on startup, which is normally
+    caused by <emphasis remap="B">afpd</emphasis> serving a netatalk volume to a
+    client. It changes to the <emphasis remap="B">Berkleley DB</emphasis>
+    database home directory <emphasis remap="I">dbdir</emphasis> that is
+    associated with the volume. If the userid inherited from <emphasis
+    remap="B">cnid_metad</emphasis> is 0 (root), <command>cnid_dbd</command>
+    will change userid and groupid to the owner and group of the database home
+    directory. Otherwise, it will continue to use the inherited values.
+    <command>cnid_dbd</command> will then attempt to open the database and
+    start serving requests using filedescriptor <emphasis
+    remap="I">clntfd</emphasis>.  Subsequent instances of <emphasis
+    remap="B">afpd</emphasis> that want to access the same volume are redirected
+    to the running <command>cnid_dbd</command> process by <emphasis
+    remap="B">cnid_metad</emphasis> via the filedescriptor <emphasis
+    remap="I">ctrlfd</emphasis>.</para>
 
     <para><command>cnid_dbd</command> can be configured to run forever or to
     exit after a period of inactivity. If <command>cnid_dbd</command> receives
