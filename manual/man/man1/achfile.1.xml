@@ -19,7 +19,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>achfile</command>
+      <command>achfile<indexterm><primary>achfile</primary></indexterm></command>
 
       <arg choice="opt"><arg choice="plain">-t </arg><arg choice="plain"><replaceable>type</replaceable></arg></arg>
 
