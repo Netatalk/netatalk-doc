@@ -24,7 +24,7 @@
     now supported which allows UTF-8 encoded filenames of up to 255 bytes (85-255 chars)
     in length amongst other things. The Catalogue Node ID (CNID) subsystem has
     been reworked as well and should now be much more robust. For an overview
-    of what CNIDs are and why you need them please see <link
+    of what CNIDs are and why you need them please see the <link
     linkend="CNID-backends">CNID</link> section in the manual.</para>
 
     <para>The downside of these enhancements is that upgrading to Netatalk 2.0
@@ -257,15 +257,15 @@
     role="bold">last:</emphasis> See above. Avoid, if at all
     possible.</para></listitem><listitem><para><emphasis role="bold">cdb:
     </emphasis>Roughly analogous to the Netatalk 1.6.x versions with what was
-    called then the &#34;DID schmeme&#34; set to &#34;cnid&#34; and the
-    &#34;CNID with Concurrent Data Store&#34; set to &#34;yes&#34;. Access to
+    called then the &#34;DID scheme&#34; option set to &#34;cnid&#34; and the
+    &#34;CNID with Concurrent Data Store&#34; option set to &#34;yes&#34;. Access to
     the CNID database for a volume happens directly from the Netatalk afpd
     daemons. A Berkeley DB locking scheme (the &#34;Concurrent Data
     Store&#34; bit) is used to avoid database inconsistencies. Robustness is
     much improved compared to previous releases. The CNID database can only
     become corrupted if an afpd daemon crashes unexpectedly, is killed by the
     administrator or the whole machine
-    chrashes.</para></listitem><listitem><para><emphasis
+    crashes.</para></listitem><listitem><para><emphasis
     role="bold">dbd:</emphasis> There is only a single daemon that accesses
     the CNID database for a given volume. Any afpd process that wishes to
     retrieve or update CNIDs for that volume needs to do it via the
@@ -324,7 +324,14 @@
       directory for that volume, most likely the .AppleDB subdirectory of the
       volume toplevel directory in question.</para></listitem><listitem><para>Dump
       the contents of cnid.db and didname.db using the old (installed) version
-      of Berkeley DB like this:</para><programlisting> db_dump -f cnid.dump cnid.db db_dump -f didname.dump didname.db     </programlisting><para>Make
+      of Berkeley DB like this:</para>
+      
+      <programlisting> 
+      db_dump -f cnid.dump cnid.db 
+      db_dump -f didname.dump didname.db 
+      </programlisting>
+
+      <para>Make
       sure the db_dump utility you are using is the correct (currently used)
       one. Use the full path to the db_dump executable if in doubt. So if
       this database was created with Berkeley DB 3.xx installed in
