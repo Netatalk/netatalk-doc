@@ -1,5 +1,5 @@
 #!/bin/sh
-# ($Id: dump-faq.sh,v 1.1 2004-08-16 14:21:26 tkaiser Exp $)
+# ($Id: dump-faq.sh,v 1.2 2004-08-16 16:03:43 tkaiser Exp $)
 # 
 # quick&dirty script to extract the contents of the Netatalk FAQ PhpWiki. Set 
 # $BaseURL to the index page. The script will output the stuff to stdout
@@ -30,7 +30,7 @@ lynx -width=200 -tagsoup -dump "${BaseURL}" | grep "${URLFilter}" | grep -v "\?"
 		lynx -width=400 -tagsoup -nolist -dump "${MyFAQ}" >"${MyTempFile}"
 		FirstLine=$(egrep -n  "Q: " "${MyTempFile}" | cut -f1 -d:)
 		MyTOCEntry="Q${MyCounter}:$(sed -n "${FirstLine}p" "${MyTempFile}" | awk -F"Q:" '{print $2}')"
-		echo "${MyTOCEntry}" >>"${MyTOC}"
+		echo -e "${MyTOCEntry}\n" | fold -s -w80 >>"${MyTOC}"
 
 		lynx -width=80 -tagsoup -nolist -dump "${MyFAQ}" >"${MyTempFile}"
 		FirstLine=$(egrep -n  "Q: " "${MyTempFile}" | cut -f1 -d:)
@@ -54,7 +54,5 @@ done
 echo " finished" >&2
 echo -e "Netatalk FAQ -- dumped from the online version on $(date -u)\n"
 echo -e "For the most recent version of the FAQ please visit\n${BaseURL}\n\n--------------------------------------------------------------------------------\n"
-cat "${MyTOC}"
-echo ""
-cat "${MyContents}"
+cat "${MyTOC}" "${MyContents}"
 rm "${MyTOC}" "${MyContents}"
