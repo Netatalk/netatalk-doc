@@ -13,9 +13,9 @@
   </refmeta>
 
   <refnamediv>
-    <refname>timelord<indexterm><primary>timelord</primary></indexterm></refname>
+    <refname>timelord</refname>
 
-    <refpurpose>Macintosh time server daemon</refpurpose>
+    <refpurpose>Macintosh time server daemon<indexterm><primary>timelord</primary></indexterm></refpurpose>
   </refnamediv>
 
   <refsect1>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.13 2004-07-20 07:05:41 tkaiser Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.14 2004-07-20 09:41:42 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -13,10 +13,10 @@
   </refmeta>
 
   <refnamediv>
-    <refname>afpd.conf<indexterm><primary>afpd.conf</primary></indexterm></refname>
+    <refname>afpd.conf</refname>
 
     <refpurpose>Configuration file used by afpd(8) to determine the setup of
-    its file sharing services</refpurpose>
+    its file sharing services<indexterm><primary>afpd.conf</primary></indexterm></refpurpose>
   </refnamediv>
 
   <refsect1>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="netatalk.conf.5">
-  <!--  $Id: netatalk.conf.5.xml,v 1.6 2004-07-20 07:05:41 tkaiser Exp $ -->
+  <!--  $Id: netatalk.conf.5.xml,v 1.7 2004-07-20 09:41:42 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>netatalk.conf</refentrytitle>
@@ -13,7 +13,10 @@
   </refmeta>
 
   <refnamediv>
-    <refname>netatalk.conf<indexterm><primary>netatalk.conf</primary></indexterm><indexterm><primary>AFPD_GUEST</primary></indexterm>
+    <refname>netatalk.conf</refname>
+
+    <refpurpose>Configuration file used by netatalk(8) to determine its
+    general configuration<indexterm><primary>netatalk.conf</primary></indexterm><indexterm><primary>AFPD_GUEST</primary></indexterm>
 <indexterm><primary>AFPD_MAX_CLIENTS</primary></indexterm>
 <indexterm><primary>AFPD_RUN</primary></indexterm>
 <indexterm><primary>AFPD_UAM_LIST</primary></indexterm>
@@ -28,10 +31,7 @@
         <primary>Startscript</primary>
 
         <secondary>startup script</secondary>
-      </indexterm></refname>
-
-    <refpurpose>Configuration file used by netatalk(8) to determine its
-    general configuration</refpurpose>
+      </indexterm></refpurpose>
   </refnamediv>
 
   <refsect1>

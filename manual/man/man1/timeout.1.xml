@@ -13,9 +13,9 @@
   </refmeta>
 
   <refnamediv>
-    <refname>timeout<indexterm><primary>timeout</primary></indexterm></refname>
+    <refname>timeout</refname>
 
-    <refpurpose>Send a signal to a program after a certain time</refpurpose>
+    <refpurpose>Send a signal to a program after a certain time<indexterm><primary>timeout</primary></indexterm></refpurpose>
   </refnamediv>
 
   <refsect1>

@@ -13,9 +13,9 @@
   </refmeta>
 
   <refnamediv>
-    <refname>nbp_name<indexterm><primary>nbp_name</primary></indexterm></refname>
+    <refname>nbp_name</refname>
 
-    <refpurpose>NBP name parsing</refpurpose>
+    <refpurpose>NBP name parsing<indexterm><primary>nbp_name</primary></indexterm></refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>

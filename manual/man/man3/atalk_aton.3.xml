@@ -13,9 +13,9 @@
   </refmeta>
 
   <refnamediv>
-    <refname>atalk_aton<indexterm><primary>atalk_aton</primary></indexterm></refname>
+    <refname>atalk_aton</refname>
 
-    <refpurpose>AppleTalk address parsing</refpurpose>
+    <refpurpose>AppleTalk address parsing<indexterm><primary>atalk_aton</primary></indexterm></refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>

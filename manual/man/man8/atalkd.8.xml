@@ -13,19 +13,24 @@
   <refnamediv>
     <refname>atalkd</refname>
 
-    <refpurpose>AppleTalk RTMP<indexterm>
+    <refpurpose>AppleTalk RTMP, NBP, ZIP, and AEP manager</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>atalkd<indexterm><primary>atalkd</primary></indexterm><indexterm>
         <primary>RTMP</primary>
 
         <secondary>Routing Table Maintainance Protocol</secondary>
-      </indexterm>, NBP<indexterm>
+      </indexterm><indexterm>
         <primary>NBP</primary>
 
         <secondary>Name Binding Protocol</secondary>
-      </indexterm>, ZIP<indexterm>
+      </indexterm><indexterm>
         <primary>ZIP</primary>
 
         <secondary>Zone Information Protocol</secondary>
-      </indexterm>, and AEP<indexterm>
+      </indexterm><indexterm>
         <primary>AEP</primary>
 
         <secondary>Apple Echo Protocol</secondary>
@@ -33,12 +38,7 @@
               <primary>Phase</primary>
 
               <secondary>AppleTalk phase 1 or 2</secondary>
-            </indexterm> manager</refpurpose>
-  </refnamediv>
-
-  <refsynopsisdiv>
-    <cmdsynopsis>
-      <command>atalkd<indexterm><primary>atalkd</primary></indexterm></command>
+            </indexterm></command>
 
       <arg>-f <replaceable>configfile</replaceable></arg>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="atalkd.conf.5">
-  <!--  $Id: atalkd.conf.5.xml,v 1.5 2004-07-20 07:05:41 tkaiser Exp $ -->
+  <!--  $Id: atalkd.conf.5.xml,v 1.6 2004-07-20 09:41:42 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>atalkd.conf</refentrytitle>
@@ -13,18 +13,18 @@
   </refmeta>
 
   <refnamediv>
-    <refname>atalkd.conf<indexterm><primary>atalkd.conf</primary></indexterm><indexterm>
+    <refname>atalkd.conf</refname>
+
+    <refpurpose>Configuration file used by atalkd(8) to determine the
+    interfaces used by the master Netatalk daemon<indexterm><primary>atalkd.conf</primary></indexterm><indexterm>
               <primary>ALLMULTI</primary>
-    
+
               <secondary>NIC multicast settings</secondary>
             </indexterm><indexterm>
               <primary>Phase</primary>
-    
-              <secondary>AppleTalk phase 1 or 2</secondary>
-            </indexterm></refname>
 
-    <refpurpose>Configuration file used by atalkd(8) to determine the
-    interfaces used by the master Netatalk daemon</refpurpose>
+              <secondary>AppleTalk phase 1 or 2</secondary>
+            </indexterm></refpurpose>
   </refnamediv>
 
   <refsect1>
