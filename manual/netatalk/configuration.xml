@@ -1366,15 +1366,14 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
                 <entry align="center" valign="middle">Either /etc/passwd
                 (/etc/shadow) or PAM</entry>
 
-                <entry align="center" valign="middle">passwords stored in
+                <entry align="center" valign="middle">Passwords stored in
                 cleartext in a separate textfile</entry>
 
                 <entry align="center" valign="middle">Either /etc/passwd
                 (/etc/shadow) or PAM</entry>
 
-                <entry align="center" valign="middle">At the Kerberos <ulink
-                url="http://cryptnet.net/fdp/admin/kerby-infra/en/kerby-infra.html#howitworks">Key
-                Distribution Center</ulink></entry>
+                <entry align="center" valign="middle">At the Kerberos Key
+                Distribution Center</entry>
               </row>
             </tbody>
           </tgroup>

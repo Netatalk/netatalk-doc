@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.16 2004-09-29 10:38:11 tkaiser Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.17 2004-10-09 18:54:55 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -410,7 +410,7 @@
         <term>-server_quantum <replaceable>[number]</replaceable></term>
 
         <listitem>
-          <para>This specifoes the DSI server quantum. The minimum value is
+          <para>This specifies the DSI server quantum. The minimum value is
           303840 (0x4A2E0). The maximum value is 0xFFFFFFFFF. If you specify a
           value that is out of range, the default value will be set (which is
           the minimum). Do not change this value unless you're absolutely
