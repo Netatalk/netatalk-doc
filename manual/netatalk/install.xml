@@ -117,9 +117,6 @@ U netatalk/COPYING
             <para>A C compiler, Netatalk compiles fine with gcc &#62; 2.7.95</para>
           </listitem>
 
-          <listitem>
-            <para>GNU make</para>
-          </listitem>
         </itemizedlist>
 
         <para>To be able to compile with AFP3 support, your system has to
