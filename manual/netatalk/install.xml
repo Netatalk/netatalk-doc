@@ -137,15 +137,11 @@ U netatalk/COPYING
 
         <itemizedlist>
           <listitem>
-            <para>4.0.14</para>
+            <para>4.1.25</para>
           </listitem>
 
           <listitem>
-            <para>4.1.25 (recommend)</para>
-          </listitem>
-
-          <listitem>
-            <para>4.2.52</para>
+            <para>4.2.52 (recommended)</para>
           </listitem>
         </itemizedlist>
 
