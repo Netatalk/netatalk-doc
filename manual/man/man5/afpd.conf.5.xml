@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.5 2004-01-08 00:51:10 bfernhomberg Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.6 2004-01-08 19:22:19 lenneis Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -428,7 +428,7 @@
 
         <listitem>
           <para>Specifies the IP address and port of a cnid_metad server,
-          required for CNID bdb backend.</para>
+          required for CNID bdb backend. Defaults to localhost:4700.</para>
         </listitem>
       </varlistentry>
 
