@@ -91,6 +91,11 @@
     db_archive</emphasis> command line utility in the Berkeley DB Tutorial and Reference
     for information when and how it is safe to remove these files.</para>
 
+    <para>Do not use <command>cnid_dbd</command> for databases on NFS mounted file
+    systems. It makes the whole point of securing database changes properly moot. Use
+    the dbdir: Option in the appropriate <emphasis remap="B">AppleVolumes</emphasis>
+    configuration file to put the database onto a local disk.</para>
+
   </refsect1>
 
   <refsect1>

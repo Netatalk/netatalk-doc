@@ -492,6 +492,16 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone &#34;Testing&#34;</programlis
               location or, if you use quotas, make sure the .AppleDB folder is
               owned by a user/group without a quota.</para>
             </listitem>
+	      
+	    <listitem>
+	      <para>Be careful with CNID databases for volumes that are mounted via
+	      NFS. That is a pretty audacious decision to make anyway, but putting a
+	      database there as well is really asking for trouble, i.e. database
+	      corruption. Use the dbpath: directive in the
+	      <filename>AppleVolumes.*</filename> configuration files to put the
+	      databases onto a local disk if you must use NFS mounted volumes.
+	      </para>
+	    </listitem>
           </itemizedlist>
         </note>
 
