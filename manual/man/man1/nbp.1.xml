@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">17 Dec 1991</refmiscinfo>
+    <refmiscinfo class="date">24 June 2004</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -22,41 +22,93 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>nbplkup</command>
+      <command>nbplkup </command>
 
-      <arg choice="opt"><arg choice="plain">-r </arg><arg choice="plain"><replaceable>nresp</replaceable></arg></arg>
+      <arg>-r <replaceable>maxresponses</replaceable></arg>
 
-      <arg choice="opt"><replaceable>nbpname</replaceable></arg>
+      <arg>-A <replaceable>address</replaceable></arg>
 
-      <arg choice="plain"><replaceable>nbprgstr</replaceable></arg>
+      <arg>-m <replaceable>maccodepage</replaceable></arg>
 
-      <arg choice="opt"><arg choice="plain">-p </arg><arg choice="plain"><replaceable>port</replaceable></arg></arg>
+      <arg choice="plain"><replaceable>nbpname</replaceable></arg>
+    </cmdsynopsis>
 
-      <arg choice="plain"><replaceable>nbpnamenbpunrgstrnbpname</replaceable></arg>
+    <cmdsynopsis>
+      <command>nbprgstr </command>
+
+      <arg>-A <replaceable>address</replaceable></arg>
+
+      <arg>-p <replaceable>port</replaceable></arg>
+
+      <arg>-m <replaceable>maccodepage</replaceable></arg>
+
+      <arg choice="plain"><replaceable>nbpname</replaceable></arg>
+    </cmdsynopsis>
+
+    <cmdsynopsis>
+      <command>nbpunrgstr</command>
+
+      <arg>-A <replaceable>address</replaceable></arg>
+
+      <arg>-m <replaceable>maccodepage</replaceable></arg>
+
+      <arg choice="plain"><replaceable>nbpname</replaceable></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
   <refsect1>
-    <title>DESCRIPTION</title>
+    <title>Description</title>
 
-    <para><emphasis remap="B">nbprgstr</emphasis> registers <emphasis
-    remap="I">nbpname</emphasis> with <citerefentry><refentrytitle>atalkd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-    at the given <emphasis remap="I">port</emphasis>. <emphasis remap="B">nbpunrgstr</emphasis>
-    informs <emphasis remap="B">atalkd</emphasis> that <emphasis remap="I">nbpname</emphasis>
-    is no longer to be advertised.</para>
+    <para><command>nbprgstr</command> registers <replaceable>nbpname</replaceable>
+    with <citerefentry><refentrytitle>atalkd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+    at the given <replaceable>port</replaceable>. <command>nbpunrgstr</command>
+    informs <emphasis remap="B">atalkd</emphasis> that
+    <replaceable>nbpname</replaceable> is no longer to be advertised.</para>
 
-    <para><command>nbplkup</command> displays up to <emphasis remap="I">nresp</emphasis>
-    (default 1000) entities registered on the AppleTalk internet. <emphasis
-    remap="I">nbpname</emphasis> is parsed by <citerefentry><refentrytitle>nbp_name</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+    <para><command>nbplkup</command> displays up to
+    <replaceable>maxresponses</replaceable> (default 1000) entities registered
+    on the AppleTalk internet. <emphasis remap="I"><replaceable>nbpname</replaceable></emphasis>
+    is parsed by <citerefentry><refentrytitle>nbp_name</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
     An `<emphasis remap="B">=</emphasis>&#39; for the <emphasis remap="I">object</emphasis>
     or <emphasis remap="I">type</emphasis> matches anything, and an `<emphasis
     remap="B">*</emphasis>&#39; for <emphasis remap="I">zone</emphasis> means
     the local zone. The default values are taken from the <emphasis remap="B">NBPLKUP</emphasis>
-    environment variable, parsed as an <emphasis remap="I">nbpname</emphasis>.</para>
+    environment variable, parsed as an <replaceable>nbpname</replaceable>.</para>
   </refsect1>
 
   <refsect1>
-    <title>EXAMPLE</title>
+    <title>Environment Variables</title>
+
+    <variablelist>
+      <varlistentry>
+        <term>NBPLKUP</term>
+
+        <listitem>
+          <para>default nbpname for nbplkup</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>ATALK_MAC_CHARSET</term>
+
+        <listitem>
+          <para>the codepage used by the clients on the Appletalk network</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>ATALK_UNIX_CHARSET</term>
+
+        <listitem>
+          <para>the codepage used to display extended characters on this
+          shell.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Example</title>
 
     <para>Find all devices of type <emphasis remap="B">LaserWriter</emphasis>
     in the local zone.</para>
@@ -75,7 +127,7 @@
   </refsect1>
 
   <refsect1>
-    <title>SEE ALSO</title>
+    <title>See also</title>
 
     <para><citerefentry><refentrytitle>nbp_name</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
     <citerefentry><refentrytitle>nbp</refentrytitle><manvolnum>4</manvolnum></citerefentry>,
