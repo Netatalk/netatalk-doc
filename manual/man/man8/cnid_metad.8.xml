@@ -138,7 +138,7 @@
   <refsect1>
     <title>SEE ALSO</title>
 
-    <para><citerefentry><refentrytitle>cnid_dbd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+    <para><citerefentry><refentrytitle>cnid_dbd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
     <citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry></para>
   </refsect1>
 </refentry>

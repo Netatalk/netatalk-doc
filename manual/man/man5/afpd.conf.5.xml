@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.9 2004-01-14 10:11:57 tkaiser Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.10 2004-06-22 00:35:53 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -602,7 +602,9 @@ third -signature user:ADMINS</programlisting></para>
     <example>
       <title>afpd.conf setup for Kerberos V auth</title>
 
-      <programlisting>- -transall -uamlist uams_clrtxt.so,uams_dhx.so,uams_guest.so,uams_gss.so -k5service afpserver -k5keytab /path/to/afpserver.keytab -k5realm YOUR.REALM -fqdn your.fqdn.namel:548</programlisting>
+      <programlisting>- -transall -uamlist uams_clrtxt.so,uams_dhx.so,uams_guest.so,uams_gss.so \ 
+-k5service afpserver -k5keytab /path/to/afpserver.keytab \ 
+-k5realm YOUR.REALM -fqdn your.fqdn.namel:548</programlisting>
     </example>
 
     <example>

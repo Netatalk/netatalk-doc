@@ -111,8 +111,8 @@ laser|lp|LaserWriter Plus on AppleTalk:\
 
     <para><citerefentry><refentrytitle>psorder</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
     <citerefentry><refentrytitle>printcap</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-    <citerefentry><refentrytitle>lpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-    <citerefentry><refentrytitle>mknod</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-    <citerefentry><refentrytitle>pap</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
+    <citerefentry><refentrytitle>lpd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+    <citerefentry><refentrytitle>mknod</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+    <citerefentry><refentrytitle>pap</refentrytitle><manvolnum>1</manvolnum></citerefentry>.</para>
   </refsect1>
 </refentry>
