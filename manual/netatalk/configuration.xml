@@ -149,14 +149,27 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
         <para>Leaving the afpd.conf file empty equals to the following
         configuration:</para>
 
-        <para><programlisting>- -transall -uamlist uams_guest.so,uams_clrtxt.so,uams_dhx.so -nosavepassword</programlisting>--&#62;
-        man afpd.conf</para>
+        <para><programlisting>- -transall -uamlist uams_guest.so,uams_clrtxt.so,uams_dhx.so -nosavepassword</programlisting></para>
+
+        <para>For a more detailed explanation of the available options, please
+        refer to the <citerefentry><refentrytitle>afpd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+        man page.</para>
       </sect3>
 
       <sect3>
         <title>AppleVolumes.default</title>
 
-        <para>--&#62; man AppleVolumes.default</para>
+        <para>The AppleVolumes.default file is used to define volume that will
+        by default be shown to all users, including users logged in as guest.
+        A volume will not be presented in the chooser, if the user has no read
+        access to the specified volume path.</para>
+
+        <para>You can limit access to a specific volume by using the
+        <option>allow</option> and <option>deny</option> options.</para>
+
+        <para>For a more detailed explanation of the available options, please
+        refer to the <citerefentry><refentrytitle>AppleVolumes.default</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+        man page.</para>
       </sect3>
 
       <sect3 id="CNID-backends">
@@ -257,6 +270,272 @@ eth1 -seed -phase 2 -addr 100.10 -net 100-110 -zone &#34;Upstairs&#34;</programl
           be reused and, what is much worse, you can get duplicate IDs. You
           should use it for sharing cdroms only, <emphasis>don&#39;t</emphasis>
           use it for sharing normal volumes.</para>
+        </sect4>
+      </sect3>
+
+      <sect3>
+        <title>Charsets/Unicode</title>
+
+        <para></para>
+
+        <sect4>
+          <title>Why Unicode?</title>
+
+          <para>Internally computers don&#39;t know anything about characters
+          and texts, they only know numbers. Therefore, each letter is
+          assigned a number. A character set, often referred to as
+          <emphasis>charset</emphasis> or <emphasis>codepage</emphasis>,
+          defines the mappings between numbers and letters.</para>
+
+          <para>If two or more computer systems need to communicate with each
+          other, the have to use the same charater set. In the 1960s the ASCII
+          (American Standard Code for Information Interchange) character set
+          was defined by the American Standards Association. The original form
+          of ASCII represented 128 characters, more than enough to cover the
+          English alphabet and numerals. Up to date, ASCII has been the
+          normative character scheme used by computers.</para>
+
+          <para>Later versions defined 256 characters to produce a more
+          international fluency and to include some slightly esoteric
+          graphical characters. Using this mode of encoding each character
+          takes exactly one byte. Obviously, 256 characters still wasn&#39;t
+          enough to map all the characters used in the various languages into
+          one character set.</para>
+
+          <para>As a result localized character sets were defined later, e.g
+          the ISO-8859 character sets. Most operating system vendors
+          introduced their own characters sets to satisfy their needs, e.g.
+          IBM defined the <emphasis>codepage 437 (DOSLatinUS)</emphasis>,
+          Apple introduced the <emphasis>MacRoman</emphasis> codepage and so
+          on. The characters that were assigned number larger than 127 were
+          referred to as <emphasis>extended</emphasis> characters. These
+          character sets conflict with another, as they use the same number
+          for different characters, or vice versa.</para>
+
+          <para>Almost all of those characters sets defined 256 characters,
+          where the first 128 (0-127) character mappings are identical to
+          ASCII. As a result, communication between systems using different
+          codepages was effectivly limited to the ASCII charset.</para>
+
+          <para>To solve this problem new, larger character sets were defined.
+          To make room for more character mappings, these character sets use
+          at least 2 bytes to store a character. They are therefore referred
+          to as <emphasis>multibyte</emphasis> character sets.</para>
+
+          <para>One standardized multibyte charset encoding scheme is known as
+          <ulink url="http://www.unicode.org/">unicode</ulink>. A big
+          advantage of using a multibyte charset is that you only need one.
+          There is no need to make sure two computers use the same charset
+          when they are communicating.</para>
+        </sect4>
+
+        <sect4>
+          <title>character sets used by Apple</title>
+
+          <para>In the past, Apple clients used single-byte charsets to
+          communicate over the network. Over the years Apple defined a number
+          of codepages, western users will most likely be using the
+          <emphasis>MacRoman</emphasis> codepage.</para>
+
+          <para>Codepages defined by Apple include:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>MacArabic, MacFarsi</para>
+            </listitem>
+
+            <listitem>
+              <para>MacCentralEurope</para>
+            </listitem>
+
+            <listitem>
+              <para>MacChineseSimple</para>
+            </listitem>
+
+            <listitem>
+              <para>MacChineseTraditional</para>
+            </listitem>
+
+            <listitem>
+              <para>MacCroation</para>
+            </listitem>
+
+            <listitem>
+              <para>MacCyrillic</para>
+            </listitem>
+
+            <listitem>
+              <para>MacDevanagari</para>
+            </listitem>
+
+            <listitem>
+              <para>MacGreek</para>
+            </listitem>
+
+            <listitem>
+              <para>MacHebrew</para>
+            </listitem>
+
+            <listitem>
+              <para>MacIcelandic</para>
+            </listitem>
+
+            <listitem>
+              <para>MacKorean</para>
+            </listitem>
+
+            <listitem>
+              <para>MacJapanese</para>
+            </listitem>
+
+            <listitem>
+              <para>MacRoman</para>
+            </listitem>
+
+            <listitem>
+              <para>MacRomanian</para>
+            </listitem>
+
+            <listitem>
+              <para>MacThai</para>
+            </listitem>
+
+            <listitem>
+              <para>MacTurkish</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Starting with OSX and AFP3, <ulink url="http://www.utf-8.com/">UTF-8</ulink>
+          is used. UTF-8 encodes Unicode characters in an ASCII compatible
+          way, each Unicode character is encoded into 1-6 ASCII characters.
+          UTF-8 is therefore not really a charset itself, it&#39;s an encoding
+          of the Unicode charset.</para>
+
+          <para>To complicate things, Unicode defines several
+          <emphasis><ulink
+          url="http://www.unicode.org/reports/tr15/index.html">normalization</ulink></emphasis>
+          forms. Contrary to the larger part of the IT industrie, which uses
+          <emphasis>precomposed</emphasis>, Apple decided to use the
+          <emphasis>decomposed</emphasis> normalization (Is that what they
+          mean by <emphasis>&#34;think different&#34;</emphasis>?).</para>
+
+          <para>For example lets take the German character &#39;<keycode>ä</keycode>&#39;.
+          Using the precomposed normalization, Unicode maps this character to
+          0xE4. In decomposed normalization, &#39;ä&#39; is actually mapped to
+          two characters, 0x61 and 0x308. 0x61 is the mapping for an
+          &#39;a&#39;, 0x308 is the mapping for a <emphasis>COMBINING
+          DIAERESIS</emphasis>.</para>
+
+          <para>Netatalk referres to precomposed UTF-8 as
+          <emphasis>UTF8</emphasis> and to decomposed UTF-8 as
+          <emphasis>UTF8-MAC</emphasis>.</para>
+        </sect4>
+
+        <sect4>
+          <title>afpd and character sets</title>
+
+          <para>To support new AFP 3.x and older AFP 2.x clients at the same
+          time, afpd needs to be able to convert between the various charsets
+          used. AFP 3.x clients always use UTF-8, AFP 2.2 clients use one of
+          the Apple codepages.</para>
+
+          <para>At the time of this writing, netatalk supports the following
+          Apple codepages:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>MacCentralEurope</para>
+            </listitem>
+
+            <listitem>
+              <para>MacCyrillic</para>
+            </listitem>
+
+            <listitem>
+              <para>MacHebrew</para>
+            </listitem>
+
+            <listitem>
+              <para>MacRoman</para>
+            </listitem>
+
+            <listitem>
+              <para>MacTurkish</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>afpd handles three different character set options:</para>
+
+          <variablelist>
+            <varlistentry>
+              <term>unixcodepage</term>
+
+              <listitem>
+                <para>This is the codepage used internally by your operating
+                system. If not specified and your system support Unix locales,
+                afpd tries to detect the codepage, otherwise it defaults to
+                ASCII. afpd uses this codepage to read its configuration
+                files, so you can use extended characters for volume names,
+                login messages, etc. see <citerefentry><refentrytitle>afpd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+                </para>
+
+                <para></para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>maccodepage</term>
+
+              <listitem>
+                <para>As already mentioned, older MacOS clients ( up to AFP
+                2.2) use codepages to communicate with afpd. However, there is
+                no support for negotiating the codepage used by the client in
+                the AFP protocol. If not specified otherwise, afpd assumes the
+                <emphasis>MacRoman</emphasis> codepage is used. In case
+                you&#39;re clients use another codepage, e.g.
+                <emphasis>MacCyrillic</emphasis>, you&#39;ll <emphasis
+                role="bold">have</emphasis> to explicitly configure this. see
+                <citerefentry><refentrytitle>afpd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>volcharset</term>
+
+              <listitem>
+                <para>This defines the charset afpd should use for filenames
+                on disk. The default is UTF8. If you have <ulink
+                url="http://www.gnu.org/software/libiconv/">iconv</ulink>
+                installed, you can use any iconv provided charset as well.
+                </para>
+
+                <para>afpd needs a way to preserve extended macintosh
+                characters, or characters illegal in unix filenames, when
+                saving files on a unix filesystem. Earlier versions used the
+                the so called CAP encoding. An extended character (&#62;0x7F)
+                would be converted to a :xx hex sequence, e.g. the Apple Logo
+                (MacRoman: 0XF0) was saved as :f0. Some special characters
+                will be converted as to :xx notation as well. &#39;/&#39; will
+                be encoded to :2f, if -usedots is not specified, a leading dot
+                &#39;.&#39; will be encoded as :2e. Even though this version
+                now uses UTF-8 as the default encoding for filenames, special
+                characters, like &#39;/&#39; and a leading &#39;.&#39; will
+                still be CAP style encoded . For western users another useful
+                setting could be <emphasis>-volcharset ISO-8859-15</emphasis>.
+                </para>
+
+                <para>If a character cannot be converted from the mac codepage
+                to the selected volcharset, afpd will save it as a CAP encoded
+                character. For AFP3 clients, afpd will convert the UTF-8
+                character to <emphasis>maccodepage</emphasis> first. If this
+                conversion fails, you&#39;ll receive a -50 error on the mac.
+                <emphasis>Note</emphasis>: Whenever you can, please stick with
+                the default UTF-8 volume format. see
+                <citerefentry><refentrytitle>AppleVolumes.default</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+                </para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
         </sect4>
       </sect3>
     </sect2>
