@@ -979,7 +979,11 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         <title>AFP authentication basics</title>
 
         <para>Apple chose a flexible model called "User Authentication
-        Modules" (UAMs) for authentication purposes between AFP client and
+        Modules"<indexterm>
+          <primary>UAM</primary>
+
+          <secondary>User Authentication Module</secondary>
+        </indexterm> (UAMs) for authentication purposes between AFP client and
         server. An AFP client initially connecting to an AFP server will ask
         for the list of UAMs which the server provides, and will choose the
         one with strongest encryption that the client supports.</para>

@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">13 June 2004</refmiscinfo>
+    <refmiscinfo class="date">06 September 2004</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -18,7 +18,11 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>papd<indexterm><primary>papd</primary></indexterm></command>
+      <command>papd<indexterm><primary>papd</primary></indexterm><indexterm>
+          <primary>UAM</primary>
+
+          <secondary>User Authentication Module</secondary>
+        </indexterm></command>
 
       <arg>-d</arg>
 
@@ -269,9 +273,7 @@
     If both CAP and PSSP are enabled for a particular printer, CAP will be
     tried first, then <command>papd</command> will fall back to PSSP.</para>
 
-    <para>The list of UAMs<indexterm>
-        <primary>UAM</primary>
-      </indexterm> to use for authentication (specified with the 'am' option)
+    <para>The list of UAMs to use for authentication (specified with the 'am' option)
     applies to all printers. It is not possible to define different
     authentication methods on each printer. You can specify the list of UAMS
     multiple times, but only the last setting will be used. Currently only
