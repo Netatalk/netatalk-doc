@@ -44,7 +44,10 @@
   turned into one main disadvantage of AppleTalk running on top of other
   physical media: The inability to use the underlying network characteristics
   in an efficient way (an Ethernet frame is approx. 3 times larger than an
-  AppleTalk packet, for example)</para> <para>With the increase of physical
+  AppleTalk packet, for example)</para></sect2> 
+  <sect2> 
+  <title>Looking for alternatives</title>
+  <para>With the increase of physical
   transfer speeds (100 Mbps with &#34;Fast Ethernet&#34; for example) the need
   for alternatives gained ground more and more. Apple decided to add different
   transportation layers for file services (Apple Filing Protocol). In the mid
@@ -55,8 +58,8 @@
   engineers integrated the ability to automagically switch between AppleTalk
   and TCP. People still used the chooser and AppleTalk to connect to the
   server but in case, both client and server were able to &#34;speak&#34; AFP
-  over TCP, they switched the transport protocol without notifying the user.</para>
-  </sect2></sect1>
+  over TCP, server and client switched the transport protocol silently without
+  notifying the user.</para> </sect2></sect1>
 
   <sect1><title>...Today...</title></sect1>
 
@@ -83,24 +86,24 @@
   today, almost all those services can be used additionally or solely via
   TCP/IP, too.</para></sect2>
 
-  <sect2><title>AppleTalk is bad, isn&#39;t it?</title> <para>Short answer:
-  No, it is <emphasis>not</emphasis>.</para> <para>Long answer: Many people
-  believe that AppleTalk is not only slow but causes also a network base load
-  of 90 percent or above caused by its built-in self-administration
-  capabilities and the resulting verbosity. While the first is common
-  knowledge, the latter doesn&#39;t apply in general.</para> <para>10 or more
-  years ago, AppleShare clients permanently polled server volumes for changes,
-  which increased the network load directly proportional to the number of
-  clients connected to the server. In case an ethernet bus topology has been
-  used, this behaviour could have led to a situation where more than the half
-  of packets have been dropped due to collisions.</para> <para>But hey,
-  that&#39;s been yesterday. Apple introduced the so called &#34;server
-  notifications&#34; to stop client&#39;s hammering the server with requests
-  for changes. Instead AppleShare server nowadays (even Netatalk :-) notify
-  the clients about changes only when something really has changed. This fact
-  and the switched environments lead to a situation where AppleTalk traffic
-  plays no significant role at all nowadays.</para> <para>Normally, there are
-  not that much good reasons to disable AppleTalk in your network.</para></sect2>
+  <sect2><title>AppleTalk is bad, right?</title> <para>Short answer: No, it is
+  <emphasis>not</emphasis>.</para> <para>Long answer: Many people believe that
+  AppleTalk is not only slow but causes also a network base load of 90 percent
+  or above due to its built-in self-administration capabilities and the
+  resulting verbosity. While the first is common knowledge, the latter
+  doesn&#39;t apply in general.</para> <para>10 or more years ago, AppleShare
+  clients permanently polled server volumes for changes, which increased the
+  network load directly proportional to the number of clients connected to the
+  server. In case an ethernet bus topology has been used, this behaviour could
+  have led to a situation where more than the half of packets have been
+  dropped due to collisions.</para> <para>But hey, that&#39;s been yesterday.
+  Apple introduced the so called &#34;server notifications&#34; to stop
+  client&#39;s hammering the server with requests for changes. Instead
+  AppleShare server nowadays (and even Netatalk :-) notify the clients about
+  changes only when something really has changed. This fact and the widely
+  used switched network environments lead to a situation where AppleTalk
+  traffic plays no significant role at all today.</para> <para>Normally, there
+  exist not that much good reasons to disable AppleTalk on your network.</para></sect2>
 
   <sect1><title>...and Tomorrow</title></sect1>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.7 2004-01-09 22:44:09 bfernhomberg Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.8 2004-01-13 22:03:30 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -27,11 +27,12 @@
     configuration of the different virtual file servers that it provides.</para>
 
     <para>Any line not prefixed with # is interpreted. The configuration lines
-    are composed like: server name [ options ] If a - is used instead of a
-    server name, the default server is specified. Server names must be quoted
-    if they contain spaces. The path name must be a fully qualified path name,
-    or a path name using either the ~ shell shorthand or any of the
-    substitution variables, which are listed below.</para>
+    are composed like: server name [ options ] If a <option>-</option> is used
+    instead of a server name, the default server is specified. Server names
+    must be quoted if they contain spaces. They must not contain &#34;:&#34;
+    or &#34;@&#34;. The path name must be a fully qualified path name, or a
+    path name using either the ~ shell shorthand or any of the substitution
+    variables, which are listed below.</para>
 
     <para><note><para>Each server has to be configured on a <emphasis
     role="bold">single</emphasis> line.</para></note>The possible options and
@@ -117,8 +118,11 @@
 
               <listitem>
                 <para>allows Random Number and Two-Way Random Number Exchange
-                for authentication (requires
-                :ETCDIR:/afppaswd file)</para>
+                for authentication (requires a separate file containing the
+                passwords, either :ETCDIR:/afppasswd file or the one specified
+                via <option>-passwdfile</option>. See
+                <citerefentry><refentrytitle>afppasswd</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+                for details</para>
               </listitem>
             </varlistentry>
 
@@ -135,7 +139,7 @@
               <term>uam_gss.so</term>
 
               <listitem>
-                <para>Allow Kerberos V for authetication (optional)</para>
+                <para>Allow Kerberos V for authentication (optional)</para>
               </listitem>
             </varlistentry>
           </variablelist>
@@ -147,7 +151,7 @@
 
         <listitem>
           <para>Sets the default path for UAMs for this server (default is
-          /usr/local/netatalk-head-testing//etc/netatalk/uams).</para>
+          :ETCDIR:/uams).</para>
         </listitem>
       </varlistentry>
 
@@ -171,10 +175,10 @@
 
     <para>With OS X Apple introduced the AFP3 protocol. One of the big changes
     was, that AFP3 uses Unicode names encoded as UTF-8 decomposed. Previous
-    AFP/OS versions used codepages, like MacRoman, MacCentralEurope, etc.</para>
+    AFP/OS versions used codepages like MacRoman, MacCentralEurope, etc.</para>
 
     <para>To be able to serve AFP3 and older clients at the same time,
-    <command>afpd</command> needs to be able to convert betweend UTF-8 and Mac
+    <command>afpd</command> needs to be able to convert between UTF-8 and Mac
     codepages. Even OS X clients partly still rely on codepages. As
     there&#39;s no way, <command>afpd</command> can detect the codepage a pre
     AFP3 client uses, you have to specify it using the <option>-maccodepage</option>
@@ -208,10 +212,10 @@
 
         <listitem>
           <para>Specifies the mac clients codepage, e.g. &#34;MAC_ROMAN&#34;.
-          This is used to convert strings and filename to the clients codepage
-          for OS9 and Classic, i.e. for authentication and SIGUSR2 messaging.
-          This will also be the default for the volumes maccharset. Defaults
-          to MAC_ROMAN.</para>
+          This is used to convert strings and filenames to the clients
+          codepage for OS9 and Classic, i.e. for authentication and AFP
+          messages (SIGUSR2 messaging). This will also be the default for the
+          volumes maccharset. Defaults to MAC_ROMAN.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -222,11 +226,11 @@
 
     <variablelist>
       <varlistentry>
-        <term>-loginmaxmail [<parameter>number</parameter>]</term>
+        <term>-loginmaxfail [<parameter>number</parameter>]</term>
 
         <listitem>
           <para>Sets the maximum number of failed logins, if supported by the
-          UAM</para>
+          UAM (currently none)</para>
         </listitem>
       </varlistentry>
 
@@ -235,8 +239,7 @@
 
         <listitem>
           <para>Sets the path to the Randnum UAM passwd file for this server
-          (default is
-          /usr/local/netatalk-head-testing//etc/netatalk/afppasswd).</para>
+          (default is :ETCDIR:/afppasswd).</para>
         </listitem>
       </varlistentry>
 
@@ -262,7 +265,7 @@
 
         <listitem>
           <para>Enables or disables the ability of clients to change their
-          passwords</para>
+          passwords via chooser or the &#34;connect to server&#34; dialog</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -276,9 +279,9 @@
         <term>-[no]ddp</term>
 
         <listitem>
-          <para>Enables or disables AFP-over-Appletalk. If -proxy is
-          specified, you must instead use -uamlist &#34;&#34; to prevent DDP
-          connections from working.</para>
+          <para>Enables or disables AFP-over-Appletalk. If <option>-proxy</option>
+          is specified, you must instead use <option>-uamlist &#34;&#34;</option>
+          to prevent DDP connections from working.</para>
         </listitem>
       </varlistentry>
 
@@ -310,7 +313,7 @@
         <listitem>
           <para>Specifies the DDP address of the server. The default is to
           auto-assign an address (0.0). This is only useful if you are running
-          on a multihomed host.</para>
+          AppleTalk on more than one interface.</para>
         </listitem>
       </varlistentry>
 
@@ -321,7 +324,8 @@
           <para>Specifies a fully-qualified domain name, with an optional
           port. This is discarded if the server cannot resolve it. This option
           is not honored by AppleShare clients &#60;= 3.8.3. This option is
-          disabled by default.</para>
+          disabled by default. Use with caution as this will involve a second
+          name resolution step</para>
         </listitem>
       </varlistentry>
 
@@ -329,9 +333,10 @@
         <term>-ipaddr <replaceable>[ip address]</replaceable></term>
 
         <listitem>
-          <para>Specifies the IP that the server should respond to (the
+          <para>Specifies the IP address that the server should advertise (the
           default is the first IP address of the system). This option also
-          allows one machine to advertise TCP/IP for another machine.</para>
+          allows also to use one machine to advertise the AFP-over-TCP/IP
+          settings of another machine via NBP.</para>
         </listitem>
       </varlistentry>
 
@@ -339,8 +344,8 @@
         <term>-port <replaceable>[port number]</replaceable></term>
 
         <listitem>
-          <para>Allows a different TCP port to be specified for AFP-over-TCP.
-          The default is 548.</para>
+          <para>Allows a different TCP port to be used for AFP-over-TCP. The
+          default is 548.</para>
         </listitem>
       </varlistentry>
 
@@ -351,8 +356,8 @@
           <para>Runs an AppleTalk proxy server for the specified AFP-over-TCP
           server. If the address and port aren&#39;t given, then the first IP
           address of the system and port 548 will be used. If you don&#39;t
-          want the proxy server to act as a DDP server as well, set -uamlist
-          &#34;&#34;.</para>
+          want the proxy server to act as a DDP server as well, set
+          <option>-uamlist &#34;&#34;</option>.</para>
         </listitem>
       </varlistentry>
 
@@ -363,7 +368,8 @@
           <para>This specifoes the DSI server quantum. The minimum value is
           303840 (0x4A2E0). The maximum value is 0xFFFFFFFFF. If you specify a
           value that is out of range, the default value will be set (which is
-          the minimum).</para>
+          the minimum). Do not change this value unless you&#39;re absolutely
+          sure, what you&#39;re doing</para>
         </listitem>
       </varlistentry>
 
@@ -374,7 +380,7 @@
           <para>Do not register this server using the Service Location
           Protocol (if SLP support was compiled in). This is useful if you are
           running multiple servers and want one to be hidden, perhaps because
-          it is advertised elsewhere.</para>
+          it is advertised elsewhere, ie. by a SLP Directory Agent.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -389,7 +395,7 @@
 
         <listitem>
           <para>Allows users of a certain group to be seen as the superuser
-          when they log in. This option is disabled, by default.</para>
+          when they log in. This option is disabled by default.</para>
         </listitem>
       </varlistentry>
 
@@ -405,7 +411,7 @@
 
           <note>
             <para><option>-authprintdir</option> will only work for clients
-            connecting via DDP. Most modern Clients will use TCP.</para>
+            connecting via DDP. Almost all modern Clients will use TCP.</para>
           </note>
         </listitem>
       </varlistentry>
@@ -420,6 +426,12 @@
           <emphasis>Note</emphasis>: Depending on the number of simultaneously
           connected clients and the network&#39;s speed, this can lead to a
           significant higher load on your network!</para>
+
+          <note>
+            <para>Do not use this option any longer as Netatalk 2.0 correctly
+            supports server notifications, allowing connected clients to
+            update folder listings in case another client changed the contents</para>
+          </note>
         </listitem>
       </varlistentry>
 
@@ -428,7 +440,7 @@
 
         <listitem>
           <para>Specifies the IP address and port of a cnid_metad server,
-          required for CNID bdb backend. Defaults to localhost:4700.</para>
+          required for CNID dbd backend. Defaults to localhost:4700.</para>
         </listitem>
       </varlistentry>
 
@@ -486,20 +498,26 @@
           &#34;host&#34; signature type allows afpd generating signature
           automatically (based on machine primary IP address). &#34;user&#34;
           signature type allows administrator to set up a signature string
-          manually.</para>
+          manually. The maximum length is 16 characters</para>
 
-          <para>Examples: three servers running on one machine: first
-          -signature user:USERS second -signature user:USERS third -signature
-          user:ADMINS</para>
+          <example>
+            <title>Three server definitions using 2 different server
+            signatures</title>
 
-          <para>First two servers will act as one logical AFP service - if
-          user logs in to first one and then connects to second one, session
-          will be automatically redirected to the first one. But if client
-          connects to first and then to third, will be asked for password
-          twice and will see resources of both servers. Traditional method of
-          signature generation causes two independent afpd instancesto have
-          the same signature and thus cause clients to be redirected
-          automatically to server (s)he logged in first.</para>
+            <para>Examples: three servers running on one machine:
+            <programlisting>first -signature user:USERS 
+second -signature user:USERS 
+third -signature user:ADMINS</programlisting></para>
+          </example>
+
+          <para>First two servers will appear as one logical AFP service to
+          the clients - if user logs in to first one and then connects to
+          second one, session will be automatically redirected to the first
+          one. But if client connects to first and then to third, will be
+          asked for password twice and will see resources of both servers.
+          Traditional method of signature generation causes two independent
+          afpd instances to have the same signature and thus cause clients to
+          be redirected automatically to server (s)he logged in first.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -522,14 +540,20 @@
           Latter <option>-setuplog</option> settings will override earlier
           ones of the same logtype (file or syslog).</para>
 
-          <para>logtypes: Default, Core, Logger, CNID, AFPDaemon loglevels:
-          LOG_SEVERE, LOG_ERROR, LOG_WARN, LOG_NOTE, LOG_INFO, LOG_DEBUG,
-          LOG_DEBUG6, LOG_DEBUG7, LOG_DEBUG8, LOG_DEBUG9, LOG_MAXDEBUG</para>
+          <para>logtypes: Default, Core, Logger, CNID, AFP</para>
 
-          <para>Example: -setuplog &#34;logger log_maxdebug
-          /var/log/netatalk-logger.log&#34; -setuplog &#34;afpdaemon
-          log_maxdebug /var/log/netatalk-afp.log&#34; -unsetuplog &#34;default
-          level file&#34; -setuplog &#34;default log_maxdebug&#34;</para>
+          <para>Daemon loglevels: LOG_SEVERE, LOG_ERROR, LOG_WARN, LOG_NOTE,
+          LOG_INFO, LOG_DEBUG, LOG_DEBUG6, LOG_DEBUG7, LOG_DEBUG8, LOG_DEBUG9,
+          LOG_MAXDEBUG</para>
+
+          <example>
+            <title>Three server definitions using 2 different server
+            signatures</title>
+
+            <para>Example: <programlisting>-setuplog &#34;logger log_maxdebug /var/log/netatalk-logger.log&#34; 
+-setuplog &#34;afpdaemon log_maxdebug /var/log/netatalk-afp.log&#34; 
+-unsetuplog &#34;default level file&#34; -setuplog &#34;default log_maxdebug&#34;</programlisting></para>
+          </example>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -545,7 +569,7 @@
         <term>-tickleval <replaceable>[number]</replaceable></term>
 
         <listitem>
-          <para>Sets the tickle timeout interval (in seconds).</para>
+          <para>Sets the tickle timeout interval (in seconds). Defaults to 30.</para>
         </listitem>
       </varlistentry>
 
@@ -554,8 +578,8 @@
 
         <listitem>
           <para>Specify the number of tickles to send before timing out a
-          connection. The default is 4, therefore a connection will timeout in
-          2 minutes.</para>
+          connection. The default is 4, therefore a connection will timeout
+          after 2 minutes.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -595,6 +619,7 @@
     <title>See also</title>
 
     <para><citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+    <citerefentry><refentrytitle>afppasswd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
     <citerefentry><refentrytitle>AppleVolumes.default</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
   </refsect1>
 </refentry>
