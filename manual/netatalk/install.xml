@@ -16,11 +16,11 @@
   <sect1>
     <title>How to obtain Netatalk</title>
 
-   <para>Please have a look at the netatalk page on sourceforge for the most 
-	  recent informations on this issue.</para>
-	  
-   <para><ulink url="http://sourceforge.net/projects/netatalk/">http://sourceforge.net/projects/netatalk/</ulink></para>
-	
+    <para>Please have a look at the netatalk page on sourceforge for the most
+    recent informations on this issue.</para>
+
+    <para><ulink url="http://sourceforge.net/projects/netatalk/">http://sourceforge.net/projects/netatalk/</ulink></para>
+
     <sect2>
       <title>Binary packages</title>
 
@@ -116,7 +116,6 @@ U netatalk/COPYING
           <listitem>
             <para>A C compiler, Netatalk compiles fine with gcc &#62; 2.7.95</para>
           </listitem>
-
         </itemizedlist>
 
         <para>To be able to compile with AFP3 support, your system has to
@@ -132,8 +131,9 @@ U netatalk/COPYING
       <sect3>
         <title>Required third party software</title>
 
-        <para>Netatalk makes use of sleepycats&#39; Berkeley DB<indexterm><primary>BDB</primary><secondary>Berkeley DB</secondary></indexterm>. At the time
-        of writing, the following versions are supported:</para>
+        <para>Netatalk makes use of sleepycats&#39; Berkeley DB<indexterm><primary>BDB</primary><secondary>Berkeley
+        DB</secondary></indexterm>. At the time of writing, the following
+        versions are supported:</para>
 
         <itemizedlist>
           <listitem>
@@ -183,12 +183,14 @@ U netatalk/COPYING
           </listitem>
 
           <listitem>
-            <para>PAM<indexterm><primary>PAM</primary><secondary>Pluggable Authentication Modules</secondary></indexterm></para>
+            <para>PAM<indexterm><primary>PAM</primary><secondary>Pluggable
+            Authentication Modules</secondary></indexterm></para>
 
             <para>PAM provides a flexible mechanism for authenticating users.
-            PAM was invented by SUN<indexterm><primary>SUN</primary><secondary>Sun Microsystems</secondary></indexterm> Microsystems. Linux-PAM is a suite of
-            shared libraries that enable the local system administrator to
-            choose how applications authenticate users.</para>
+            PAM was invented by SUN<indexterm><primary>SUN</primary><secondary>Sun
+            Microsystems</secondary></indexterm> Microsystems. Linux-PAM is a
+            suite of shared libraries that enable the local system
+            administrator to choose how applications authenticate users.</para>
 
             <para>You can get the Linux PAM documentation and sources from
             <ulink url="http://www.kernel.org/pub/linux/libs/pam/">http://www.kernel.org/pub/linux/libs/pam/</ulink></para>
@@ -197,13 +199,15 @@ U netatalk/COPYING
           <listitem>
             <para>OpenSLP</para>
 
-            <para>SLP<indexterm><primary>SLP</primary><secondary>Service Location Protocol</secondary></indexterm> (Service Location Protocol) is an IETF standards track
-            protocol that provides a framework to allow networking
-            applications to discover the existence, location, and
-            configuration of networked services in enterprise networks.</para>
+            <para>SLP<indexterm><primary>SLP</primary><secondary>Service
+            Location Protocol</secondary></indexterm> (Service Location
+            Protocol) is an IETF standards track protocol that provides a
+            framework to allow networking applications to discover the
+            existence, location, and configuration of networked services in
+            enterprise networks.</para>
 
-            <para>Mac OS X uses it to locate AFP servers, even though newer version
-            prefer Rendevouz.</para>
+            <para>Mac OS X uses it to locate AFP servers, even though newer
+            version prefer Rendevouz.</para>
 
             <para>You can download OpenSLP from: <ulink
             url="http://www.openslp.org/">http://www.openslp.org/</ulink></para>
@@ -255,7 +259,7 @@ U netatalk/COPYING
 
             <para>In case you installed Berkeley DB in a non-standard
             location, you will <emphasis>have</emphasis> to give the install
-            location to netatalk, using this switch. </para>
+            location to netatalk, using this switch.</para>
           </listitem>
         </itemizedlist>
 
@@ -264,6 +268,22 @@ U netatalk/COPYING
         <screen><prompt>$&#62;</prompt> <userinput>./configure [arguments] [--with-bdb=/bdb/install/path]</userinput></screen>
 
         <para>If this step fails please visit the troubleshooting guide</para>
+
+        <note>
+          <para>With recent RedHat releases, Berkeley DB links to libpthread.
+          Netatalk does not link to libpthread, so detection of Berkely DB
+          fails when running configure. It&#39;s recommended to <link
+          linkend="build-bdb">(re)compile Berkeley DB</link> with
+          <option>--with-mutex=&#34;x86/gcc-assembly&#34;</option> (on x86
+          platforms) to disable the use of libpthread. Alternatively you could
+          use</para>
+
+          <screen><prompt>$&#62;</prompt><userinput> LIBS=&#34;-lpthread&#34; ./configure [arguments]</userinput></screen>
+
+          <para>to trick Netatalk into linking to libpthread. However, this is
+          not recommended, as there have been some trouble reports indicating
+          that linking to libpthread badly damages performance.</para>
+        </note>
 
         <para>Next, running</para>
 
@@ -283,7 +303,7 @@ U netatalk/COPYING
       <title>Compiling a new Berkeley DB for Netatalk</title>
 
       <para>Netatalk 2.0 requires Berkeley DB version 4.1.25 or newer. Even if
-      you already have a supported version of Berkely DB installed on your
+      you already have a supported version of Berkeley DB installed on your
       system, there are several reasons, why you might still want to consider
       building a new version for Netatalk.</para>
 
@@ -298,6 +318,10 @@ U netatalk/COPYING
       <para>For instructions compiling Berkeley DB, you should generally refer
       to the documentation provided by Sleepycat. The following information is
       meant to help you avoid problems, users experienced in the past.</para>
+
+      <para>In case you are building on a recent RedHat release, please use
+      <option>--with-mutex=&#34;x86/gcc-assembly&#34;</option> on x86
+      platforms to prevent Berkeley DB from linking against libpthread.</para>
 
       <sect3>
         <title>Using a statically linked Berkeley DB</title>
@@ -323,11 +347,11 @@ U netatalk/COPYING
         straightforward. However, especially under Linux, some care needs to
         be taken. Underlying system libraries, i.e. libnss_db, might be using
         Berkeley DB as well. As these libraries have likely been build with
-        another, i.e. older, version BDB, linking afpd to a newer version can
-        lead to unexpected results.</para>
+        another, i.e. older, version of Berkeley DB, linking afpd to a newer
+        version can lead to unexpected results.</para>
 
         <para>You need to configure Berkeley DB with the <option>--with-uniquename</option>
-        configure switch to avoid these kind of problems. It makes sure, your
+        configure switch to avoid these kind of problems. This insures your
         new version will not interfere with another installation of Berkeley
         DB on your system.</para>
 
@@ -341,7 +365,7 @@ U netatalk/COPYING
         directory.</para>
 
         <para>On many operating systems, this is done by adding a new entry to
-        <filename>/etc/ld.so.conf</filename>. </para>
+        <filename>/etc/ld.so.conf</filename>.</para>
 
         <screen><prompt>root#</prompt> <userinput>echo /install/path/lib &#62;/etc/ld.so.conf</userinput>
 <prompt>root#</prompt> <userinput>ldconfig</userinput></screen>
@@ -352,4 +376,3 @@ U netatalk/COPYING
     </sect2>
   </sect1>
 </chapter>
-
