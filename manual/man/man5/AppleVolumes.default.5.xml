@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.9 2004-06-24 20:58:31 tkaiser Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.10 2004-06-24 22:01:07 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -60,8 +60,8 @@
           
           <note>
             <para>Using <option>adouble:osx</option> is <emphasis role="bold">not</emphasis>
-            recommended for production use. It's only aim is to temporarely share eg. 
-            FAT32 formatted FireWire harddrives written on a Macintosh with afpd. Apples 
+            recommended for production use. Its only aim is to temporarely share eg. 
+            FAT32 formatted FireWire harddrives written on a Macintosh with afpd. Apple's 
             metadata scheme lacks several essential features, so using it on the server's 
             side will break both CNIDs and MacOS 9 compatibility</para>
           </note>
