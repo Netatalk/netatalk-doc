@@ -1,48 +1,65 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<refentry id='apple_rm.1'>
-<refmeta>
-<refentrytitle>apple_rm</refentrytitle>
-<manvolnum>1</manvolnum>
-<refmiscinfo class='date'>22 Aug 2004</refmiscinfo>
-<refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>apple_rm</refname>
-<refpurpose>Do an apple remove, remove metadata and resource fork as well</refpurpose>
-</refnamediv>
-<refsynopsisdiv>
-<para><emphasis remap='B'>:BINDIR:/apple_rm</emphasis>
-<emphasis remap='I'>FILE</emphasis>...</para>
-</refsynopsisdiv>
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry id="apple_rm.1">
+  <refmeta>
+    <refentrytitle>apple_rm</refentrytitle>
 
+    <manvolnum>1</manvolnum>
 
-<refsect1><title>DESCRIPTION</title>
-<para><emphasis remap='B'>apple_rm<indexterm><primary>apple_rm</primary></indexterm></emphasis>
-is a perl script that removes FILE(s) as well as the .AppleDouble
-metadata file(s) that corresponds to FILE(s). These AppleDouble header 
-files eventually also contain the resource fork if the files had one. 
-<emphasis remap='B'>apple_rm</emphasis>
-does not delete directories.</para>
+    <refmiscinfo class="date">22 Aug 2004</refmiscinfo>
 
-</refsect1>
+    <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
+  </refmeta>
 
-<refsect1><title>EXAMPLES</title>
-<para><emphasis remap='B'>:BINDIR:/apple_rm</emphasis>
-test.text</para> 
+  <refnamediv>
+    <refname>apple_rm</refname>
 
-<para><emphasis remap='B'>:BINDIR:/apple_rm</emphasis>
-test.text testing.text</para>
+    <refpurpose>Do an apple remove, remove metadata and resource fork as
+    well</refpurpose>
+  </refnamediv>
 
-</refsect1>
+  <refsynopsisdiv>
+    <para><emphasis remap="B">:BINDIR:/apple_rm<indexterm>
+        <primary>apple_rm</primary>
+      </indexterm></emphasis> <emphasis remap="I">FILE</emphasis>...</para>
+  </refsynopsisdiv>
 
-<refsect1><title>REPORTING BUGS</title>
-<para>Report bugs to the Netatalk-devel list &lt;netatalk-devel@lists.sourceforge.net&gt;.</para>
+  <refsect1>
+    <title>DESCRIPTION</title>
 
-</refsect1>
+    <para><emphasis remap="B">apple_rm</emphasis> is a perl script that
+    removes FILE(s) as well as the .AppleDouble metadata file(s) that
+    corresponds to FILE(s). These AppleDouble header files eventually also
+    contain the resource fork if the files had one. <emphasis
+    remap="B">apple_rm</emphasis> does not delete directories.</para>
+  </refsect1>
 
-<refsect1><title>SEE ALSO</title>
-<para><citerefentry><refentrytitle>apple_cp</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-<citerefentry><refentrytitle>apple_mv</refentrytitle><manvolnum>1</manvolnum></citerefentry>.</para>
-</refsect1>
+  <refsect1>
+    <title>EXAMPLES</title>
+
+    <para><emphasis remap="B">:BINDIR:/apple_rm</emphasis> test.text</para>
+
+    <para><emphasis remap="B">:BINDIR:/apple_rm</emphasis> test.text
+    testing.text</para>
+  </refsect1>
+
+  <refsect1>
+    <title>REPORTING BUGS</title>
+
+    <para>Report bugs to the Netatalk-devel list
+    &lt;netatalk-devel@lists.sourceforge.net&gt;.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para><citerefentry>
+        <refentrytitle>apple_cp</refentrytitle>
+
+        <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>apple_mv</refentrytitle>
+
+        <manvolnum>1</manvolnum>
+      </citerefentry>.</para>
+  </refsect1>
 </refentry>
-

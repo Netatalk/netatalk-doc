@@ -17,20 +17,20 @@
   </refnamediv>
 
   <refsynopsisdiv>
-    <para><emphasis remap="B">:BINDIR:/asip-status.pl</emphasis>
-    ADDRESS<emphasis remap="I">:PORT</emphasis>...</para>
+    <para><emphasis remap="B">:BINDIR:/asip-status.pl<indexterm>
+        <primary>asip-status.pl</primary>
+      </indexterm></emphasis> ADDRESS<emphasis
+    remap="I">:PORT</emphasis>...</para>
   </refsynopsisdiv>
 
   <refsect1>
     <title>DESCRIPTION</title>
 
-    <para><emphasis remap="B">asip-status.pl<indexterm>
-        <primary>asip-status.pl</primary>
-      </indexterm></emphasis> is a perl script that sends a FPGetSrvrInfo
-    request to an AFP server at ADDRESS:PORT and displays the results, namely
-    "Machine type", the server's name, supported AFP versions, UAMs and AFP
-    flags, the "server signature" and the network addresses, the server
-    provides AFP services on.</para>
+    <para><emphasis remap="B">asip-status.pl</emphasis> is a perl script that
+    sends a FPGetSrvrInfo request to an AFP server at ADDRESS:PORT and
+    displays the results, namely "Machine type", the server's name, supported
+    AFP versions, UAMs and AFP flags, the "server signature" and the network
+    addresses, the server provides AFP services on.</para>
 
     <para>When you don't supply :PORT, then the default AFP port, 548, will be
     used.</para>
