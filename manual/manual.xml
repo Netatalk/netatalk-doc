@@ -35,12 +35,14 @@
 <!ENTITY timeout.1 SYSTEM "man/man1/timeout.1.xml">
 <!ENTITY FAQ SYSTEM "netatalk/faq.xml">
 ]>
-<book>
+<book id="netatalk-manual">
   <title revision="0.1 initial version">Netatalk 2.0 manual</title>
 
   <bookinfo>
     <date>10-28-2003</date>
   </bookinfo>
+
+  <toc/>
 
   &Intro;
 
@@ -48,7 +50,7 @@
 
   &Configuration;
 
-  <chapter id="id-man-pages">
+  <chapter id="man-pages">
     <title>man pages</title>
 
     <para>This a collection of the man pages delivered with Netatalk.</para>

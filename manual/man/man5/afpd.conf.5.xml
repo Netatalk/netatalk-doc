@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.1 2004-01-04 22:22:25 bfernhomberg Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.2 2004-01-05 09:33:07 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<!-- lifted from troff+man by doclifter -->
-<refentry id="atalk_aton3">
+<refentry id="atalk_aton.3">
   <refmeta>
-    <refentrytitle>ATALK_ATON</refentrytitle>
+    <refentrytitle>atalk_aton</refentrytitle>
 
     <manvolnum>3</manvolnum>
 

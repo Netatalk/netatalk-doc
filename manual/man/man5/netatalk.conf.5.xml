@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry id="netatalkconf5tmpl">
-  <!--  $Id: netatalk.conf.5.xml,v 1.1 2004-01-04 22:22:25 bfernhomberg Exp $ -->
+<refentry id="netatalk.conf.5">
+  <!--  $Id: netatalk.conf.5.xml,v 1.2 2004-01-05 09:33:07 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>netatalk.conf</refentrytitle>
@@ -122,6 +122,6 @@
     <title>SEE ALSO</title>
 
     <para><citerefentry><refentrytitle>atalkd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-    atalkd.<citerefentry><refentrytitle>conf</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
+    <citerefentry><refentrytitle>atalkd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
   </refsect1>
 </refentry>

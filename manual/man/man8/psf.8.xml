@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry id="psf8tmpl">
+<refentry id="psf.8">
   <refmeta>
     <refentrytitle>psf</refentrytitle>
 
@@ -16,7 +16,7 @@
     <refpurpose>PostScript filter</refpurpose>
   </refnamediv>
 
-  <refsynopsisdiv id="synopsis">
+  <refsynopsisdiv>
     <cmdsynopsis>
       <command>psf</command>
 

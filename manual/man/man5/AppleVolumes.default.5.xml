@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry id="applevolumesdefault5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.1 2004-01-04 22:22:25 bfernhomberg Exp $ -->
+<refentry id="AppleVolumes.default.5">
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.2 2004-01-05 09:33:07 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -658,7 +658,8 @@
   <refsect1>
     <title>See Also</title>
 
-    <para><citerefentry><refentrytitle><citerefentry><refentrytitle>afpd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-    afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry></para>
+    <para>
+    <citerefentry><refentrytitle>afpd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+    <citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry></para>
   </refsect1>
 </refentry>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry id="papdconf5tmpl">
-  <!--  $Id: papd.conf.5.xml,v 1.1 2004-01-04 22:22:25 bfernhomberg Exp $ -->
+<refentry id="papd.conf.5">
+  <!--  $Id: papd.conf.5.xml,v 1.2 2004-01-05 09:33:07 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>papd.conf</refentrytitle>

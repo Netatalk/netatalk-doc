@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry id="megatron1">
+<refentry id="megatron.1">
   <refmeta>
     <refentrytitle>megatron</refentrytitle>
 
@@ -10,7 +10,7 @@
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
 
-  <refnamediv>
+  <refnamediv id="name">
     <refname>megatron</refname>
 
     <refname>unhex</refname>
@@ -28,7 +28,7 @@
     <refpurpose>Macintosh file format transformer</refpurpose>
   </refnamediv>
 
-  <refsynopsisdiv>
+  <refsynopsisdiv id="synopsis">
     <cmdsynopsis>
       <command>megatron</command>
 
@@ -36,47 +36,47 @@
 
       <sbr />
 
-      <arg choice="plain"><replaceable>unbin</replaceable></arg>
+      <command>unbin</command>
 
       <arg choice="opt" rep="repeat"><replaceable>sourcefile</replaceable></arg>
 
       <sbr />
 
-      <arg choice="plain"><replaceable>unhex</replaceable></arg>
+      <command>unhex</command>
 
       <arg choice="opt" rep="repeat"><replaceable>sourcefile</replaceable></arg>
 
       <sbr />
 
-      <arg choice="plain"><replaceable>unsingle</replaceable></arg>
+      <command>unsingle</command>
 
       <arg choice="opt" rep="repeat"><replaceable>sourcefile</replaceable></arg>
 
       <sbr />
 
-      <arg choice="plain"><replaceable>hqx2bin</replaceable></arg>
+      <command>hqx2bin</command>
 
       <arg choice="opt" rep="repeat"><replaceable>sourcefile</replaceable></arg>
 
       <sbr />
 
-      <arg choice="plain"><replaceable>single2bin</replaceable></arg>
+      <command>single2bin</command>
 
       <arg choice="opt" rep="repeat"><replaceable>sourcefile</replaceable></arg>
 
       <sbr />
 
-      <arg choice="plain"><replaceable>macbinary</replaceable></arg>
+      <command>macbinary</command>
 
       <arg choice="opt" rep="repeat"><replaceable>sourcefile</replaceable></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
-  <refsect1>
+  <refsect1 id="description">
     <title>DESCRIPTION</title>
 
     <para><command>megatron</command> is used to transform files from BinHex,
-    MacBinary, AppleSingle, or <emphasis remap="B">netatalk</emphasis> style
+    MacBinary, AppleSingle, or <emphasis remap="B" role="bold">netatalk</emphasis> style
     AppleDouble formats into MacBinary or <emphasis remap="B">netatalk</emphasis>
     style AppleDouble formats. The <emphasis remap="B">netatalk</emphasis>
     style AppleDouble format is the file format used by <emphasis remap="B">afpd,</emphasis>
@@ -86,8 +86,8 @@
     file transfer protocols. <command>megatron</command> uses its name to
     determine what type of tranformation is being asked of it.</para>
 
-    <para>If <command>megatron</command> is called as <emphasis remap="B">unhex,
-    unbin,</emphasis> or <emphasis remap="B">unsingle,</emphasis> it tries to
+    <para>If <command>megatron</command> is called as <command>unhex</command>
+    , <command>unbin</command> or <command>unsingle</command>, it tries to
     convert file(s) from BinHex, MacBinary, or AppleSingle into AppleDouble
     format. BinHex is the format most often used to send Macintosh files by
     e-mail. Usually these files have an extension of &#34;.hqx&#34;. MacBinary
@@ -98,21 +98,20 @@
     &#34;enclose&#34; files in email. AppleSingle files don&#39;t have a
     standard filename extension.</para>
 
-    <para>If <command>megatron</command> is called as <emphasis remap="B">hqx2bin,
-    single2bin,</emphasis> or <emphasis remap="B">macbinary,</emphasis> it
-    will try to convert the file(s) from BinHex, AppleSingle, or AppleDouble
-    into MacBinary. This last translation may be useful in moving Macintosh
-    files from your <emphasis remap="B">afpd</emphasis> server to some other
-    machine when you can&#39;t copy them from the server using a Macintosh for
-    some reason.</para>
+    <para>If <command>megatron</command> is called as <command>hqx2bin</command>,
+    <command>single2bin</command>, or <command>macbinary</command>, it will
+    try to convert the file(s) from BinHex, AppleSingle, or AppleDouble into
+    MacBinary. This last translation may be useful in moving Macintosh files
+    from your <command>afpd</command> server to some other machine when you
+    can&#39;t copy them from the server using a Macintosh for some reason.</para>
 
     <para>If <command>megatron</command> is called with any other name, it
-    uses the default translation, namely <emphasis remap="B">unhex.</emphasis></para>
+    uses the default translation, namely <command>unhex</command>.</para>
 
     <para>If no source file is given, or if <emphasis remap="I">sourcefile</emphasis>
-    is `<emphasis remap="B">-</emphasis>&#39;, and if the conversion is from a
-    BinHex or MacBinary file, <command>megatron</command> will read from
-    standard input.</para>
+    is `<emphasis remap="" role="bold">-</emphasis>&#39;, and if the
+    conversion is from a BinHex or MacBinary file, <command>megatron</command>
+    will read from standard input.</para>
 
     <para>The filename used to store any output file is the filename that is
     encoded in the source file. MacBinary files are created with a
@@ -120,7 +119,7 @@
     overwritten!</para>
   </refsect1>
 
-  <refsect1>
+  <refsect1 id="see_also">
     <title>SEE ALSO</title>
 
     <para><citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry></para>

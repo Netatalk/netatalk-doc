@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<!-- lifted from troff+man by doclifter -->
-<refentry id="nbp_name3">
+<refentry id="nbp_name.33">
   <refmeta>
-    <refentrytitle>NBP_NAME</refentrytitle>
+    <refentrytitle>nbp_name</refentrytitle>
 
     <manvolnum>3</manvolnum>
 
