@@ -35,13 +35,14 @@
 <!ENTITY pap.1 SYSTEM "man/man1/pap.1.xml">
 <!ENTITY psorder.1 SYSTEM "man/man1/psorder.1.xml">
 <!ENTITY timeout.1 SYSTEM "man/man1/timeout.1.xml">
+<!ENTITY uniconv.1 SYSTEM "man/man1/uniconv.1.xml">
 ]>
 <book id="netatalk-manual">
   <title revision="0.1 initial version">Netatalk 2.0 Manual</title>
   
 
   <bookinfo>
-    <date>20-06-2004</date>
+    <date>24-06-2004</date>
   </bookinfo>
 
   <toc/>
@@ -116,6 +117,8 @@
     &timelord.8;
 
     &timeout.1;
+
+    &uniconv.1;
   </chapter>
 
   <index id="manual-index"><title>Index</title></index>

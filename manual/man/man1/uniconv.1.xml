@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry>
+  <!--  $Id: uniconv.1.xml,v 1.1 2004-06-24 16:46:26 bfernhomberg Exp $ -->
+  <refmeta>
+    <refentrytitle>uniconv</refentrytitle>
+
+    <manvolnum>1</manvolnum>
+
+    <refmiscinfo class="date">24 Jun 2004</refmiscinfo>
+
+    <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname>uniconv</refname>
+
+    <refpurpose>convert Netatalk volume enconding</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>uniconv</command>
+
+      <arg choice="opt">-ndv</arg>
+
+      <arg choice="plain">-c <replaceable>cnid</replaceable></arg>
+
+      <arg choice="plain">-f <replaceable>fromcode</replaceable></arg>
+
+      <arg choice="plain">-t <replaceable>tocode</replaceable></arg>
+
+      <arg>-m <replaceable>maccode</replaceable></arg>
+
+      <arg choice="plain"><replaceable>volumepath</replaceable></arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>Description</title>
+
+    <para><command>uniconv</command> converts the volume encoding of
+    <replaceable>volumepath</replaceable> from the <replaceable>fromcode</replaceable>
+    to the <replaceable>tocode</replaceable> characterset/encoding.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>Options</title>
+
+    <variablelist>
+      <varlistentry>
+        <term>-c</term>
+
+        <listitem>
+          <para>CNID backend used on this volume, usually cdb or dbd. Should
+          match the backend selected with afpd for this volume. If not
+          specified, the default cnid backend `:DEFAULT_CNID_SCHEME:&#39; is
+          used</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-d</term>
+
+        <listitem>
+          <para>don&#39;t CAP encode leading dots (:2e), equivalent to
+          <option>usedots</option> in AppleVolumes.default(5)</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-f</term>
+
+        <listitem>
+          <para>encoding to convert from, use ASCII for CAP encoded volumes</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-h</term>
+
+        <listitem>
+          <para>display help</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-m</term>
+
+        <listitem>
+          <para>Macintosh client codepage, required for CAP encoded volumes.
+          Defaults to `MAC_ROMAN&#39;</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-n</term>
+
+        <listitem>
+          <para>`dry run&#39;, don&#39;t do any real changes</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-t</term>
+
+        <listitem>
+          <para>volume encoding to convert to, e.g. UTF8</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-v</term>
+
+        <listitem>
+          <para>verbose output, use twice for maximum logging.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-V</term>
+
+        <listitem>
+          <para>print version and exit</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para></para>
+  </refsect1>
+
+  <refsect1>
+    <title>WARNING</title>
+
+    <para>Setting the wrong options might render your data unusable!!! Make
+    sure you know what you are doing. Always backup your data first.</para>
+
+    <para>It is *strongly* recommended to do a `dry run&#39; first and to
+    check the output for conversion errors.</para>
+
+    <para><emphasis role="bold">USE AT YOUR OWN RISK!!!</emphasis></para>
+  </refsect1>
+
+  <refsect1>
+    <title>Examples</title>
+
+    <para>convert 1.x CAP encoded volume to UTF-8, clients used MacRoman
+    codepage, cnidscheme is dbd:</para>
+
+    <screen><prompt>example%</prompt><userinput> uniconv -c dbd -f ASCII -t UTF8 -m MAC_ROMAN /path/to/share</userinput></screen>
+
+    <para>convert iso8859-1 volume to UTF-8, cnidscheme is cdb:</para>
+
+    <screen><prompt>example%</prompt><userinput> uniconv -c cdb -f ISO-8859-1 -t UTF8 -m MAC_ROMAN /path/to/share</userinput></screen>
+
+    <para>convert 1.x volume using iso8859-1 adapted NLS to CAP encoding:</para>
+
+    <screen><prompt>example%</prompt><userinput> uniconv -f ISO-8859-ADAPTED -t ASCII -m MAC_ROMAN/path/to/share</userinput></screen>
+
+    <para>convert UTF-8 volume to CAP, for MacCyrillic clients:</para>
+
+    <screen><prompt>example%</prompt><userinput> uniconv -f UTF8 -t ASCII -m MAC_CYRILLIC /path/to/share</userinput></screen>
+  </refsect1>
+
+  <refsect1>
+    <title>See also</title>
+
+    <para><citerefentry><refentrytitle>AppleVolumes.default</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
+  </refsect1>
+</refentry>
