@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.4 2004-01-06 13:35:43 bfernhomberg Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.5 2004-01-08 00:51:10 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">28 November 2003</refmiscinfo>
+    <refmiscinfo class="date">05 Jan 2004</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>

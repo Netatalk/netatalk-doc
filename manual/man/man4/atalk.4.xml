@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry id="atalk4">
+<refentry id="atalk.4">
   <refmeta>
     <refentrytitle>atalk</refentrytitle>
 
@@ -7,7 +7,7 @@
 
     <refmiscinfo class="date">17 Dec 1991</refmiscinfo>
 
-    <refmiscinfo class="source">netatalk 1.2</refmiscinfo>
+    <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
 
   <refnamediv>

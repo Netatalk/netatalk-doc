@@ -9,7 +9,7 @@
 
     <refmiscinfo class="date">12 Jan 1994</refmiscinfo>
 
-    <refmiscinfo class="source">netatalk 1.3</refmiscinfo>
+    <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
 
   <refnamediv>
