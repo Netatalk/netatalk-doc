@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.6 2004-01-08 19:22:19 lenneis Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.7 2004-01-09 22:44:09 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -118,7 +118,7 @@
               <listitem>
                 <para>allows Random Number and Two-Way Random Number Exchange
                 for authentication (requires
-                /usr/local/netatalk-head-testing//etc/netatalk/afppaswd file)</para>
+                :ETCDIR:/afppaswd file)</para>
               </listitem>
             </varlistentry>
 
