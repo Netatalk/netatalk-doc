@@ -1225,8 +1225,8 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
         scenarios, eg. via LDAP, NIS and the like. Please always keep in mind
         that the protection of your user's login credentials in such scenarios
         also depends on the strength of encryption that the UAM in question
-        supplies. So think about eliminating weak UAMs like "ClearText
-        Passwrd" and "Randnum exchange" completely from your network.</para>
+        supplies. So think about eliminating weak UAMs like "ClearTxt Passwrd"
+        and "Randnum exchange" completely from your network.</para>
       </sect3>
 
       <sect3>
@@ -1594,9 +1594,9 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
         <para>Unless CUPS support has been compiled in (which is default from
         Netatalk 2.0 on) one simply defines the lpd queue in question by
-        setting the <option>pr</option> parameter to the queue name, in the
-        following example "ps". If no <option>pr</option> parameter is set,
-        the default printer will be used.</para>
+        setting the <option>pr</option> parameter to the queue name. If no
+        <option>pr</option> parameter is set, the default printer will be
+        used.</para>
       </sect3>
 
       <sect3 id="pappipesupport">
@@ -1657,10 +1657,10 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
         <command>papd</command>, too.</para>
 
         <para>There exists one special share named "cupsautoadd". If this is
-        present as the first entry of papd.conf, then all available CUPS
-        queues will be served automagically using the parameters assigned to
-        this global share. But subsequent printer definitions can be used to
-        override these global settings for individual spoolers.</para>
+        present in papd.conf, then all available CUPS queues will be served
+        automagically using the parameters assigned to this global share. But
+        subsequent printer definitions can be used to override these global
+        settings for individual spoolers.</para>
       </sect3>
     </sect2>
 
