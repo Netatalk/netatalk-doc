@@ -1429,7 +1429,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
           automagically sends all AFP traffic through it.</para>
 
           <para>But it took until the release of Mac OS X 10.3 that this
-          feature worked the first time… partly. In case, the SSH tunnel can't
+          feature worked the first time... partly. In case, the SSH tunnel can't
           be established the AFP client <emphasis
           role="strong">silently</emphasis> fell back to an unencrypted AFP
           connection attempt.</para>
@@ -1475,11 +1475,11 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               <para>On the other side you've to limit access to afpd to
               localhost only (TCP wrappers) and disable AFP over DDP when you
               want to ensure that all AFP sessions are SSH encrypted
-              or…</para>
+              or...</para>
             </listitem>
 
             <listitem>
-              <para>…when you're using 10.2 - 10.3.3 then you get the opposite
+              <para>...when you're using 10.2 - 10.3.3 then you get the opposite
               of what you'd expect: potentially unencrypted AFP communication
               (including logon credentials) on the network without a single
               notification that establishing the tunnel failed. Apple fixed
