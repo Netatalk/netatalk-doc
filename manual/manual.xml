@@ -38,10 +38,11 @@
 <!ENTITY FAQ SYSTEM "netatalk/faq.xml">
 ]>
 <book id="netatalk-manual">
-  <title revision="0.1 initial version">Netatalk 2.0 manual</title>
+  <title revision="0.1 initial version">Netatalk 2.0 Manual</title>
+  
 
   <bookinfo>
-    <date>10-28-2003</date>
+    <date>20-06-2004</date>
   </bookinfo>
 
   <toc/>
@@ -55,37 +56,9 @@
   &Upgrade;
 
   <chapter id="man-pages">
-    <title>man pages</title>
+    <title>Manual Pages</title>
 
     <para>This a collection of the man pages delivered with Netatalk.</para>
-
-    &atalkd.8;
-
-    &afpd.8;
-
-    &cnid_dbd.8;
-
-    &cnid_metad.8;
-
-    &papd.8;
-
-    &papstatus.8;
-
-    &psf.8;
-
-    &timelord.8;
-
-    &netatalk.conf.5;
-
-    &afpd.conf.5;
-
-    &AppleVolumes.default.5;
-
-    &atalkd.conf.5;
-
-    &papd.conf.5;
-
-    &atalk.4;
 
     &achfile.1;
 
@@ -95,7 +68,13 @@
 
     &afile.1;
 
+    &afpd.8;
+
+    &afpd.conf.5;
+
     &afppasswd.1;
+
+    &AppleVolumes.default.5;
 
     &apple_cp.1;
 
@@ -103,17 +82,39 @@
 
     &apple_rm.1;
 
+    &atalk.4;
+
+    &atalkd.8;
+
+    &atalkd.conf.5;
+
+    &cnid_dbd.8;
+
+    &cnid_metad.8;
+
     &getzones.1;
 
     &megatron.1;
 
     &nbp.1;
 
+    &netatalk.conf.5;
+
     &netatalk-config.1;
 
     &pap.1;
 
+    &papd.8;
+
+    &papd.conf.5;
+
+    &papstatus.8;
+
+    &psf.8;
+
     &psorder.1;
+
+    &timelord.8;
 
     &timeout.1;
   </chapter>
