@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter>
+<chapter id="configuration">
   <title>Setting up Netatalk</title>
 
   <sect1>
@@ -822,7 +822,9 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone &#34;Testing&#34;</programlis
       these days. Use NTP<indexterm><primary>NTP</primary><secondary>Network
       Time Protocol</secondary></indexterm> instead.</para>
     </sect2>
-    <sect2>
+  </sect1>
+
+  <sect1>
       <title>Starting and stopping Netatalk</title>
 
       <para>The Netatalk distribution comes with several operating system specific
@@ -874,8 +876,6 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone &#34;Testing&#34;</programlis
       &#34;PAPD_RUN&#34; to &#34;yes&#34; in netatalk.conf. See the manual pages
       for details.
       </para>
-
-    </sect2>
   </sect1>
 
 </chapter>
