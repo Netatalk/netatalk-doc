@@ -17,8 +17,8 @@
   </refnamediv>
 
   <refsynopsisdiv>
-    <para><emphasis remap="B">:BINDIR:/asip-status.pl</emphasis> ADDRESS
-    <emphasis remap="I">:PORT</emphasis>...</para>
+    <para><emphasis remap="B">:BINDIR:/asip-status.pl</emphasis>
+    ADDRESS<emphasis remap="I">:PORT</emphasis>...</para>
   </refsynopsisdiv>
 
   <refsect1>
@@ -32,8 +32,8 @@
     flags, the "server signature" and the network addresses, the server
     provides AFP services on.</para>
 
-    <para>When you suppress the definition of :PORT then the default AFP port,
-    548, will be set.</para>
+    <para>When you don't supply :PORT, then the default AFP port, 548, will be
+    used.</para>
   </refsect1>
 
   <refsect1>
@@ -62,7 +62,7 @@ AFP reply from 192.168.21.1:10548
 Flags: 1  Cmd: 3  ID: 57005
 Reply: DSIGetStatus
 Request ID: 57005
-Machine type: Macintosh
+Machine type: Netatalk
 AFP versions: AFPVersion 1.1,AFPVersion 2.0,AFPVersion 2.1,AFP2.2,AFPX03,
 AFP3.1
 UAMs: Cleartxt passwrd,Randnum exchange,2-Way Randnum exchange,DHCAST128

@@ -466,785 +466,811 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             <manvolnum>5</manvolnum>
           </citerefentry> man page.</para>
       </sect3>
+    </sect2>
 
-      <sect3 id="CNID-backends">
-        <title>CNID<indexterm>
-            <primary>CNID</primary>
+    <sect2 id="CNID-backends">
+      <title>CNID<indexterm>
+          <primary>CNID</primary>
 
-            <secondary>Catalog Node ID</secondary>
-          </indexterm> backends<indexterm>
-            <primary>Backend</primary>
+          <secondary>Catalog Node ID</secondary>
+        </indexterm> backends<indexterm>
+          <primary>Backend</primary>
 
-            <secondary>CNID backend</secondary>
+          <secondary>CNID backend</secondary>
+        </indexterm></title>
+
+      <para>Unlike other protocols like smb or nfs, the AFP protocol mostly
+      refers to files and directories by ID and not by a path (the IDs are
+      also called CNID, that means Catalog Node ID). A typical AFP request
+      uses a directory ID<indexterm>
+          <primary>DID</primary>
+
+          <secondary>Directory ID</secondary>
+        </indexterm> and a filename, something like <phrase>"server, please
+      open the file named 'Test' in the directory with id 167"</phrase>. For
+      example "Aliases" on the Mac basically work by ID (with a fallback to
+      the absolute path in more recent AFP clients. But this applies only to
+      Finder, not to applications).</para>
+
+      <para>Every file in an AFP volume has to have a unique file ID<indexterm>
+          <primary>FID</primary>
+
+          <secondary>File ID</secondary>
+        </indexterm>, IDs must, according to the specs, never be reused, and
+      IDs are 32 bit numbers (Directory IDs use the same ID pool). So, after
+      ~4 billion files/folders have been written to an AFP volume, the ID pool
+      is depleted and no new file can be written to the volume. No whining
+      please :-)</para>
+
+      <para>Netatalk needs to map IDs to files and folders in the host
+      filesystem. To achieve this, several different CNID backends<indexterm>
+          <primary>CNID backend</primary>
+        </indexterm> are available. A CNID backend is basically a database
+      storing ID &lt;-&gt; name mappings.</para>
+
+      <para>In the past, many users used the so called "last" CNID scheme.
+      However, this scheme has some serious drawbacks, as it is based on the
+      device and inode of a file. Therefore, IDs will be eventually be reused
+      and you can get duplicate IDs as well.</para>
+
+      <para>The CNID Databases are by default located in the
+      .AppleDB<indexterm>
+          <primary>AppleDB</primary>
+
+          <secondary>CNID database folder</secondary>
+        </indexterm> folder in every afpd volume root. With the new
+      ADv2<indexterm>
+          <primary>ADv2</primary>
+
+          <secondary>AppleDouble v2</secondary>
+        </indexterm> format, afpd stores the files/directories ID in the
+      corresponding .AppleDouble file as well.</para>
+
+      <note>
+        <para>There are some CNID related things you should keep in mind when
+        working with netatalk:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Don't use unix symlinks<indexterm>
+                <primary>Symlink</primary>
+
+                <secondary>Unix softlink</secondary>
+              </indexterm>. Just don't. With a symlink a file/directory
+            "exists" twice, something AFP doesn't allow. There's currently no
+            way this can be resolved, as we either end up with two file/dirs
+            having the same id, or a file having two parents. If you still
+            insist on using them, be aware you're <emphasis>heavily</emphasis>
+            violating the specs. You have been warned...</para>
+          </listitem>
+
+          <listitem>
+            <para>Don't nest volumes<indexterm>
+                <primary>Nested volumes</primary>
+              </indexterm>.</para>
+          </listitem>
+
+          <listitem>
+            <para>CNID backends are databases, so they turn afpd into a file
+            server/database mix. Keep this in mind, killing an afpd process
+            with <command>kill -9</command> will likely leave the database
+            unusable.</para>
+          </listitem>
+
+          <listitem>
+            <para>If there's no more space on the filesystem left, the
+            database will get corrupted. You can work around this by either
+            using the -dbpath option and put the database files into another
+            location or, if you use quotas, make sure the .AppleDB folder is
+            owned by a user/group without a quota<indexterm>
+                <primary>Quotas</primary>
+
+                <secondary>Disk usage quotas</secondary>
+              </indexterm>.</para>
+          </listitem>
+
+          <listitem>
+            <para>Be careful with CNID databases for volumes that are mounted
+            via NFS. That is a pretty audacious decision to make anyway, but
+            putting a database there as well is really asking for trouble,
+            i.e. database corruption. Use the dbpath: directive in the
+            <filename>AppleVolumes.*</filename> configuration files to put the
+            databases onto a local disk if you must use NFS<indexterm>
+                <primary>NFS</primary>
+
+                <secondary>Network File System</secondary>
+              </indexterm> mounted volumes.</para>
+          </listitem>
+        </itemizedlist>
+      </note>
+
+      <para></para>
+
+      <sect3>
+        <title>cdb<indexterm>
+            <primary>CDB</primary>
+
+            <secondary>"cdb" CNID backend</secondary>
           </indexterm></title>
 
-        <para>Unlike other protocols like smb or nfs, the AFP protocol mostly
-        refers to files and directories by ID and not by a path (the IDs are
-        also called CNID, that means Catalog Node ID). A typical AFP request
-        uses a directory ID<indexterm>
-            <primary>DID</primary>
-
-            <secondary>Directory ID</secondary>
-          </indexterm> and a filename, something like <phrase>"server, please
-        open the file named 'Test' in the directory with id 167"</phrase>. For
-        example "Aliases" on the Mac basically work by ID (with a fallback to
-        the absolute path in more recent AFP clients. But this applies only to
-        Finder, not to applications).</para>
-
-        <para>Every file in an AFP volume has to have a unique file
-        ID<indexterm>
-            <primary>FID</primary>
-
-            <secondary>File ID</secondary>
-          </indexterm>, IDs must, according to the specs, never be reused, and
-        IDs are 32 bit numbers (Directory IDs use the same ID pool). So, after
-        ~4 billion files/folders have been written to an AFP volume, the ID
-        pool is depleted and no new file can be written to the volume. No
-        whining please :-)</para>
-
-        <para>Netatalk needs to map IDs to files and folders in the host
-        filesystem. To achieve this, several different CNID backends<indexterm>
-            <primary>CNID backend</primary>
-          </indexterm> are available. A CNID backend is basically a database
-        storing ID &lt;-&gt; name mappings.</para>
-
-        <para>In the past, many users used the so called "last" CNID scheme.
-        However, this scheme has some serious drawbacks, as it is based on the
-        device and inode of a file. Therefore, IDs will be eventually be
-        reused and you can get duplicate IDs as well.</para>
-
-        <para>The CNID Databases are by default located in the
-        .AppleDB<indexterm>
-            <primary>AppleDB</primary>
-
-            <secondary>CNID database folder</secondary>
-          </indexterm> folder in every afpd volume root. With the new
-        ADv2<indexterm>
-            <primary>ADv2</primary>
-
-            <secondary>AppleDouble v2</secondary>
-          </indexterm> format, afpd stores the files/directories ID in the
-        corresponding .AppleDouble file as well.</para>
-
-        <note>
-          <para>There are some CNID related things you should keep in mind
-          when working with netatalk:</para>
-
-          <itemizedlist>
-            <listitem>
-              <para>Don't use unix symlinks<indexterm>
-                  <primary>Symlink</primary>
-
-                  <secondary>Unix softlink</secondary>
-                </indexterm>. Just don't. With a symlink a file/directory
-              "exists" twice, something AFP doesn't allow. There's currently
-              no way this can be resolved, as we either end up with two
-              file/dirs having the same id, or a file having two parents. If
-              you still insist on using them, be aware you're
-              <emphasis>heavily</emphasis> violating the specs. You have been
-              warned...</para>
-            </listitem>
-
-            <listitem>
-              <para>Don't nest volumes<indexterm>
-                  <primary>Nested volumes</primary>
-                </indexterm>.</para>
-            </listitem>
-
-            <listitem>
-              <para>CNID backends are databases, so they turn afpd into a file
-              server/database mix. Keep this in mind, killing an afpd process
-              with <command>kill -9</command> will likely leave the database
-              unusable.</para>
-            </listitem>
-
-            <listitem>
-              <para>If there's no more space on the filesystem left, the
-              database will get corrupted. You can work around this by either
-              using the -dbpath option and put the database files into another
-              location or, if you use quotas, make sure the .AppleDB folder is
-              owned by a user/group without a quota<indexterm>
-                  <primary>Quotas</primary>
-
-                  <secondary>Disk usage quotas</secondary>
-                </indexterm>.</para>
-            </listitem>
-
-            <listitem>
-              <para>Be careful with CNID databases for volumes that are
-              mounted via NFS. That is a pretty audacious decision to make
-              anyway, but putting a database there as well is really asking
-              for trouble, i.e. database corruption. Use the dbpath: directive
-              in the <filename>AppleVolumes.*</filename> configuration files
-              to put the databases onto a local disk if you must use
-              NFS<indexterm>
-                  <primary>NFS</primary>
-
-                  <secondary>Network File System</secondary>
-                </indexterm> mounted volumes.</para>
-            </listitem>
-          </itemizedlist>
-        </note>
-
-        <para></para>
-
-        <sect4>
-          <title>cdb<indexterm>
-              <primary>CDB</primary>
-
-              <secondary>"cdb" CNID backend</secondary>
-            </indexterm></title>
-
-          <para>The "concurrent database" backend is based on sleepycat's
-          Berkeley DB. With this backend, several afpd daemons access the CNID
-          database directly. Berkeley DB locking is used to synchronize
-          access, if more than one afpd process is active for a volume. The
-          drawback is, that the crash of a single afpd process might corrupt
-          the database.</para>
-        </sect4>
-
-        <sect4>
-          <title>dbd<indexterm>
-              <primary>DBD</primary>
-
-              <secondary>"dbd" CNID backend</secondary>
-            </indexterm></title>
-
-          <para>Access to the CNID database is restricted to the cnid_dbd
-          daemon process. afpd processes communicate with the daemon for
-          database reads and updates. If built with Berkeley DB transactions,
-          the probability for database corruption is practically zero, but
-          performance can be slower than with cdb. As a database process gets
-          spawned for each volume, you're probably better off using cdb for
-          sharing home directories for a larger number of users.</para>
-        </sect4>
-
-        <sect4>
-          <title>last<indexterm>
-              <primary>Last</primary>
-
-              <secondary>"last" CNID backend</secondary>
-            </indexterm></title>
-
-          <para>The last backend is a semi-persistent backend. IDs will be
-          reused and, what is much worse, you can get duplicate IDs. You
-          should use it for sharing cdroms only, <emphasis>don't</emphasis>
-          use it for sharing normal volumes.</para>
-        </sect4>
+        <para>The "concurrent database" backend is based on sleepycat's
+        Berkeley DB. With this backend, several afpd daemons access the CNID
+        database directly. Berkeley DB locking is used to synchronize access,
+        if more than one afpd process is active for a volume. The drawback is,
+        that the crash of a single afpd process might corrupt the
+        database.</para>
       </sect3>
 
-      <sect3 id="charsets">
-        <title>Charsets<indexterm>
-            <primary>Charset</primary>
+      <sect3>
+        <title>dbd<indexterm>
+            <primary>DBD</primary>
 
-            <secondary>character set</secondary>
-          </indexterm>/Unicode<indexterm>
-            <primary>Unicode</primary>
+            <secondary>"dbd" CNID backend</secondary>
           </indexterm></title>
 
-        <para></para>
-
-        <sect4>
-          <title>Why Unicode?</title>
-
-          <para>Internally, computers don't know anything about characters and
-          texts, they only know numbers. Therefore, each letter is assigned a
-          number. A character set, often referred to as
-          <emphasis>charset</emphasis> or
-          <emphasis>codepage</emphasis><indexterm>
-              <primary>Codepage</primary>
-            </indexterm>, defines the mappings between numbers and
-          letters.</para>
-
-          <para>If two or more computer systems need to communicate with each
-          other, the have to use the same character set. In the 1960s the
-          ASCII<indexterm>
-              <primary>ASCII</primary>
-
-              <secondary>American Standard Code for Information
-              Interchange</secondary>
-            </indexterm> (American Standard Code for Information Interchange)
-          character set was defined by the American Standards Association. The
-          original form of ASCII represented 128 characters, more than enough
-          to cover the English alphabet and numerals. Up to date, ASCII has
-          been the normative character scheme used by computers.</para>
-
-          <para>Later versions defined 256 characters to produce a more
-          international fluency and to include some slightly esoteric
-          graphical characters. Using this mode of encoding each character
-          takes exactly one byte. Obviously, 256 characters still wasn't
-          enough to map all the characters used in the various languages into
-          one character set.</para>
-
-          <para>As a result localized character sets were defined later, e.g
-          the ISO-8859 character sets. Most operating system vendors
-          introduced their own characters sets to satisfy their needs, e.g.
-          IBM defined the <emphasis>codepage 437 (DOSLatinUS)</emphasis>,
-          Apple introduced the <emphasis>MacRoman</emphasis><indexterm>
-              <primary>MacRoman</primary>
-
-              <secondary>MacRoman charset</secondary>
-            </indexterm> codepage and so on. The characters that were assigned
-          number larger than 127 were referred to as
-          <emphasis>extended</emphasis> characters. These character sets
-          conflict with another, as they use the same number for different
-          characters, or vice versa.</para>
-
-          <para>Almost all of those characters sets defined 256 characters,
-          where the first 128 (0-127) character mappings are identical to
-          ASCII. As a result, communication between systems using different
-          codepages was effectively limited to the ASCII charset.</para>
-
-          <para>To solve this problem new, larger character sets were defined.
-          To make room for more character mappings, these character sets use
-          at least 2 bytes to store a character. They are therefore referred
-          to as <emphasis>multibyte</emphasis> character sets.</para>
-
-          <para>One standardized multibyte charset encoding scheme is known as
-          <ulink url="http://www.unicode.org/">unicode</ulink>. A big
-          advantage of using a multibyte charset is that you only need one.
-          There is no need to make sure two computers use the same charset
-          when they are communicating.</para>
-        </sect4>
-
-        <sect4>
-          <title>character sets used by Apple</title>
-
-          <para>In the past, Apple clients used single-byte charsets to
-          communicate over the network. Over the years Apple defined a number
-          of codepages, western users will most likely be using the
-          <emphasis>MacRoman</emphasis> codepage.</para>
-
-          <para>Codepages defined by Apple include:</para>
-
-          <itemizedlist>
-            <listitem>
-              <para>MacArabic, MacFarsi</para>
-            </listitem>
-
-            <listitem>
-              <para>MacCentralEurope</para>
-            </listitem>
-
-            <listitem>
-              <para>MacChineseSimple</para>
-            </listitem>
-
-            <listitem>
-              <para>MacChineseTraditional</para>
-            </listitem>
-
-            <listitem>
-              <para>MacCroation</para>
-            </listitem>
-
-            <listitem>
-              <para>MacCyrillic</para>
-            </listitem>
-
-            <listitem>
-              <para>MacDevanagari</para>
-            </listitem>
-
-            <listitem>
-              <para>MacGreek</para>
-            </listitem>
-
-            <listitem>
-              <para>MacHebrew</para>
-            </listitem>
-
-            <listitem>
-              <para>MacIcelandic</para>
-            </listitem>
-
-            <listitem>
-              <para>MacKorean</para>
-            </listitem>
-
-            <listitem>
-              <para>MacJapanese</para>
-            </listitem>
-
-            <listitem>
-              <para>MacRoman</para>
-            </listitem>
-
-            <listitem>
-              <para>MacRomanian</para>
-            </listitem>
-
-            <listitem>
-              <para>MacThai</para>
-            </listitem>
-
-            <listitem>
-              <para>MacTurkish</para>
-            </listitem>
-          </itemizedlist>
-
-          <para>Starting with Mac OS X and AFP3, <ulink
-          url="http://www.utf-8.com/">UTF-8</ulink> is used. UTF-8 encodes
-          Unicode characters in an ASCII compatible way, each Unicode
-          character is encoded into 1-6 ASCII characters. UTF-8 is therefore
-          not really a charset itself, it's an encoding of the Unicode
-          charset.</para>
-
-          <para>To complicate things, Unicode defines several <emphasis><ulink
-          url="http://www.unicode.org/reports/tr15/index.html">normalization</ulink></emphasis>
-          forms. While <ulink
-          url="http://www.samba.org">samba</ulink><indexterm>
-              <primary>Samba</primary>
-            </indexterm> uses <emphasis>precomposed</emphasis><indexterm>
-              <primary>Precomposed</primary>
-
-              <secondary>Precomposed Unicode normalization</secondary>
-            </indexterm> Unicode, which most Unix tools prefer as well, Apple
-          decided to use the <emphasis>decomposed</emphasis><indexterm>
-              <primary>Decomposed</primary>
-
-              <secondary>Decomposed Unicode normalization</secondary>
-            </indexterm> normalization.</para>
-
-          <para>For example lets take the German character
-          '<keycode>ä</keycode>'. Using the precomposed normalization, Unicode
-          maps this character to 0xE4. In decomposed normalization, 'ä' is
-          actually mapped to two characters, 0x61 and 0x308. 0x61 is the
-          mapping for an 'a', 0x308 is the mapping for a <emphasis>COMBINING
-          DIAERESIS</emphasis>.</para>
-
-          <para>Netatalk refers to precomposed UTF-8 as
-          <emphasis>UTF8</emphasis><indexterm>
-              <primary>UTF8</primary>
-
-              <secondary>Netatalk's precomposed UTF-8 encoding</secondary>
-            </indexterm> and to decomposed UTF-8 as
-          <emphasis>UTF8-MAC</emphasis><indexterm>
-              <primary>UTF8-MAC</primary>
-
-              <secondary>Netatalk's decomposed UTF-8 encoding</secondary>
-            </indexterm>.</para>
-        </sect4>
-
-        <sect4>
-          <title>afpd and character sets</title>
-
-          <para>To support new AFP 3.x and older AFP 2.x clients at the same
-          time, afpd needs to be able to convert between the various charsets
-          used. AFP 3.x clients always use UTF-8, AFP 2.2 clients use one of
-          the Apple codepages.</para>
-
-          <para>At the time of this writing, netatalk supports the following
-          Apple codepages:</para>
-
-          <itemizedlist>
-            <listitem>
-              <para>MAC_CENTRALEUROPE</para>
-            </listitem>
-
-            <listitem>
-              <para>MAC_CYRILLIC</para>
-            </listitem>
-
-            <listitem>
-              <para>MAC_HEBREW</para>
-            </listitem>
-
-            <listitem>
-              <para>MAC_ROMAN</para>
-            </listitem>
-
-            <listitem>
-              <para>MAC_TURKISH</para>
-            </listitem>
-          </itemizedlist>
-
-          <para>afpd handles three different character set options:</para>
-
-          <variablelist>
-            <varlistentry>
-              <term>unixcodepage<indexterm>
-                  <primary>unixcodepage</primary>
-
-                  <secondary>afpd's unixcodepage setting</secondary>
-                </indexterm></term>
-
-              <listitem>
-                <para>This is the codepage used internally by your operating
-                system. If not specified and your system support Unix locales,
-                afpd tries to detect the codepage, otherwise it defaults to
-                ASCII. afpd uses this codepage to read its configuration
-                files, so you can use extended characters for volume names,
-                login messages, etc. see <citerefentry>
-                    <refentrytitle>afpd.conf</refentrytitle>
-
-                    <manvolnum>5</manvolnum>
-                  </citerefentry>.</para>
-              </listitem>
-            </varlistentry>
-
-            <varlistentry>
-              <term>maccodepage<indexterm>
-                  <primary>maccodepage</primary>
-
-                  <secondary>afpd's maccodepage setting</secondary>
-                </indexterm></term>
-
-              <listitem>
-                <para>As already mentioned, older MacOS clients (up to AFP
-                2.2) use codepages to communicate with afpd. However, there is
-                no support for negotiating the codepage used by the client in
-                the AFP protocol. If not specified otherwise, afpd assumes the
-                <emphasis>MacRoman</emphasis> codepage is used. In case you're
-                clients use another codepage, e.g.
-                <emphasis>MacCyrillic</emphasis>, you'll <emphasis
-                role="bold">have</emphasis> to explicitly configure this. see
-                <citerefentry>
-                    <refentrytitle>afpd.conf</refentrytitle>
-
-                    <manvolnum>5</manvolnum>
-                  </citerefentry>.</para>
-              </listitem>
-            </varlistentry>
-
-            <varlistentry>
-              <term>volcharset<indexterm>
-                  <primary>volcharset</primary>
-
-                  <secondary>afpd's volcharset setting</secondary>
-                </indexterm></term>
-
-              <listitem>
-                <para>This defines the charset afpd should use for filenames
-                on disk. The default is UTF8. If you have <ulink
-                url="http://www.gnu.org/software/libiconv/">iconv</ulink><indexterm>
-                    <primary>Iconv</primary>
-
-                    <secondary>iconv encoding conversion engine</secondary>
-                  </indexterm> installed, you can use any iconv provided
-                charset as well.</para>
-
-                <para>afpd needs a way to preserve extended macintosh
-                characters, or characters illegal in unix filenames, when
-                saving files on a unix filesystem. Earlier versions used the
-                the so called CAP encoding<indexterm>
-                    <primary>CAP encoding</primary>
-
-                    <secondary>CAP style character encoding</secondary>
-                  </indexterm>. An extended character (&gt;0x7F) would be
-                converted to a :xx hex sequence, e.g. the Apple Logo
-                (MacRoman: 0XF0) was saved as :f0. Some special characters
-                will be converted as to :xx notation as well. '/' will be
-                encoded to :2f, if -usedots is not specified, a leading dot
-                '.' will be encoded as :2e. Even though this version now uses
-                UTF-8 as the default encoding for filenames, special
-                characters, like '/' and a leading '.' will still be CAP style
-                encoded. For western users another useful setting could be
-                <emphasis>-volcharset ISO-8859-15</emphasis>.</para>
-
-                <para>If a character cannot be converted from the mac codepage
-                to the selected volcharset, afpd will save it as a CAP encoded
-                character. For AFP3 clients, afpd will convert the UTF-8
-                character to <emphasis>maccodepage</emphasis> first. If this
-                conversion fails, you'll receive a -50 error on the mac.
-                <emphasis>Note</emphasis>: Whenever you can, please stick with
-                the default UTF-8 volume format. see <citerefentry>
-                    <refentrytitle>AppleVolumes.default</refentrytitle>
-
-                    <manvolnum>5</manvolnum>
-                  </citerefentry>.</para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-        </sect4>
+        <para>Access to the CNID database is restricted to the cnid_dbd daemon
+        process. afpd processes communicate with the daemon for database reads
+        and updates. If built with Berkeley DB transactions, the probability
+        for database corruption is practically zero, but performance can be
+        slower than with cdb. As a database process gets spawned for each
+        volume, you're probably better off using cdb for sharing home
+        directories for a larger number of users.</para>
       </sect3>
 
-      <sect3 id="authentication">
-        <title>Authentication<indexterm>
-            <primary>Authentication</primary>
+      <sect3>
+        <title>last<indexterm>
+            <primary>Last</primary>
 
-            <secondary>between AFP client and server</secondary>
+            <secondary>"last" CNID backend</secondary>
           </indexterm></title>
 
-        <sect4>
-          <title>AFP authentication basics</title>
+        <para>The last backend is a semi-persistent backend. IDs will be
+        reused and, what is much worse, you can get duplicate IDs. You should
+        use it for sharing cdroms only, <emphasis>don't</emphasis> use it for
+        sharing normal volumes.</para>
+      </sect3>
+    </sect2>
 
-          <para>Apple chose a flexible model called "User Authentication
-          Modules" (UAMs) for authentication purposes between AFP client and
-          server. An AFP client initially connecting to an AFP server will ask
-          for the list of UAMs, the server provides, and will choose the one
-          with strongest encryption, that the client supports, too.</para>
+    <sect2 id="charsets">
+      <title>Charsets<indexterm>
+          <primary>Charset</primary>
 
-          <para>Several UAMs have been developed by Apple over the time, some
-          by 3rd-party developers, also.</para>
-        </sect4>
+          <secondary>character set</secondary>
+        </indexterm>/Unicode<indexterm>
+          <primary>Unicode</primary>
+        </indexterm></title>
 
-        <sect4>
-          <title>UAMs, Netatalk supports</title>
+      <para></para>
 
-          <para>Netatalk supports the following ones by default:</para>
+      <sect3>
+        <title>Why Unicode?</title>
 
-          <itemizedlist>
+        <para>Internally, computers don't know anything about characters and
+        texts, they only know numbers. Therefore, each letter is assigned a
+        number. A character set, often referred to as
+        <emphasis>charset</emphasis> or
+        <emphasis>codepage</emphasis><indexterm>
+            <primary>Codepage</primary>
+          </indexterm>, defines the mappings between numbers and
+        letters.</para>
+
+        <para>If two or more computer systems need to communicate with each
+        other, the have to use the same character set. In the 1960s the
+        ASCII<indexterm>
+            <primary>ASCII</primary>
+
+            <secondary>American Standard Code for Information
+            Interchange</secondary>
+          </indexterm> (American Standard Code for Information Interchange)
+        character set was defined by the American Standards Association. The
+        original form of ASCII represented 128 characters, more than enough to
+        cover the English alphabet and numerals. Up to date, ASCII has been
+        the normative character scheme used by computers.</para>
+
+        <para>Later versions defined 256 characters to produce a more
+        international fluency and to include some slightly esoteric graphical
+        characters. Using this mode of encoding each character takes exactly
+        one byte. Obviously, 256 characters still wasn't enough to map all the
+        characters used in the various languages into one character
+        set.</para>
+
+        <para>As a result localized character sets were defined later, e.g the
+        ISO-8859 character sets. Most operating system vendors introduced
+        their own characters sets to satisfy their needs, e.g. IBM defined the
+        <emphasis>codepage 437 (DOSLatinUS)</emphasis>, Apple introduced the
+        <emphasis>MacRoman</emphasis><indexterm>
+            <primary>MacRoman</primary>
+
+            <secondary>MacRoman charset</secondary>
+          </indexterm> codepage and so on. The characters that were assigned
+        number larger than 127 were referred to as
+        <emphasis>extended</emphasis> characters. These character sets
+        conflict with another, as they use the same number for different
+        characters, or vice versa.</para>
+
+        <para>Almost all of those characters sets defined 256 characters,
+        where the first 128 (0-127) character mappings are identical to ASCII.
+        As a result, communication between systems using different codepages
+        was effectively limited to the ASCII charset.</para>
+
+        <para>To solve this problem new, larger character sets were defined.
+        To make room for more character mappings, these character sets use at
+        least 2 bytes to store a character. They are therefore referred to as
+        <emphasis>multibyte</emphasis> character sets.</para>
+
+        <para>One standardized multibyte charset encoding scheme is known as
+        <ulink url="http://www.unicode.org/">unicode</ulink>. A big advantage
+        of using a multibyte charset is that you only need one. There is no
+        need to make sure two computers use the same charset when they are
+        communicating.</para>
+      </sect3>
+
+      <sect3>
+        <title>character sets used by Apple</title>
+
+        <para>In the past, Apple clients used single-byte charsets to
+        communicate over the network. Over the years Apple defined a number of
+        codepages, western users will most likely be using the
+        <emphasis>MacRoman</emphasis> codepage.</para>
+
+        <para>Codepages defined by Apple include:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>MacArabic, MacFarsi</para>
+          </listitem>
+
+          <listitem>
+            <para>MacCentralEurope</para>
+          </listitem>
+
+          <listitem>
+            <para>MacChineseSimple</para>
+          </listitem>
+
+          <listitem>
+            <para>MacChineseTraditional</para>
+          </listitem>
+
+          <listitem>
+            <para>MacCroation</para>
+          </listitem>
+
+          <listitem>
+            <para>MacCyrillic</para>
+          </listitem>
+
+          <listitem>
+            <para>MacDevanagari</para>
+          </listitem>
+
+          <listitem>
+            <para>MacGreek</para>
+          </listitem>
+
+          <listitem>
+            <para>MacHebrew</para>
+          </listitem>
+
+          <listitem>
+            <para>MacIcelandic</para>
+          </listitem>
+
+          <listitem>
+            <para>MacKorean</para>
+          </listitem>
+
+          <listitem>
+            <para>MacJapanese</para>
+          </listitem>
+
+          <listitem>
+            <para>MacRoman</para>
+          </listitem>
+
+          <listitem>
+            <para>MacRomanian</para>
+          </listitem>
+
+          <listitem>
+            <para>MacThai</para>
+          </listitem>
+
+          <listitem>
+            <para>MacTurkish</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Starting with Mac OS X and AFP3, <ulink
+        url="http://www.utf-8.com/">UTF-8</ulink> is used. UTF-8 encodes
+        Unicode characters in an ASCII compatible way, each Unicode character
+        is encoded into 1-6 ASCII characters. UTF-8 is therefore not really a
+        charset itself, it's an encoding of the Unicode charset.</para>
+
+        <para>To complicate things, Unicode defines several <emphasis><ulink
+        url="http://www.unicode.org/reports/tr15/index.html">normalization</ulink></emphasis>
+        forms. While <ulink url="http://www.samba.org">samba</ulink><indexterm>
+            <primary>Samba</primary>
+          </indexterm> uses <emphasis>precomposed</emphasis><indexterm>
+            <primary>Precomposed</primary>
+
+            <secondary>Precomposed Unicode normalization</secondary>
+          </indexterm> Unicode, which most Unix tools prefer as well, Apple
+        decided to use the <emphasis>decomposed</emphasis><indexterm>
+            <primary>Decomposed</primary>
+
+            <secondary>Decomposed Unicode normalization</secondary>
+          </indexterm> normalization.</para>
+
+        <para>For example lets take the German character
+        '<keycode>ä</keycode>'. Using the precomposed normalization, Unicode
+        maps this character to 0xE4. In decomposed normalization, 'ä' is
+        actually mapped to two characters, 0x61 and 0x308. 0x61 is the mapping
+        for an 'a', 0x308 is the mapping for a <emphasis>COMBINING
+        DIAERESIS</emphasis>.</para>
+
+        <para>Netatalk refers to precomposed UTF-8 as
+        <emphasis>UTF8</emphasis><indexterm>
+            <primary>UTF8</primary>
+
+            <secondary>Netatalk's precomposed UTF-8 encoding</secondary>
+          </indexterm> and to decomposed UTF-8 as
+        <emphasis>UTF8-MAC</emphasis><indexterm>
+            <primary>UTF8-MAC</primary>
+
+            <secondary>Netatalk's decomposed UTF-8 encoding</secondary>
+          </indexterm>.</para>
+      </sect3>
+
+      <sect3>
+        <title>afpd and character sets</title>
+
+        <para>To support new AFP 3.x and older AFP 2.x clients at the same
+        time, afpd needs to be able to convert between the various charsets
+        used. AFP 3.x clients always use UTF-8, AFP 2.2 clients use one of the
+        Apple codepages.</para>
+
+        <para>At the time of this writing, netatalk supports the following
+        Apple codepages:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>MAC_CENTRALEUROPE</para>
+          </listitem>
+
+          <listitem>
+            <para>MAC_CYRILLIC</para>
+          </listitem>
+
+          <listitem>
+            <para>MAC_HEBREW</para>
+          </listitem>
+
+          <listitem>
+            <para>MAC_ROMAN</para>
+          </listitem>
+
+          <listitem>
+            <para>MAC_TURKISH</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>afpd handles three different character set options:</para>
+
+        <variablelist>
+          <varlistentry>
+            <term>unixcodepage<indexterm>
+                <primary>unixcodepage</primary>
+
+                <secondary>afpd's unixcodepage setting</secondary>
+              </indexterm></term>
+
             <listitem>
-              <para>"No User Authent" UAM (guest access without
-              authentication)</para>
-            </listitem>
-
-            <listitem>
-              <para>"Cleartxt Passwrd" UAM (no password encryption)</para>
-            </listitem>
-
-            <listitem>
-              <para>"Randnum exchange"/"2-Way Randnum exchange" UAMs (weak
-              password encryption, separate password storage)</para>
-            </listitem>
-
-            <listitem>
-              <para>"DHCAST128" UAM (stronger password encryption, should be
-              used these days)</para>
-            </listitem>
-          </itemizedlist>
-
-          <para>There exist other optional UAMs as well:</para>
-
-          <itemizedlist>
-            <listitem>
-              <para>"PGPuam 1.0" UAM (PGP-based authentication for pre-Mac OS
-              X clients. You'll also need the <ulink
-              url="http://www.vmeng.com/vinnie/papers/pgpuam.html">PGPuam
-              client</ulink> to let this work)</para>
-
-              <para>You'll have to add <command>"--enable-pgp-uam"</command>
-              to your configure switches to have this UAM available.</para>
-            </listitem>
-
-            <listitem>
-              <para>"Kerberos IV"/"AFS Kerberos" UAMs (suitable to use <ulink
-              url="http://web.mit.edu/macdev/KfM/Common/Documentation/faq.html">Kerberos
-              v4 based authentication</ulink> and AFS fileservers)</para>
-
-              <para>Use <command>"--enable-krb4-uam"</command> at compile time
-              to activate the build of this UAM.</para>
-            </listitem>
-
-            <listitem>
-              <para>"Client Krb v2" UAM (Kerberos V, suitable for "Single Sign
-              On" Scenarios with Mac OS X clients -- see below)</para>
-
-              <para><command>"--enable-krbV-uam"</command> will provide you
-              with the ability to use this UAM.</para>
-            </listitem>
-          </itemizedlist>
-
-          <para>You can configure, which UAMs should be active by defining
-          <command>$AFPD_UAM_LIST</command> in <citerefentry>
-              <refentrytitle>netatalk.conf</refentrytitle>
-
-              <manvolnum>5</manvolnum>
-            </citerefentry>. <command>afpd</command> will log which UAMs it's
-          using and if problems occur while activating them in either
-          netatalk.log or syslog at startup time. <citerefentry>
-              <refentrytitle>asip-status.pl</refentrytitle>
-
-              <manvolnum>1</manvolnum>
-            </citerefentry> can be used to query the available UAMs of AFP
-          servers as well.</para>
-
-          <para>Having a specific UAM available at the server does not
-          automatically mean, that a client can use it. Client-side support is
-          also necessary. Fortunately this isn't such a problem these days,
-          since Mac OS X' AFP-client supports DHCAST128 from the beginning on.
-          For older
-          Macihttp://developer.apple.com/documentation/Networking/Conceptual/AFP/Chapter_1/chapter_2_section_6.htmlntoshes
-          running Mac OS &lt; X DHCAST128 support exists since AppleShare
-          client 3.8.x.</para>
-
-          <para>On Mac OS X there exist some client-side techniques to make
-          the AFP-client more verbose, so one can have a look what's happening
-          while negotiating the UAMs to use. Compare with this <ulink
-          url="http://article.gmane.org/gmane.network.netatalk.devel/7383/">hint</ulink>.</para>
-        </sect4>
-
-        <sect4>
-          <title>Which UAMs to provide</title>
-
-          <para>It depends primarily on your needs and on the kind of Mac OS
-          versions, you have to support. Basically one should try to use
-          DHCAST128 where possible because of its strength of password
-          encryption.</para>
-
-          <itemizedlist>
-            <listitem>
-              <para>Unless you really have to supply guest access to your
-              server's volumes, ensure that you disable "No User Authent",
-              since it might lead accidentally to unauthorized access. In
-              case, you must enable guest access, take care, that you enforce
-              this on a per volume base using the access controls, the
-              <citerefentry>
-                  <refentrytitle>AppleVolume.default</refentrytitle>
+              <para>This is the codepage used internally by your operating
+              system. If not specified and your system support Unix locales,
+              afpd tries to detect the codepage, otherwise it defaults to
+              ASCII. afpd uses this codepage to read its configuration files,
+              so you can use extended characters for volume names, login
+              messages, etc. see <citerefentry>
+                  <refentrytitle>afpd.conf</refentrytitle>
 
                   <manvolnum>5</manvolnum>
-                </citerefentry> config file supplies, or think about setting
-              up an own server definition, serving these public shares in
+                </citerefentry>.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>maccodepage<indexterm>
+                <primary>maccodepage</primary>
+
+                <secondary>afpd's maccodepage setting</secondary>
+              </indexterm></term>
+
+            <listitem>
+              <para>As already mentioned, older MacOS clients (up to AFP 2.2)
+              use codepages to communicate with afpd. However, there is no
+              support for negotiating the codepage used by the client in the
+              AFP protocol. If not specified otherwise, afpd assumes the
+              <emphasis>MacRoman</emphasis> codepage is used. In case you're
+              clients use another codepage, e.g.
+              <emphasis>MacCyrillic</emphasis>, you'll <emphasis
+              role="bold">have</emphasis> to explicitly configure this. see
               <citerefentry>
                   <refentrytitle>afpd.conf</refentrytitle>
 
                   <manvolnum>5</manvolnum>
                 </citerefentry>.</para>
             </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>volcharset<indexterm>
+                <primary>volcharset</primary>
+
+                <secondary>afpd's volcharset setting</secondary>
+              </indexterm></term>
 
             <listitem>
-              <para>The "ClearText Passwrd" UAM is as bad as it sounds since
-              passwords go unencrypted over the wire. Try to avoid it at both
-              the server's side as well as on the client's. Note: If you want
-              to provide Mac OS 8/9 clients with NetBoot-services, then you
-              need uams_cleartext.so since the AFP-client integrated into the
-              Mac's firmware can only deal with this basic form of
-              authentication.</para>
+              <para>This defines the charset afpd should use for filenames on
+              disk. The default is UTF8. If you have <ulink
+              url="http://www.gnu.org/software/libiconv/">iconv</ulink><indexterm>
+                  <primary>Iconv</primary>
+
+                  <secondary>iconv encoding conversion engine</secondary>
+                </indexterm> installed, you can use any iconv provided charset
+              as well.</para>
+
+              <para>afpd needs a way to preserve extended macintosh
+              characters, or characters illegal in unix filenames, when saving
+              files on a unix filesystem. Earlier versions used the the so
+              called CAP encoding<indexterm>
+                  <primary>CAP encoding</primary>
+
+                  <secondary>CAP style character encoding</secondary>
+                </indexterm>. An extended character (&gt;0x7F) would be
+              converted to a :xx hex sequence, e.g. the Apple Logo (MacRoman:
+              0XF0) was saved as :f0. Some special characters will be
+              converted as to :xx notation as well. '/' will be encoded to
+              :2f, if -usedots is not specified, a leading dot '.' will be
+              encoded as :2e. Even though this version now uses UTF-8 as the
+              default encoding for filenames, special characters, like '/' and
+              a leading '.' will still be CAP style encoded. For western users
+              another useful setting could be <emphasis>-volcharset
+              ISO-8859-15</emphasis>.</para>
+
+              <para>If a character cannot be converted from the mac codepage
+              to the selected volcharset, afpd will save it as a CAP encoded
+              character. For AFP3 clients, afpd will convert the UTF-8
+              character to <emphasis>maccodepage</emphasis> first. If this
+              conversion fails, you'll receive a -50 error on the mac.
+              <emphasis>Note</emphasis>: Whenever you can, please stick with
+              the default UTF-8 volume format. see <citerefentry>
+                  <refentrytitle>AppleVolumes.default</refentrytitle>
+
+                  <manvolnum>5</manvolnum>
+                </citerefentry>.</para>
             </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+    </sect2>
 
-            <listitem>
-              <para>Since "Randnum exchange"/"2-Way Randnum exchange" uses
-              only 56 bit DES for encryption it should be avoided as well.
-              Another disadvantage is the fact, that the passwords have to be
-              stored in cleartext on the server and that it doesn't integrate
-              into both PAM scenarios or classic /etc/shadow (you have to
-              administrate passwords separately by using the <citerefentry>
-                  <refentrytitle>afppasswd</refentrytitle>
+    <sect2 id="authentication">
+      <title>Authentication<indexterm>
+          <primary>Authentication</primary>
 
-                  <manvolnum>1</manvolnum>
-                </citerefentry> utility, if clients should use these
-              UAMs)</para>
-            </listitem>
+          <secondary>between AFP client and server</secondary>
+        </indexterm></title>
 
-            <listitem>
-              <para>"DHCAST128" should be a good compromise for most people
-              since it combines stronger encryption with PAM integration.
-              Hopefully Netatalk will support its successor "DHX2" (Diffie
-              Hellman Exchange 2) in the future, which provides even stronger
-              encryption.</para>
-            </listitem>
+      <sect3>
+        <title>AFP authentication basics</title>
 
-            <listitem>
-              <para>Using the Kerberos V ("Client Krb v2") UAM, it's possible
-              to implement real single sign on scenarios using Kerberos
-              tickets.</para>
-            </listitem>
-          </itemizedlist>
+        <para>Apple chose a flexible model called "User Authentication
+        Modules" (UAMs) for authentication purposes between AFP client and
+        server. An AFP client initially connecting to an AFP server will ask
+        for the list of UAMs, the server provides, and will choose the one
+        with strongest encryption, that the client supports, too.</para>
 
-          <para>For a more detailed overview over the technical implications
-          of the different UAMs, please have a look at Apple's <ulink
-          url="http://developer.apple.com/documentation/Networking/Conceptual/AFP/Chapter_1/chapter_2_section_6.html">File
-          Server Security</ulink> chapter.</para>
-        </sect4>
+        <para>Several UAMs have been developed by Apple over the time, some by
+        3rd-party developers, also.</para>
+      </sect3>
 
-        <sect4>
-          <title>Using different authentication sources with specific
-          UAMs</title>
+      <sect3>
+        <title>UAMs, Netatalk supports</title>
 
-          <para>Some UAMs provide the ability to use different authentication
-          "backends", namely <command>uams_cleartext.so</command> and
-          <command>uams_dhx.so</command>. They can both use either classic
-          Unix passwords from <command>/etc/passwd</command>
-          (<command>/etc/shadow</command>) or PAM instead, if the system
-          supports that. <command>uams_cleartext.so</command> can be symlinked
-          to either <command>uams_passwd.so</command> or
-          <command>uams_pam.so</command>, <command>uams_dhx.so</command> to
-          <command>uams_dhx_passwd.so</command> or
-          <command>uams_dhx_pam.so</command>. So, if it looks like this in
-          Netatalk's UAMs folder (per default
-          <command>/etc/netatalk/uams/</command>):<programlisting>uams_clrtxt.so -&gt; uams_pam.so
+        <para>Netatalk supports the following ones by default:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>"No User Authent" UAM (guest access without
+            authentication)</para>
+          </listitem>
+
+          <listitem>
+            <para>"Cleartxt Passwrd" UAM (no password encryption)</para>
+          </listitem>
+
+          <listitem>
+            <para>"Randnum exchange"/"2-Way Randnum exchange" UAMs (weak
+            password encryption, separate password storage)</para>
+          </listitem>
+
+          <listitem>
+            <para>"DHCAST128" UAM (stronger password encryption, should be
+            used these days)</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>There exist other optional UAMs as well:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>"PGPuam 1.0" UAM (PGP-based authentication for pre-Mac OS X
+            clients. You'll also need the <ulink
+            url="http://www.vmeng.com/vinnie/papers/pgpuam.html">PGPuam
+            client</ulink> to let this work)</para>
+
+            <para>You'll have to add <command>"--enable-pgp-uam"</command> to
+            your configure switches to have this UAM available.</para>
+          </listitem>
+
+          <listitem>
+            <para>"Kerberos IV"/"AFS Kerberos" UAMs (suitable to use <ulink
+            url="http://web.mit.edu/macdev/KfM/Common/Documentation/faq.html">Kerberos
+            v4 based authentication</ulink> and AFS fileservers)</para>
+
+            <para>Use <command>"--enable-krb4-uam"</command> at compile time
+            to activate the build of this UAM.</para>
+          </listitem>
+
+          <listitem>
+            <para>"Client Krb v2" UAM (Kerberos V, suitable for "Single Sign
+            On" Scenarios with Mac OS X clients -- see below)</para>
+
+            <para><command>"--enable-krbV-uam"</command> will provide you with
+            the ability to use this UAM.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>You can configure, which UAMs should be active by defining
+        <command>$AFPD_UAM_LIST</command> in <citerefentry>
+            <refentrytitle>netatalk.conf</refentrytitle>
+
+            <manvolnum>5</manvolnum>
+          </citerefentry>. <command>afpd</command> will log which UAMs it's
+        using and if problems occur while activating them in either
+        netatalk.log or syslog at startup time. <citerefentry>
+            <refentrytitle>asip-status.pl</refentrytitle>
+
+            <manvolnum>1</manvolnum>
+          </citerefentry> can be used to query the available UAMs of AFP
+        servers as well.</para>
+
+        <para>Having a specific UAM available at the server does not
+        automatically mean, that a client can use it. Client-side support is
+        also necessary. Fortunately this isn't such a problem these days,
+        since Mac OS X' AFP-client supports DHCAST128 from the beginning on.
+        For older
+        Macihttp://developer.apple.com/documentation/Networking/Conceptual/AFP/Chapter_1/chapter_2_section_6.htmlntoshes
+        running Mac OS &lt; X DHCAST128 support exists since AppleShare client
+        3.8.x.</para>
+
+        <para>On Mac OS X there exist some client-side techniques to make the
+        AFP-client more verbose, so one can have a look what's happening while
+        negotiating the UAMs to use. Compare with this <ulink
+        url="http://article.gmane.org/gmane.network.netatalk.devel/7383/">hint</ulink>.</para>
+      </sect3>
+
+      <sect3>
+        <title>Which UAMs to provide</title>
+
+        <para>It depends primarily on your needs and on the kind of Mac OS
+        versions, you have to support. Basically one should try to use
+        DHCAST128 where possible because of its strength of password
+        encryption.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Unless you really have to supply guest access to your
+            server's volumes, ensure that you disable "No User Authent", since
+            it might lead accidentally to unauthorized access. In case, you
+            must enable guest access, take care, that you enforce this on a
+            per volume base using the access controls, the <citerefentry>
+                <refentrytitle>AppleVolume.default</refentrytitle>
+
+                <manvolnum>5</manvolnum>
+              </citerefentry> config file supplies, or think about setting up
+            an own server definition, serving these public shares in
+            <citerefentry>
+                <refentrytitle>afpd.conf</refentrytitle>
+
+                <manvolnum>5</manvolnum>
+              </citerefentry>.</para>
+          </listitem>
+
+          <listitem>
+            <para>The "ClearText Passwrd" UAM is as bad as it sounds since
+            passwords go unencrypted over the wire. Try to avoid it at both
+            the server's side as well as on the client's. Note: If you want to
+            provide Mac OS 8/9 clients with NetBoot-services, then you need
+            uams_cleartext.so since the AFP-client integrated into the Mac's
+            firmware can only deal with this basic form of
+            authentication.</para>
+          </listitem>
+
+          <listitem>
+            <para>Since "Randnum exchange"/"2-Way Randnum exchange" uses only
+            56 bit DES for encryption it should be avoided as well. Another
+            disadvantage is the fact, that the passwords have to be stored in
+            cleartext on the server and that it doesn't integrate into both
+            PAM scenarios or classic /etc/shadow (you have to administrate
+            passwords separately by using the <citerefentry>
+                <refentrytitle>afppasswd</refentrytitle>
+
+                <manvolnum>1</manvolnum>
+              </citerefentry> utility, if clients should use these
+            UAMs)</para>
+          </listitem>
+
+          <listitem>
+            <para>"DHCAST128" should be a good compromise for most people
+            since it combines stronger encryption with PAM integration.
+            Hopefully Netatalk will support its successor "DHX2" (Diffie
+            Hellman Exchange 2) in the future, which provides even stronger
+            encryption.</para>
+          </listitem>
+
+          <listitem>
+            <para>Using the Kerberos V ("Client Krb v2") UAM, it's possible to
+            implement real single sign on scenarios using Kerberos
+            tickets.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>For a more detailed overview over the technical implications of
+        the different UAMs, please have a look at Apple's <ulink
+        url="http://developer.apple.com/documentation/Networking/Conceptual/AFP/Chapter_1/chapter_2_section_6.html">File
+        Server Security</ulink> chapter.</para>
+      </sect3>
+
+      <sect3>
+        <title>Using different authentication sources with specific
+        UAMs</title>
+
+        <para>Some UAMs provide the ability to use different authentication
+        "backends", namely <command>uams_cleartext.so</command> and
+        <command>uams_dhx.so</command>. They can both use either classic Unix
+        passwords from <command>/etc/passwd</command>
+        (<command>/etc/shadow</command>) or PAM instead, if the system
+        supports that. <command>uams_cleartext.so</command> can be symlinked
+        to either <command>uams_passwd.so</command> or
+        <command>uams_pam.so</command>, <command>uams_dhx.so</command> to
+        <command>uams_dhx_passwd.so</command> or
+        <command>uams_dhx_pam.so</command>. So, if it looks like this in
+        Netatalk's UAMs folder (per default
+        <command>/etc/netatalk/uams/</command>):<programlisting>uams_clrtxt.so -&gt; uams_pam.so
 uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
-          otherwise classic Unix passwords. The main advantage of using PAM is
-          that one can integrate Netatalk in centralized authentication
-          scenarios, eg. via LDAP, NIS and the like. Please keep always in
-          mind, that in such scenarios, the protection of your user's logon
-          credentials also depends on the strength of encryption, the UAM in
-          question supplies. So think about eliminating weak UAMs like
-          "ClearText Passwrd" and "Randnum exchange" completely from your
-          network.</para>
-        </sect4>
+        otherwise classic Unix passwords. The main advantage of using PAM is
+        that one can integrate Netatalk in centralized authentication
+        scenarios, eg. via LDAP, NIS and the like. Please keep always in mind,
+        that in such scenarios, the protection of your user's logon
+        credentials also depends on the strength of encryption, the UAM in
+        question supplies. So think about eliminating weak UAMs like
+        "ClearText Passwrd" and "Randnum exchange" completely from your
+        network.</para>
+      </sect3>
 
-        <sect4>
-          <title>Single Sign On with "Kerberos V"</title>
+      <sect3>
+        <title>Single Sign On with "Kerberos V"</title>
 
-          <para>(not yet)</para>
-        </sect4>
+        <para>(not yet)</para>
+      </sect3>
 
-        <sect4>
-          <title>Netatalk UAM overview table</title>
+      <sect3>
+        <title>Netatalk UAM overview table</title>
 
-          <table>
-            <title>Netatalk UAM overview</title>
+        <para>A small overview of the most common used UAMs follows:</para>
 
-            <tgroup cols="6">
-              <tbody>
-                <row>
-                  <entry>Client-side UAM support</entry>
+        <table>
+          <title>Netatalk UAM overview</title>
 
-                  <entry>"No User Authent" UAM (built-in into all Mac OS
-                  versions)</entry>
+          <tgroup cols="6">
+            <tbody>
+              <row>
+                <entry></entry>
 
-                  <entry>"Cleartxt Passwrd" UAM (built-in in all Mac OS
-                  versions except 10.0. Has to be activated explicitly in
-                  recent Mac OS X versions)</entry>
+                <entry>"No User Authent" UAM (guest access)</entry>
 
-                  <entry>"Randnum exchange"/"2-Way Randnum exchange" UAMs
-                  (built-in into almost all Mac OS versions)</entry>
+                <entry>"Cleartxt Passwrd" UAM</entry>
 
-                  <entry>DHCAST128 UAM (built-in since AppleShare client
-                  3.8.4, available as a plug-in for 3.8.3, integrated in Mac
-                  OS X' AFP client)</entry>
+                <entry>"Randnum exchange"/"2-Way Randnum exchange"
+                UAMs</entry>
 
-                  <entry>Kerberos V UAM (built-in since MacOS X 10.3)</entry>
-                </row>
+                <entry>"DHCAST128" UAM (also called "Diffie Hellmann
+                Exchange")</entry>
 
-                <row>
-                  <entry>Encryption and authentication between AFP client and
-                  server</entry>
+                <entry>"Client Krb v2" UAM (also known as "Kerberos
+                V")</entry>
+              </row>
 
-                  <entry>Enables guest access without authentication between
-                  client and server.</entry>
+              <row>
+                <entry>Client-side UAM support</entry>
 
-                  <entry>Password (up to 8 characters long) will be sent in
-                  cleartext over the wire. Just as bad as it sounds, therefor
-                  avoid at all if possible (note: providing NetBoot services
-                  requires the ClearText UAM)</entry>
+                <entry>built-in into all Mac OS versions</entry>
 
-                  <entry>Password itself (up to 8 characters long) will not be
-                  transmitted (8-byte random numbers are sent over the wire,
-                  comparable with DES, 56 bits). Vulnerable to offline
-                  dictionary attack. Requires a cleartext password on the
-                  server.</entry>
+                <entry>built-in in all Mac OS versions except 10.0. Has to be
+                activated explicitly in recent Mac OS X versions</entry>
 
-                  <entry>Password (up to 64 bytes in length) will be encrypted
-                  with 128 bit SSL, user will be authenticated against the
-                  server, but not vice versa. Therefor weak against
-                  man-in-the-middle attacks.</entry>
+                <entry>built-in into almost all Mac OS versions</entry>
 
-                  <entry>(not yet)</entry>
-                </row>
+                <entry>built-in since AppleShare client 3.8.4, available as a
+                plug-in for 3.8.3, integrated in Mac OS X' AFP client</entry>
 
-                <row>
-                  <entry>Server-side UAM support</entry>
+                <entry>built-in since MacOS X 10.3</entry>
+              </row>
 
-                  <entry align="center" valign="middle">uams_guest.so</entry>
+              <row>
+                <entry>Encryption and authentication between AFP client and
+                server</entry>
 
-                  <entry align="center" valign="middle">uams_cleartxt.so
-                  (symlink to either uams_passwd.so or uams_pam.so)</entry>
+                <entry>Enables guest access without authentication between
+                client and server.</entry>
 
-                  <entry align="center"
-                  valign="middle">uams_randnum.so</entry>
+                <entry>Password (up to 8 characters long) will be sent in
+                cleartext over the wire. Just as bad as it sounds, therefor
+                avoid at all if possible (note: providing NetBoot services
+                requires the ClearText UAM)</entry>
 
-                  <entry align="center" valign="middle">uams_dhx.so (symlink
-                  to either uams_dhx_passwd.so or uams_dhx_pam.so)</entry>
+                <entry>Password itself (up to 8 characters long) will not be
+                transmitted (8-byte random numbers are sent over the wire,
+                comparable with DES, 56 bits). Vulnerable to offline
+                dictionary attack. Requires a cleartext password on the
+                server.</entry>
 
-                  <entry align="center" valign="middle">uam_gss.so</entry>
-                </row>
-              </tbody>
-            </tgroup>
-          </table>
-        </sect4>
+                <entry>Password (up to 64 bytes in length) will be encrypted
+                with 128 bit SSL, user will be authenticated against the
+                server but not vice versa. Therefor weak against
+                man-in-the-middle attacks.</entry>
+
+                <entry>(not yet)</entry>
+              </row>
+
+              <row>
+                <entry>Server-side UAM support</entry>
+
+                <entry align="center" valign="middle">uams_guest.so</entry>
+
+                <entry align="center" valign="middle">uams_cleartxt.so
+                (symlink to either uams_passwd.so or uams_pam.so)</entry>
+
+                <entry align="center" valign="middle">uams_randnum.so</entry>
+
+                <entry align="center" valign="middle">uams_dhx.so (symlink to
+                either uams_dhx_passwd.so or uams_dhx_pam.so)</entry>
+
+                <entry align="center" valign="middle">uam_gss.so</entry>
+              </row>
+
+              <row>
+                <entry valign="middle">Password storage</entry>
+
+                <entry align="center" valign="middle">None</entry>
+
+                <entry align="center" valign="middle">Either /etc/passwd
+                (/etc/shadow) or PAM</entry>
+
+                <entry align="center" valign="middle">passwords stored in
+                cleartext in a separate textfile</entry>
+
+                <entry align="center" valign="middle">Either /etc/passwd
+                (/etc/shadow) or PAM</entry>
+
+                <entry align="center" valign="middle">At the Kerberos <ulink
+                url="http://cryptnet.net/fdp/admin/kerby-infra/en/kerby-infra.html#howitworks">KDC</ulink></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
       </sect3>
     </sect2>
   </sect1>
