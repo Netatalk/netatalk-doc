@@ -505,8 +505,17 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       <para>Netatalk needs to map IDs to files and folders in the host
       filesystem. To achieve this, several different CNID backends<indexterm>
           <primary>CNID backend</primary>
-        </indexterm> are available. A CNID backend is basically a database
-      storing ID &lt;-&gt; name mappings.</para>
+        </indexterm> are available and can be choosed by the <emphasis
+      role="bold">cnidscheme<indexterm>
+          <primary>cnidscheme</primary>
+
+          <secondary>specifying a CNID backend</secondary>
+        </indexterm></emphasis> option in the <citerefentry>
+          <refentrytitle>AppleVolumes.default</refentrytitle>
+
+          <manvolnum>5</manvolnum>
+        </citerefentry> configuration file. A CNID backend is basically a
+      database storing ID &lt;-&gt; name mappings.</para>
 
       <para>In the past, many users used the so called "last" CNID scheme.
       However, this scheme has some serious drawbacks, as it is based on the
@@ -968,8 +977,8 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         <para>Apple chose a flexible model called "User Authentication
         Modules" (UAMs) for authentication purposes between AFP client and
         server. An AFP client initially connecting to an AFP server will ask
-        for the list of UAMs which the server provides, and will choose the one
-        with strongest encryption that the client supports.</para>
+        for the list of UAMs which the server provides, and will choose the
+        one with strongest encryption that the client supports.</para>
 
         <para>Several UAMs have been developed by Apple over the time, some by
         3rd-party developers.</para>
@@ -1139,10 +1148,10 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         "backends", namely <command>uams_cleartext.so</command> and
         <command>uams_dhx.so</command>. They can both use either classic Unix
         passwords from <command>/etc/passwd</command>
-        (<command>/etc/shadow</command>) or PAM if the system
-        supports that. <command>uams_cleartext.so</command> can be symlinked
-        to either <command>uams_passwd.so</command> or
-        <command>uams_pam.so</command>, <command>uams_dhx.so</command> to
+        (<command>/etc/shadow</command>) or PAM if the system supports that.
+        <command>uams_cleartext.so</command> can be symlinked to either
+        <command>uams_passwd.so</command> or <command>uams_pam.so</command>,
+        <command>uams_dhx.so</command> to
         <command>uams_dhx_passwd.so</command> or
         <command>uams_dhx_pam.so</command>. So, if it looks like this in
         Netatalk's UAMs folder (per default
@@ -1152,10 +1161,9 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
         that one can integrate Netatalk in centralized authentication
         scenarios, eg. via LDAP, NIS and the like. Please always keep in mind
         that the protection of your user's login credentials in such scenarios
-        also depends on the strength of encryption that the UAM in
-        question supplies. So think about eliminating weak UAMs like
-        "ClearText Passwrd" and "Randnum exchange" completely from your
-        network.</para>
+        also depends on the strength of encryption that the UAM in question
+        supplies. So think about eliminating weak UAMs like "ClearText
+        Passwrd" and "Randnum exchange" completely from your network.</para>
       </sect3>
 
       <sect3>
@@ -1201,7 +1209,8 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry align="center" rotate="0" valign="middle">pssword length</entry>
+                <entry align="center" rotate="0" valign="middle">pssword
+                length</entry>
 
                 <entry>guest access</entry>
 
@@ -1215,7 +1224,8 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry align="center" rotate="0" valign="middle">Client support</entry>
+                <entry align="center" rotate="0" valign="middle">Client
+                support</entry>
 
                 <entry>built-in into all Mac OS versions</entry>
 
@@ -1231,7 +1241,8 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry align="center" rotate="0" valign="middle">Encryption</entry>
+                <entry align="center" rotate="0"
+                valign="middle">Encryption</entry>
 
                 <entry>Enables guest access without authentication between
                 client and server.</entry>
@@ -1252,7 +1263,8 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry align="center" rotate="0" valign="middle">Server support</entry>
+                <entry align="center" rotate="0" valign="middle">Server
+                support</entry>
 
                 <entry align="center" valign="middle">uams_guest.so</entry>
 
@@ -1266,7 +1278,8 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry align="center" rotate="0" valign="middle">Password storage method</entry>
+                <entry align="center" rotate="0" valign="middle">Password
+                storage method</entry>
 
                 <entry align="center" valign="middle">None</entry>
 

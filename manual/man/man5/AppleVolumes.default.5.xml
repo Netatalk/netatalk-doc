@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.13 2004-07-20 09:41:42 tkaiser Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.14 2004-09-04 21:29:34 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -16,7 +16,8 @@
     <refname>AppleVolumes.default</refname>
 
     <refpurpose>Configuration file used by <command>afpd</command>(8) to
-    determine the shares made available through Appletalk<indexterm><primary>AppleVolumes.default</primary></indexterm></refpurpose>
+    determine the shares made available through Appletalk<indexterm><primary>AppleVolumes.default</primary></indexterm><indexterm>
+        <primary>cnidscheme</primary><secondary>specifying a CNID backend</secondary></indexterm></refpurpose>
   </refnamediv>
 
   <refsect1>
