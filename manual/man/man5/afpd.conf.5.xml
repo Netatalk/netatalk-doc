@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.14 2004-07-20 09:41:42 tkaiser Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.15 2004-09-24 13:51:44 tkaiser Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">05 Jan 2004</refmiscinfo>
+    <refmiscinfo class="date">24 September 2004</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -16,7 +16,9 @@
     <refname>afpd.conf</refname>
 
     <refpurpose>Configuration file used by afpd(8) to determine the setup of
-    its file sharing services<indexterm><primary>afpd.conf</primary></indexterm></refpurpose>
+    its file sharing services<indexterm>
+        <primary>afpd.conf</primary>
+      </indexterm></refpurpose>
   </refnamediv>
 
   <refsect1>
@@ -568,6 +570,16 @@ third -signature user:ADMINS</programlisting></para>
 
   <refsect1>
     <title>Logging Options</title>
+
+    <note>
+      <para>Extended logging capabilities are only available if Netatalk was
+      built using <command>--with-logfile</command>. As of Netatalk 2.0, the
+      default is <command>--without-logfile</command> since the logger code is
+      partially broken and needs a complete rewrite (the
+      <option>-setuplog</option> option might not work as expected). If
+      Netatalk was built without logger support then the daemons log to
+      syslog.</para>
+    </note>
 
     <variablelist>
       <varlistentry>
