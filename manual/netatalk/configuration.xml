@@ -1303,6 +1303,116 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
         url="http://cryptnet.net/fdp/admin/kerby-infra/en/kerby-infra.html#howitworks">Key
         Distribution Center</ulink></para>
       </sect3>
+
+      <sect3 id="sshtunnel">
+        <title>SSH tunneling</title>
+
+        <para>Tunneling and all sort of VPN stuff has nothing to do with AFP
+        authentication and UAMs in general. But since Apple introduced an
+        option called "Allow Secure Connections Using SSH" and many people
+        tend to confuse both things, we'll speak about that here too.</para>
+
+        <sect4>
+          <title>Manually tunneling an AFP session</title>
+
+          <para>This works since the first AFP servers that spoke "AFP over
+          TCP" appeared in networks. One simply tunnels the remote server's
+          AFP port to a local port different than 548 and connects locally to
+          this port afterwards. On MacOS X this can be done by</para>
+
+          <programlisting>ssh -l $USER $SERVER -L 10548:127.0.0.1:548 sleep 3000</programlisting>
+
+          <para>After establishing the tunnel one will use
+          <command>"afp://127.0.0.1:10548"</command> in the "Connect to
+          server" dialog. All AFP traffic including the initial connection
+          attempts will be sent encrypted over the wire since the local AFP
+          client will connect to the Mac's local port 10548 which will be
+          forwarded to the remote server's AFP port (we used the default 548)
+          over SSH.</para>
+
+          <para>These sorts of tunnels are an ideal solution if you've to
+          access an AFP server providing weak authentications mechanisms
+          through the Internet without having the ability to use a "real" VPN.
+          Note that you can let <command>ssh</command> compress the data by
+          using its <command>"-C"</command> switch and that the tunnel
+          endpoints can be different from both AFP client and server (compare
+          with the SSH documentation for details).</para>
+        </sect4>
+
+        <sect4>
+          <title>Automatically establishing a tunneled AFP connection</title>
+
+          <para>Starting with Mac OS X 10.2 Apple added an "Allow Secure
+          Connections Using SSH" checkbox to the "Connect to Server" dialog.
+          The idea behind: When the server signals that it can be contacted by
+          SSH then Mac OS X' AFP client tries to establish the tunnel and
+          automagically sends all AFP traffic through it.</para>
+
+          <para>But it took until the release of Mac OS X 10.3 that this
+          feature worked the first time… partly. In case, the SSH tunnel can't
+          be established the AFP client <emphasis
+          role="strong">silently</emphasis> fell back to an unencrypted AFP
+          connection attempt.</para>
+
+          <para>Netatalk's afpd will report that it is capable of handling SSH
+          tunneled AFP requests, when both <command>-advertise_ssh</command>
+          and <command>-fqdn</command> options are set in <citerefentry>
+              <refentrytitle>afpd.conf</refentrytitle>
+
+              <manvolnum>1</manvolnum>
+            </citerefentry> (double check with <citerefentry>
+              <refentrytitle>asip-status.pl</refentrytitle>
+
+              <manvolnum>5</manvolnum>
+            </citerefentry> after you restarted afpd when you made changes to
+          the settings). But there are a couple of reasons why you don't want
+          to use this option at all:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Tunneling TCP over TCP (as SSH does) is not the best idea.
+              There exist better solutions like VPNs based on the IP
+              layer.</para>
+            </listitem>
+
+            <listitem>
+              <para>Since this SSH kludge isn't a normal UAM that integrates
+              directly into the AFP authentication mechanisms but instead uses
+              a single flag signalling clients whether they can <emphasis
+              role="strong">try</emphasis> to establish a tunnel or not, it
+              makes life harder to see what's happening when things go
+              wrong.</para>
+            </listitem>
+
+            <listitem>
+              <para>You cannot control which machines are logged on by
+              Netatalk tools like <command>nu</command> or
+              <command>macusers</command> since all connection attempts seem
+              to be made from localhost.</para>
+            </listitem>
+
+            <listitem>
+              <para>On the other side you've to limit access to afpd to
+              localhost only (TCPWRAPPERS) and disable AFP over DDP when you
+              want to ensure that all AFP sessions are SSH encrypted
+              or…</para>
+            </listitem>
+
+            <listitem>
+              <para>…when you're using 10.2 - 10.3.3 then you get the opposite
+              of what you'd expect: potentially unencrypted AFP communication
+              (including logon credentials) on the network without a single
+              notification that establishing the tunnel failed. Apple fixed
+              that not until Mac OS X 10.3.4.</para>
+            </listitem>
+
+            <listitem>
+              <para>Encrypting all AFP sessions via SSH can lead to a
+              significantly higher load on the Netatalk server</para>
+            </listitem>
+          </itemizedlist>
+        </sect4>
+      </sect3>
     </sect2>
   </sect1>
 
