@@ -19,7 +19,7 @@
       <citerefentry><refentrytitle>papd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
       or file services via AppleTalk via <citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
       for older AFP clients not capable of using AFP over TCP. You&#39;ll need
-      it also, if you want to use the depreciated AppleTalk-based timeserver
+      it also, if you want to use the deprecated AppleTalk-based timeserver
       <citerefentry><refentrytitle>timelord</refentrytitle><manvolnum>8</manvolnum></citerefentry>
       for older Mac clients</para>
 
@@ -818,7 +818,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone &#34;Testing&#34;</programlis
     <sect2>
       <title>Using Netatalk as a time server for Macintoshs</title>
 
-      <para>&#34;timelord&#34;, an AppleTalk based time server, is depreciated
+      <para>&#34;timelord&#34;, an AppleTalk based time server, is deprecated
       these days. Use NTP<indexterm><primary>NTP</primary><secondary>Network
       Time Protocol</secondary></indexterm> instead.</para>
     </sect2>
