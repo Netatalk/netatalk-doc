@@ -1048,37 +1048,37 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
         <para>Having a specific UAM available at the server does not
         automatically mean, that a client can use it. Client-side support is
-        also necessary. Fortunately this isn't such a problem these days,
-        since Mac OS X' AFP-client supports DHCAST128 from the beginning on.
-        For older Macintoshes running Mac OS &lt; X DHCAST128 support exists
-        since AppleShare client 3.8.x.</para>
+        also necessary. Fortunately this isn't such a problem these days since
+        Mac OS X' AFP-client supports DHCAST128 from the beginning on. For
+        older Macintoshes running Mac OS &lt; X DHCAST128 support exists since
+        AppleShare client 3.8.x.</para>
 
         <para>On Mac OS X there exist some client-side techniques to make the
-        AFP-client more verbose, so one can have a look what's happening while
+        AFP-client more verbose so one can have a look what's happening while
         negotiating the UAMs to use. Compare with this <ulink
         url="http://article.gmane.org/gmane.network.netatalk.devel/7383/">hint</ulink>.</para>
       </sect3>
 
       <sect3>
-        <title>Which UAMs to provide</title>
+        <title>Which UAMs to activate</title>
 
         <para>It depends primarily on your needs and on the kind of Mac OS
-        versions, you have to support. Basically one should try to use
+        versions you have to support. Basically one should try to use
         DHCAST128 where possible because of its strength of password
         encryption.</para>
 
         <itemizedlist>
           <listitem>
             <para>Unless you really have to supply guest access to your
-            server's volumes, ensure that you disable "No User Authent", since
-            it might lead accidentally to unauthorized access. In case, you
-            must enable guest access, take care, that you enforce this on a
-            per volume base using the access controls, the <citerefentry>
+            server's volumes ensure that you disable "No User Authent" since
+            it might lead accidentally to unauthorized access. In case you
+            must enable guest access take care that you enforce this on a per
+            volume base using the access controls the <citerefentry>
                 <refentrytitle>AppleVolume.default</refentrytitle>
 
                 <manvolnum>5</manvolnum>
-              </citerefentry> config file supplies, or think about setting up
-            an own server definition, serving these public shares in
+              </citerefentry> config file supplies or think about setting up
+            an own server definition serving these public shares in
             <citerefentry>
                 <refentrytitle>afpd.conf</refentrytitle>
 
@@ -1090,7 +1090,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
             <para>The "ClearText Passwrd" UAM is as bad as it sounds since
             passwords go unencrypted over the wire. Try to avoid it at both
             the server's side as well as on the client's. Note: If you want to
-            provide Mac OS 8/9 clients with NetBoot-services, then you need
+            provide Mac OS 8/9 clients with NetBoot-services then you need
             uams_cleartext.so since the AFP-client integrated into the Mac's
             firmware can only deal with this basic form of
             authentication.</para>
@@ -1099,7 +1099,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           <listitem>
             <para>Since "Randnum exchange"/"2-Way Randnum exchange" uses only
             56 bit DES for encryption it should be avoided as well. Another
-            disadvantage is the fact, that the passwords have to be stored in
+            disadvantage is the fact that the passwords have to be stored in
             cleartext on the server and that it doesn't integrate into both
             PAM scenarios or classic /etc/shadow (you have to administrate
             passwords separately by using the <citerefentry>
@@ -1167,7 +1167,18 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
       <sect3>
         <title>Netatalk UAM overview table</title>
 
-        <para>A small overview of the most common used UAMs:</para>
+        <para>A small overview of the most common used UAMs. The rows contain
+        as follows:</para>
+
+        <para>[1] maximum password length</para>
+
+        <para>[2] Client-side UAM support</para>
+
+        <para>[3] Encryption between client and server</para>
+
+        <para>[4] Server-side UAM support</para>
+
+        <para>[5] Password storage</para>
 
         <table orient="land">
           <title>Netatalk UAM overview</title>
@@ -1187,7 +1198,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
             <tbody>
               <row>
-                <entry rotate="0">UAM</entry>
+                <entry align="center" rotate="0" valign="middle">UAM</entry>
 
                 <entry>No User Authent</entry>
 
@@ -1201,7 +1212,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry rotate="0">passwd length</entry>
+                <entry align="center" rotate="0" valign="middle">[1]</entry>
 
                 <entry>guest access</entry>
 
@@ -1215,7 +1226,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry rotate="1">Client-side UAM support</entry>
+                <entry align="center" rotate="0" valign="middle">[2]</entry>
 
                 <entry>built-in into all Mac OS versions</entry>
 
@@ -1231,7 +1242,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry rotate="1">Encryption between client and server</entry>
+                <entry align="center" rotate="0" valign="middle">[3]</entry>
 
                 <entry>Enables guest access without authentication between
                 client and server.</entry>
@@ -1252,7 +1263,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry rotate="1">Server-side UAM support</entry>
+                <entry align="center" rotate="0" valign="middle">[4]</entry>
 
                 <entry align="center" valign="middle">uams_guest.so</entry>
 
@@ -1268,7 +1279,7 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
               </row>
 
               <row>
-                <entry rotate="1">Password storage</entry>
+                <entry align="center" rotate="0" valign="middle">[5]</entry>
 
                 <entry align="center" valign="middle">None</entry>
 
