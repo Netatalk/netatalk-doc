@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.17 2004-10-09 18:54:55 tkaiser Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.18 2005-04-27 20:56:58 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -95,7 +95,7 @@
 
         <listitem>
           <para>Comma separated list of UAMs. (The default is
-          uams_guest.so,uams_clrtxt.so,uams_dhx.so).</para>
+          uams_clrtxt.so,uams_dhx.so).</para>
 
           <para>The most commonly used UAMs are:</para>
 
@@ -652,7 +652,7 @@ third -signature user:ADMINS</programlisting></para>
     <example>
       <title>afpd.conf default configuration</title>
 
-      <programlisting>- -transall -uamlist uams_clrtxt.so,uams_dhx.so,uams_guest.so</programlisting>
+      <programlisting>- -transall -uamlist uams_clrtxt.so,uams_dhx.so</programlisting>
     </example>
 
     <example>
