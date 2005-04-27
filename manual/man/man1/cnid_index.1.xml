@@ -38,10 +38,10 @@
     for further information please see the <citerefentry><refentrytitle>cnid_dbd</refentrytitle>
     <manvolnum>8</manvolnum></citerefentry> man page.</para>
 
-    <warning>When using <command>cnid_index</command> on cdb handled databases, 
+    <warning><para>When using <command>cnid_index</command> on cdb handled databases, 
     <command>cnid_index</command> cannot check if another process (afpd) accesses
     the CNID databases. In this case, you have to manually ensure no other process 
-    accesses the database when running <command>cnid_index</command>.</warning>
+    accesses the database when running <command>cnid_index</command>.</para></warning>
   </refsect1>
 
   <refsect1>
