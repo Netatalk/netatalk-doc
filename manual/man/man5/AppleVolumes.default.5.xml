@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.17 2005-04-27 20:55:34 bfernhomberg Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.18 2005-04-27 21:30:30 bfernhomberg Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -606,7 +606,7 @@
 
               <listitem>
                 <para>If set <command>afpd</command> uses the ID information
-                stored in AppleDouble iV2 header files to reduce database 
+                stored in AppleDouble V2 header files to reduce database 
                 load. Don't set this option if the volume is modified by non
                 AFP clients (NFS/SMB/local). Defaults to off.</para>
               </listitem>
