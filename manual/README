@@ -15,68 +15,16 @@
    Usage
    -----
 
+	Preparation:
+
 	1. Get netatalk-doc from CVS
 	2. `cd` to "netatalk-doc/manual"
-	3. Create file 'html.xsl' if it doesn't exist, adjust PATH_TO_XSL_STYLESHEETS_DIR:
+	3. Adjust PATH_TO_XSL_STYLESHEETS_DIR in 'html.xsl'
+	5. Adjust PATH_TO_XSL_STYLESHEETS_DIR in 'man.xsl'
+	6. Substitute NETATALK_VERSION (adjust appropiately) in all XML files:
+	   `find . -name '*.xml' -exec sed -i -e s@:NETATALK_VERSION:@2.0.4@g {} \;`
 
-		<?xml version='1.0'?> 
-		<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"> 
-			<xsl:import href="PATH_TO_XSL_STYLESHEETS_DIR/xhtml/chunk.xsl"/> 
-			<xsl:param name="use.id.as.filename" select="'1'"/>
-			<xsl:param name="chunk.section.depth" select="0"></xsl:param>
-			<xsl:param name="chunk.separate.lots" select="1"></xsl:param>
-			<xsl:param name="html.stylesheet" select="'http://netatalk.sourceforge.net/2.0/htmldocs/netatalk.css'"/>
-
-			<xsl:template name="user.header.navigation">
-				<xsl:variable name="codefile" select="document('netatalk.html',/)"/>
-				<xsl:copy-of select="$codefile/*/node()"/>
-			</xsl:template>
-		</xsl:stylesheet>
-
-
-	4. Create file 'netatalk.html' if it doesn't exist:
-
-		<html>
-		    <div id="header">
-		        <div id="logo"></div>
-		        <div id="menlinks">
-		            <a href="/" title="Return to Netatalk home">[main]</a>
-		            <a href="/wiki/index.php/FrequentlyAskedQuestions" title="Frequently asked questions">[faq]</a>
-		            <a href="/2.0/htmldocs" title="Netatalk Manual">[documentation]</a>
-		            <a href="http://sourceforge.net/project/showfiles.php?group_id=8642" title="Download Netatalk from sourceforge">[downloads]</a>
-		            <a href="/links.php" title="Netatalk related links">[links]</a>
-		            <a href="/mailing_lists.php" title="Netatalk related mailing lists">[mailing lists]</a>
-		            <a href="/jp/index.php" title="Netatalk Japanese Home (outdated)">[japanese main]</a>
-		            <img src="http://netatalk.sourceforge.net/gfx/end.gif" alt="" width="125" height="7" />
-		        </div>
-		    </div>
-		</html>	 
-
-	5. Create 'man.xsl' if it doesn't exist, adjust PATH_TO_XSL_STYLESHEETS_DIR:
-
-		<?xml version='1.0'?> 
-		<xsl:stylesheet  
-		       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  version="1.0"> 
-		<xsl:import href="PATH_TO_XSL_STYLESHEETS_DIR/manpages/docbook.xsl"/> 
-		<xsl:param name="local.l10n.xml" select="document('')"/>
-			<l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0">
-				<l:l10n language="en">
-					<l:context name="title">
-						<l:template name="example" text="Example.&#160;%t"/>
-					</l:context>
-					<l:context name="title-numbered">
-						<l:template name="example" text="Example.&#160;%t"/>
-					</l:context>
-				</l:l10n>
-			</l:i18n>
-		</xsl:stylesheet>
-
-
-	Substitute NETATALK_VERSION (adjust appropiately) in all XML files:
-
-	6. find . -name '*.xml' -exec sed -i -e s@:NETATALK_VERSION:@2.0.4@g {} \;
-
-	Create man pages:
+	Create manpages:
 
 	7. mkdir manpages; cd manpages
 	8. Run `xsltproc ../man.xsl ../manual.xml` to generate the manpages
@@ -86,11 +34,10 @@
 	Create HTML:
 
 	10. Remove :PATH: variables from XML files:
-	   find . -name '*.xml' -exec sed -i -e s@:SBINDIR:/@@g -e s@:BINDIR:/@@g \
-		-e s@:ETCDIR:/@@g -e s@:LIBDIR:/@@g -e s@:LIBEXECDIR:/@@g {} \;
+	    `find . -name '*.xml' -exec sed -i -e s@:SBINDIR:/@@g -e s@:BINDIR:/@@g \
+	           -e s@:ETCDIR:/@@g -e s@:LIBDIR:/@@g -e s@:LIBEXECDIR:/@@g {} \;`
 	11. `mkdir html; cd html`
 	12. Run `xsltproc ../html.xsl ../manual.xml` in order to generate the html files.
-
 
 	Create PDF:
 
