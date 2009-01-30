@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.19 2009-01-30 14:30:11 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.20 2009-01-30 16:36:23 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -228,11 +228,13 @@
           <option>perm</option> affects files and directories,
           <option>fperm</option> is for files only, <option>dperm</option> is
           for directories only. Use with
-          <option>options:upriv</option>.<example>
+          <option>options:upriv</option>.</para>
+
+          <example>
               <title>Volume for a collaborative workgroup</title>
 
               <programlisting>/path/to/volume "Workgroup" options:upriv dperm:0770 fperm:0660</programlisting>
-            </example></para>
+          </example>
         </listitem>
       </varlistentry>
 
