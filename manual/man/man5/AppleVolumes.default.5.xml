@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.20 2009-01-30 16:36:23 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.21 2009-02-01 18:38:42 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -31,8 +31,9 @@
     <para><filename>:ETCDIR:/AppleVolumes.default</filename> is the
     configuration file used by <command>afpd</command> to determine what
     portions of the file system will be shared via Apple Filing Protocol, as
-    well as their behaviour. Any line not prefixed with # is interpreted. The
-    configuration lines are composed like:</para>
+    well as their behaviour. Any line not prefixed with # is interpreted.
+    Newline escaping is supported. The configuration lines are composed
+    like:</para>
 
     <para><filename>path</filename> <replaceable>[ volume name ] [ options
     ]</replaceable></para>
@@ -49,7 +50,8 @@
 
     <note>
       <para>Each volume has to be configured on a <emphasis
-      role="bold">single</emphasis> line.</para>
+      role="bold">single</emphasis> line. Though newline escaping is
+      supported.</para>
     </note>
 
     <para>The possible options and their meanings are:</para>

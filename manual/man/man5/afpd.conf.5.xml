@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.18 2005-04-27 20:56:58 bfernhomberg Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.19 2009-02-01 18:38:42 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -39,7 +39,8 @@
 
     <para><note>
         <para>Each server has to be configured on a <emphasis
-        role="bold">single</emphasis> line.</para>
+        role="bold">single</emphasis> line. Though newline escaping is
+        supported.</para>
       </note>The possible options and their meanings are:</para>
   </refsect1>
 
@@ -662,7 +663,7 @@ third -signature user:ADMINS</programlisting></para>
     </example>
 
     <example>
-      <title>afpd.conf setup for Kerberos V auth</title>
+      <title>afpd.conf setup for Kerberos V auth with newline escaping</title>
 
       <programlisting>- -transall -uamlist uams_clrtxt.so,uams_dhx.so,uams_guest.so,uams_gss.so \ 
 -k5service afpserver -k5keytab /path/to/afpserver.keytab \ 
