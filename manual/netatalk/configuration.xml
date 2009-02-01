@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <chapter id="configuration">
   <title>Setting up Netatalk</title>
 
@@ -862,6 +864,10 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           <listitem>
             <para>MAC_TURKISH</para>
           </listitem>
+
+          <listitem>
+            <para>MAC_GREEK</para>
+          </listitem>
         </itemizedlist>
 
         <para>afpd handles three different character set options:</para>
@@ -1032,8 +1038,15 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
                 <primary>DHCAST128</primary>
 
                 <secondary>"DHCAST128" UAM</secondary>
-              </indexterm> UAM (stronger password encryption, should be used
-            these days)</para>
+              </indexterm> UAM (stronger password encryption)</para>
+          </listitem>
+
+          <listitem>
+            <para>"DHX2"<indexterm>
+                <primary>DHX2</primary>
+
+                <secondary>"DHX2" UAM</secondary>
+              </indexterm> UAM (successor of DHCAST128)</para>
           </listitem>
         </itemizedlist>
 
@@ -1172,11 +1185,9 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           </listitem>
 
           <listitem>
-            <para>"DHCAST128" should be a good compromise for most people
-            since it combines stronger encryption with PAM integration.
-            Hopefully Netatalk will support its successor "DHX2" (Diffie
-            Hellman Exchange 2) in the future, which provides even stronger
-            encryption.</para>
+            <para>"DHCAST128" or "DHX2" should be a good compromise for most
+            people since it combines stronger encryption with PAM
+            integration.</para>
           </listitem>
 
           <listitem>
@@ -1208,18 +1219,24 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         UAMs</title>
 
         <para>Some UAMs provide the ability to use different authentication
-        "backends", namely <filename>uams_cleartext.so</filename> and
-        <filename>uams_dhx.so</filename>. They can both use either classic
-        Unix passwords from <filename>/etc/passwd</filename>
+        "backends", namely <filename>uams_cleartext.so</filename>,
+        <filename>uams_dhx.so</filename> and
+        <filename>uams_dhx2.so</filename>. They can use either classic Unix
+        passwords from <filename>/etc/passwd</filename>
         (<filename>/etc/shadow</filename>) or PAM if the system supports that.
         <filename>uams_cleartext.so</filename> can be symlinked to either
         <filename>uams_passwd.so</filename> or
         <filename>uams_pam.so</filename>, <filename>uams_dhx.so</filename> to
         <filename>uams_dhx_passwd.so</filename> or
-        <filename>uams_dhx_pam.so</filename>. So, if it looks like this in
-        Netatalk's UAMs folder (per default
+        <filename>uams_dhx_pam.so</filename> and
+        <filename>uams_dhx2.so</filename> to
+        <filename>uams_dhx2_passwd.so</filename> or
+        <filename>uams_dhx2_pam.so</filename>.</para>
+
+        <para>So, if it looks like this in Netatalk's UAMs folder (per default
         <filename>/etc/netatalk/uams/</filename>):<programlisting>uams_clrtxt.so -&gt; uams_pam.so
-uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
+uams_dhx.so -&gt; uams_dhx_pam.so
+uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
         otherwise classic Unix passwords. The main advantage of using PAM is
         that one can integrate Netatalk in centralized authentication
         scenarios, eg. via LDAP, NIS and the like. Please always keep in mind
@@ -1231,12 +1248,13 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
       <sect3>
         <title>Netatalk UAM overview table</title>
-         
+
         <para>A small overview of the most common used UAMs.</para>
+
         <table orient="land">
           <title>Netatalk UAM overview</title>
 
-          <tgroup align="center" cols="6">
+          <tgroup align="center" cols="7">
             <colspec colname="col1" colnum="1" colwidth="0.5*" />
 
             <colspec colname="uam_guest" colnum="2" colwidth="1*" />
@@ -1247,7 +1265,9 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
             <colspec colname="uam_dhx" colnum="5" colwidth="1*" />
 
-            <colspec colname="uam_gss" colnum="6" colwidth="1*" />
+            <colspec colname="uam_dhx2" colnum="6" colwidth="1*" />
+
+            <colspec colname="uam_gss" colnum="7" colwidth="1*" />
 
             <tbody>
               <row>
@@ -1278,6 +1298,12 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
                     <secondary>"DHCAST128" UAM</secondary>
                   </indexterm></entry>
 
+                <entry>DHX2<indexterm>
+                    <primary>uams_dhx2.so</primary>
+
+                    <secondary>"DHX2" UAM</secondary>
+                  </indexterm></entry>
+
                 <entry>Client Krb v2<indexterm>
                     <primary>uams_gss.so</primary>
 
@@ -1297,6 +1323,8 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
                 <entry>max. 64 characters</entry>
 
+                <entry>max. 256 characters</entry>
+
                 <entry>Kerberos tickets</entry>
               </row>
 
@@ -1313,6 +1341,8 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
                 <entry>built-in since AppleShare client 3.8.4, available as a
                 plug-in for 3.8.3, integrated in Mac OS X' AFP client</entry>
+
+                <entry>built-in since MacOS X 10.2</entry>
 
                 <entry>built-in since MacOS X 10.2</entry>
               </row>
@@ -1336,6 +1366,11 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
                 be authenticated against the server but not vice versa.
                 Therefor weak against man-in-the-middle attacks.</entry>
 
+                <entry>Password will be encrypted using libgcrypt with CAST
+                128 in CBC mode. User will be authenticated against the server
+                but not vice versa. Therefor weak against man-in-the-middle
+                attacks.</entry>
+
                 <entry>Password is not sent over the network. Due to the
                 service principal detection method, this authentication method
                 is vulnerable to man-in-the-middle attacks.</entry>
@@ -1353,6 +1388,8 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
                 <entry align="center" valign="middle">uams_dhx.so</entry>
 
+                <entry align="center" valign="middle">uams_dhx2.so</entry>
+
                 <entry align="center" valign="middle">uams_gss.so</entry>
               </row>
 
@@ -1367,6 +1404,9 @@ uams_dhx.so -&gt; uams_dhx_pam.so</programlisting> then you're using PAM,
 
                 <entry align="center" valign="middle">Passwords stored in
                 clear text in a separate text file</entry>
+
+                <entry align="center" valign="middle">Either /etc/passwd
+                (/etc/shadow) or PAM</entry>
 
                 <entry align="center" valign="middle">Either /etc/passwd
                 (/etc/shadow) or PAM</entry>
