@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <chapter id="installation">
   <chapterinfo>
-    <date>04.01.2004</date>
+    <date>31.01.2009</date>
   </chapterinfo>
 
   <title>Installation</title>
@@ -193,10 +195,11 @@ U netatalk/COPYING
 
         <itemizedlist>
           <listitem>
-            <para>OpenSSL (recommended)</para>
+            <para>OpenSSL or libgcrypt (recommended)</para>
 
-            <para>OpenSSL is required for encrypted passwords. Without it, the
-            password will be sent over the network in clear text.</para>
+            <para>Required for encrypted passwords. Without it, the password
+            will be sent over the network in clear text. OpenSSL is needed for
+            the older DHCAST128, libgcrypt is needed for DHX2.</para>
           </listitem>
 
           <listitem>
