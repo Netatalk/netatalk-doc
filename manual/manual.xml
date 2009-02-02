@@ -14,6 +14,7 @@
 <!ENTITY papstatus.8 SYSTEM "man/man8/papstatus.8.xml">
 <!ENTITY psf.8 SYSTEM "man/man8/psf.8.xml">
 <!ENTITY timelord.8 SYSTEM "man/man8/timelord.8.xml">
+<!ENTITY afp_acls.8 SYSTEM "man/man8/afp_acls.8.xml">
 <!ENTITY netatalk.conf.5 SYSTEM "man/man5/netatalk.conf.5.xml">
 <!ENTITY afpd.conf.5 SYSTEM "man/man5/afpd.conf.5.xml">
 <!ENTITY AppleVolumes.default.5 SYSTEM "man/man5/AppleVolumes.default.5.xml">
@@ -85,6 +86,8 @@ url="http://www.fsf.org/licenses/gpl.txt">http://www.fsf.org/licenses/gpl.txt</u
     <para>This is a collection of the man pages delivered with Netatalk.</para>
 
     &achfile.1;
+    
+    &afp_acls.8;
 
     &acleandir.1;
 
