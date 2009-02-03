@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <refentry id="ldap.conf.5">
-  <!--  $Id: ldap.conf.5.xml,v 1.1 2009-02-03 08:47:42 franklahm Exp $ -->
+  <!--  $Id: ldap.conf.5.xml,v 1.2 2009-02-03 12:57:50 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>ldap.conf</refentrytitle>
