@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.21 2009-02-01 18:38:42 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.22 2009-02-04 13:32:46 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -140,6 +140,17 @@
 
           <variablelist>
             <varlistentry>
+              <term>acls</term>
+
+              <listitem>
+                <para>Enable ACLs on this volume. Requires a <emphasis>NFSv4
+                ACLs</emphasis> compatible filesystem (e.g. ZFS) and an ACL
+                API compatible to *Solaris. In other words: this requires
+                Solaris, Opensolaris or a derived distribution.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
               <term>invisibledots</term>
 
               <listitem>
@@ -233,9 +244,9 @@
           <option>options:upriv</option>.</para>
 
           <example>
-              <title>Volume for a collaborative workgroup</title>
+            <title>Volume for a collaborative workgroup</title>
 
-              <programlisting>/path/to/volume "Workgroup" options:upriv dperm:0770 fperm:0660</programlisting>
+            <programlisting>/path/to/volume "Workgroup" options:upriv dperm:0770 fperm:0660</programlisting>
           </example>
         </listitem>
       </varlistentry>
