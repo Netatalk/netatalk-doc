@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="papd.conf.5">
-  <!--  $Id: papd.conf.5.xml,v 1.10 2004-09-06 21:11:18 tkaiser Exp $ -->
+  <!--  $Id: papd.conf.5.xml,v 1.11 2009-02-04 22:38:29 didg Exp $ -->
 
   <refmeta>
     <refentrytitle>papd.conf</refentrytitle>
@@ -48,7 +48,7 @@
 
     <para>Systems using a BSD printing system should make use of a pipe to the
     printing command in question within the <emphasis remap="B">pr</emphasis>
-    option (eg. <emphasis remap="B">pr=|/usr/bin/lpr -J%J -u%U</emphasis>).
+    option (eg. <emphasis remap="B">pr=|/usr/bin/lpr -J"%J" -u"%U"</emphasis>).
     Note: When printing using a pipe, papd recognizes several wildcards: %F
     will be replaced by the name present in the "%%For:" comment in the
     PostScript stream, same with %J for the "%%Title:" comment. %U will be
@@ -222,7 +222,7 @@ HP Printer:\
    :pd=/etc/atalk/ppds/hp8100.ppd:
 
 Dump PostScript:LaserWriter@Server:\
-   :pr=|cat &gt;/home/%U/%J-prn.out:\
+   :pr=|cat &gt;/home/"%U"/"%J"-prn.out:\
    :pd=/usr/share/lib/ppd/mooralana.ppd:\
    :sp:au:op=lp:\
    :am=uams_clrtxt.so:</programlisting></para>
