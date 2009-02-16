@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.22 2009-02-04 13:32:46 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.23 2009-02-16 14:19:45 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -147,6 +147,17 @@
                 ACLs</emphasis> compatible filesystem (e.g. ZFS) and an ACL
                 API compatible to *Solaris. In other words: this requires
                 Solaris, Opensolaris or a derived distribution.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>extattrs</term>
+
+              <listitem>
+                <para>Enable Extended Attributes on this volume. Requires a
+                filesystem with EA support (e.g. ZFS) and an EA API compatible
+                to *Solaris. In other words: this requires Solaris,
+                Opensolaris or a derived distribution.</para>
               </listitem>
             </varlistentry>
 
