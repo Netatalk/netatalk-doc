@@ -9,8 +9,7 @@
 	2. Get the latest Docbook XSL stylesheet distribution from:
 	   https://sourceforge.net/project/showfiles.php?group_id=21935
 
-	   The versions used at the time of writing is 1.74.0. Versions prior to 1.74.0 have a formatting bug
-	   so check that if you install the XSL stylesheets via a package installer.
+	   Required docbook-xsl stylesheet version is 1.74.3.
 
    Usage
    -----
