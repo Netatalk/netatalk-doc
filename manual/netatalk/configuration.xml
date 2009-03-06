@@ -421,6 +421,12 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       configured using the <filename>afpd.conf</filename> and the
       <filename>AppleVolumes.*</filename> files.</para>
 
+      <para>Mac OS X 10.5 (Leopard), adds support for Time Machine backups
+      over AFP with two new functions on top of AFP 3.2. These ensure that
+      backups are written to spinning disk, not just in the server's cache.
+      Different host operating systems honour this cache flushing
+      differently.</para>
+
       <sect3>
         <title>afpd.conf</title>
 
