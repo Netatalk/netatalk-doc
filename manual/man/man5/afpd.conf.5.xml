@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.19 2009-02-01 18:38:42 franklahm Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.20 2009-03-06 15:41:29 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -576,44 +576,80 @@ third -signature user:ADMINS</programlisting></para>
   <refsect1>
     <title>Logging Options</title>
 
-    <note>
-      <para>Extended logging capabilities are only available if Netatalk was
-      built using <command>--with-logfile</command>. As of Netatalk 2.0, the
-      default is <command>--without-logfile</command> since the logger code is
-      partially broken and needs a complete rewrite (the
-      <option>-setuplog</option> option might not work as expected). If
-      Netatalk was built without logger support then the daemons log to
-      syslog.</para>
-    </note>
-
     <variablelist>
       <varlistentry>
-        <term>-[un]setuplog "<parameter>&lt;logtype&gt; &lt;loglevel&gt;
+        <term>-setuplog "<parameter>&lt;logtype&gt; &lt;loglevel&gt;
         [&lt;filename&gt;]</parameter>"</term>
 
         <listitem>
-          <para>Specify that the given loglevel should be applied to log
-          messages of the given logtype and that these messages should be
-          logged to the given file. If the filename is ommited the loglevel
-          applies to messages passed to syslog. Each logtype may have a
-          loglevel applied to syslog and a loglevel applied to a single file.
-          Latter <option>-setuplog</option> settings will override earlier
-          ones of the same logtype (file or syslog).</para>
+          <para>Specify that any message of a loglevel up to the given
+          <option>loglevel</option> should be logged to the given file. If the
+          filename is ommited the loglevel applies to messages passed to
+          syslog.</para>
 
-          <para>logtypes: Default, Core, Logger, CNID, AFP</para>
+          <para>By default (no explicit <option>-setuplog</option> and no
+          buildtime configure flag <option>--with-logfile</option>) afpd logs
+          to syslog with a default logging setup equivalent to
+          <option>"-setuplog default log_note</option>".</para>
 
-          <para>Daemon loglevels: LOG_SEVERE, LOG_ERROR, LOG_WARN, LOG_NOTE,
+          <para>If build with <option>--with-logfile</option> (default logfile
+          <parameter>/var/log/netatalk.log</parameter>) or
+          <option>--with-logfile=somefile</option> afpd defaults to a setup
+          that is equivalent to "<option>-setuplog default log_note
+          [<parameter>netatalk.log|somefile]</parameter></option>".</para>
+
+          <para>logtypes: Default, AFPDaemon, Logger, UAMSDaemon</para>
+
+          <para>loglevels: LOG_SEVERE, LOG_ERROR, LOG_WARN, LOG_NOTE,
           LOG_INFO, LOG_DEBUG, LOG_DEBUG6, LOG_DEBUG7, LOG_DEBUG8, LOG_DEBUG9,
           LOG_MAXDEBUG</para>
 
-          <example>
-            <title>Some ways to change afpd's logging behaviour via
-            -[un]setuplog</title>
+          <note>
+            <para>The config is case-ignoring</para>
+          </note>
 
-            <para>Example: <programlisting>-setuplog "logger log_maxdebug /var/log/netatalk-logger.log" 
--setuplog "afpdaemon log_maxdebug /var/log/netatalk-afp.log" 
--unsetuplog "default level file" 
--setuplog "default log_maxdebug"</programlisting></para>
+          <example>
+            <title>Useful default config</title>
+
+            <programlisting>-setuplog "default log_info /var/log/afpd.log"
+</programlisting>
+          </example>
+
+          <example>
+            <title>Debugging config</title>
+
+            <programlisting>-setuplog "default log_maxdebug /var/log/afpd.log"
+</programlisting>
+          </example>
+
+          <example>
+            <title>afpd logging to different files</title>
+
+            <programlisting>-setuplog "default log_info /var/log/afpd.log"
+-setuplog "UAMSDaemon log_maxdebug /var/log/uams.log"
+</programlisting>
+          </example>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <variablelist>
+      <varlistentry>
+        <term>-unsetuplog "<parameter>&lt;logtype&gt;
+        [&lt;filename&gt;]</parameter>"</term>
+
+        <listitem>
+          <para>Note that for <option>unsetuplog</option> specifying any
+          string as filename is sufficient for the config parser to
+          distinguish between requests to disable syslog logging or
+          file-logging.</para>
+
+          <example>
+            <title>Disable afpd logging set at build-time from
+            configure</title>
+
+            <programlisting>-unsetuplog "default -"
+</programlisting>
           </example>
         </listitem>
       </varlistentry>
