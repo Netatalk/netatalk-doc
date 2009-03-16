@@ -76,7 +76,7 @@ aclmode = passthrough</programlisting></para>
             </listitem>
 
             <listitem>
-              <para>configure Netatalk via ldap.conf so that Netatalk is able
+              <para>configure Netatalk via afp_ldap.conf so that Netatalk is able
               to retrieve the UUID for users and groups via LDAP search
               queries</para>
             </listitem>
@@ -99,7 +99,7 @@ aclmode = passthrough</programlisting></para>
     <title>SEE ALSO</title>
 
     <para><citerefentry>
-        <refentrytitle>ldap.conf</refentrytitle>
+        <refentrytitle>afp_ldap.conf</refentrytitle>
 
         <manvolnum>5</manvolnum>
       </citerefentry>, <citerefentry>

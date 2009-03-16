@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="ldap.conf.5">
-  <!--  $Id: ldap.conf.5.xml,v 1.2 2009-02-03 12:57:50 franklahm Exp $ -->
+  <!--  $Id: afp_ldap.conf.5.xml,v 1.1 2009-03-16 15:03:35 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>ldap.conf</refentrytitle>

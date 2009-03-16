@@ -20,7 +20,7 @@
 <!ENTITY AppleVolumes.default.5 SYSTEM "man/man5/AppleVolumes.default.5.xml">
 <!ENTITY atalkd.conf.5 SYSTEM "man/man5/atalkd.conf.5.xml">
 <!ENTITY papd.conf.5 SYSTEM "man/man5/papd.conf.5.xml">
-<!ENTITY ldap.conf.5 SYSTEM "man/man5/ldap.conf.5.xml">
+<!ENTITY afp_ldap.conf.5 SYSTEM "man/man5/afp_ldap.conf.5.xml">
 <!ENTITY atalk.4 SYSTEM "man/man4/atalk.4.xml">
 <!ENTITY achfile.1 SYSTEM "man/man1/achfile.1.xml">
 <!ENTITY acleandir.1 SYSTEM "man/man1/acleandir.1.xml">
@@ -128,7 +128,7 @@ url="http://www.fsf.org/licenses/gpl.txt">http://www.fsf.org/licenses/gpl.txt</u
 
     &getzones.1;
 
-    &ldap.conf.5;
+    &afp_ldap.conf.5;
 
     &megatron.1;
 
