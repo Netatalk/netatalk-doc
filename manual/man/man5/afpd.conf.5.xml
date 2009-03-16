@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.20 2009-03-06 15:41:29 franklahm Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.21 2009-03-16 14:53:46 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -568,6 +568,21 @@ third -signature user:ADMINS</programlisting></para>
           Traditional method of signature generation causes two independent
           afpd instances to have the same signature and thus cause clients to
           be redirected automatically to server (s)he logged in first.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-volnamelen <replaceable>[number] </replaceable></term>
+
+        <listitem>
+          <para>Max length of UTF8-MAC volume name for Mac OS X. Note that
+          Hangul is especially sensitive to this.</para>
+
+          <para><programlisting>31:  conservative default
+80:  limit for Mac OS X 10.5
+255: limit of spec</programlisting>Mac OS 9 and earlier are not influenced by
+          this, because Maccharset volume name is always limitted to 27
+          bytes.</para>
         </listitem>
       </varlistentry>
     </variablelist>
