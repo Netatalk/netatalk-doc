@@ -37,7 +37,6 @@
 <!ENTITY netatalk-config.1 SYSTEM "man/man1/netatalk-config.1.xml">
 <!ENTITY pap.1 SYSTEM "man/man1/pap.1.xml">
 <!ENTITY psorder.1 SYSTEM "man/man1/psorder.1.xml">
-<!ENTITY timeout.1 SYSTEM "man/man1/timeout.1.xml">
 <!ENTITY uniconv.1 SYSTEM "man/man1/uniconv.1.xml">
 <!ENTITY atalk_aton.3 SYSTEM "man/man3/atalk_aton.3.xml">
 <!ENTITY asip-status.pl.1 SYSTEM "man/man1/asip-status.pl.1.xml">
@@ -153,8 +152,6 @@ url="http://www.fsf.org/licenses/gpl.txt">http://www.fsf.org/licenses/gpl.txt</u
     &psorder.1;
 
     &timelord.8;
-
-    &timeout.1;
 
     &uniconv.1;
   </chapter>
