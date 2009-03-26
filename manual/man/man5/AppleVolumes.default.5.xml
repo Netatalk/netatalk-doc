@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.23 2009-02-16 14:19:45 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.24 2009-03-26 12:53:58 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -96,6 +96,26 @@
           <para>The deny option specifies users and groups who are not allowed
           access to the share. It follows the same format as the allow
           option.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>allowed_hosts:<replaceable>[IPv4 host address/IPv4 netmask
+        bits[, ... ]]</replaceable></term>
+
+        <listitem>
+          <para>Only listed hosts and networks are allowed, all others are
+          rejected. Example: allowed_hosts:10.1.0.0/16,10.2.1.100</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>denied_hosts:<replaceable>[IPv4 host address/IPv4 netmask bits[,
+        ...]]</replaceable></term>
+
+        <listitem>
+          <para>Listed hosts and nets are rejected, all others are allowed.
+          Example: denied_hosts: 192.168.100/24,10.1.1.1</para>
         </listitem>
       </varlistentry>
 
