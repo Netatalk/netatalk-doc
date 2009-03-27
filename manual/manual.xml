@@ -23,7 +23,6 @@
 <!ENTITY afp_ldap.conf.5 SYSTEM "man/man5/afp_ldap.conf.5.xml">
 <!ENTITY atalk.4 SYSTEM "man/man4/atalk.4.xml">
 <!ENTITY achfile.1 SYSTEM "man/man1/achfile.1.xml">
-<!ENTITY acleandir.1 SYSTEM "man/man1/acleandir.1.xml">
 <!ENTITY aecho.1 SYSTEM "man/man1/aecho.1.xml">
 <!ENTITY afile.1 SYSTEM "man/man1/afile.1.xml">
 <!ENTITY afppasswd.1 SYSTEM "man/man1/afppasswd.1.xml">
@@ -88,8 +87,6 @@ url="http://www.fsf.org/licenses/gpl.txt">http://www.fsf.org/licenses/gpl.txt</u
     &achfile.1;
     
     &afp_acls.8;
-
-    &acleandir.1;
 
     &aecho.1;
 
