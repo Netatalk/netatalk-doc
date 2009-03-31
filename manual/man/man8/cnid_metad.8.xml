@@ -18,19 +18,29 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>cnid_metad<indexterm><primary>cnid_metad</primary></indexterm></command>
+      <command>cnid_metad<indexterm>
+          <primary>cnid_metad</primary>
+        </indexterm></command>
+
+      <arg choice="opt"><arg choice="plain">-l </arg><arg
+      choice="plain"><replaceable>"logconfig"</replaceable></arg></arg>
 
       <arg choice="opt">-d</arg>
 
-      <arg choice="opt"><arg choice="plain">-h </arg><arg choice="plain"><replaceable>hostname</replaceable></arg></arg>
+      <arg choice="opt"><arg choice="plain">-h </arg><arg
+      choice="plain"><replaceable>hostname</replaceable></arg></arg>
 
-      <arg choice="opt"><arg choice="plain">-p </arg><arg choice="plain"><replaceable>port</replaceable></arg></arg>
+      <arg choice="opt"><arg choice="plain">-p </arg><arg
+      choice="plain"><replaceable>port</replaceable></arg></arg>
 
-      <arg choice="opt"><arg choice="plain">-u </arg><arg choice="plain"><replaceable>user</replaceable></arg></arg>
+      <arg choice="opt"><arg choice="plain">-u </arg><arg
+      choice="plain"><replaceable>user</replaceable></arg></arg>
 
-      <arg choice="opt"><arg choice="plain">-g </arg><arg choice="plain"><replaceable>group</replaceable></arg></arg>
+      <arg choice="opt"><arg choice="plain">-g </arg><arg
+      choice="plain"><replaceable>group</replaceable></arg></arg>
 
-      <arg choice="opt"><arg choice="plain">-s </arg><arg choice="plain"><replaceable>cnid_dbdpathname</replaceable></arg></arg>
+      <arg choice="opt"><arg choice="plain">-s </arg><arg
+      choice="plain"><replaceable>cnid_dbdpathname</replaceable></arg></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -38,17 +48,18 @@
     <title>DESCRIPTION</title>
 
     <para><command>cnid_metad</command> waits for requests from <emphasis
-    remap="B">afpd</emphasis> to start up instances of the <emphasis remap="B">cnid_dbd</emphasis>
-    daemon. It keeps track of the status of a <emphasis remap="B">cnid_dbd</emphasis>
-    instance once started and will restart it if necessary.
-    <command>cnid_metad</command> is normally started at boot time from
-    <filename>/etc/rc</filename> or equivalent and runs until shutdown.
-    <emphasis remap="B">afpd</emphasis> needs to be configured with the
-    <option>-cnidserver</option> option in <emphasis remap="B">afpd.conf</emphasis>
-    in order to access <emphasis remap="B">cnid_metad.</emphasis> It is
-    possible to run more than one instance of <command>cnid_metad</command> on
-    the same machine if different values for the interface and/or port are
-    specified with the <option>-h</option> and <option>-p</option> options.</para>
+    remap="B">afpd</emphasis> to start up instances of the <emphasis
+    remap="B">cnid_dbd</emphasis> daemon. It keeps track of the status of a
+    <emphasis remap="B">cnid_dbd</emphasis> instance once started and will
+    restart it if necessary. <command>cnid_metad</command> is normally started
+    at boot time from <filename>/etc/rc</filename> or equivalent and runs
+    until shutdown. <emphasis remap="B">afpd</emphasis> needs to be configured
+    with the <option>-cnidserver</option> option in <emphasis
+    remap="B">afpd.conf</emphasis> in order to access <emphasis
+    remap="B">cnid_metad.</emphasis> It is possible to run more than one
+    instance of <command>cnid_metad</command> on the same machine if different
+    values for the interface and/or port are specified with the
+    <option>-h</option> and <option>-p</option> options.</para>
   </refsect1>
 
   <refsect1>
@@ -56,12 +67,51 @@
 
     <variablelist remap="TP">
       <varlistentry>
+        <term><option>-l</option><replaceable> "&lt;logtype&gt;
+        &lt;loglevel&gt; [&lt;filename&gt;]"</replaceable></term>
+
+        <listitem>
+          <para>Specify that any message of a loglevel up to the given
+          <option>loglevel</option> should be logged to the given file. If the
+          filename is ommited the loglevel applies to messages passed to
+          syslog. Default is logs to syslog with a default logging setup of
+          <option>"default log_note</option>".</para>
+
+          <para><emphasis remap="B">Note:</emphasis>
+          <command>cnid_metad</command> passes this to
+          <command>cnid_dbd</command> which will in turn use this for its
+          logging setup.</para>
+
+          <para>logtypes: Default, CNID</para>
+
+          <para>loglevels: LOG_SEVERE, LOG_ERROR, LOG_WARN, LOG_NOTE,
+          LOG_INFO, LOG_DEBUG, LOG_DEBUG6, LOG_DEBUG7, LOG_DEBUG8, LOG_DEBUG9,
+          LOG_MAXDEBUG</para>
+
+          <example>
+            <title>Useful default config</title>
+
+            <programlisting>-l "default log_info /var/log/afpd.log"
+</programlisting>
+          </example>
+
+          <example>
+            <title>Debugging config</title>
+
+            <programlisting>-l "default log_maxdebug /var/log/afpd.log"
+</programlisting>
+          </example>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term><option>-d</option></term>
 
         <listitem>
           <para><emphasis remap="B">cnid_metad will remain in the foreground
           and</emphasis> will also leave the standard input, standard output
-          and standard error file descriptors open. Useful for debugging.</para>
+          and standard error file descriptors open. Useful for
+          debugging.</para>
         </listitem>
       </varlistentry>
 
@@ -70,8 +120,8 @@
 
         <listitem>
           <para>Use <emphasis remap="I">hostname</emphasis> as the network
-          interface for requests as opposed to the default <emphasis remap="B">localhost
-          </emphasis>.</para>
+          interface for requests as opposed to the default <emphasis
+          remap="B">localhost </emphasis>.</para>
         </listitem>
       </varlistentry>
 
@@ -90,7 +140,8 @@
         <listitem>
           <para>Switch to the userid of <emphasis remap="I">user</emphasis>
           before serving requests. This userid will be inherited by all
-          <emphasis remap="B">cnid_dbd</emphasis> daemon processes started.</para>
+          <emphasis remap="B">cnid_dbd</emphasis> daemon processes
+          started.</para>
         </listitem>
       </varlistentry>
 
@@ -101,18 +152,20 @@
           <para>Switch to the groupid of <emphasis remap="I">group</emphasis>
           before serving requests. This groupid will be inherited by all
           <emphasis remap="B">cnid_dbd</emphasis> daemon processes started.
-          Both <emphasis remap="I">user</emphasis> and <emphasis remap="I">group</emphasis>
-          must be specified as strings.</para>
+          Both <emphasis remap="I">user</emphasis> and <emphasis
+          remap="I">group</emphasis> must be specified as strings.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><option>-s</option><replaceable> cnid_dbd pathname</replaceable></term>
+        <term><option>-s</option><replaceable> cnid_dbd
+        pathname</replaceable></term>
 
         <listitem>
           <para>Use <emphasis remap="I">cnid_dbd pathname</emphasis> as the
-          pathname of the executeable of the <emphasis remap="B">cnid_dbd</emphasis>
-          daemon. The default is <emphasis remap="I">:SBINDIR:/cnid_dbd.</emphasis></para>
+          pathname of the executeable of the <emphasis
+          remap="B">cnid_dbd</emphasis> daemon. The default is <emphasis
+          remap="I">:SBINDIR:/cnid_dbd.</emphasis></para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -122,23 +175,29 @@
     <title>CAVEATS</title>
 
     <para>The number of <emphasis remap="B">cnid_dbd</emphasis> subprocecesses
-    is currently limited to 128. This restriction will be lifted in the
-    future.</para>
+    is currently limited to 512.</para>
 
     <para><command>cnid_metad</command> does not block or catch any signals
     apart from SIGPIPE. It will therefore exit on most signals received. This
-    will also cause all instances of <emphasis remap="B">cnid_dbd&#39;s</emphasis>
+    will also cause all instances of <emphasis remap="B">cnid_dbd's</emphasis>
     started by that <command>cnid_metad</command> to exit gracefully. Since
     state about and IPC access to the subprocesses is only maintained in
     memory by <command>cnid_metad</command> this is desired behaviour. As soon
-    as <command>cnid_metad</command> is restarted <emphasis remap="B">afpd</emphasis>
-    processes will transparently reconnect.</para>
+    as <command>cnid_metad</command> is restarted <emphasis
+    remap="B">afpd</emphasis> processes will transparently reconnect.</para>
   </refsect1>
 
   <refsect1>
     <title>SEE ALSO</title>
 
-    <para><citerefentry><refentrytitle>cnid_dbd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-    <citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry></para>
+    <para><citerefentry>
+        <refentrytitle>cnid_dbd</refentrytitle>
+
+        <manvolnum>8</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>afpd</refentrytitle>
+
+        <manvolnum>8</manvolnum>
+      </citerefentry></para>
   </refsect1>
 </refentry>

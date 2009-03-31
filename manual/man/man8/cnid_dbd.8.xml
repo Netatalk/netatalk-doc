@@ -19,19 +19,23 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>cnid_dbd<indexterm><primary>cnid_dbd</primary></indexterm><indexterm>
-        <primary>CNID backend</primary>
-      </indexterm><indexterm>
-                  <primary>NFS</primary>
+      <command>cnid_dbd<indexterm>
+          <primary>cnid_dbd</primary>
+        </indexterm><indexterm>
+          <primary>CNID backend</primary>
+        </indexterm><indexterm>
+          <primary>NFS</primary>
 
-                  <secondary>Network File System</secondary>
-                </indexterm></command>
+          <secondary>Network File System</secondary>
+        </indexterm></command>
 
       <arg choice="plain"><replaceable>dbdir</replaceable></arg>
 
       <arg choice="plain"><replaceable>ctrlfd</replaceable></arg>
 
       <arg choice="plain"><replaceable>clntfd</replaceable></arg>
+
+      <arg choice="plain"><replaceable>logconfig_string</replaceable></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -82,6 +86,10 @@
     <emphasis remap="B">cnid_metad</emphasis> via the filedescriptor <emphasis
     remap="I">ctrlfd</emphasis>.</para>
 
+    <para><command>cnid_dbd</command> uses <option>logconfig_string</option>
+    which is passed from <command>cnid_metad</command> to configure its
+    logging output.</para>
+
     <para><command>cnid_dbd</command> can be configured to run forever or to
     exit after a period of inactivity. If <command>cnid_dbd</command> receives
     a TERM or an INT signal it will exit cleanly after flushing dirty database
@@ -106,11 +114,11 @@
     Reference for information when and how it is safe to remove these files
     manually.</para>
 
-    <para>Do not use <command>cnid_dbd</command> for databases on
-    NFS mounted file systems. It makes the whole point of securing
-    database changes properly moot. Use the dbdir: Option in the appropriate
-    <emphasis remap="B">AppleVolumes</emphasis> configuration file to put the
-    database onto a local disk.</para>
+    <para>Do not use <command>cnid_dbd</command> for databases on NFS mounted
+    file systems. It makes the whole point of securing database changes
+    properly moot. Use the dbdir: Option in the appropriate <emphasis
+    remap="B">AppleVolumes</emphasis> configuration file to put the database
+    onto a local disk.</para>
   </refsect1>
 
   <refsect1>
@@ -233,12 +241,11 @@
         <term><emphasis remap="B">check</emphasis></term>
 
         <listitem>
-          <para>is a flag value. If set <command>cnid_dbd</command> will 
-          automatically check the database indexes. Default: 0. Set this 
-          to 1 to enable checking. </para>
+          <para>is a flag value. If set <command>cnid_dbd</command> will
+          automatically check the database indexes. Default: 0. Set this to 1
+          to enable checking.</para>
         </listitem>
       </varlistentry>
-
     </variablelist>
   </refsect1>
 
