@@ -17,3 +17,4 @@
  </l:context>
 </l:l10n>
 </l:i18n>
+</xsl:stylesheet>
