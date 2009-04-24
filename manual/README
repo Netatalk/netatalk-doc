@@ -11,6 +11,26 @@
 
 	   Required docbook-xsl stylesheet version is 1.74.3.
 
+    3. Fix indexterm bug in xsl stylesheet:
+       inside the xsl stylesheet distribution in manpages/inline.xml remove these lines:
+
+        <!-- * indexterm instances produce groff comments like this: -->
+        <!-- * .\" primary: secondary: tertiary -->
+        <xsl:template match="indexterm">
+          <xsl:text>.\" </xsl:text>
+          <xsl:apply-templates/>
+          <xsl:text>&#10;</xsl:text>
+        </xsl:template>
+
+        <xsl:template match="primary">
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:template>
+
+        <xsl:template match="secondary|tertiary">
+          <xsl:text>: </xsl:text>
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:template>
+
    Usage
    -----
 
@@ -21,12 +41,12 @@
 	3. Adjust PATH_TO_XSL_STYLESHEETS_DIR in 'html.xsl'
 	5. Adjust PATH_TO_XSL_STYLESHEETS_DIR in 'man.xsl'
 	6. Substitute NETATALK_VERSION (adjust appropiately) in all XML files:
-	   `find . -name '*.xml' -exec sed -i -e s@:NETATALK_VERSION:@2.0.4@g {} \;`
+	   `find . -name '*.xml' -exec sed -i -e s@:NETATALK_VERSION:@Netatalk 2.0.4@g {} \;`
 
 	Create manpages:
 
 	7. mkdir manpages; cd manpages
-	8. Run `xsltproc ../man.xsl ../manual.xml` to generate the manpages
+	8. Run `xsltproc ../man.xsl ../man/man*/*.xml` to generate the manpages
 	9. Copy the generated man pages to your CVS working copy:
 	   `./checkinmans . <man dir of your netatalk CVS copy>`
 
