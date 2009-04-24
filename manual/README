@@ -41,7 +41,7 @@
 	3. Adjust PATH_TO_XSL_STYLESHEETS_DIR in 'html.xsl'
 	5. Adjust PATH_TO_XSL_STYLESHEETS_DIR in 'man.xsl'
 	6. Substitute NETATALK_VERSION (adjust appropiately) in all XML files:
-	   `find . -name '*.xml' -exec sed -i -e s@:NETATALK_VERSION:@Netatalk 2.0.4@g {} \;`
+	   `find . -name '*.xml' -exec sed -i -e "s@:NETATALK_VERSION:@Netatalk 2.0.4@g" {} \;`
 
 	Create manpages:
 
