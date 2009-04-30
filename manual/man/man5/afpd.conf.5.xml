@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.21 2009-03-16 14:53:46 franklahm Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.22 2009-04-30 11:10:22 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">24 September 2004</refmiscinfo>
+    <refmiscinfo class="date">30 Apr 2009</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -96,7 +96,7 @@
 
         <listitem>
           <para>Comma separated list of UAMs. (The default is
-          uams_clrtxt.so,uams_dhx.so).</para>
+          uams_dhx.so,uams_dhx2.so).</para>
 
           <para>The most commonly used UAMs are:</para>
 
@@ -139,6 +139,15 @@
               <listitem>
                 <para>(uams_dhx_pam.so or uams_dhx_passwd.so) Allow
                 Diffie-Hellman eXchange (DHX) for authentication.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>uams_dhx2.so</term>
+
+              <listitem>
+                <para>(uams_dhx2_pam.so or uams_dhx2_passwd.so) Allow
+                Diffie-Hellman eXchange 2 (DHX2) for authentication.</para>
               </listitem>
             </varlistentry>
 
@@ -704,7 +713,7 @@ third -signature user:ADMINS</programlisting></para>
     <example>
       <title>afpd.conf default configuration</title>
 
-      <programlisting>- -transall -uamlist uams_clrtxt.so,uams_dhx.so</programlisting>
+      <programlisting>- -transall -uamlist uams_dhx.so,uams_dhx2.so</programlisting>
     </example>
 
     <example>
@@ -716,7 +725,7 @@ third -signature user:ADMINS</programlisting></para>
     <example>
       <title>afpd.conf setup for Kerberos V auth with newline escaping</title>
 
-      <programlisting>- -transall -uamlist uams_clrtxt.so,uams_dhx.so,uams_guest.so,uams_gss.so \ 
+      <programlisting>- -transall -uamlist uams_dhx.so,uams_dhx2.so,uams_guest.so,uams_gss.so \ 
 -k5service afpserver -k5keytab /path/to/afpserver.keytab \ 
 -k5realm YOUR.REALM -fqdn your.fqdn.namel:548</programlisting>
     </example>
@@ -725,7 +734,7 @@ third -signature user:ADMINS</programlisting></para>
       <title>afpd.conf letting afpd appear as three servers on the net</title>
 
       <programlisting>"Guest Server" -uamlist uams_guest.so -loginmesg "Welcome guest!"
-"User Server" -uamlist uams_dhx.so -port 12000
+"User Server" -uamlist uams_dhx2.so -port 12000
 "special" -notcp -defaultvol &lt;path&gt; -systemvol &lt;path&gt;</programlisting>
     </example>
   </refsect1>
