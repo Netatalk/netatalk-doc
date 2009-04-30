@@ -39,7 +39,6 @@
 <!ENTITY uniconv.1 SYSTEM "man/man1/uniconv.1.xml">
 <!ENTITY atalk_aton.3 SYSTEM "man/man3/atalk_aton.3.xml">
 <!ENTITY asip-status.pl.1 SYSTEM "man/man1/asip-status.pl.1.xml">
-<!ENTITY cnid_index.1 SYSTEM "man/man1/cnid_index.1.xml">
 ]>
 <book id="netatalk-manual">
   <title revision="0.1 initial version">Netatalk 2.0 Manual</title>
@@ -117,8 +116,6 @@ url="http://www.fsf.org/licenses/gpl.txt">http://www.fsf.org/licenses/gpl.txt</u
     &atalk_aton.3;
 
     &cnid_dbd.8;
-
-    &cnid_index.1;
 
     &cnid_metad.8;
 
