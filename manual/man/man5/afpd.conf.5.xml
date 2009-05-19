@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.22 2009-04-30 11:10:22 franklahm Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.23 2009-05-19 10:43:09 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -492,6 +492,15 @@
             update folder listings in case another client changed the
             contents.</para>
           </note>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-closevol</term>
+
+        <listitem>
+          <para>Immediately unmount volumes removed from AppleVolumes files on
+          SIGHUP sent to the afp master process.</para>
         </listitem>
       </varlistentry>
 
