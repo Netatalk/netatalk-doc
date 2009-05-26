@@ -39,6 +39,7 @@
 <!ENTITY uniconv.1 SYSTEM "man/man1/uniconv.1.xml">
 <!ENTITY atalk_aton.3 SYSTEM "man/man3/atalk_aton.3.xml">
 <!ENTITY asip-status.pl.1 SYSTEM "man/man1/asip-status.pl.1.xml">
+<!ENTITY dbd.1 SYSTEM "man/man1/dbd.1.xml">
 ]>
 <book id="netatalk-manual">
   <title revision="0.1 initial version">Netatalk 2.0 Manual</title>
@@ -85,11 +86,13 @@ url="http://www.fsf.org/licenses/gpl.txt">http://www.fsf.org/licenses/gpl.txt</u
 
     &achfile.1;
     
-    &afp_acls.8;
-
     &aecho.1;
 
     &afile.1;
+
+    &afp_acls.8;
+
+    &afp_ldap.conf.5;
 
     &afpd.8;
 
@@ -119,9 +122,9 @@ url="http://www.fsf.org/licenses/gpl.txt">http://www.fsf.org/licenses/gpl.txt</u
 
     &cnid_metad.8;
 
-    &getzones.1;
+	&dbd.1;
 
-    &afp_ldap.conf.5;
+    &getzones.1;
 
     &megatron.1;
 

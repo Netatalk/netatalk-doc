@@ -250,6 +250,8 @@
         <refentrytitle>afpd</refentrytitle>
 
         <manvolnum>8</manvolnum>
-      </citerefentry></para>
+      </citerefentry>,
+		<citerefentry><refentrytitle>dbd</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+      </para>
   </refsect1>
 </refentry>
