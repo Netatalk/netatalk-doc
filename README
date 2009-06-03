@@ -48,7 +48,7 @@
 	7. mkdir manpages; cd manpages
 	8. Run `xsltproc ../man.xsl ../man/man*/*.xml` to generate the manpages
 	9. Copy the generated man pages to your CVS working copy:
-	   `./checkinmans . <man dir of your netatalk CVS copy>`
+	   `../../utils/checkinmans.sh . <man dir of your netatalk CVS copy>`
 
 	Create HTML:
 
