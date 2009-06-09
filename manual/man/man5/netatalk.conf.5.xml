@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="netatalk.conf.5">
-  <!--  $Id: netatalk.conf.5.xml,v 1.8 2009-05-20 09:01:39 franklahm Exp $ -->
+  <!--  $Id: netatalk.conf.5.xml,v 1.9 2009-06-09 11:06:32 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>netatalk.conf</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">20 May 2009</refmiscinfo>
+    <refmiscinfo class="date">9 Jun 2009</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -116,15 +116,16 @@
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis remap="B">CNID_DBD_LOGCONFIG</emphasis></term>
+        <term><emphasis remap="B">CNID_CONFIG</emphasis></term>
 
         <listitem>
-          <para>Logging configuration for cnid_metad and cnid_dbd. See
+          <para>Configuration options for cnid_metad. See:
           <citerefentry>
               <refentrytitle>cnid_metad</refentrytitle>
 
               <manvolnum>8</manvolnum>
-            </citerefentry> for available settings, ommit -l.</para>
+            </citerefentry>
+            </para>
         </listitem>
       </varlistentry>
 

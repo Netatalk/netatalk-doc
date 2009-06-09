@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">20 May 2009</refmiscinfo>
+    <refmiscinfo class="date">9 Jun 2009</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -23,7 +23,8 @@
         </indexterm></command>
 
       <arg choice="opt"><arg choice="plain">-l </arg><arg
-      choice="plain"><replaceable>"logconfig"</replaceable></arg></arg>
+      choice="plain"><replaceable>loglevel</replaceable><arg>-f
+      <replaceable>filename</replaceable></arg></arg></arg>
 
       <arg choice="opt">-d</arg>
 
@@ -67,22 +68,20 @@
 
     <variablelist remap="TP">
       <varlistentry>
-        <term><option>-l</option><replaceable> "&lt;logtype&gt;
-        &lt;loglevel&gt; [&lt;filename&gt;]"</replaceable></term>
+        <term><option>-l</option><replaceable> &lt;loglevel&gt; [-f
+        &lt;filename&gt;]</replaceable></term>
 
         <listitem>
           <para>Specify that any message of a loglevel up to the given
           <option>loglevel</option> should be logged to the given file. If the
           filename is ommited the loglevel applies to messages passed to
           syslog. Default is logs to syslog with a default logging setup of
-          <option>"default log_note</option>".</para>
+          <option>"log_note</option>".</para>
 
           <para><emphasis remap="B">Note:</emphasis>
           <command>cnid_metad</command> passes this to
           <command>cnid_dbd</command> which will in turn use this for its
           logging setup.</para>
-
-          <para>logtypes: Default, CNID</para>
 
           <para>loglevels: LOG_SEVERE, LOG_ERROR, LOG_WARN, LOG_NOTE,
           LOG_INFO, LOG_DEBUG, LOG_DEBUG6, LOG_DEBUG7, LOG_DEBUG8, LOG_DEBUG9,
@@ -91,14 +90,14 @@
           <example>
             <title>Useful default config</title>
 
-            <programlisting>-l "default log_info /var/log/afpd.log"
+            <programlisting>-l log_info -f /var/log/afpd.log
 </programlisting>
           </example>
 
           <example>
             <title>Debugging config</title>
 
-            <programlisting>-l "default log_maxdebug /var/log/afpd.log"
+            <programlisting>-l log_maxdebug -f /var/log/afpd.log
 </programlisting>
           </example>
         </listitem>
@@ -198,8 +197,10 @@
         <refentrytitle>afpd</refentrytitle>
 
         <manvolnum>8</manvolnum>
-      </citerefentry>,
-      <citerefentry><refentrytitle>dbd</refentrytitle><manvolnum>1</manvolnum></citerefentry>
-    </para>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>dbd</refentrytitle>
+
+        <manvolnum>1</manvolnum>
+      </citerefentry></para>
   </refsect1>
 </refentry>
