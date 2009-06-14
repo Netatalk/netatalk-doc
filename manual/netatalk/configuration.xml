@@ -772,11 +772,11 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           </listitem>
 
           <listitem>
-            <para>MacKorean</para>
+            <para>MacJapanese</para>
           </listitem>
 
           <listitem>
-            <para>MacJapanese</para>
+            <para>MacKorean</para>
           </listitem>
 
           <listitem>
@@ -854,11 +854,31 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           </listitem>
 
           <listitem>
+            <para>MAC_CHINESE_SIMP</para>
+          </listitem>
+
+          <listitem>
+            <para>MAC_CHINESE_TRAD</para>
+          </listitem>
+
+          <listitem>
             <para>MAC_CYRILLIC</para>
           </listitem>
 
           <listitem>
+            <para>MAC_GREEK</para>
+          </listitem>
+
+          <listitem>
             <para>MAC_HEBREW</para>
+          </listitem>
+
+          <listitem>
+            <para>MAC_JAPANESE</para>
+          </listitem>
+
+          <listitem>
+            <para>MAC_KOREAN</para>
           </listitem>
 
           <listitem>
@@ -867,10 +887,6 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
           <listitem>
             <para>MAC_TURKISH</para>
-          </listitem>
-
-          <listitem>
-            <para>MAC_GREEK</para>
           </listitem>
         </itemizedlist>
 

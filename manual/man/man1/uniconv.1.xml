@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="uniconv.1">
-  <!--  $Id: uniconv.1.xml,v 1.4 2004-07-20 07:05:40 tkaiser Exp $ -->
+  <!--  $Id: uniconv.1.xml,v 1.5 2009-06-14 09:02:50 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>uniconv</refentrytitle>
@@ -143,6 +143,11 @@
     encoding. Remember to change <option>volcodepage</option> in
     <citerefentry><refentrytitle>AppleVolumes.default</refentrytitle><manvolnum>5</manvolnum></citerefentry>
     to the new codepage, before restarting afpd.</para>
+
+    <para>In case of <emphasis role="bold">MacChineseTraditional</emphasis>,
+    <emphasis role="bold">MacJapanese</emphasis> or
+    <emphasis role="bold">MacKorean</emphasis>,
+    uniconv cannot be used.</para>
 
     <para><emphasis role="bold">USE AT YOUR OWN RISK!!!</emphasis></para>
   </refsect1>

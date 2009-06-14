@@ -99,6 +99,15 @@
 
     <para></para>
 
+    <warning>
+      <para>In case of MacChineseTraditional, MacJapanese or MacKorean,
+      This method cannot be used.</para>
+      <para>Before upgrading, copy all files to the client. And restore
+      all files to netatalk 2.0.</para>
+    </warning>
+
+    <para></para>
+
     <note>
       <para>You should consider 'upgrading' your volumes using the new
       defaults UTF-8 and AppleDouble v2, even if this is a time consuming
