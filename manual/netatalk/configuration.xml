@@ -1666,46 +1666,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
 
         <para>An alternative to the technique outlined above is to direct
         papd's output via a pipe into another program. Using this mechanism
-        almost all printing systems can be driven. Netatalk supplies three
-        "wildcards" that get substituted with values of the already printed
-        job:</para>
-
-        <variablelist>
-          <varlistentry>
-            <term>%F</term>
-
-            <listitem>
-              <para>will be substituted with the contents of the
-              <emphasis>%%For:</emphasis> comment in the PostScript
-              stream.</para>
-            </listitem>
-          </varlistentry>
-
-          <varlistentry>
-            <term>%U</term>
-
-            <listitem>
-              <para>If authenticated printing<indexterm>
-                  <primary>authenticated printing</primary>
-                </indexterm> has been enabled then this will be substituted
-              with the user name of the printjob's originator.</para>
-            </listitem>
-          </varlistentry>
-
-          <varlistentry>
-            <term>%J</term>
-
-            <listitem>
-              <para>will be substituted with the contents of the
-              <emphasis>%%Title:</emphasis> comment of the PostScript
-              stream.</para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-
-        <para>Using these wildcards, one can pass those parameters directly to
-        programs or implement small wrapper scripts to call the printing
-        system in question.</para>
+        almost all printing systems can be driven.</para>
       </sect3>
 
       <sect3 id="papcupssupport">
