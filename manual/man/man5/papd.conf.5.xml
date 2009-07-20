@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="papd.conf.5">
-  <!--  $Id: papd.conf.5.xml,v 1.11 2009-02-04 22:38:29 didg Exp $ -->
+  <!--  $Id: papd.conf.5.xml,v 1.12 2009-07-20 08:46:34 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>papd.conf</refentrytitle>
@@ -48,12 +48,7 @@
 
     <para>Systems using a BSD printing system should make use of a pipe to the
     printing command in question within the <emphasis remap="B">pr</emphasis>
-    option (eg. <emphasis remap="B">pr=|/usr/bin/lpr -J"%J" -u"%U"</emphasis>).
-    Note: When printing using a pipe, papd recognizes several wildcards: %F
-    will be replaced by the name present in the "%%For:" comment in the
-    PostScript stream, same with %J for the "%%Title:" comment. %U will be
-    substituted with the login name (the latter applies only when
-    authenticated printing is in effect).</para>
+    option (eg. <emphasis remap="B">pr=|/usr/bin/lpr</emphasis>).</para>
 
     <para>When CUPS support is compiled in, then <emphasis
     remap="B">cupsautoadd </emphasis> as the first entry in papd.conf will
@@ -195,37 +190,25 @@ HP Printer:\
 
     <para>An alternative to the technique outlined above is to direct papd's
     output via a pipe into another program. Using this mechanism almost all
-    printing systems can be driven. Netatalk supplies three "wildcards" that
-    get substituted with values of the already printed job:
-    <option>%F</option>, <option>%U</option> and <option>%J</option>. Using
-    these wildcards, one can pass those parameters directly to programs or
-    implement small wrapper scripts to call the printing system in
-    question.</para>
+    printing systems can be driven.</para>
 
     <example>
       <title>papd.conf examples using pipes</title>
 
       <para>The first spooler is known as HP 8100. It pipes the print job to
-      <command>/usr/bin/lpr</command> for printing using the value of the
-      <emphasis>%%Title: </emphasis> comment as job name. PSSP authenticated
+      <command>/usr/bin/lpr</command> for printing. PSSP authenticated
       printing is enabled, as is CAP-style authenticated printing. Both
       methods support guest and cleartext authentication as specified by the
       '<option>am</option>' option. The PPD used is
-      <filename>/etc/atalk/ppds/hp8100.ppd</filename>. The second spooler is
-      called "Dump PostScript" and uses a pipe to <command>cat</command> to
-      send the raw PostScript code into the user's home directory into a file
-      called like the printjob. <programlisting>HP 8100:\
-   :pr=|/usr/bin/lpr -Plp -J"%J":\
+      <filename>/etc/atalk/ppds/hp8100.ppd</filename>.
+      <programlisting>HP 8100:\
+   :pr=|/usr/bin/lpr -Plp:\
    :sp:\
    :ca=/tmp/print:\
    :am=uams_guest.so,uams_pam.so:\
    :pd=/etc/atalk/ppds/hp8100.ppd:
-
-Dump PostScript:LaserWriter@Server:\
-   :pr=|cat &gt;/home/"%U"/"%J"-prn.out:\
-   :pd=/usr/share/lib/ppd/mooralana.ppd:\
-   :sp:au:op=lp:\
-   :am=uams_clrtxt.so:</programlisting></para>
+      </programlisting>
+      </para>
     </example>
 
     <para>Starting with Netatalk 2.0 direct CUPS integration is available. In
