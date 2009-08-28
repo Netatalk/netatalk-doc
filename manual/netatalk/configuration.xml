@@ -424,8 +424,10 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       <para>Mac OS X 10.5 (Leopard), adds support for Time Machine backups
       over AFP with two new functions on top of AFP 3.2. These ensure that
       backups are written to spinning disk, not just in the server's cache.
-      Different host operating systems honour this cache flushing
-      differently.</para>
+      Different host operating systems honour this cache flushing differently.
+      To enable a volume for TM to be recognized as a valid backup destination
+      place a file <filename>.com.apple.timemachine.supported</filename> at
+      the volume root.</para>
 
       <sect3>
         <title>afpd.conf</title>
