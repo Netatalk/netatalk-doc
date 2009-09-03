@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="dbd.1">
-  <!--  $Id: dbd.1.xml,v 1.1 2009-05-26 09:23:13 franklahm Exp $ -->
+  <!--  $Id: dbd.1.xml,v 1.2 2009-09-03 14:09:58 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>dbd</refentrytitle>
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">26 May 2009</refmiscinfo>
+    <refmiscinfo class="date">3 Sep 2009</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -26,12 +26,14 @@
 
       <arg choice="opt">-evx</arg>
 
-      <group choice="plain">
+      <group choice="req">
         <arg choice="plain">-d <arg>-i</arg></arg>
 
         <arg choice="plain">-s</arg>
 
         <arg choice="plain">-r <arg>-f</arg></arg>
+
+        <arg choice="plain">-u</arg>
       </group>
 
       <arg choice="plain"><replaceable>volumepath</replaceable></arg>
@@ -136,6 +138,20 @@
               <option>-e</option>)</para>
             </listitem>
           </itemizedlist>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-u</term>
+
+        <listitem>
+          <para>Prepare upgrade:</para>
+
+          <para>Before installing an upgraded version of Netatalk that is
+          linked against a newer BerkeleyDB lib, run `dbd -u ...` from the OLD
+          Netatalk pior to upgrading on all volumes. This removes the
+          BerkleyDB environment. On exit cnid_dbd does this automatically, so
+          normally calling dbd -u should not be necessary !</para>
         </listitem>
       </varlistentry>
     </variablelist>
