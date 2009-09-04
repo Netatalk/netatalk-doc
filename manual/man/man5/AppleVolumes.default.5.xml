@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.25 2009-06-14 15:59:02 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.26 2009-09-04 08:16:29 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -686,13 +686,13 @@
 
           <variablelist>
             <varlistentry>
-              <term>cachecnid</term>
+              <term>nocnidcache</term>
 
               <listitem>
-                <para>If set <command>afpd</command> uses the ID information
-                stored in AppleDouble V2 header files to reduce database load.
-                Don't set this option if the volume is modified by non AFP
-                clients (NFS/SMB/local). Defaults to off.</para>
+                <para>If set <command>afpd</command> doesn't store the ID
+                information in AppleDouble V2 header files. As these IDs
+                are used for caching and as a database backup, this option
+                normally shouldn't be set.</para>
               </listitem>
             </varlistentry>
 
