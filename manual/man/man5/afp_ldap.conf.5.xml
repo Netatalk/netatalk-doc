@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry id="ldap.conf.5">
-  <!--  $Id: afp_ldap.conf.5.xml,v 1.1 2009-03-16 15:03:35 franklahm Exp $ -->
+<refentry id="afp_ldap.conf.5">
+  <!--  $Id: afp_ldap.conf.5.xml,v 1.2 2009-09-07 13:36:37 franklahm Exp $ -->
 
   <refmeta>
-    <refentrytitle>ldap.conf</refentrytitle>
+    <refentrytitle>afp_ldap.conf</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
@@ -23,7 +23,7 @@
   <refsect1>
     <title>Description</title>
 
-    <para><filename>:ETCDIR:/ldap.conf</filename> is the configuration file
+    <para><filename>:ETCDIR:/afp_ldap.conf</filename> is the configuration file
     used by <command>afpd</command> to set up an LDAP connection to an LDAP
     server.</para>
 
