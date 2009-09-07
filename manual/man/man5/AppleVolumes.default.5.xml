@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.26 2009-09-04 08:16:29 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.27 2009-09-07 09:00:23 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -178,6 +178,14 @@
                 filesystem with EA support (e.g. ZFS) and an EA API compatible
                 to *Solaris. In other words: this requires Solaris,
                 Opensolaris or a derived distribution.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>tm</term>
+
+              <listitem>
+                <para>Enable Time Machine suport for this volume.</para>
               </listitem>
             </varlistentry>
 
