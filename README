@@ -37,18 +37,14 @@
 	Preparation:
 
 	1. Get netatalk-doc from CVS
-	2. `cd` to "netatalk-doc/manual"
-	3. Adjust PATH_TO_XSL_STYLESHEETS_DIR in 'html.xsl'
-	5. Adjust PATH_TO_XSL_STYLESHEETS_DIR in 'man.xsl'
-	6. Substitute NETATALK_VERSION (adjust appropiately) in all XML files:
-	   `find . -name '*.xml' -exec sed -i -e "s@:NETATALK_VERSION:@Netatalk 2.0.4@g" {} \;`
+	2. `cd` to "netatalk-doc"
+   (3. Adjust PATH_TO_XSL_STYLESHEETS_DIR in 'html.xsl')
 
 	Create manpages:
 
-	7. mkdir manpages; cd manpages
-	8. Run `xsltproc ../man.xsl ../man/man*/*.xml` to generate the manpages
+	4. XSL=<path to XSL stylesheets> VERSION=2.x.y make man
 	9. Copy the generated man pages to your CVS working copy:
-	   `../../utils/checkinmans.sh . <man dir of your netatalk CVS copy>`
+	   DIR=<path to netatalk> make install
 
 	Create HTML:
 
