@@ -1,6 +1,13 @@
 
 VPATH = manual/man/man1:manual/man/man3:manual/man/man4:manual/man/man5:manual/man/man8
 
+MAN_XSL  = man.xsl
+HTML_XSL = html.xsl
+TMPDIR   = tmp
+
+MAN_XSL_TMP  = $(TMPDIR)/$(MAN_XSL)
+HTML_XSL_TMP = $(TMPDIR)/$(HTML_XSL)
+
 man1pages = manpages/achfile.1 \
 		manpages/ad.1 \
 		manpages/aecho.1 \
@@ -42,48 +49,70 @@ man8pages = manpages/afp_acls.8 \
 		manpages/psf.8 \
 		manpages/timelord.8
 
-manpages/%.1 : %.1.xml
-		@xsltproc -o manpages/ manual/man.xsl $<
-		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
+# General targets
 
-manpages/%.3 : %.3.xml
-		@xsltproc -o manpages/ manual/man.xsl $< 
-		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
+.PHONY:	all clean install
 
-manpages/%.4 : %.4.xml
-		@xsltproc -o manpages/ manual/man.xsl $< 
-		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
-
-manpages/%.5 : %.5.xml
-		@xsltproc -o manpages/ manual/man.xsl $< 
-		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
-
-manpages/%.8 : %.8.xml
-		@xsltproc -o manpages/ manual/man.xsl $< 
-		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
-
-.PHONY:	all manpageinit clean install
-all:	man
+all:
+		@echo Read the README
 
 man:	manpageinit $(man1pages) $(man3pages) $(man4pages) $(man5pages) $(man8pages)
 
-manpageinit:
-		@if [ "x$(XSL)" = "x" ] ; then \
-			echo 'Set $$XSL to be the path of your XSL stylesheet directory.'; \
-			exit 1; \
-		fi
-		@if [ "x$(VERSION)" = "x" ] ; then \
-			echo 'Set $$VERSION to the Netatalk version'; \
-			exit 1; \
-		fi
-		@echo Configuring XSL stylesheet with path $(XSL)
-		@sed -i -e "s@PATH_TO_XSL_STYLESHEETS_DIR@$(XSL)@" manual/man.xsl
-		@if [ ! -d manpages ] ; then \
-			mkdir manpages; \
+html:	htmlinit
+		@xsltproc -o html/ $(HTML_XSL_TMP) manual/manual.xml
+		@find html -name '*.html' -exec sed -i -e "s@:SBINDIR:/@@g" -e "s@:BINDIR:/@@g" \
+			-e "s@:ETCDIR:/@@g" -e "s@:LIBDIR:/@@g" -e "s@:LIBEXECDIR:/@@g" \
+			-e "s@:VERSION:@$(VERSION)@g" {} \;
+
+tmpdir:
+		@if [ ! -d $(TMPDIR) ] ; then \
+			mkdir $(TMPDIR); \
 		fi
 
 clean:
 		rm -f manpages/*
+		rm -f html/*
+		rm -f tmp/*
+
+# manpage targets
+
+manpages/%.1 : %.1.xml
+		@xsltproc -o manpages/ $(MAN_XSL_TMP) $<
+		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
+
+manpages/%.3 : %.3.xml
+		@xsltproc -o manpages/ $(MAN_XSL_TMP) $< 
+		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
+
+manpages/%.4 : %.4.xml
+		@xsltproc -o manpages/ $(MAN_XSL_TMP) $< 
+		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
+
+manpages/%.5 : %.5.xml
+		@xsltproc -o manpages/ $(MAN_XSL_TMP) $<
+		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
+
+manpages/%.8 : %.8.xml
+		@xsltproc -o manpages/ $(MAN_XSL_TMP) $< 
+		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
+
+$(MAN_XSL_TMP) : manual/man.xsl
+		@if [ "x$(XSL)" = "x" ] ; then \
+			echo 'Set $$XSL to be the path of your XSL stylesheet directory.'; \
+			exit 1; \
+		fi
+		@cp manual/man.xsl $(MAN_XSL_TMP)
+		@echo Configuring XSL stylesheet with path $(XSL)
+		@sed -i -e "s@PATH_TO_XSL_STYLESHEETS_DIR@$(XSL)@" $(MAN_XSL_TMP)
+
+manpageinit: tmpdir $(MAN_XSL_TMP)
+		@if [ "x$(VERSION)" = "x" ] ; then \
+			echo 'Set $$VERSION to the Netatalk version'; \
+			exit 1; \
+		fi
+		@if [ ! -d manpages ] ; then \
+			mkdir manpages; \
+		fi
 
 install:
 		@if [ "x$(DIR)" = "x" ] ; then \
@@ -91,3 +120,23 @@ install:
 			exit 1; \
 		fi
 		sh manual/checkinmans "$(DIR)"
+
+# html targets
+
+$(HTML_XSL_TMP) : manual/html.xsl
+		@if [ "x$(XSL)" = "x" ] ; then \
+			echo 'Set $$XSL to be the path of your XSL stylesheet directory.'; \
+			exit 1; \
+		fi
+		@cp manual/html.xsl $(HTML_XSL_TMP)
+		@echo Configuring XSL stylesheet with path $(XSL)
+		@sed -i -e "s@PATH_TO_XSL_STYLESHEETS_DIR@$(XSL)@" $(HTML_XSL_TMP)
+
+htmlinit:	tmpdir $(HTML_XSL_TMP)
+		@if [ "x$(VERSION)" = "x" ] ; then \
+			echo 'Set $$VERSION to the Netatalk version'; \
+			exit 1; \
+		fi
+		@if [ ! -d html ] ; then \
+			mkdir html; \
+		fi

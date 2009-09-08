@@ -38,25 +38,17 @@
 
 	1. Get netatalk-doc from CVS
 	2. `cd` to "netatalk-doc"
-   (3. Adjust PATH_TO_XSL_STYLESHEETS_DIR in 'html.xsl')
 
 	Create manpages:
 
-	4. XSL=<path to XSL stylesheets> VERSION=2.x.y make man
-	9. Copy the generated man pages to your CVS working copy:
+	3. XSL=<path to XSL stylesheets> VERSION=2.x.y make man
+	4. Copy the generated man pages to your CVS working copy:
 	   DIR=<path to netatalk> make install
 
 	Create HTML:
 
-	10. Remove :PATH: variables from XML files:
-	    `find . -name '*.xml' -exec sed -i -e s@:SBINDIR:/@@g -e s@:BINDIR:/@@g \
-	           -e s@:ETCDIR:/@@g -e s@:LIBDIR:/@@g -e s@:LIBEXECDIR:/@@g {} \;`
-	11. `mkdir html; cd html`
-	12. Run `xsltproc ../html.xsl ../manual.xml` in order to generate the html files.
-
-	Create PDF:
-
-	13. FIXME: do we need this?
+    5. XSL=<path to XSL stylesheets> VERSION=2.x.y make html
+       The generated html files are then inside the directory html.
 
    Editing Docbook Sources
    -----------------------
