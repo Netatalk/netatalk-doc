@@ -399,14 +399,13 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       <title>Setting up the AFP file server</title>
 
       <para>AFP (the Apple Filing Protocol) is the protocol Apple Macintoshes
-      use for file services. The protocol has evolved over the years, at the
-      time of this writing 7 different "versions" exist. The latest changes to
-      the protocol, called "AFP 3.1", were added with the release of
-      Panther<indexterm>
-          <primary>Panther</primary>
+      use for file services. The protocol has evolved over the years. The
+      latest changes to the protocol, called "AFP 3.3", were added with the
+      release of Snow Leopard<indexterm>
+          <primary>Snow Leopard</primary>
 
-          <secondary>Mac OS X 10.3</secondary>
-        </indexterm> (Mac OS X 10.3).</para>
+          <secondary>Mac OS X 10.6</secondary>
+        </indexterm> (Mac OS X 10.6).</para>
 
       <para>AFP3 brought some big changes. For the first time,
       AppleShare<indexterm>
@@ -421,11 +420,15 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       configured using the <filename>afpd.conf</filename> and the
       <filename>AppleVolumes.*</filename> files.</para>
 
-      <para>Mac OS X 10.5 (Leopard), adds support for Time Machine backups
-      over AFP with two new functions on top of AFP 3.2. These ensure that
-      backups are written to spinning disk, not just in the server's cache.
-      Different host operating systems honour this cache flushing
-      differently.</para>
+      <para>Mac OS X 10.5 (Leopard) added support for Time Machine backups
+      over AFP. Two new functions ensure that backups are written to spinning
+      disk, not just in the server's cache. Different host operating systems
+      honour this cache flushing differently. To make a volume a Time Machine
+      target use the <citerefentry>
+          <refentrytitle>AppleVolumes.default</refentrytitle>
+
+          <manvolnum>5</manvolnum>
+        </citerefentry> volume option <option>tm</option>.</para>
 
       <sect3>
         <title>afpd.conf</title>
@@ -444,7 +447,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         <para>Leaving the afpd.conf file empty equals to the following
         configuration:</para>
 
-        <para><programlisting>- -transall -uamlist uams_guest.so,uams_clrtxt.so,uams_dhx.so -nosavepassword</programlisting></para>
+        <para><programlisting>- -tcp -noddp -uamlist uams_dhx.so,uams_dhx2.so -nosavepassword</programlisting></para>
 
         <para>For a more detailed explanation of the available options, please
         refer to the <citerefentry>
