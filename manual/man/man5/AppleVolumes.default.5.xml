@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.27 2009-09-07 09:00:23 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.28 2009-10-02 09:23:41 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">30 January 2009</refmiscinfo>
+    <refmiscinfo class="date">02 Octobre 2009</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -61,7 +61,7 @@
         <term>adouble:<replaceable>[v1|v2|osx]</replaceable></term>
 
         <listitem>
-          <para>specify the format of the metadata files, which are used for
+          <para>Specify the format of the metadata files, which are used for
           saving Mac resource fork as well. Earlier versions used AppleDouble
           V1, the new default format is V2. Starting with Netatalk 2.0, the
           scheme MacOS X uses currently (10.3.x), is also supported</para>
@@ -140,6 +140,20 @@
       </varlistentry>
 
       <varlistentry>
+        <term>ea:<replaceable>[ad|solaris]</replaceable></term>
+
+        <listitem>
+          <para>Specify the format of the metadata files which are used for
+          saving Extended Attributes<indexterm>
+              <primary>Extended Attributes</primary>
+            </indexterm>. <option>ad</option> is the default and stores the
+          EAs inside the <filename>.AppleDouble</filename> directories.
+          <option>solaris</option> uses native
+          <emphasis>[Open]Solaris</emphasis> EAs if available.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term>maccharset:<replaceable>[charset]</replaceable></term>
 
         <listitem>
@@ -167,17 +181,6 @@
                 ACLs</emphasis> compatible filesystem (e.g. ZFS) and an ACL
                 API compatible to *Solaris. In other words: this requires
                 Solaris, Opensolaris or a derived distribution.</para>
-              </listitem>
-            </varlistentry>
-
-            <varlistentry>
-              <term>extattrs</term>
-
-              <listitem>
-                <para>Enable Extended Attributes on this volume. Requires a
-                filesystem with EA support (e.g. ZFS) and an EA API compatible
-                to *Solaris. In other words: this requires Solaris,
-                Opensolaris or a derived distribution.</para>
               </listitem>
             </varlistentry>
 
@@ -648,8 +651,8 @@
     you to downgrade to 1.x netatalk again.</para>
 
     <para><emphasis>Note</emphasis>: Some 1.x NLS files used non standard
-    mappings, e.g. <filename>maccode.iso8859-1.adapted</filename>. 
-    Three 1.x CAP double-byte maccharsets are incompatible to netatalk 2.x;
+    mappings, e.g. <filename>maccode.iso8859-1.adapted</filename>. Three 1.x
+    CAP double-byte maccharsets are incompatible to netatalk 2.x;
     "MAC_CHINESE_TRAD", "MAC_JAPANESE" and "MAC_KOREAN". These are not
     supported anymore. You'll have to copy the contents of those volumes files
     to a Mac and then back to the netatalk server, preferably to an UTF-8
@@ -698,8 +701,8 @@
 
               <listitem>
                 <para>If set <command>afpd</command> doesn't store the ID
-                information in AppleDouble V2 header files. As these IDs
-                are used for caching and as a database backup, this option
+                information in AppleDouble V2 header files. As these IDs are
+                used for caching and as a database backup, this option
                 normally shouldn't be set.</para>
               </listitem>
             </varlistentry>
