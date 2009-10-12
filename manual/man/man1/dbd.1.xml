@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="dbd.1">
-  <!--  $Id: dbd.1.xml,v 1.2 2009-09-03 14:09:58 franklahm Exp $ -->
+  <!--  $Id: dbd.1.xml,v 1.3 2009-10-12 11:57:15 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>dbd</refentrytitle>
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">3 Sep 2009</refmiscinfo>
+    <refmiscinfo class="date">12 Okt 2009</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -29,7 +29,7 @@
       <group choice="req">
         <arg choice="plain">-d <arg>-i</arg></arg>
 
-        <arg choice="plain">-s</arg>
+        <arg choice="plain">-s <arg>n</arg></arg>
 
         <arg choice="plain">-r <arg>-f</arg></arg>
 
@@ -96,7 +96,22 @@
               <para>Check for orphaned CNIDs in database (requires
               <option>-e</option>)</para>
             </listitem>
+
+            <listitem>
+              <para>Open and close adouble files</para>
+            </listitem>
           </itemizedlist>
+
+          <variablelist>
+            <varlistentry>
+              <term>Options:</term>
+
+              <listitem>
+                <para><option>-n</option> Don't open CNID database, skip CNID
+                checks, only traverse filesystem</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
         </listitem>
       </varlistentry>
 
@@ -137,7 +152,23 @@
               <para>Delete orphaned CNIDs in database (requires
               <option>-e</option>)</para>
             </listitem>
+
+            <listitem>
+              <para>Open and close adouble files</para>
+            </listitem>
           </itemizedlist>
+
+          <variablelist>
+            <varlistentry>
+              <term>Options:</term>
+
+              <listitem>
+                <para><option>-f</option> Wipe database and rebuild from IDs
+                stored in AppleDouble files, only available for volumes
+                without 'nocnidcache' option. Implies -e.</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
         </listitem>
       </varlistentry>
 
