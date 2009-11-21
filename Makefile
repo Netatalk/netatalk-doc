@@ -58,11 +58,14 @@ all:
 
 man:	manpageinit $(man1pages) $(man3pages) $(man4pages) $(man5pages) $(man8pages)
 
-html:	htmlinit
+htmlpages:	htmlinit
 		@xsltproc -o html/ $(HTML_XSL_TMP) manual/manual.xml
 		@find html -name '*.html' -exec sed -i -e "s@:SBINDIR:/@@g" -e "s@:BINDIR:/@@g" \
 			-e "s@:ETCDIR:/@@g" -e "s@:LIBDIR:/@@g" -e "s@:LIBEXECDIR:/@@g" \
 			-e "s@:VERSION:@$(VERSION)@g" {} \;
+		tar czf html.tgz html
+
+html: htmlpages
 
 tmpdir:
 		@if [ ! -d $(TMPDIR) ] ; then \
@@ -73,6 +76,7 @@ clean:
 		rm -f manpages/*
 		rm -f html/*
 		rm -f tmp/*
+		rm html.tgz
 
 # manpage targets
 
