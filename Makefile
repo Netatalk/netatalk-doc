@@ -1,5 +1,14 @@
+#
+# Makefile for Netatalk Documentatation
+#
+# Available targets:
+#   html: make html doc
+#   man: make manpages
+#   install: copy manpages to Netatalk source code tree
 
-VPATH = manual/man/man1:manual/man/man3:manual/man/man4:manual/man/man5:manual/man/man8
+# VPATH = manual/man/man1:manual/man/man3:manual/man/man4:manual/man/man5:manual/man/man8
+
+SUFFIXES = .xml .
 
 MAN_XSL  = man.xsl
 HTML_XSL = html.xsl
@@ -8,7 +17,7 @@ TMPDIR   = tmp
 MAN_XSL_TMP  = $(TMPDIR)/$(MAN_XSL)
 HTML_XSL_TMP = $(TMPDIR)/$(HTML_XSL)
 
-man1pages = manpages/achfile.1 \
+manpages = manpages/achfile.1 \
 		manpages/ad.1 \
 		manpages/aecho.1 \
 		manpages/afile.1 \
@@ -25,21 +34,17 @@ man1pages = manpages/achfile.1 \
 		manpages/netatalk-config.1 \
 		manpages/pap.1 \
 		manpages/psorder.1  \
-		manpages/uniconv.1
-
-man3pages = manpages/atalk_aton.3 \
-		manpages/nbp_name.3
-
-man4pages = manpages/atalk.4
-
-man5pages = manpages/afpd.conf.5  \
+		manpages/uniconv.1 \
+		manpages/atalk_aton.3 \
+		manpages/nbp_name.3 \
+		manpages/atalk.4 \
+		manpages/afpd.conf.5  \
 		manpages/afp_ldap.conf.5 \
 		manpages/papd.conf.5 \
 		manpages/AppleVolumes.default.5 \
 		manpages/atalkd.conf.5 \
-		manpages/netatalk.conf.5
-
-man8pages = manpages/afp_acls.8 \
+		manpages/netatalk.conf.5 \
+		manpages/afp_acls.8 \
 		manpages/afpd.8 \
 		manpages/atalkd.8 \
 		manpages/cnid_dbd.8 \
@@ -56,16 +61,8 @@ man8pages = manpages/afp_acls.8 \
 all:
 		@echo Read the README
 
-man:	manpageinit $(man1pages) $(man3pages) $(man4pages) $(man5pages) $(man8pages)
-
-htmlpages:	htmlinit
-		@xsltproc -o html/ $(HTML_XSL_TMP) manual/manual.xml
-		@find html -name '*.html' -exec sed -i -e "s@:SBINDIR:/@@g" -e "s@:BINDIR:/@@g" \
-			-e "s@:ETCDIR:/@@g" -e "s@:LIBDIR:/@@g" -e "s@:LIBEXECDIR:/@@g" \
-			-e "s@:VERSION:@$(VERSION)@g" {} \;
-		tar czf html.tgz html
-
-html: htmlpages
+man:	manpageinit $(manpages)
+html: 	htmlpages
 
 tmpdir:
 		@if [ ! -d $(TMPDIR) ] ; then \
@@ -76,28 +73,12 @@ clean:
 		rm -f manpages/*
 		rm -f html/*
 		rm -f tmp/*
-		rm html.tgz
+		rm -f html.tgz
 
 # manpage targets
 
-manpages/%.1 : %.1.xml
+manpages/% : manual/man/man*/%.xml
 		@xsltproc -o manpages/ $(MAN_XSL_TMP) $<
-		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
-
-manpages/%.3 : %.3.xml
-		@xsltproc -o manpages/ $(MAN_XSL_TMP) $< 
-		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
-
-manpages/%.4 : %.4.xml
-		@xsltproc -o manpages/ $(MAN_XSL_TMP) $< 
-		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
-
-manpages/%.5 : %.5.xml
-		@xsltproc -o manpages/ $(MAN_XSL_TMP) $<
-		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
-
-manpages/%.8 : %.8.xml
-		@xsltproc -o manpages/ $(MAN_XSL_TMP) $< 
 		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
 
 $(MAN_XSL_TMP) : manual/man.xsl
@@ -127,14 +108,12 @@ install:
 
 # html targets
 
-$(HTML_XSL_TMP) : manual/html.xsl
-		@if [ "x$(XSL)" = "x" ] ; then \
-			echo 'Set $$XSL to be the path of your XSL stylesheet directory.'; \
-			exit 1; \
-		fi
-		@cp manual/html.xsl $(HTML_XSL_TMP)
-		@echo Configuring XSL stylesheet with path $(XSL)
-		@sed -i -e "s@PATH_TO_XSL_STYLESHEETS_DIR@$(XSL)@" $(HTML_XSL_TMP)
+htmlpages:	htmlinit
+		@xsltproc -o html/ $(HTML_XSL_TMP) manual/manual.xml
+		@find html -name '*.html' -exec sed -i -e "s@:SBINDIR:/@@g" -e "s@:BINDIR:/@@g" \
+			-e "s@:ETCDIR:/@@g" -e "s@:LIBDIR:/@@g" -e "s@:LIBEXECDIR:/@@g" \
+			-e "s@:VERSION:@$(VERSION)@g" {} \;
+		tar czf html.tgz html
 
 htmlinit:	tmpdir $(HTML_XSL_TMP)
 		@if [ "x$(VERSION)" = "x" ] ; then \
@@ -144,3 +123,13 @@ htmlinit:	tmpdir $(HTML_XSL_TMP)
 		@if [ ! -d html ] ; then \
 			mkdir html; \
 		fi
+
+$(HTML_XSL_TMP) : manual/html.xsl
+		@if [ "x$(XSL)" = "x" ] ; then \
+			echo 'Set $$XSL to be the path of your XSL stylesheet directory.'; \
+			exit 1; \
+		fi
+		@cp manual/html.xsl $(HTML_XSL_TMP)
+		@echo Configuring XSL stylesheet with path $(XSL)
+		@sed -i -e "s@PATH_TO_XSL_STYLESHEETS_DIR@$(XSL)@" $(HTML_XSL_TMP)
+
