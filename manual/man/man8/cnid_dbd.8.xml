@@ -162,7 +162,7 @@
         <term><emphasis remap="B">flush_interval</emphasis></term>
 
         <listitem>
-          <para><emphasis remap="I">flush_frequency</emphasis> (Default: 100)
+          <para><emphasis remap="I">flush_frequency</emphasis> (Default: 1000)
           and <emphasis remap="I">flush_interval</emphasis> (Default: 1800)
           control how often changes to the database are checkpointed. Both of
           these operations are performed if either i) more than <emphasis
@@ -181,7 +181,7 @@
         <listitem>
           <para>is the maximum number of connections (filedescriptors) that
           can be open for <emphasis remap="B">afpd</emphasis> client processes
-          in <emphasis remap="B">cnid_dbd.</emphasis> Default: 128. If this
+          in <emphasis remap="B">cnid_dbd.</emphasis> Default: 512. If this
           number is exceeded, one of the existing connections is closed and
           reused. The affected <emphasis remap="B">afpd</emphasis> process
           will transparently reconnect later, which causes slight overhead. On
@@ -237,6 +237,13 @@
         <para>Start the the new version of Netatalk</para>
       </listitem>
     </itemizedlist>
+
+    <para>Note that the first version to appear <emphasis>after</emphasis>
+    Netatalk 2.1 ie Netatalk 2.1.1, will support BerkeleyDB updates on the fly
+    without manual intervention. In other words Netatalk 2.1 does contain code
+    to prepare the BerkeleyDB database for upgrades and to upgrade it in case
+    it has been prepared before. That means it can't upgrade a 2.0.x version
+    because that one didn't prepare the database.</para>
   </refsect1>
 
   <refsect1>
@@ -250,8 +257,10 @@
         <refentrytitle>afpd</refentrytitle>
 
         <manvolnum>8</manvolnum>
-      </citerefentry>,
-		<citerefentry><refentrytitle>dbd</refentrytitle><manvolnum>1</manvolnum></citerefentry>
-      </para>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>dbd</refentrytitle>
+
+        <manvolnum>1</manvolnum>
+      </citerefentry></para>
   </refsect1>
 </refentry>
