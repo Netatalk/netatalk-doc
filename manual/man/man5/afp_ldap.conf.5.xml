@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afp_ldap.conf.5">
-  <!--  $Id: afp_ldap.conf.5.xml,v 1.3 2009-09-07 13:45:33 franklahm Exp $ -->
+  <!--  $Id: afp_ldap.conf.5.xml,v 1.4 2009-11-27 21:11:16 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>afp_ldap.conf</refentrytitle>
@@ -31,7 +31,7 @@
 
     <para><note>
         <para>You can use <citerefentry>
-            <refentrytitle>uuidtest</refentrytitle>
+            <refentrytitle>afpldaptest</refentrytitle>
 
             <manvolnum>1</manvolnum>
           </citerefentry> to syntactically check your config</para>
@@ -190,7 +190,7 @@ ldap_group_attr  = cn</programlisting>
 
         <manvolnum>5</manvolnum>
       </citerefentry>,<citerefentry>
-        <refentrytitle>uuidtest</refentrytitle>
+        <refentrytitle>afpldaptest</refentrytitle>
 
         <manvolnum>1</manvolnum>
       </citerefentry></para>
