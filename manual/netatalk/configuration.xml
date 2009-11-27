@@ -526,11 +526,6 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         </citerefentry> configuration file. A CNID backend is basically a
       database storing ID &lt;-&gt; name mappings.</para>
 
-      <para>In the past, many users used the so called "last" CNID scheme.
-      However, this scheme has some serious drawbacks, as it is based on the
-      device and inode of a file. Therefore, IDs will be eventually be reused
-      and you can get duplicate IDs as well.</para>
-
       <para>The CNID Databases are by default located in the
       .AppleDB<indexterm>
           <primary>AppleDB</primary>
@@ -602,7 +597,44 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         </itemizedlist>
       </note>
 
-      <para></para>
+      <important>
+        <para>In order to update between Netatalk releases using different
+        BerkeleyDB library versions, follow this steps:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Stop the to be upgraded old version of Netatalk</para>
+          </listitem>
+
+          <listitem>
+            <para>Using the old BerkeleyDB utilities run <command>db_recover
+            -h &lt;path to .AppleDB&gt;</command></para>
+          </listitem>
+
+          <listitem>
+            <para>Using the new BerkeleyDB utilities run <command>db_upgrade
+            -v -h &lt;path to .AppleDB&gt; -f cnid2.db</command></para>
+          </listitem>
+
+          <listitem>
+            <para>Again using the new BerkeleyDB utilities run
+            <command>db_checkpoint -1 -h &lt;path to
+            .AppleDB&gt;</command></para>
+          </listitem>
+
+          <listitem>
+            <para>Start the the new version of Netatalk</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Note that the first version to appear <emphasis>after</emphasis>
+        Netatalk 2.1 ie Netatalk 2.1.1, will support BerkeleyDB updates on the
+        fly without manual intervention. In other words Netatalk 2.1 does
+        contain code to prepare the BerkeleyDB database for upgrades and to
+        upgrade it in case it has been prepared before. That means it can't
+        upgrade a 2.0.x version because that one didn't prepare the
+        database.</para>
+      </important>
 
       <sect3>
         <title>cdb<indexterm>
