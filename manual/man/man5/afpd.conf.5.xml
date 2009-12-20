@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.25 2009-11-30 07:00:07 franklahm Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.26 2009-12-20 12:24:34 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">30 Apr 2009</refmiscinfo>
+    <refmiscinfo class="date">20 December 2009</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -375,6 +375,14 @@
       </varlistentry>
 
       <varlistentry>
+        <term>-hostname<replaceable> [name]</replaceable></term>
+
+        <listitem>
+          <para>Use this instead of the result from calling hostname.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term>-ipaddr <replaceable>[ip address]</replaceable></term>
 
         <listitem>
@@ -421,25 +429,23 @@
 
         <listitem>
           <para>This specifies the DSI server quantum. The default value is
-          303840. The maximum value is 0xFFFFFFFFF, the minimum is 32000.
-          If you specify a value that is out of range, the default value
-          will be set. Do not change this value unless
-          you're absolutely sure, what you're doing</para>
+          303840. The maximum value is 0xFFFFFFFFF, the minimum is 32000. If
+          you specify a value that is out of range, the default value will be
+          set. Do not change this value unless you're absolutely sure, what
+          you're doing</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>-noslp</term>
+        <term>-slp</term>
 
         <listitem>
-          <para>Do not register this server using the Service Location
-          Protocol (if SLP<indexterm>
+          <para>Register this server using the Service Location Protocol (if
+          SLP<indexterm>
               <primary>SLP</primary>
 
               <secondary>Service Location Protocol</secondary>
-            </indexterm> support was compiled in). This is useful if you are
-          running multiple servers and want one to be hidden, perhaps because
-          it is advertised elsewhere, ie. by a SLP Directory Agent.</para>
+            </indexterm> support was compiled in).</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -523,10 +529,10 @@
       </varlistentry>
 
       <varlistentry>
-        <term>-icon</term>
+        <term>-[no]icon</term>
 
         <listitem>
-          <para>Use the platform-specific icon</para>
+          <para>[Dont't] Use the platform-specific icon</para>
         </listitem>
       </varlistentry>
 
@@ -596,8 +602,9 @@ third -signature user:ADMINS</programlisting></para>
           <para>Max length of UTF8-MAC volume name for Mac OS X. Note that
           Hangul is especially sensitive to this.</para>
 
-          <para><programlisting>31:  conservative default
-80:  limit for Mac OS X 10.5
+          <para><programlisting>73:  limit of Mac OS X 10.1
+80:  limit for Mac OS X 10.4/10.5 (default)
+123: limit for Mac OS X 10.6
 255: limit of spec</programlisting>Mac OS 9 and earlier are not influenced by
           this, because Maccharset volume name is always limitted to 27
           bytes.</para>
