@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.26 2009-12-20 12:24:34 franklahm Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.27 2009-12-23 13:11:29 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">20 December 2009</refmiscinfo>
+    <refmiscinfo class="date">23 December 2009</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -388,9 +388,11 @@
         <listitem>
           <para>Specifies the IP address that the server should advertise
           <emphasis role="bold">and</emphasis> listens to (the default is the
-          first IP address of the system). This option also allows to use one
-          machine to advertise the AFP-over-TCP/IP settings of another machine
-          via NBP<indexterm>
+          first IP address of the system). The network address may be
+          specified either in dotted-decimal format for IPv4 or in hexadecimal
+          format for IPv6. This option also allows to use one machine to
+          advertise the AFP-over-TCP/IP settings of another machine via
+          NBP<indexterm>
               <primary>NBP</primary>
 
               <secondary>Name Binding Protocol</secondary>
@@ -515,7 +517,9 @@
 
         <listitem>
           <para>Specifies the IP address and port of a cnid_metad server,
-          required for CNID dbd backend. Defaults to localhost:4700.</para>
+          required for CNID dbd backend. Defaults to localhost:4700. The
+          network address may be specified either in dotted-decimal format for
+          IPv4 or in hexadecimal format for IPv6.</para>
         </listitem>
       </varlistentry>
 
