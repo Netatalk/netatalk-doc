@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.28 2009-12-23 15:40:04 franklahm Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.29 2009-12-23 16:13:06 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -181,6 +181,19 @@
         <listitem>
           <para>These are required if the server supports the Kerberos 5
           authentication UAM.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-ntdomain</term>
+
+        <term>-ntseparator</term>
+
+        <listitem>
+          <para>Use for eg. winbind authentication, prepends both strings
+          before the username from login and then tries to authenticate with
+          the result through the availabel and active UAM authentication
+          modules.</para>
         </listitem>
       </varlistentry>
     </variablelist>
