@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.30 2009-12-23 12:58:32 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.31 2009-12-23 13:38:35 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -53,6 +53,15 @@
       role="bold">single</emphasis> line. Though newline escaping is
       supported.</para>
     </note>
+
+    <para>It is possible to specify default options for all volumes with a
+    <emphasis>:DEFAULT: </emphasis>line preceeding these volume
+    definitions:<example>
+        <title>:DEFAULT: configuration line</title>
+
+        <para>:DEFAULT: options:upriv,usedots dbpath:/var/dbd/AppleDB/$v
+        dperm:0775 fperm:0664</para>
+      </example></para>
 
     <para>The possible options and their meanings are:</para>
 
@@ -744,13 +753,11 @@
 
           <variablelist>
             <varlistentry>
-              <term>nocnidcache</term>
+              <term>caseinsensitive</term>
 
               <listitem>
-                <para>If set <command>afpd</command> doesn't store the ID
-                information in AppleDouble V2 header files. As these IDs are
-                used for caching and as a database backup, this option
-                normally shouldn't be set.</para>
+                <para>The underlying filesystem is case insensitive (only
+                tested with JFS in OS2 mode).</para>
               </listitem>
             </varlistentry>
 
@@ -815,6 +822,17 @@
 
                 <para>Try to avoid <option>noadouble</option> whenever
                 possible.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>nocnidcache</term>
+
+              <listitem>
+                <para>If set <command>afpd</command> doesn't store the ID
+                information in AppleDouble V2 header files. As these IDs are
+                used for caching and as a database backup, this option
+                normally shouldn't be set.</para>
               </listitem>
             </varlistentry>
 
