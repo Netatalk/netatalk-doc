@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.29 2009-12-23 12:44:04 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.30 2009-12-23 12:58:32 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -100,22 +100,30 @@
       </varlistentry>
 
       <varlistentry>
-        <term>allowed_hosts:<replaceable>[IPv4 host address/IPv4 netmask
-        bits[, ... ]]</replaceable></term>
+        <term>allowed_hosts:<replaceable>[IP host address/IP netmask bits[,
+        ... ]]</replaceable></term>
 
         <listitem>
           <para>Only listed hosts and networks are allowed, all others are
-          rejected. Example: allowed_hosts:10.1.0.0/16,10.2.1.100</para>
+          rejected. The network address may be specified either in
+          dotted-decimal format for IPv4 or in hexadecimal format for
+          IPv6.</para>
+
+          <para>Example:
+          allowed_hosts:10.1.0.0/16,10.2.1.100,2001:0db8:1234::/48</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>denied_hosts:<replaceable>[IPv4 host address/IPv4 netmask bits[,
+        <term>denied_hosts:<replaceable>[IP host address/IP netmask bits[,
         ...]]</replaceable></term>
 
         <listitem>
-          <para>Listed hosts and nets are rejected, all others are allowed.
-          Example: denied_hosts: 192.168.100/24,10.1.1.1</para>
+          <para>Listed hosts and nets are rejected, all others are
+          allowed.</para>
+
+          <para>Example: denied_hosts:
+          192.168.100/24,10.1.1.1,2001:db8::1428:57ab</para>
         </listitem>
       </varlistentry>
 
