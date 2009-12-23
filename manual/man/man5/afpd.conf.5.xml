@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.27 2009-12-23 13:11:29 franklahm Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.28 2009-12-23 15:40:04 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -378,7 +378,11 @@
         <term>-hostname<replaceable> [name]</replaceable></term>
 
         <listitem>
-          <para>Use this instead of the result from calling hostname.</para>
+          <para>Use this instead of the result from calling hostname for
+          dertermening which IP address to advertise, therfore the hostname is
+          resolved to an IP which is the advertised. This is NOT used for
+          listening and it is also overwritten by
+          <option>-ipaddr</option>.</para>
         </listitem>
       </varlistentry>
 
@@ -387,17 +391,43 @@
 
         <listitem>
           <para>Specifies the IP address that the server should advertise
-          <emphasis role="bold">and</emphasis> listens to (the default is the
-          first IP address of the system). The network address may be
-          specified either in dotted-decimal format for IPv4 or in hexadecimal
-          format for IPv6. This option also allows to use one machine to
-          advertise the AFP-over-TCP/IP settings of another machine via
-          NBP<indexterm>
+          <emphasis role="bold">and</emphasis> listens to. The default is
+          advertise the first IP address of the system, but to listen for any
+          incoming request. The network address may be specified either in
+          dotted-decimal format for IPv4 or in hexadecimal format for IPv6.
+          This option also allows to use one machine to advertise the
+          AFP-over-TCP/IP settings of another machine via NBP<indexterm>
               <primary>NBP</primary>
 
               <secondary>Name Binding Protocol</secondary>
             </indexterm> when used together with the <option>-proxy</option>
           option.</para>
+
+          <para><example>
+              <title>IP/hostname example configuration</title>
+
+              <para>fluxxus <option>-hostname</option> afp.apple.com
+              <option>-ipaddr</option> 127.0.0.1 <option>-fqdn</option>
+              www.microsoft.com</para>
+            </example>Result:<informaltable>
+              <tgroup cols="1">
+                <tbody>
+                  <row>
+                    <entry>(UTF8) Server name: fluxxus</entry>
+                  </row>
+
+                  <row>
+                    <entry>Listening and advertised network address:
+                    127.0.0.1</entry>
+                  </row>
+
+                  <row>
+                    <entry>Advertised network address:
+                    www.microsoft.com</entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </informaltable></para>
         </listitem>
       </varlistentry>
 
