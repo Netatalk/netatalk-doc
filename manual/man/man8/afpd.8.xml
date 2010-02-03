@@ -295,8 +295,7 @@
           each one found, a the contents will be sent as a message to the
           associated AFP client. The file is removed after the message is
           sent. This should only be sent to a child <command>afpd</command>.
-          Warning: If the --with-message-dir option was not used, this will
-          kill the <command>afpd</command> process</para>
+          </para>
 
           <para>To shut down a user&#39;s <command>afpd</command> process it
           is recommended that <command>SIGKILL (-9)</command>
