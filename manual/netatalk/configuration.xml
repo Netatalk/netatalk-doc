@@ -430,6 +430,15 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           <manvolnum>5</manvolnum>
         </citerefentry> volume option <option>tm</option>.</para>
 
+      <para>Starting with Netatalk 2.1 UNIX symlinks<indexterm>
+          <primary>symlink</primary>
+
+          <secondary>UNIX symlink</secondary>
+        </indexterm> can be used on the server. Semantics are the same as for
+      eg NFS, ie they are not resolved on the server side but instead it's
+      completely up to the client to resolve them, resulting in links that
+      point somewhere inside the clients filesystem view.</para>
+
       <sect3>
         <title>afpd.conf</title>
 
@@ -539,24 +548,15 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         </indexterm> format, afpd stores the files/directories ID in the
       corresponding .AppleDouble file as well.</para>
 
+      <para>Starting with Netatalk 2.1 there is a command line utility called
+      <command>dbd</command> available which can be used to verify, repair and
+      rebuild the CNID database.</para>
+
       <note>
         <para>There are some CNID related things you should keep in mind when
         working with netatalk:</para>
 
         <itemizedlist>
-          <listitem>
-            <para>Don't use unix symlinks<indexterm>
-                <primary>Symlink</primary>
-
-                <secondary>Unix softlink</secondary>
-              </indexterm>. Just don't. With a symlink a file/directory
-            "exists" twice, something AFP doesn't allow. There's currently no
-            way this can be resolved, as we either end up with two file/dirs
-            having the same id, or a file having two parents. If you still
-            insist on using them, be aware you're <emphasis>heavily</emphasis>
-            violating the specs. You have been warned...</para>
-          </listitem>
-
           <listitem>
             <para>Don't nest volumes<indexterm>
                 <primary>Nested volumes</primary>
@@ -647,8 +647,11 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         Berkeley DB. With this backend, several afpd daemons access the CNID
         database directly. Berkeley DB locking is used to synchronize access,
         if more than one afpd process is active for a volume. The drawback is,
-        that the crash of a single afpd process might corrupt the
-        database.</para>
+        that the crash of a single afpd process might corrupt the database.
+        cdb should only be used when sharing home directories for a larger
+        number of users <emphasis>and</emphasis> it has been determined that a
+        large number of <command>cnid_dbd</command> processes is
+        problematic.</para>
       </sect3>
 
       <sect3>
@@ -660,11 +663,12 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
         <para>Access to the CNID database is restricted to the cnid_dbd daemon
         process. afpd processes communicate with the daemon for database reads
-        and updates. If built with Berkeley DB transactions, the probability
-        for database corruption is practically zero, but performance can be
-        slower than with cdb. As a database process gets spawned for each
-        volume, you're probably better off using cdb for sharing home
-        directories for a larger number of users.</para>
+        and updates. The probability for database corruption is practically
+        zero. As a database process gets spawned for each volume, you're
+        probably better off using cdb for sharing home directories for a
+        larger number of users.</para>
+
+        <para>This is the default backend starting with Netatalk 2.1.</para>
       </sect3>
 
       <sect3>
