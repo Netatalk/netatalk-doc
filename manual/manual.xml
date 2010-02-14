@@ -42,11 +42,11 @@
 <!ENTITY dbd.1 SYSTEM "man/man1/dbd.1.xml">
 ]>
 <book id="netatalk-manual">
-  <title revision="0.1 initial version">Netatalk 2.0 Manual</title>
+  <title revision="0.1 initial version">Netatalk 2.1 Manual</title>
   
 
   <bookinfo>
-    <date>31-01-2009</date>
+    <date>14-02-2010</date>
     <releaseinfo>:VERSION:</releaseinfo>
   </bookinfo>
 
