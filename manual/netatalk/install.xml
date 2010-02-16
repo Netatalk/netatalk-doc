@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="installation">
   <chapterinfo>
-    <date>31.01.2009</date>
+    <date>14.02.2010</date>
   </chapterinfo>
 
   <title>Installation</title>
@@ -167,11 +167,7 @@ U netatalk/COPYING
 
         <itemizedlist>
           <listitem>
-            <para>4.1.25</para>
-          </listitem>
-
-          <listitem>
-            <para>4.2.52 (recommended)</para>
+            <para>mimimum 4.6.x</para>
           </listitem>
         </itemizedlist>
 
