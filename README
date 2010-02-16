@@ -12,7 +12,7 @@
 	   Required docbook-xsl stylesheet version is 1.74.3.
 
     3. Fix indexterm bug in xsl stylesheet:
-       inside the xsl stylesheet distribution in manpages/inline.xml remove these lines:
+       inside the xsl stylesheet distribution in manpages/inline.xsl remove these lines:
 
         <!-- * indexterm instances produce groff comments like this: -->
         <!-- * .\" primary: secondary: tertiary -->
