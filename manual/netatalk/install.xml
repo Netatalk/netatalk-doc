@@ -89,8 +89,8 @@
             <para>Authenticate yourself with cvs. Just hit enter for the
             password for the anonymous user.</para>
 
-            <screen><prompt>$&gt;</prompt> <userinput>cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/netatalk login</userinput>
-<computeroutput>Logging in to :pserver:anonymous@cvs.sourceforge.net:2401/cvsroot/netatalk
+            <screen><prompt>$&gt;</prompt> <userinput>cvs -d:pserver:anonymous@netatalk.cvs.sourceforge.net:/cvsroot/netatalk login</userinput>
+<computeroutput>Logging in to :pserver:anonymous@netatalk.cvs.sourceforge.net:2401/cvsroot/netatalk
 CVS password: </computeroutput><userinput>[Enter]</userinput>
 </screen>
           </listitem>
@@ -98,8 +98,7 @@ CVS password: </computeroutput><userinput>[Enter]</userinput>
           <listitem>
             <para>Now get the source:</para>
 
-            <screen><prompt>$&gt;</prompt> <userinput>cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/netatalk
-    -r branch-netatalk-afp-3x-dev co netatalk
+            <screen><prompt>$&gt;</prompt> <userinput>cvs -z3 -d:pserver:anonymous@netatalk.cvs.sourceforge.net:/cvsroot/netatalk co -P netatalk
 </userinput><computeroutput>cvs server: Updating netatalk
 U netatalk/.cvsignore
 U netatalk/CONTRIBUTORS
@@ -114,11 +113,11 @@ U netatalk/COPYING
 
           <listitem>
             <para>Now <command>cd</command> to the netatalk directory and run
-            <command>./autogen.sh</command>. This will create the
+            <command>./bootstrap</command>. This will create the
             <filename>configure</filename> script required in the next
             step.</para>
 
-            <screen><prompt>$&gt;</prompt> <userinput>./autogen.sh</userinput></screen>
+            <screen><prompt>$&gt;</prompt> <userinput>./bootstrap</userinput></screen>
           </listitem>
         </orderedlist>
 
@@ -175,7 +174,7 @@ U netatalk/COPYING
         download it from:</para>
 
         <para><ulink
-        url="http://www.sleepycat.com/download/db/index.shtml">http://www.sleepycat.com/download/db/index.shtml</ulink></para>
+        url="http://www.oracle.com/database/berkeley-db/index.html">http://www.oracle.com/database/berkeley-db/index.html</ulink></para>
 
         <para>and follow the <link linkend="build-bdb">installation
         instructions</link>.</para>
@@ -194,7 +193,13 @@ U netatalk/COPYING
             <para>Required for encrypted passwords. Without it, the password
             will be sent over the network in clear text. OpenSSL is needed for
             the older DHCAST128, libgcrypt is needed for DHX2.</para>
-          </listitem>
+
+            <para>OpenSSL can be downloaded from: <ulink
+            url="http://www.openssl.org/">http://www.openssl.org/</ulink>.</para>
+
+            <para>libgcrypt can be downloaded from: <ulink
+            url="http://directory.fsf.org/project/libgcrypt/">http://directory.fsf.org/project/libgcrypt/</ulink>.</para>
+         </listitem>
 
           <listitem>
             <para>TCP wrappers</para>
@@ -247,8 +252,8 @@ U netatalk/COPYING
             location, and configuration of networked services in enterprise
             networks.</para>
 
-            <para>Mac OS X uses it to locate AFP servers, even though newer
-            version prefer Rendezvous.</para>
+            <para>Mac OS X 10.4 and earlier uses it to locate AFP servers, even though 10.2 and later
+             prefer Bonjour.</para>
 
             <para>You can download OpenSLP from: <ulink
             url="http://www.openslp.org/">http://www.openslp.org/</ulink>.</para>
@@ -353,7 +358,7 @@ U netatalk/COPYING
     <sect2 id="build-bdb">
       <title>Compiling a new Berkeley DB for Netatalk</title>
 
-      <para>Netatalk 2.0 requires Berkeley DB version 4.1.25 or newer. Even if
+      <para>Netatalk 2.1 requires Berkeley DB version 4.6 or newer. Even if
       you already have a supported version of Berkeley DB installed on your
       system, there are several reasons, why you might still want to consider
       building a new version for Netatalk.</para>
