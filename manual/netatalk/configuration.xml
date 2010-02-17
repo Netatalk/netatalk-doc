@@ -408,12 +408,11 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         </indexterm> (Mac OS X 10.6).</para>
 
       <para>AFP3 brought some big changes. For the first time,
-      AppleShare<indexterm>
-          <primary>AppleShare</primary>
-
-          <secondary>Synonym for an AFP server</secondary>
-        </indexterm> Clients can use filenames up to 255 characters (actually
-      255 bytes leading to 85-255 chars depending on the glyphs used), UTF-8
+      AFP3 supports pathnames up to 65535 characters. It is virtually unlimited.
+      Netatalk 2.x supports filenames up to 255 characters because
+      Mac OS X 10.4 and earlier can use it up to 255 characters
+      (actually 255 bytes leading to 85-255 chars depending on the glyphs used),
+      Decomposed UTF-8 (UTF8-MAC)
       is used on the wire and large files (&gt;4GB) are supported.</para>
 
       <para>The afpd daemon offers the fileservices to Apple Clients. It's
@@ -881,7 +880,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
         <para>To support new AFP 3.x and older AFP 2.x clients at the same
         time, afpd needs to be able to convert between the various charsets
-        used. AFP 3.x clients always use UTF-8, AFP 2.2 clients use one of the
+        used. AFP 3.x clients always use UTF8-MAC, AFP 2.x clients use one of the
         Apple codepages.</para>
 
         <para>At the time of this writing, netatalk supports the following
@@ -1197,7 +1196,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
         <para>It depends primarily on your needs and on the kind of Mac OS
         versions you have to support. Basically one should try to use
-        DHCAST128 where possible because of its strength of password
+        DHCAST128 and DHX2 where possible because of its strength of password
         encryption.</para>
 
         <itemizedlist>
@@ -1520,7 +1519,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
         <sect4 id="autosshtunnel">
           <title>Automatically establishing a tunneled AFP connection</title>
 
-          <para>Starting with Mac OS X 10.2 Apple added an "Allow Secure
+          <para>From Mac OS X 10.2 to 10.4, Apple added an "Allow Secure
           Connections Using SSH" checkbox to the "Connect to Server" dialog.
           The idea behind: When the server signals that it can be contacted by
           SSH then Mac OS X' AFP client tries to establish the tunnel and
@@ -1564,7 +1563,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
 
             <listitem>
               <para>You cannot control which machines are logged on by
-              Netatalk tools like <command>nu</command> or
+              Netatalk tools like a
               <command>macusers</command> since all connection attempts seem
               to be made from localhost.</para>
             </listitem>
@@ -1837,7 +1836,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
 
         <manvolnum>5</manvolnum>
       </citerefentry> manual page), some obtain that information in another,
-    operating system specific way (like Netbsd).</para>
+    operating system specific way (like NetBSD).</para>
 
     <para>Since new releases of Linux distributions appear all the time and
     the startup procedure for the other systems mentioned above might change
@@ -1859,18 +1858,6 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
       </listitem>
 
       <listitem>
-        <para>afpd<indexterm>
-            <primary>afpd</primary>
-          </indexterm></para>
-      </listitem>
-
-      <listitem>
-        <para>cnid_metad<indexterm>
-            <primary>cnid_metad</primary>
-          </indexterm> (if the dbd CNID backend is used)</para>
-      </listitem>
-
-      <listitem>
         <para>papd<indexterm>
             <primary>papd</primary>
           </indexterm> (if you want to provide print services via
@@ -1882,6 +1869,25 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
             <primary>timelord</primary>
           </indexterm> (for old style time synchronisation via
         AppleTalk)</para>
+      </listitem>
+
+      <listitem>
+        <para>a2boot<indexterm>
+            <primary>a2boot</primary>
+          </indexterm> (Apple II boot server via AppleTalk,
+        not necessary any longer)</para>
+      </listitem>
+
+      <listitem>
+        <para>cnid_metad<indexterm>
+            <primary>cnid_metad</primary>
+          </indexterm> (if the dbd CNID backend is used)</para>
+      </listitem>
+
+      <listitem>
+        <para>afpd<indexterm>
+            <primary>afpd</primary>
+          </indexterm></para>
       </listitem>
     </itemizedlist>
 

@@ -14,21 +14,21 @@
     <pubdate>26 June, 2004</pubdate>
   </chapterinfo>
 
-  <title>Upgrading from a previous version of Netatalk</title>
+  <title>Upgrading from  Netatalk 1.x</title>
 
   <sect1>
     <title>Overview</title>
 
-    <para>Version 2.0 of the Netatalk suite includes significant changes and
-    enhancements in functionality compared to previous versions. AFP 3.x is
-    now supported which allows UTF-8 encoded filenames of up to 255 bytes
+    <para>Version 2.x of the Netatalk suite includes significant changes and
+    enhancements in functionality compared to 1.x. Netatalk 2.x is
+    now supported which allows UTF8-MAC encoded filenames of up to 255 bytes
     (85-255 chars) in length amongst other things. The Catalogue Node ID
     (CNID) subsystem has been reworked as well and should now be much more
     robust. For an overview of what CNIDs are and why you need them please see
     the <link linkend="CNID-backends">CNID</link> section in the
     manual.</para>
 
-    <para>The downside of these enhancements is that upgrading to Netatalk 2.0
+    <para>The downside of these enhancements is that upgrading to Netatalk 2.x
     is not a process that can be easily automated. Too many factors depend on
     site specific configuration and administrators have to make choices that
     suit their requirements. This document attempts to clarify the issues and
@@ -56,7 +56,7 @@
   <sect1 id="volumes-and-filenames">
     <title>Volumes and filenames</title>
 
-    <para>Previous Netatalk versions saved filenames in the so called
+    <para>Netatalk 1.x saved filenames in the so called
     <emphasis>CAP<indexterm>
         <primary>CAP</primary>
 
@@ -69,12 +69,12 @@
       </indexterm> system, that allowed you to convert filenames to other
     codepages, like ISO-8859-1.</para>
 
-    <para>For Netatalk 2.0 the charset conversion routines had to be
+    <para>For Netatalk 2.x the charset conversion routines had to be
     completely rewritten to support AFP 3.x. For more indepth information on
     character sets please read the <link
     linkend="charsets">Unicode/charsets</link> section in the manual.</para>
 
-    <para>As a consequence, Netatalk 2.0 now stores filenames in UTF-8 by
+    <para>As a consequence, Netatalk 2.x now stores filenames in UTF-8 by
     default. Additionally you <emphasis role="bold">have</emphasis> to specify
     a maccodepage in afpd.conf, if your Mac clients are not using
     <emphasis>MacRoman</emphasis>.</para>
@@ -84,7 +84,7 @@
         <primary>ADv2</primary>
 
         <secondary>AppleDouble v2</secondary>
-      </indexterm>. Netatalk 2.0 is still able to use AD1 files, if
+      </indexterm>. Netatalk 2.x is still able to use AD1 files, if
     configured. Otherwise ADv1<indexterm>
         <primary>ADv1</primary>
 
@@ -93,7 +93,7 @@
     which will prevent you from using this volume with 1.x again.</para>
 
     <warning>
-      <para>Do not share a 1.x volume with Netatalk 2.0 without setting the
+      <para>Do not share a 1.x volume with Netatalk 2.x without setting the
       proper options!</para>
     </warning>
 
@@ -103,7 +103,7 @@
       <para>In case of MacChineseTraditional, MacJapanese or MacKorean,
       This method cannot be used.</para>
       <para>Before upgrading, copy all files to the client. And restore
-      all files to netatalk 2.0.</para>
+      all files to netatalk 2.0.4 or later.</para>
     </warning>
 
     <para></para>
@@ -118,7 +118,7 @@
     <para></para>
 
     <sect2 id="volupgrade">
-      <title>How to upgrade a volume to 2.0</title>
+      <title>How to upgrade a volume to 2.x</title>
 
       <para>To convert the 1.x CAP or NLS encoded volumes on the server, we
       provide the <citerefentry>
@@ -129,16 +129,16 @@
 
       <para>Another option to perform an upgrade, is to copy all files using a
       Mac client. Either copy the volume to a Mac while you are still running
-      1.6, then install 2.0 and copy the data back to a fresh share, or try to
+      1.6, then install 2.x and copy the data back to a fresh share, or try to
       set up the volume with the compatibility options described below and do
       a share to share copy.</para>
     </sect2>
 
     <sect2 id="capvol">
-      <title>How to use a 1.x CAP encoded volume with 2.0</title>
+      <title>How to use a 1.x CAP encoded volume with 2.x</title>
 
       <para>Using a 1.x CAP encoded volume is still possible with Netatalk
-      2.0. To work properly, the following options need to be set, matching
+      2.x. To work properly, the following options need to be set, matching
       your 1.x setup:</para>
 
       <para>afpd.conf:</para>
@@ -187,10 +187,10 @@
     </sect2>
 
     <sect2>
-      <title>How to use a 1.x NLS volume with 2.0</title>
+      <title>How to use a 1.x NLS volume with 2.x</title>
 
       <para>Whether you can still use an 1.x NLS encoded volume with Netatalk
-      2.0 mainly depends on which NLS setting you used with 1.x.</para>
+      2.x mainly depends on which NLS setting you used with 1.x.</para>
 
       <para>Make sure you set the correct <option>maccodepage</option> in
       <filename>afpd.conf</filename> !</para>

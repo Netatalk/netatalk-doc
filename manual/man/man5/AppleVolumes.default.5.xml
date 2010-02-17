@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.31 2009-12-23 13:38:35 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.32 2010-02-17 17:56:33 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -45,8 +45,11 @@
     <para>The volume name is the name that appears in the Chooser ot the
     "connect to server" dialog on Macintoshes to represent the appropriate
     share. If there are spaces in the name, it should be in quotes (i.e. "File
-    Share"). The volume name may not exceed 27 characters in length, and
-    cannot contain the <keycode>':'</keycode> character.</para>
+    Share"). The volume name cannot contain the <keycode>':'</keycode> character.
+    The volume name is mangled if it is very long.
+    Mac codepage volume name is limited to 27 characters.
+    UTF8-MAC volume name is limited to -volnamelen parameter
+    in afpd.conf</para>
 
     <note>
       <para>Each volume has to be configured on a <emphasis
@@ -73,16 +76,18 @@
           <para>Specify the format of the metadata files, which are used for
           saving Mac resource fork as well. Earlier versions used AppleDouble
           V1, the new default format is V2. Starting with Netatalk 2.0, the
-          scheme MacOS X uses currently (10.3.x), is also supported</para>
+          scheme MacOS X 10.3.x uses, is also supported.</para>
 
           <note>
-            <para>Using <option>adouble:osx</option> is <emphasis
-            role="bold">not</emphasis> recommended for production use. Its
-            only aim is to temporarely share eg. FAT32 formatted FireWire
+            <para><option>adouble:osx</option> <emphasis
+            role="bold">cannot</emphasis> be treated normally any longer.
+            Its only aim was to temporarely share eg. FAT32 formatted FireWire
             harddrives written on a Macintosh with afpd. Apple's metadata
             scheme lacks several essential features, so using it on the
             server's side will break both CNIDs and MacOS 9
-            compatibility</para>
+            compatibility.
+            AppleDouble file of Mac OS X 10.6 is incompatible to
+            V1 and V2.</para>
           </note>
         </listitem>
       </varlistentry>
@@ -544,9 +549,6 @@
       </varlistentry>
     </variablelist>
 
-    <para>When using variable substitution in the volume name, always keep in
-    mind, not to exceed the 27 characters limit</para>
-
     <example>
       <title>Using variable substitution when defining volumes</title>
 
@@ -878,7 +880,8 @@
               <term>prodos</term>
 
               <listitem>
-                <para>Provides compatibility with Apple II clients.</para>
+                <para>Provides compatibility with Apple II clients.
+                (legacy)</para>
               </listitem>
             </varlistentry>
           </variablelist>

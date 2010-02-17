@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="netatalk.conf.5">
-  <!--  $Id: netatalk.conf.5.xml,v 1.9 2009-06-09 11:06:32 franklahm Exp $ -->
+  <!--  $Id: netatalk.conf.5.xml,v 1.10 2010-02-17 17:56:33 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>netatalk.conf</refentrytitle>
@@ -54,7 +54,7 @@
 
     <para><emphasis remap="B">:ETCDIR:/netatalk.conf</emphasis> is the
     configuration file used by afpd to determine what portions of the file
-    system will be shared via Appletalk, as well as their behaviors.</para>
+    system will be shared via AFP, as well as their behaviors.</para>
 
     <para>Any line not prefixed with <emphasis remap="B">#</emphasis> is
     interpreted. The configuration lines are composed like:</para>

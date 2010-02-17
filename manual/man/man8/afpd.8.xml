@@ -133,11 +133,20 @@
       </varlistentry>
 
       <varlistentry>
+        <term>-V</term>
+
+        <listitem>
+          <para>Print verbose information and exit.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term>-I</term>
 
         <listitem>
           <para>Use a platform specific icon. (Equivalent to
-          <option>-icon</option> in <filename>afpd.conf</filename>.)</para>
+          <option>-icon</option> in <filename>afpd.conf</filename>.)
+          (Recent Mac OS don't display it.)</para>
         </listitem>
       </varlistentry>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.30 2010-01-21 14:15:45 didg Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.31 2010-02-17 17:56:33 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -203,8 +203,8 @@
     <title>Codepage Options</title>
 
     <para>With OS X Apple introduced the AFP3 protocol. One of the big changes
-    was, that AFP3 uses Unicode names encoded as UTF-8 decomposed. Previous
-    AFP/OS versions used codepages like MacRoman, MacCentralEurope,
+    was, that AFP3 uses Unicode names encoded as Decomposed UTF-8 (UTF8-MAC).
+    Previous AFP/OS versions used codepages like MacRoman, MacCentralEurope,
     etc.</para>
 
     <para>To be able to serve AFP3 and older clients at the same time,
@@ -216,7 +216,7 @@
     users.</para>
 
     <para>As <command>afpd</command> needs to interact with unix operating
-    system as well, it need's to be able to convert from UTF-8/MacCodepage to
+    system as well, it need's to be able to convert from UTF8-MAC/MacCodepage to
     the unix codepage. By default <command>afpd</command> uses the systems
     LOCALE, or ASCII if your system doesn't support locales. You can set the
     unix codepage using the <option>-unixcodepage</option> option. If you're
@@ -313,7 +313,7 @@
           <para>Enables or disables AFP-over-Appletalk. If
           <option>-proxy</option> is specified, you must instead use
           <option>-uamlist ""</option> to prevent DDP connections from
-          working.</para>
+          working. (default is -noddp)</para>
         </listitem>
       </varlistentry>
 
@@ -321,7 +321,7 @@
         <term>-[no]tcp</term>
 
         <listitem>
-          <para>Enables or disables AFP-over-TCP</para>
+          <para>Enables or disables AFP-over-TCP (default is -tcp)</para>
         </listitem>
       </varlistentry>
 
@@ -329,7 +329,7 @@
         <term>-transall</term>
 
         <listitem>
-          <para>Make both available (default)</para>
+          <para>Make both available</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -343,7 +343,7 @@
         <term>-advertise_ssh</term>
 
         <listitem>
-          <para>Allows Mac OS X clients (10.3.3 or above) to automagically
+          <para>Allows Mac OS X clients (10.3.3-10.4) to automagically
           establish a tunneled AFP connection through SSH. If this option is
           set, the server's answers to client's FPGetSrvrInfo requests contain
           an additional entry. It depends on both client's settings and a
@@ -538,7 +538,7 @@
           significant higher load on your network!</para>
 
           <note>
-            <para>Do not use this option any longer as Netatalk 2.0 correctly
+            <para>Do not use this option any longer as Netatalk 2.x correctly
             supports server notifications, allowing connected clients to
             update folder listings in case another client changed the
             contents.</para>
@@ -579,7 +579,7 @@
         <term>-[no]icon</term>
 
         <listitem>
-          <para>[Dont't] Use the platform-specific icon</para>
+          <para>[Dont't] Use the platform-specific icon. Recent Mac OS don't display it any longer.</para>
         </listitem>
       </varlistentry>
 
