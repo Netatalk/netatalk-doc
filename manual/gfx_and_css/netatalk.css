@@ -109,7 +109,7 @@ P {
 DIV.caution, DIV.tip, DIV.important {
 	border: dashed 1px;
 	background-color: #EEEEFF;
-	width: 40em;
+	width: 60em;
 	padding: 5px;
 }
 
@@ -122,14 +122,14 @@ PRE.programlisting, PRE.screen {
 DIV.warning { 
 	border: dashed 1px;
 	background-color: #BFBFBF;
-	width: 40em;
+	width: 60em;
 	padding: 5px;
 } 
 
 DIV.note { 
 	border: dashed 1px;
 	background-color: #f2f2f2;
-	width: 40em;
+	width: 60em;
 	padding: 5px;
 } 
 
