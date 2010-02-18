@@ -407,12 +407,11 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
           <secondary>Mac OS X 10.6</secondary>
         </indexterm> (Mac OS X 10.6).</para>
 
-      <para>AFP3 brought some big changes. For the first time,
-      AFP3 supports pathnames up to 65535 characters. It is virtually unlimited.
-      Netatalk 2.x supports filenames up to 255 characters because
-      Mac OS X 10.4 and earlier can use it up to 255 characters
-      (actually 255 bytes leading to 85-255 chars depending on the glyphs used),
-      Decomposed UTF-8 (UTF8-MAC)
+      <para>AFP3 brought some big changes. For the first time, AFP3 supports
+      pathnames up to 65535 characters. It is virtually unlimited. Netatalk
+      2.x supports filenames up to 255 characters because Mac OS X 10.4 and
+      earlier can use it up to 255 characters (actually 255 bytes leading to
+      85-255 chars depending on the glyphs used), Decomposed UTF-8 (UTF8-MAC)
       is used on the wire and large files (&gt;4GB) are supported.</para>
 
       <para>The afpd daemon offers the fileservices to Apple Clients. It's
@@ -671,6 +670,26 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
       </sect3>
 
       <sect3>
+        <title>tdb<indexterm>
+            <primary>tdb</primary>
+
+            <secondary>"tdb" CNID backend</secondary>
+          </indexterm></title>
+
+        <para><abbrev>tdb</abbrev> is another persistent CNID database, it's
+        Samba's <emphasis>Trivial Database</emphasis>. It could be used
+        instead of <abbrev>cdb</abbrev> for user volumes.<important>
+            <para>Only ever use it for volumes that are
+            <emphasis>not</emphasis> shared and accessed by multiple clients
+            at once !</para>
+          </important>This backend is also used internally (as in-memory CNID
+        database) as a fallback in case opening the primary database (Netatalk
+        2.1-beta1: only for <abbrev>cdb</abbrev>) can't be opened, because
+        <abbrev>tdb</abbrev> can work as in-memory database. This of course
+        means upon restart the CNIDs are gone. </para>
+      </sect3>
+
+      <sect3>
         <title>last<indexterm>
             <primary>Last</primary>
 
@@ -880,8 +899,8 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
 
         <para>To support new AFP 3.x and older AFP 2.x clients at the same
         time, afpd needs to be able to convert between the various charsets
-        used. AFP 3.x clients always use UTF8-MAC, AFP 2.x clients use one of the
-        Apple codepages.</para>
+        used. AFP 3.x clients always use UTF8-MAC, AFP 2.x clients use one of
+        the Apple codepages.</para>
 
         <para>At the time of this writing, netatalk supports the following
         Apple codepages:</para>
@@ -1563,9 +1582,8 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
 
             <listitem>
               <para>You cannot control which machines are logged on by
-              Netatalk tools like a
-              <command>macusers</command> since all connection attempts seem
-              to be made from localhost.</para>
+              Netatalk tools like a <command>macusers</command> since all
+              connection attempts seem to be made from localhost.</para>
             </listitem>
 
             <listitem>
@@ -1874,8 +1892,8 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
       <listitem>
         <para>a2boot<indexterm>
             <primary>a2boot</primary>
-          </indexterm> (Apple II boot server via AppleTalk,
-        not necessary any longer)</para>
+          </indexterm> (Apple II boot server via AppleTalk, not necessary any
+        longer)</para>
       </listitem>
 
       <listitem>
