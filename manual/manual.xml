@@ -6,6 +6,7 @@
 <!ENTITY Install SYSTEM "netatalk/install.xml">
 <!ENTITY Upgrade SYSTEM "netatalk/upgrade.xml">
 <!ENTITY Configuration SYSTEM "netatalk/configuration.xml">
+<!ENTITY FAQ SYSTEM "netatalk/faq.xml">
 
 <!ENTITY atalkd.8 SYSTEM "man/man8/atalkd.8.xml">
 <!ENTITY afpd.8 SYSTEM "man/man8/afpd.8.xml">
@@ -78,6 +79,9 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
   <?latex \cleardoublepage ?>
 
   &Upgrade;
+  <?latex \cleardoublepage ?>
+
+  &FAQ;
   <?latex \cleardoublepage ?>
 
   <chapter id="man-pages">

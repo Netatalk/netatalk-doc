@@ -1,53 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="FAQ" revision="0.1" revisionflag="added">
-  <chapterinfo>
-    <date>28-11-2003</date>
-
-    <author>
-      <firstname>Karen A.</firstname>
-
-      <surname>Swanberg</surname>
-
-      <contrib>initial version</contrib>
-    </author>
-
-    <author>
-      <firstname>Björn</firstname>
-
-      <surname>Fernhomberg</surname>
-
-      <contrib>port to docbook/XML</contrib>
-    </author>
-
-    <pubdate>(01 December 2003)</pubdate>
-
-    <revhistory>
-      <revision>
-        <revnumber>0.1</revnumber>
-
-        <date>11-28-2003</date>
-
-        <revdescription>
-          <para>docbook import</para>
-        </revdescription>
-      </revision>
-    </revhistory>
-  </chapterinfo>
-
+<chapter id="FAQ">
   <title>FAQ</title>
 
   <sect1>
     <title>Where can I get more information on Netatalk?</title>
 
-    <para>Netatalk&#39;s home page can be found at: </para>
+    <para>Netatalk's home page can be found at:</para>
 
-    <para><ulink url="http://netatalk.sourceforge.net/">http://netatalk.sourceforge.net/</ulink>
-    </para>
+    <para><ulink
+    url="http://netatalk.sourceforge.net/">http://netatalk.sourceforge.net/</ulink></para>
 
     <para>Netatalk is maintained at SourceForge. The Netatalk project page on
     SourceForge is located at:</para>
 
-    <para> <ulink url="http://sourceforge.net/projects/netatalk/">http://sourceforge.net/projects/netatalk/</ulink></para>
+    <para><ulink
+    url="http://sourceforge.net/projects/netatalk/">http://sourceforge.net/projects/netatalk/</ulink></para>
 
     <para>There are (at least) two very active e-mail lists to which you can
     subscribe. The first, netatalk-admins, is for usage and setup/compile
@@ -55,24 +22,67 @@
     at:</para>
 
     <para><ulink
-    url="http://lists.sourceforge.net/lists/listinfo/netatalk-admins">http://lists.sourceforge.net/lists/listinfo/netatalk-admins</ulink>
-    </para>
+    url="http://lists.sourceforge.net/lists/listinfo/netatalk-admins">http://lists.sourceforge.net/lists/listinfo/netatalk-admins</ulink></para>
 
-    <para>This can be very high volume, but usually a few messages a day.</para>
+    <para>This can be very high volume, but usually a few messages a
+    day.</para>
 
     <para>Netatalk-devel list is more specific to coding and testing. The
     archive and more information can found at:</para>
 
-    <para> <ulink url="???">http://lists.sourceforge.net/lists/listinfo/netatalk-devel</ulink>
-    </para>
+    <para><ulink
+    url="???">http://lists.sourceforge.net/lists/listinfo/netatalk-devel</ulink></para>
 
     <para>This list varies in volume, but is usually moderately active.</para>
+  </sect1>
 
-    <para>There are other netatalk information sites. Some of these are no
-    longer actively updated, some are site-specific. The informations
-    presented on those sites are rather outdated, and may not apply to this
-    release anymore: http://www.anders.com/projects/netatalk/
-    http://www.faredge.com.au/netatalk/index.html</para>
+  <sect1>
+    <title>How do I pronounce netatalk?</title>
+
+    <para>There is no specific pronunciation, choose whatever you like
+    most:</para>
+
+    <informaltable>
+      <tgroup cols="2">
+        <tbody>
+          <row>
+            <entry>ネットーク</entry>
+
+            <entry>nettouku</entry>
+          </row>
+
+          <row>
+            <entry>ネタトーク</entry>
+
+            <entry>neta touku</entry>
+          </row>
+
+          <row>
+            <entry>ネドトーク</entry>
+
+            <entry>nedo touku</entry>
+          </row>
+
+          <row>
+            <entry>ネドゥトーク</entry>
+
+            <entry>nedu touku</entry>
+          </row>
+
+          <row>
+            <entry>ネラトーク</entry>
+
+            <entry>nera touku</entry>
+          </row>
+
+          <row>
+            <entry>ネットエートーク</entry>
+
+            <entry>net ay touku</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
   </sect1>
 
   <sect1>
@@ -89,33 +99,17 @@
   <sect1>
     <title>Is there an RPM, package, or tarball for my platform?</title>
 
-    <para>Perhaps. These vary in how often they&#39;re updated:</para>
+    <para>Perhaps. These vary in how often they're updated:</para>
 
-    <para>FreeBSD port: /usr/ports/net/netatalk - maintained by Joe Clark</para>
+    <para>FreeBSD port: /usr/ports/net/netatalk - maintained by Joe
+    Clark</para>
 
     <para>SuSE Linux included in the distribution</para>
 
-    <para>OpenBSD port: /usr/ports/net/netatalk/ - not actively maintained</para>
+    <para>OpenBSD port: /usr/ports/net/netatalk/ - not actively
+    maintained</para>
 
     <para>Debian GNU/Linux included in all current distributions</para>
-
-    <para>RedHat Linux included in the distribution</para>
-  </sect1>
-
-  <sect1>
-    <title>I can&#39;t seem to use passwords longer than 8 characters for my
-    Netatalk accounts / I would like to use encrypted passwords to
-    authenticate to the Netatalk server.How can I fix that?</title>
-
-    <para>Update to a newer version of AppleShare Client (I think the most
-    recent is 3.8.8). This allows longer passwords, and will allow you to use
-    encrypted passwords. Set which way you would like to authenticate in
-    either afpd.conf or netatalk.conf, depending on your setup.</para>
-
-    <para>For more information on the AppleShare Client from Apple, and which
-    clients are needed for which MacOS, see <ulink
-    url="http://til.info.apple.com/techinfo.nsf/artnum/n60792?OpenDocument&#38;software">http://til.info.apple.com/techinfo.nsf/artnum/n60792?OpenDocument&#38;software</ulink>
-    (this site requires cookies, and a registration and sign-in).</para>
   </sect1>
 
   <sect1>
@@ -125,12 +119,12 @@
     <para>The .AppleDouble folders hold the resource fork information for the
     Mac files, plus other attributes which are not normally stored by Unix.
     For this reason, when you want to move files around in your Mac volumes,
-    it&#39;s a good idea to do it from the Mac side (as opposed to from the
-    Unix side, or Samba), unless you make absolutely sure you get the
-    .AppleDouble directories. These directories are often hidden from the
-    Samba side, via the veto files configuration. You can also set Netatalk to
-    not create an .AppleDouble directory unless it absolutely needs it, by
-    setting the noadouble setting in AppleVolumes.default.</para>
+    it's a good idea to do it from the Mac side (as opposed to from the Unix
+    side, or Samba), unless you make absolutely sure you get the .AppleDouble
+    directories. These directories are often hidden from the Samba side, via
+    the veto files configuration. You can also set Netatalk to not create an
+    .AppleDouble directory unless it absolutely needs it, by setting the
+    noadouble setting in AppleVolumes.default.</para>
 
     <para>For further information see the chapter about special folders in the
     manual.</para>
@@ -147,25 +141,27 @@
 </programlisting></para>
 
     <para>Previous version had a problem if the first IP-address in /etc/hosts
-    was the local-loopback address. We believe this is fixed in this version.</para>
+    was the local-loopback address. We believe this is fixed in this
+    version.</para>
   </sect1>
 
   <sect1>
-    <title>I&#39;m having problems with the Trash folder: either when someone
+    <title>I'm having problems with the Trash folder: either when someone
     drags files into it, the system wants them to delete them immediately, or
-    files get stuck in there and won&#39;t delete.</title>
+    files get stuck in there and won't delete.</title>
 
-    <para><command>chmod</command> the Network Trash folder to 2775 (<filename>/home/public/Network
-    Trash Folder</filename> for instance).</para>
+    <para><command>chmod</command> the Network Trash folder to 2775
+    (<filename>/home/public/Network Trash Folder</filename> for
+    instance).</para>
 
     <para>Up to the current Panther (10.3.1) release, OS X does not use the
-    Network Trash Folder. There&#39;s nothing we can do about it.</para>
+    Network Trash Folder. There's nothing we can do about it.</para>
   </sect1>
 
   <sect1>
-    <title>The daemons aren&#39;t starting, things aren&#39;t showing up in
-    the Chooser, and I get a message like this in the logs: afpd[####]:
-    Can&#39;t register Tests:AFPServer@*</title>
+    <title>The daemons aren't starting, things aren't showing up in the
+    Chooser, and I get a message like this in the logs: afpd[####]: Can't
+    register Tests:AFPServer@*</title>
 
     <para>Please make sure atalkd started and your platform supports
     AppleTalk.</para>
@@ -175,7 +171,7 @@
     fxp0, lo0) alone on a line in atalkd.conf, and reboot. When atalkd starts,
     it will populate the file with a line such as:</para>
 
-    <programlisting> le1 -seed -phase 2 -addr 66.6 -net 66-67 -zone &#34;No Parking&#34;</programlisting>
+    <programlisting> le1 -seed -phase 2 -addr 66.6 -net 66-67 -zone "No Parking"</programlisting>
 
     <para>To find your network interface, run <screen><prompt>%</prompt><userinput>ifconfig -a | more</userinput></screen>and
     see which interface has your IP address. Use that one.</para>
@@ -186,14 +182,16 @@
     I enable this feature? Every time I try I get an error that it was unable
     to save the password.</title>
 
-    <para>Use <option>-[no]setpassword</option> in <filename>afpd.conf</filename>.
-    This enables or disables the ability of clients to change their passwords.</para>
+    <para>Use <option>-[no]setpassword</option> in
+    <filename>afpd.conf</filename>. This enables or disables the ability of
+    clients to change their passwords.</para>
   </sect1>
 
   <sect1>
-    <title>Can a mount a Mac volume on my Unix machine?</title>
+    <title>Can I mount a Mac volume on my Unix machine?</title>
 
-    <para>Well, maybe. MacOS X obviously might be able to do this with NFS.</para>
+    <para>Well, maybe. MacOS X obviously might be able to do this with
+    NFS.</para>
 
     <para>Sometime ago there was a linux kernel module called afpfs that
     supported this. It has never been ported to the more recent 2.2 and 2.4
@@ -205,16 +203,17 @@
   </sect1>
 
   <sect1>
-    <title>Can I run Samba and Netatalk together to access the same files?</title>
+    <title>Can I run Samba and Netatalk together to access the same
+    files?</title>
 
-    <para>Sure. Lots of us do. But there are some concerns. Quite often
-    it&#39;s useful, for instance, to hide files of one OS from the other. See
-    the AppleVolumes.default file in Netatalk, and investigate the veto files
+    <para>Sure. Lots of us do. But there are some concerns. Quite often it's
+    useful, for instance, to hide files of one OS from the other. See the
+    AppleVolumes.default file in Netatalk, and investigate the veto files
     option in Samba. (See the README.veto file.)</para>
 
-    <para>Also, when copying and moving files created on the Mac, it&#39;s
-    better to do that from the Mac, rather than from the Unix server or from
-    Samba. This is because the .AppleDouble folders hold the resource fork
+    <para>Also, when copying and moving files created on the Mac, it's better
+    to do that from the Mac, rather than from the Unix server or from Samba.
+    This is because the .AppleDouble folders hold the resource fork
     information for the Mac files, plus other attributes which are not
     normally stored by Unix.</para>
 
@@ -227,7 +226,7 @@
     <title>How can I set Netatalk to hide some files created on the Samba (or
     Unix) sides?</title>
 
-    <para>AppleVolumes(.system or .default?) allows you to hide certain files.</para>
+    <para>AppleVolumes.default allows you to hide certain files.</para>
 
     <para>This might be a good thing to set on, say, .cshrc, ssh keys, and the
     like.</para>
