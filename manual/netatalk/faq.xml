@@ -37,55 +37,6 @@
   </sect1>
 
   <sect1>
-    <title>How do I pronounce netatalk?</title>
-
-    <para>There is no specific pronunciation, choose whatever you like
-    most:</para>
-
-    <informaltable>
-      <tgroup cols="2">
-        <tbody>
-          <row>
-            <entry>ネットーク</entry>
-
-            <entry>nettouku</entry>
-          </row>
-
-          <row>
-            <entry>ネタトーク</entry>
-
-            <entry>neta touku</entry>
-          </row>
-
-          <row>
-            <entry>ネドトーク</entry>
-
-            <entry>nedo touku</entry>
-          </row>
-
-          <row>
-            <entry>ネドゥトーク</entry>
-
-            <entry>nedu touku</entry>
-          </row>
-
-          <row>
-            <entry>ネラトーク</entry>
-
-            <entry>nera touku</entry>
-          </row>
-
-          <row>
-            <entry>ネットエートーク</entry>
-
-            <entry>net ay touku</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </informaltable>
-  </sect1>
-
-  <sect1>
     <title>What is this I keep seeing about asun?</title>
 
     <para>Before Netatalk moved to SourceForge, Adrian Sun (asun) had written
