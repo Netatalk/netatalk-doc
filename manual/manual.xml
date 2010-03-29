@@ -18,6 +18,7 @@
 <!ENTITY afp_acls.8 SYSTEM "man/man8/afp_acls.8.xml">
 <!ENTITY netatalk.conf.5 SYSTEM "man/man5/netatalk.conf.5.xml">
 <!ENTITY afpd.conf.5 SYSTEM "man/man5/afpd.conf.5.xml">
+<!ENTITY afp_signature.conf.5 SYSTEM "man/man5/afp_signature.conf.5.xml">
 <!ENTITY AppleVolumes.default.5 SYSTEM "man/man5/AppleVolumes.default.5.xml">
 <!ENTITY atalkd.conf.5 SYSTEM "man/man5/atalkd.conf.5.xml">
 <!ENTITY papd.conf.5 SYSTEM "man/man5/papd.conf.5.xml">
@@ -94,6 +95,8 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
     &afp_acls.8;
 
     &afp_ldap.conf.5;
+
+    &afp_signature.conf.5;
 
     &afpd.8;
 

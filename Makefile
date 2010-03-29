@@ -39,6 +39,7 @@ manpages = manpages/achfile.1 \
 		manpages/nbp_name.3 \
 		manpages/atalk.4 \
 		manpages/afpd.conf.5  \
+		manpages/afp_signature.conf.5  \
 		manpages/afp_ldap.conf.5 \
 		manpages/papd.conf.5 \
 		manpages/AppleVolumes.default.5 \

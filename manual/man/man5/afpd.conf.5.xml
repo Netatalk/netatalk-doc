@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.31 2010-02-17 17:56:33 franklahm Exp $ -->
+  <!--  $Id: afpd.conf.5.xml,v 1.32 2010-03-29 20:13:26 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
@@ -611,16 +611,19 @@
       </varlistentry>
 
       <varlistentry>
-        <term>-signature { user:&lt;text&gt; | host }</term>
+        <term>-signature { user:&lt;text&gt; | auto }</term>
 
         <listitem>
           <para>Specify a server signature. This option is useful while
           running multiple independent instances of afpd on one machine (eg.
-          in clustered environments, to provide fault isolation etc.). "host"
-          signature type allows afpd generating signature automatically (based
-          on machine primary IP address). "user" signature type allows
-          administrator to set up a signature string manually. The maximum
-          length is 16 characters</para>
+          in clustered environments, to provide fault isolation etc.). 
+          Default is "auto". "auto" signature type allows afpd generating
+          signature and saving it to
+          <filename>:ETCDIR:/afp_signature.conf</filename> automatically
+          (based on random number). "host" signature type switches back to
+          "auto" because it is obsoleted. "user" signature type allows
+          administrator to set up a signature string manually.
+          The maximum length is 16 characters.</para>
 
           <example>
             <title>Three server definitions using 2 different server
@@ -815,6 +818,10 @@ third -signature user:ADMINS</programlisting></para>
         <manvolnum>1</manvolnum>
       </citerefentry>, <citerefentry>
         <refentrytitle>AppleVolumes.default</refentrytitle>
+
+        <manvolnum>5</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>afp_signature.conf</refentrytitle>
 
         <manvolnum>5</manvolnum>
       </citerefentry></para>
