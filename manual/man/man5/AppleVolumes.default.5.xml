@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.33 2010-03-31 11:33:24 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.34 2010-03-31 12:52:39 hat001 Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -208,7 +208,7 @@
               <term>ad</term>
 
               <listitem>
-                <para>Use files in <emphasis>AppleDouble</emphasis>
+                <para>Use files in <emphasis>.AppleDouble</emphasis>
                 directories.</para>
               </listitem>
             </varlistentry>
