@@ -7,6 +7,7 @@
 <!ENTITY Upgrade SYSTEM "netatalk/upgrade.xml">
 <!ENTITY Configuration SYSTEM "netatalk/configuration.xml">
 
+<!ENTITY ad.1 SYSTEM "man/man1/ad.1.xml">
 <!ENTITY atalkd.8 SYSTEM "man/man8/atalkd.8.xml">
 <!ENTITY afpd.8 SYSTEM "man/man8/afpd.8.xml">
 <!ENTITY cnid_dbd.8 SYSTEM "man/man8/cnid_dbd.8.xml">
@@ -48,7 +49,7 @@
   
 
   <bookinfo>
-    <date>14-02-2010</date>
+    <date>31-03-2010</date>
     <releaseinfo>:VERSION:</releaseinfo>
   </bookinfo>
 
@@ -88,6 +89,8 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
 
     &achfile.1;
     
+    &ad.1;
+
     &aecho.1;
 
     &afile.1;
