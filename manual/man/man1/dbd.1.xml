@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="dbd.1">
-  <!--  $Id: dbd.1.xml,v 1.4 2009-12-23 11:48:55 franklahm Exp $ -->
+  <!--  $Id: dbd.1.xml,v 1.5 2010-03-31 13:18:06 hat001 Exp $ -->
 
   <refmeta>
     <refentrytitle>dbd</refentrytitle>
@@ -73,7 +73,7 @@
             </listitem>
 
             <listitem>
-              <para>Test if AppleDouble directories exist</para>
+              <para>Test if .AppleDouble directories exist</para>
             </listitem>
 
             <listitem>
@@ -85,7 +85,7 @@
             </listitem>
 
             <listitem>
-              <para>Report directories inside AppleDouble directories</para>
+              <para>Report directories inside .AppleDouble directories</para>
             </listitem>
 
             <listitem>
@@ -128,7 +128,7 @@
             </listitem>
 
             <listitem>
-              <para>Ensure AppleDouble directories exist</para>
+              <para>Ensure .AppleDouble directories exist</para>
             </listitem>
 
             <listitem>
@@ -140,7 +140,7 @@
             </listitem>
 
             <listitem>
-              <para>Report directories inside AppleDouble directories</para>
+              <para>Report directories inside .AppleDouble directories</para>
             </listitem>
 
             <listitem>
