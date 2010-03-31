@@ -30,6 +30,7 @@
 <!ENTITY afile.1 SYSTEM "man/man1/afile.1.xml">
 <!ENTITY afppasswd.1 SYSTEM "man/man1/afppasswd.1.xml">
 <!ENTITY apple_cp.1 SYSTEM "man/man1/apple_cp.1.xml">
+<!ENTITY apple_dump.1 SYSTEM "man/man1/apple_dump.1.xml">
 <!ENTITY apple_mv.1 SYSTEM "man/man1/apple_mv.1.xml">
 <!ENTITY apple_rm.1 SYSTEM "man/man1/apple_rm.1.xml">
 <!ENTITY getzones.1 SYSTEM "man/man1/getzones.1.xml">
@@ -110,6 +111,8 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
     &AppleVolumes.default.5;
 
     &apple_cp.1;
+
+    &apple_dump.1;
 
     &apple_mv.1;
 
