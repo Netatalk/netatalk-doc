@@ -22,7 +22,7 @@
           <primary>afpd</primary>
         </indexterm></command>
 
-      <arg choice="opt">-duptDTvI</arg>
+      <arg choice="opt">-duptDTI</arg>
 
       <arg choice="opt">-f <replaceable>defaultvolumes</replaceable></arg>
 
@@ -40,11 +40,24 @@
 
       <arg choice="opt">-L <replaceable>message</replaceable></arg>
 
-      <arg choice="opt">-F <replaceable>config</replaceable></arg>
+      <arg choice="opt">-F <replaceable>configfile</replaceable></arg>
 
-      <arg choice="opt">-U <replaceable>uamsv</replaceable></arg>
+      <arg choice="opt">-U <replaceable>uams</replaceable></arg>
 
       <arg choice="opt">-m <replaceable>umask</replaceable></arg>
+
+      <sbr />
+
+      <command>afpd<indexterm>
+          <primary>afpd</primary>
+        </indexterm></command>
+
+      <group choice="plain">
+        <arg choice="plain">-v</arg>
+        <arg choice="plain">-V</arg>
+        <arg choice="plain">-h</arg>
+      </group>
+
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -137,6 +150,14 @@
 
         <listitem>
           <para>Print verbose information and exit.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-h</term>
+
+        <listitem>
+          <para>Print help and exit.</para>
         </listitem>
       </varlistentry>
 
@@ -357,6 +378,7 @@
 
       <varlistentry>
         <term><filename>~/AppleVolumes</filename></term>
+        <term><filename>~/.AppleVolumes</filename></term>
 
         <listitem>
           <para>user's list of volumes to mount</para>
