@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.35 2010-04-04 14:17:03 hat001 Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.36 2010-04-04 16:07:52 hat001 Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -804,6 +804,14 @@
                 Note that netatalk must be compiled with dropkludge support
                 for this to function. <emphasis>Warning</emphasis>: This
                 option is deprecated and might not work as expected.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>dropkludge</term>
+
+              <listitem>
+                <para>same as "dropbox".</para>
               </listitem>
             </varlistentry>
 
