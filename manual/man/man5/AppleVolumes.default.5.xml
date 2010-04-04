@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.34 2010-03-31 12:52:39 hat001 Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.35 2010-04-04 14:17:03 hat001 Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -348,7 +348,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>perm|fperm|dperm:[mode]</term>
+        <term>perm|fperm|dperm:<replaceable>[mode]</replaceable></term>
 
         <listitem>
           <para>Add(or) with the client requested permissions:
@@ -362,6 +362,14 @@
 
             <programlisting>/path/to/volume "Workgroup" options:upriv dperm:0770 fperm:0660</programlisting>
           </example>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>umask:<replaceable>[mode]</replaceable></term>
+
+        <listitem>
+          <para>set perm mask.</para>
         </listitem>
       </varlistentry>
 
