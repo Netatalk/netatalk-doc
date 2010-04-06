@@ -22,7 +22,6 @@ manpages = manpages/achfile.1 \
 		manpages/aecho.1 \
 		manpages/afile.1 \
 		manpages/afppasswd.1 \
-		manpages/apple_cleanup.1 \
 		manpages/apple_dump.1 \
 		manpages/apple_cp.1 \
 		manpages/apple_mv.1 \
