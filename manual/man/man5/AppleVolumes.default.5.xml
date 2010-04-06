@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.37 2010-04-06 11:52:43 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.38 2010-04-06 11:59:21 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -58,13 +58,14 @@
 
     <para>It is possible to specify default options for all volumes with a
     <emphasis>:DEFAULT: </emphasis>line preceeding these volume
-    definitions:
-    <example>
-        <title>:DEFAULT: configuration line</title>
+    definitions:</para>
 
-        <para>:DEFAULT: options:usedots dbpath:/var/dbd/AppleDB/$v
-        dperm:0775 fperm:0664</para>
-      </example></para>
+    <example>
+      <title>:DEFAULT: configuration line</title>
+
+      <para>:DEFAULT: options:usedots dbpath:/var/dbd/AppleDB/$v dperm:0775
+      fperm:0664</para>
+    </example>
 
     <para>The possible options and their meanings are:</para>
 
