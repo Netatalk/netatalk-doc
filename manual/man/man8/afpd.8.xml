@@ -13,7 +13,7 @@
   <refnamediv>
     <refname>afpd</refname>
 
-    <refpurpose>AppleTalk Filing Protocol daemon</refpurpose>
+    <refpurpose>Apple Filing Protocol daemon</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -64,7 +64,7 @@
   <refsect1>
     <title>Description</title>
 
-    <para><command>afpd</command> provides an AppleTalk Filing Protocol (AFP)
+    <para><command>afpd</command> provides an Apple Filing Protocol (AFP)
     interface to the Unix file system. It is normally started at boot time
     from /etc/rc.</para>
 
