@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.38 2010-04-06 11:59:21 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.39 2010-04-08 05:54:01 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">06 Apr 2010</refmiscinfo>
+    <refmiscinfo class="date">31 Mar 2010</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -58,14 +58,12 @@
 
     <para>It is possible to specify default options for all volumes with a
     <emphasis>:DEFAULT: </emphasis>line preceeding these volume
-    definitions:</para>
+    definitions:<example>
+        <title>:DEFAULT: configuration line</title>
 
-    <example>
-      <title>:DEFAULT: configuration line</title>
-
-      <para>:DEFAULT: options:usedots dbpath:/var/dbd/AppleDB/$v dperm:0775
-      fperm:0664</para>
-    </example>
+        <para>:DEFAULT: options:upriv,usedots dbpath:/var/dbd/AppleDB/$v
+        dperm:0775 fperm:0664</para>
+      </example></para>
 
     <para>The possible options and their meanings are:</para>
 
@@ -315,10 +313,12 @@
             </varlistentry>
 
             <varlistentry>
-              <term>noupriv</term>
+              <term>upriv</term>
 
               <listitem>
-                <para>Don't use AFP3 unix privileges. See also:
+                <para>use AFP3 unix privileges. Become familiar with the new
+                "unix privileges" AFP permissions concepts in MacOS X before
+                using this option. See also:
                 <option>perm|fperm|dperm</option>.</para>
               </listitem>
             </varlistentry>
