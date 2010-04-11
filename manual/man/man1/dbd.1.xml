@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="dbd.1">
-  <!--  $Id: dbd.1.xml,v 1.5 2010-03-31 13:18:06 hat001 Exp $ -->
+  <!--  $Id: dbd.1.xml,v 1.6 2010-04-11 07:00:27 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>dbd</refentrytitle>
@@ -31,7 +31,7 @@
 
         <arg choice="plain">-s <arg>n</arg></arg>
 
-        <arg choice="plain">-r <arg>-f</arg></arg>
+        <arg choice="plain">-r <arg>-c|-f</arg></arg>
 
         <arg choice="plain">-u</arg>
       </group>
@@ -162,11 +162,17 @@
               <term>Options:</term>
 
               <listitem>
+                <para><option>-c</option> Dont create .AppleDouble stuff, only
+                  cleanup orphaned.</para>
+              </listitem>
+              <para></para>
+              <listitem>
                 <para><option>-f</option> Wipe database and rebuild from IDs
                 stored in AppleDouble files, only available for volumes
                 without <option>nocnidcache</option> option. Implies
                 <option>-e</option>.</para>
               </listitem>
+
             </varlistentry>
           </variablelist>
         </listitem>
