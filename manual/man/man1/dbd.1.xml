@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="dbd.1">
-  <!--  $Id: dbd.1.xml,v 1.6 2010-04-11 07:00:27 franklahm Exp $ -->
+  <!--  $Id: dbd.1.xml,v 1.7 2010-04-20 16:45:53 hat001 Exp $ -->
 
   <refmeta>
     <refentrytitle>dbd</refentrytitle>
@@ -29,7 +29,7 @@
       <group choice="req">
         <arg choice="plain">-d <arg>-i</arg></arg>
 
-        <arg choice="plain">-s <arg>n</arg></arg>
+        <arg choice="plain">-s <arg>-c|-n</arg></arg>
 
         <arg choice="plain">-r <arg>-c|-f</arg></arg>
 
@@ -107,6 +107,11 @@
               <term>Options:</term>
 
               <listitem>
+                <para><option>-c</option> Don't check .AppleDouble stuff, only
+                  check orphaned.</para>
+              </listitem>
+              <para></para>
+              <listitem>
                 <para><option>-n</option> Don't open CNID database, skip CNID
                 checks, only traverse filesystem</para>
               </listitem>
@@ -162,7 +167,7 @@
               <term>Options:</term>
 
               <listitem>
-                <para><option>-c</option> Dont create .AppleDouble stuff, only
+                <para><option>-c</option> Don't create .AppleDouble stuff, only
                   cleanup orphaned.</para>
               </listitem>
               <para></para>
