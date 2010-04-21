@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">08 Feb 2010</refmiscinfo>
+    <refmiscinfo class="date">21 Apr 2010</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -68,19 +68,20 @@
     interface to the Unix file system. It is normally started at boot time
     from /etc/rc.</para>
 
+    <para><filename>:ETCDIR:/afpd.conf</filename> is the configuration file
+    used by <command>afpd</command> to determine the behavior and
+    configuration of the different virtual file servers that it
+    provides.</para>
+
     <para>The list of volumes offered to the user is generated from
     <filename>:ETCDIR:/AppleVolumes.system</filename> and one of
     <filename>:ETCDIR:/AppleVolumes.default</filename>,
-    <filename>~/AppleVolumes</filename>, or
-    <filename>~/.AppleVolumes</filename>. The
+    <filename>~/AppleVolumes</filename>,
+    <filename>~/.AppleVolumes</filename>,
+    <filename>~/applevolumes</filename>, or
+    <filename>~/.applevolumes</filename>. The
     <filename>AppleVolumes</filename> files is used to specify volumes to
-    mount and file name extension mappings. It is formatted as follows, one
-    specification per line: pathname [ volumename ] .extension [ type [
-    creator ] ] If volumename is unspecified, the last component of pathname
-    is used. No two volumes may have the same name.
-    The extension
-    '.' sets the default creator and type for otherwise untyped Unix files.
-    Blank lines and lines beginning with `#' are ignored.</para>
+    mount and file name extension mappings.</para>
 
     <para></para>
   </refsect1>
@@ -361,6 +362,14 @@
 
     <variablelist>
       <varlistentry>
+        <term><filename>:ETCDIR:/afpd.conf</filename></term>
+
+        <listitem>
+          <para>configuration file used by afpd</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term><filename>:ETCDIR:/AppleVolumes.default</filename></term>
 
         <listitem>
@@ -379,9 +388,19 @@
       <varlistentry>
         <term><filename>~/AppleVolumes</filename></term>
         <term><filename>~/.AppleVolumes</filename></term>
+        <term><filename>~/applevolumes</filename></term>
+        <term><filename>~/.applevolumes</filename></term>
 
         <listitem>
           <para>user's list of volumes to mount</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>:ETCDIR:/afp_signature.conf</filename></term>
+
+        <listitem>
+          <para>list of server signature</para>
         </listitem>
       </varlistentry>
 
@@ -414,10 +433,6 @@
         <manvolnum>5</manvolnum>
       </citerefentry>, <citerefentry>
         <refentrytitle>AppleVolumes.default</refentrytitle>
-
-        <manvolnum>5</manvolnum>
-      </citerefentry>, <citerefentry>
-        <refentrytitle>AppleVolumes.system</refentrytitle>
 
         <manvolnum>5</manvolnum>
       </citerefentry>, <citerefentry>

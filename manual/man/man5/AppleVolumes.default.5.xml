@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.41 2010-04-10 08:18:51 franklahm Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.42 2010-04-21 17:29:12 hat001 Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -16,7 +16,8 @@
     <refname>AppleVolumes.default</refname>
 
     <refpurpose>Configuration file used by <command>afpd</command>(8) to
-    determine the shares made available through AFP<indexterm>
+    determine the shares made available through AFP and specify file name
+    extension mappings.<indexterm>
         <primary>AppleVolumes.default</primary>
       </indexterm><indexterm>
         <primary>cnidscheme</primary>
@@ -25,18 +26,57 @@
       </indexterm></refpurpose>
   </refnamediv>
 
+  <refsynopsisdiv id="synopsis">
+    <cmdsynopsis>
+      <command>:ETCDIR:/AppleVolumes.default<indexterm><primary>AppleVolumes.default</primary></indexterm></command>
+
+      <sbr />
+
+      <command>:ETCDIR:/AppleVolumes.system<indexterm><primary>AppleVolumes.system</primary></indexterm></command>
+
+      <sbr />
+
+      <command>~/AppleVolumes<indexterm><primary>~/AppleVolumes</primary></indexterm></command>
+
+      <sbr />
+
+      <command>~/.AppleVolumes<indexterm><primary>~/.AppleVolumes</primary></indexterm></command>
+
+      <sbr />
+
+      <command>~/applevolumes<indexterm><primary>~/applevolumes</primary></indexterm></command>
+
+      <sbr />
+
+      <command>~/.applevolumes<indexterm><primary>~/.applevolumes</primary></indexterm></command>
+
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
   <refsect1>
     <title>Description</title>
 
-    <para><filename>:ETCDIR:/AppleVolumes.default</filename> is the
-    configuration file used by <command>afpd</command> to determine what
+    <para><filename>AppleVolumes</filename> are the
+    configuration files used by <command>afpd</command> to determine what
     portions of the file system will be shared via Apple Filing Protocol, as
-    well as their behaviour. Any line not prefixed with # is interpreted.
+    well as their behaviour.</para>
+    <para>
+    <filename>:ETCDIR:/AppleVolumes.system</filename> and one of
+    <filename>:ETCDIR:/AppleVolumes.default</filename>,
+    <filename>~/AppleVolumes</filename>,
+    <filename>~/.AppleVolumes</filename>,
+    <filename>~/applevolumes</filename>, or
+    <filename>~/.applevolumes</filename> are used by
+    <command>afpd</command>.</para>
+
+    <para>Any line not prefixed with # is interpreted.
     Newline escaping is supported. The configuration lines are composed
     like:</para>
 
     <para><filename>path</filename> <replaceable>[ volume name ] [ options
     ]</replaceable></para>
+    <para><filename>.extension</filename> <replaceable>[ type [
+    creator ] ]</replaceable></para>
 
     <para>The path name must be a fully qualified path name, or a path name
     using either the ~ shell shorthand or any of the substitution variables,
@@ -44,8 +84,10 @@
 
     <para>The volume name is the name that appears in the Chooser ot the
     "connect to server" dialog on Macintoshes to represent the appropriate
-    share. If there are spaces in the name, it should be in quotes (i.e. "File
-    Share"). The volume name cannot contain the <keycode>':'</keycode>
+    share. If volumename is unspecified, the last component of pathname
+    is used. No two volumes may have the same name. If there are spaces in
+    the name, it should be in quotes (i.e. "File Share").
+    The volume name cannot contain the <keycode>':'</keycode>
     character. The volume name is mangled if it is very long. Mac codepage
     volume name is limited to 27 characters. UTF8-MAC volume name is limited
     to -volnamelen parameter in afpd.conf</para>
@@ -54,6 +96,15 @@
       <para>Each volume has to be configured on a <emphasis
       role="bold">single</emphasis> line. Though newline escaping is
       supported.</para>
+    </note>
+
+    <para>The leading-dot lines specify file name extension mappings.
+    The extension '.' sets the default creator and type for otherwise
+    untyped Unix files.</para>
+
+    <note>
+      <para>file name extension mapping is useful for Mac OS 9 and earlier.
+      But it should not use for Mac OS X.</para>
     </note>
 
     <para>It is possible to specify default options for all volumes with a
@@ -926,6 +977,23 @@
         </listitem>
       </varlistentry>
     </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>File Name Extension Mappings</title>
+
+    <example>
+      <title>Extension is jpg. Type is "JPEG". Creator is "ogle".</title>
+
+            <programlisting>.jpg "JPEG" "ogle"</programlisting>
+          </example>
+
+    <example>
+      <title>Extension is lzh. Type is "LHA ". Creator is not defined.</title>
+
+            <programlisting>.lzh "LHA "</programlisting>
+          </example>
+
   </refsect1>
 
   <refsect1>
