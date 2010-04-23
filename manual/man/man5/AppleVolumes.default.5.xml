@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.43 2010-04-22 14:47:08 hat001 Exp $ -->
+  <!--  $Id: AppleVolumes.default.5.xml,v 1.44 2010-04-23 14:23:57 hat001 Exp $ -->
 
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
@@ -105,18 +105,18 @@
     untyped Unix files.</para>
 
     <note>
-      <para>file name extension mapping is useful for Mac OS 9 and earlier.
+      <para>File name extension mapping is useful for Mac OS 9 and earlier.
       But it should not use for Mac OS X.</para>
     </note>
 
     <para>It is possible to specify default options for all volumes with a
     <emphasis>:DEFAULT: </emphasis>line preceeding these volume
-    definitions:<example>
+    definitions:</para>
+      <example>
         <title>:DEFAULT: configuration line</title>
 
-        <para>:DEFAULT: options:upriv,usedots dbpath:/var/dbd/AppleDB/$v
-        dperm:0775 fperm:0664</para>
-      </example></para>
+        <programlisting>:DEFAULT: options:upriv,usedots dbpath:/var/dbd/AppleDB/$v dperm:0775 fperm:0664</programlisting>
+      </example>
 
     <para>The possible options and their meanings are:</para>
 
