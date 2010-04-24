@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="installation">
   <chapterinfo>
-    <date>14.02.2010</date>
+    <date>24.10.2010</date>
   </chapterinfo>
 
   <title>Installation</title>
@@ -59,22 +59,18 @@
       </sect3>
 
       <sect3>
-        <title>Anonymous CVS<indexterm>
-            <primary>CVS</primary>
+        <title>Read-only Git</title>
 
-            <secondary>Concurrent Versioning System</secondary>
-          </indexterm></title>
-
-        <para>Downloading of the CVS source can be done quickly and
+        <para>Downloading the Git repository can be done quickly and
         easily.</para>
 
         <orderedlist>
           <listitem>
-            <para>Make sure you have cvs installed. <command>which
-            cvs</command> should produce a path to cvs.</para>
+            <para>Make sure you have Git installed. <command>which
+            git</command> should produce a path to git.</para>
 
-            <screen><prompt>$&gt;</prompt> <userinput>which cvs</userinput>
-<computeroutput>/usr/bin/cvs</computeroutput></screen>
+            <screen><prompt>$&gt;</prompt> <userinput>which git</userinput>
+<computeroutput>/usr/bin/git</computeroutput></screen>
           </listitem>
 
           <listitem>
@@ -86,29 +82,24 @@
           </listitem>
 
           <listitem>
-            <para>Authenticate yourself with cvs. Just hit enter for the
-            password for the anonymous user.</para>
-
-            <screen><prompt>$&gt;</prompt> <userinput>cvs -d:pserver:anonymous@netatalk.cvs.sourceforge.net:/cvsroot/netatalk login</userinput>
-<computeroutput>Logging in to :pserver:anonymous@netatalk.cvs.sourceforge.net:2401/cvsroot/netatalk
-CVS password: </computeroutput><userinput>[Enter]</userinput>
-</screen>
-          </listitem>
-
-          <listitem>
             <para>Now get the source:</para>
 
-            <screen><prompt>$&gt;</prompt> <userinput>cvs -z3 -d:pserver:anonymous@netatalk.cvs.sourceforge.net:/cvsroot/netatalk co -P netatalk
-</userinput><computeroutput>cvs server: Updating netatalk
-U netatalk/.cvsignore
-U netatalk/CONTRIBUTORS
-U netatalk/COPYING
+            <screen><prompt>$&gt;</prompt> <userinput>git clone git://netatalk.git.sourceforge.net/gitroot/netatalk/netatalk
+</userinput><computeroutput>Initialized empty Git repository in /path/to/new/source/dir/netatalk/.git/
+remote: Counting objects: 2503, done.
 ...
 </computeroutput></screen>
 
-            <para>This will create a local directory called "netatalk" and
-            downloads a complete and fresh copy of the netatalk source from
-            the CVS repository.</para>
+            <para>This will create a local directory called "netatalk"
+            containing a complete and fresh copy of the whole Netatalk source
+            from the Git repository.</para>
+          </listitem>
+
+          <listitem>
+            <para>In order to keep your repository copy updated, occasionally
+            run:</para>
+
+            <screen><prompt>$&gt;</prompt> <userinput>git pull</userinput></screen>
           </listitem>
 
           <listitem>
@@ -199,7 +190,7 @@ U netatalk/COPYING
 
             <para>libgcrypt can be downloaded from: <ulink
             url="http://directory.fsf.org/project/libgcrypt/">http://directory.fsf.org/project/libgcrypt/</ulink>.</para>
-         </listitem>
+          </listitem>
 
           <listitem>
             <para>TCP wrappers</para>
@@ -252,8 +243,8 @@ U netatalk/COPYING
             location, and configuration of networked services in enterprise
             networks.</para>
 
-            <para>Mac OS X 10.4 and earlier uses it to locate AFP servers, even though 10.2 and later
-             prefer Bonjour.</para>
+            <para>Mac OS X 10.4 and earlier uses it to locate AFP servers,
+            even though 10.2 and later prefer Bonjour.</para>
 
             <para>You can download OpenSLP from: <ulink
             url="http://www.openslp.org/">http://www.openslp.org/</ulink>.</para>
