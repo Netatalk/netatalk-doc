@@ -147,7 +147,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><option>-u</option><replaceable> group</replaceable></term>
+        <term><option>-g</option><replaceable> group</replaceable></term>
 
         <listitem>
           <para>Switch to the groupid of <emphasis remap="I">group</emphasis>
