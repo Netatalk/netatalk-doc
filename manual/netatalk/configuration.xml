@@ -3,8 +3,8 @@
   <title>Setting up Netatalk</title>
 
   <sect1>
-    <title>Appletalk<indexterm>
-        <primary>Appletalk</primary>
+    <title>AppleTalk<indexterm>
+        <primary>AppleTalk</primary>
 
         <secondary>The AppleTalk protocol suite</secondary>
       </indexterm></title>
@@ -79,7 +79,7 @@
           <example>
             <title>atalkd.conf containing one entry</title>
 
-            <para><programlisting>eth0</programlisting>Appletalk networking
+            <para><programlisting>eth0</programlisting>AppleTalk networking
             should be enabled on eth0 interface. All the necessary
             configuration will be fetched from the network</para>
           </example>
