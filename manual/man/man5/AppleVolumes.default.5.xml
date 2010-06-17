@@ -433,7 +433,7 @@
         <term>umask:<replaceable>[mode]</replaceable></term>
 
         <listitem>
-          <para>set perm mask.</para>
+          <para>set perm mask. Use with <option>options:upriv</option>.</para>
         </listitem>
       </varlistentry>
 
