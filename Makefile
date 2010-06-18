@@ -105,7 +105,7 @@ install:
 			echo 'Set $$DIR to be the path of your Netatalk directory.'; \
 			exit 1; \
 		fi
-		sh manual/checkinmans "$(DIR)"
+		sh checkinmans.sh "$(DIR)"
 
 # html targets
 
