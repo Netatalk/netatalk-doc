@@ -9,7 +9,7 @@
 	2. Get the latest Docbook XSL stylesheet distribution from:
 	   https://sourceforge.net/project/showfiles.php?group_id=21935
 
-	   Required docbook-xsl stylesheet version is 1.74.3.
+	   Tested docbook-xsl stylesheet version is 1.75.2.
 
     3. Fix indexterm bug in xsl stylesheet:
        inside the xsl stylesheet distribution in manpages/inline.xsl remove these lines:
@@ -41,13 +41,13 @@
 
 	Create manpages:
 
-	3. XSL=<path to XSL stylesheets> VERSION=2.x.y make man
+	3. XSL=<path to XSL stylesheets> VERSION=2.x make man
 	4. Copy the generated man pages to your CVS working copy:
 	   DIR=<path to netatalk> make install
 
 	Create HTML:
 
-    5. XSL=<path to XSL stylesheets> VERSION=2.x.y make html
+    5. XSL=<path to XSL stylesheets> VERSION=2.x make html
        The generated html files are then inside the directory html.
 
    Editing Docbook Sources
