@@ -7,7 +7,7 @@
 #
 
 if test $# -ne 1; then
-    echo "Usage: checkinmans <netatalk source man basedir>"
+    echo "Usage: checkinmans <netatalk source dir>"
     exit 1
 fi
 
