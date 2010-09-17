@@ -686,7 +686,7 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
         database) as a fallback in case opening the primary database (Netatalk
         2.1-beta1: only for <abbrev>cdb</abbrev>) can't be opened, because
         <abbrev>tdb</abbrev> can work as in-memory database. This of course
-        means upon restart the CNIDs are gone. </para>
+        means upon restart the CNIDs are gone.</para>
       </sect3>
 
       <sect3>
@@ -1607,6 +1607,116 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
             </listitem>
           </itemizedlist>
         </sect4>
+      </sect3>
+    </sect2>
+
+    <sect2 id="acls">
+      <title>ACL Support<indexterm>
+          <primary>ACLs</primary>
+        </indexterm></title>
+
+      <para>ACL support for AFP is implemented for Solaris/ZFS/NFSv4 ACLs and
+      POSIX 1e ACLs. While ZFS ACL support is read-write, currently POSIX 1e
+      ACLs can only be read client-side, they can't be set/written.</para>
+
+      <sect3>
+        <title>Configuration</title>
+
+        <para>In order to be able to support ACLs, the following things have
+        to be configured:</para>
+
+        <orderedlist>
+          <listitem>
+            <para>For Solaris/ZFS: ZFS Volumes</para>
+
+            <para>You MUST configure two ACL parameters for any volume you
+            want to use with Netatalk:</para>
+
+            <screen>aclinherit = passthrough
+aclmode = passthrough</screen>
+
+            <para>For an explanation of what these parameters mean and how to
+            apply them see, your hosts ZFS documentation (eg man zfs).</para>
+          </listitem>
+
+          <listitem>
+            <para>Authentication Domain</para>
+
+            <para>Your server and the clients must be part of a security
+            association where identity data is coming from a common source.
+            ACLs in Darwin are based on UUIDs and so is the ACL specification
+            in AFP 3.2. Therefor your source of identity data has to provide
+            an attribute for every user and group where a UUID is stored as a
+            ASCII string. In other words:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>you need an Open Directory Server or an LDAP server
+                where you store UUIDs in some attribute</para>
+              </listitem>
+
+              <listitem>
+                <para>your clients must be configured to use this
+                server</para>
+              </listitem>
+
+              <listitem>
+                <para>your server should be configured to use this server via
+                nsswitch and PAM</para>
+              </listitem>
+
+              <listitem>
+                <para>configure Netatalk via afp_ldap.conf so that Netatalk is
+                able to retrieve the UUID for users and groups via LDAP search
+                queries</para>
+              </listitem>
+            </itemizedlist>
+
+            <important>
+              <para>ALL USERS AND GROUPS USED ON VOLUMES WHERE ACLS ARE USED
+              SHOULD THEN COME FROM THE SHARED AUTHENTICATION DOMAIN !</para>
+            </important>
+          </listitem>
+
+          <listitem>
+            <para>Netatalk Volumes</para>
+
+            <para>Finally you can add "options:acls" to your volume defintions
+            to add ACL support. In case your volume basedir doesn't grant read
+            permissions via mode (like: 0700 root:adm) but only via ACLs, you
+            MUST add the "nostat" option to the volume defintion.</para>
+          </listitem>
+        </orderedlist>
+      </sect3>
+
+      <sect3>
+        <title>Implemantation Notes</title>
+
+        <para>Some implementation details that are buried in the code are
+        worthwhile to be documented.</para>
+
+        <orderedlist>
+          <listitem>
+            <para>Darwin ACEs vs NFSv4 ACEs</para>
+
+            <para> * FPAccess:</para>
+
+            <para>The (10.5) AFP client frequently checks the
+            (DARWIN_)ACE_DELETE_CHILD right. This is most often not explicitly
+            granted via an ACE. Therefor the client would get an no access
+            error. The client in turn then declares the object in question
+            read only. Thus we have to the check the mode for every directory
+            and add ACE_DELETE_CHILD if the requestor has write
+            permissions.</para>
+
+            <para>* FPGetFileDirParms:</para>
+
+            <para>OS X does not only use unix mode and FPAccess for permission
+            check, but also OS 9 access bits from FPGetFileDirParms. Thus we
+            have to adjust the Access Rights bitmap user bits by including any
+            ACL rigths.</para>
+          </listitem>
+        </orderedlist>
       </sect3>
     </sect2>
   </sect1>
