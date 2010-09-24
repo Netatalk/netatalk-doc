@@ -490,13 +490,12 @@
       </varlistentry>
 
       <varlistentry>
-        <term>veto:<replaceable>[vetoed name]</replaceable></term>
+        <term>veto:<replaceable>[vetoed names]</replaceable></term>
 
         <listitem>
           <para>hide files and directories,where the path matches one of the
-          '/' delimited vetoed names. If the veto string contains more then
-          one element, it must end with a '/', eg 'veto1/veto2/veto3/'.
-          </para>
+          '/' delimited vetoed names. The veto string must always be
+          terminated with a '/', eg. "veto1/", "veto1/veto2/".</para>
         </listitem>
       </varlistentry>
 
