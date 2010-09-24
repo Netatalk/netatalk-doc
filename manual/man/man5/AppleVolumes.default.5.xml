@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.44 2010-04-23 14:23:57 hat001 Exp $ -->
-
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
 
@@ -496,9 +494,9 @@
 
         <listitem>
           <para>hide files and directories,where the path matches one of the
-          '/' delimited vetoed names. Matches are partial, e.g. path is
-          <filename>/abc/def/file</filename> and veto:/abc/ will hide the
-          file.</para>
+          '/' delimited vetoed names. If the veto string contains more then
+          one element, it must end with a '/', eg 'veto1/veto2/veto3/'.
+          </para>
         </listitem>
       </varlistentry>
 
