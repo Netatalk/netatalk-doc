@@ -45,7 +45,6 @@ manpages = manpages/achfile.1 \
 		manpages/AppleVolumes.default.5 \
 		manpages/atalkd.conf.5 \
 		manpages/netatalk.conf.5 \
-		manpages/afp_acls.8 \
 		manpages/afpd.8 \
 		manpages/atalkd.8 \
 		manpages/cnid_dbd.8 \
