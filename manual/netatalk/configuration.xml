@@ -1950,8 +1950,9 @@ aclmode = passthrough</screen>
     <para>The Netatalk distribution comes with several operating system
     specific startup script templates that are tailored according to the
     options given to the "configure" script before compiling. Currently,
-    templates are provided for NetBSD, BSD, RedHat, SuSE and True64. You can
-    select to install the generated startup script(s)<indexterm>
+    templates are provided for NetBSD, BSD, Debian, Gentoo, RedHat, SuSE
+    and True64. You can select to install the generated startup script(s)
+      <indexterm>
         <primary>Startscript</primary>
 
         <secondary>startup script</secondary>
@@ -1964,7 +1965,7 @@ aclmode = passthrough</screen>
 
         <manvolnum>5</manvolnum>
       </citerefentry> manual page), some obtain that information in another,
-    operating system specific way (like NetBSD).</para>
+    operating system specific way (like NetBSD, Debian and so on).</para>
 
     <para>Since new releases of Linux distributions appear all the time and
     the startup procedure for the other systems mentioned above might change

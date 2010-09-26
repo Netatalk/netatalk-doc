@@ -112,6 +112,7 @@ htmlpages:	htmlinit
 		@xsltproc -o html/ $(HTML_XSL_TMP) manual/manual.xml
 		@find html -name '*.html' -exec sed -i -e "s@:SBINDIR:/@@g" -e "s@:BINDIR:/@@g" \
 			-e "s@:ETCDIR:/@@g" -e "s@:LIBDIR:/@@g" -e "s@:LIBEXECDIR:/@@g" \
+			-e "s@:DESTDIR:/@@g" \
 			-e "s@:VERSION:@$(VERSION)@g" {} \;
 		tar czf html.tgz html
 
