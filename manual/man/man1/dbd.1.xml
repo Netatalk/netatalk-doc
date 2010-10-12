@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="dbd.1">
-  <!--  $Id: dbd.1.xml,v 1.7 2010-04-20 16:45:53 hat001 Exp $ -->
-
   <refmeta>
     <refentrytitle>dbd</refentrytitle>
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">23 Dec 2009</refmiscinfo>
+    <refmiscinfo class="date">12 Oct 2010</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -108,9 +106,9 @@
 
               <listitem>
                 <para><option>-c</option> Don't check .AppleDouble stuff, only
-                  check orphaned.</para>
+                check orphaned.</para>
               </listitem>
-              <para></para>
+
               <listitem>
                 <para><option>-n</option> Don't open CNID database, skip CNID
                 checks, only traverse filesystem</para>
@@ -167,17 +165,18 @@
               <term>Options:</term>
 
               <listitem>
-                <para><option>-c</option> Don't create .AppleDouble stuff, only
-                  cleanup orphaned.</para>
+                <para><option>-c</option> Don't create .AppleDouble stuff,
+                only cleanup orphaned.</para>
               </listitem>
-              <para></para>
+
+              <para />
+
               <listitem>
                 <para><option>-f</option> Wipe database and rebuild from IDs
                 stored in AppleDouble files, only available for volumes
                 without <option>nocnidcache</option> option. Implies
                 <option>-e</option>.</para>
               </listitem>
-
             </varlistentry>
           </variablelist>
         </listitem>
@@ -210,9 +209,7 @@
           <para>Only work on inactive volumes and lock them (exclusive)</para>
         </listitem>
       </varlistentry>
-    </variablelist>
 
-    <variablelist>
       <varlistentry>
         <term>-x</term>
 
@@ -221,9 +218,7 @@
           useless!)</para>
         </listitem>
       </varlistentry>
-    </variablelist>
 
-    <variablelist>
       <varlistentry>
         <term>-v</term>
 
