@@ -16,7 +16,6 @@
 <!ENTITY papstatus.8 SYSTEM "man/man8/papstatus.8.xml">
 <!ENTITY psf.8 SYSTEM "man/man8/psf.8.xml">
 <!ENTITY timelord.8 SYSTEM "man/man8/timelord.8.xml">
-<!ENTITY afp_acls.8 SYSTEM "man/man8/afp_acls.8.xml">
 <!ENTITY netatalk.conf.5 SYSTEM "man/man5/netatalk.conf.5.xml">
 <!ENTITY afpd.conf.5 SYSTEM "man/man5/afpd.conf.5.xml">
 <!ENTITY afp_signature.conf.5 SYSTEM "man/man5/afp_signature.conf.5.xml">
@@ -95,8 +94,6 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
     &aecho.1;
 
     &afile.1;
-
-    &afp_acls.8;
 
     &afp_ldap.conf.5;
 

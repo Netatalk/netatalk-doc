@@ -42,7 +42,6 @@ manpages = manpages/achfile.1 \
 		manpages/AppleVolumes.default.5 \
 		manpages/atalkd.conf.5 \
 		manpages/netatalk.conf.5 \
-		manpages/afp_acls.8 \
 		manpages/afpd.8 \
 		manpages/atalkd.8 \
 		manpages/cnid_dbd.8 \
@@ -110,6 +109,7 @@ htmlpages:	htmlinit
 		@xsltproc -o html/ $(HTML_XSL_TMP) manual/manual.xml
 		@find html -name '*.html' -exec sed -i -e "s@:SBINDIR:/@@g" -e "s@:BINDIR:/@@g" \
 			-e "s@:ETCDIR:/@@g" -e "s@:LIBDIR:/@@g" -e "s@:LIBEXECDIR:/@@g" \
+			-e "s@:DESTDIR:/@@g" \
 			-e "s@:VERSION:@$(VERSION)@g" {} \;
 		tar czf html.tgz html
 
