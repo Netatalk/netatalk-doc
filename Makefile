@@ -20,7 +20,6 @@ HTML_XSL_TMP = $(TMPDIR)/$(HTML_XSL)
 manpages = manpages/achfile.1 \
 		manpages/ad.1 \
 		manpages/aecho.1 \
-		manpages/afile.1 \
 		manpages/afppasswd.1 \
 		manpages/apple_dump.1 \
 		manpages/asip-status.pl.1 \
