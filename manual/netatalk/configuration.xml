@@ -1616,8 +1616,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
         </indexterm></title>
 
       <para>ACL support for AFP is implemented for Solaris/ZFS/NFSv4 ACLs and
-      POSIX 1e ACLs. While ZFS ACL support is read-write, currently POSIX 1e
-      ACLs can only be read client-side, they can't be set/written.</para>
+      POSIX 1e ACLs.</para>
 
       <sect3>
         <title>Configuration</title>
@@ -1629,14 +1628,13 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
           <listitem>
             <para>For Solaris/ZFS: ZFS Volumes</para>
 
-            <para>You MUST configure two ACL parameters for any volume you
+            <para>You should configure a ZFS ACL know for any volume you
             want to use with Netatalk:</para>
 
-            <screen>aclinherit = passthrough
-aclmode = passthrough</screen>
+            <screen>aclinherit = passthrough</screen>
 
-            <para>For an explanation of what these parameters mean and how to
-            apply them see, your hosts ZFS documentation (eg man zfs).</para>
+            <para>For an explanation of what this knob doea and how to
+            apply it, check your hosts ZFS documentation (eg man zfs).</para>
           </listitem>
 
           <listitem>
