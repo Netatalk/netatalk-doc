@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">02 Feb 2009</refmiscinfo>
+    <refmiscinfo class="date">20 Oct 2010</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -35,12 +35,11 @@
       <listitem>
         <para>ZFS Volumes</para>
 
-        <para>You MUST configure two ACL parameters for any volume you want to
-        use with Netatalk: <programlisting>aclinherit = passthrough
-aclmode = passthrough</programlisting></para>
+        <para>You MUST configure one ACL parameter for any volume you want to
+        use with Netatalk: <programlisting>aclinherit = passthrough</programlisting></para>
 
-        <para> For an explanation of what these parameters mean and how to
-        apply them see, your hosts ZFS documentation (e.g. man zfs).</para>
+        <para> For an explanation of what this parameter means and how to
+        apply it see, your hosts ZFS documentation (e.g. man zfs).</para>
       </listitem>
 
       <listitem>
@@ -65,14 +64,7 @@ aclmode = passthrough</programlisting></para>
 
             <listitem>
               <para>your server should be configured to use this server via
-              nsswitch and PAM. <tip>
-                  <para>This however is not a strict requirement: if you
-                  create duplicates of every LDAP/OD user and group with
-                  identic attributes (name, uid, gid) in your local data store
-                  (/etc/[passwd|group]) ACLs will work <emphasis>as long as
-                  user/group names/ids in the filesystem are equal to their
-                  counterparts in the LDAP/OD datastore</emphasis>.</para>
-                </tip></para>
+              nsswitch and PAM.</para>
             </listitem>
 
             <listitem>
