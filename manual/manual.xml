@@ -24,14 +24,9 @@
 <!ENTITY papd.conf.5 SYSTEM "man/man5/papd.conf.5.xml">
 <!ENTITY afp_ldap.conf.5 SYSTEM "man/man5/afp_ldap.conf.5.xml">
 <!ENTITY atalk.4 SYSTEM "man/man4/atalk.4.xml">
-<!ENTITY achfile.1 SYSTEM "man/man1/achfile.1.xml">
 <!ENTITY aecho.1 SYSTEM "man/man1/aecho.1.xml">
-<!ENTITY afile.1 SYSTEM "man/man1/afile.1.xml">
 <!ENTITY afppasswd.1 SYSTEM "man/man1/afppasswd.1.xml">
-<!ENTITY apple_cp.1 SYSTEM "man/man1/apple_cp.1.xml">
 <!ENTITY apple_dump.1 SYSTEM "man/man1/apple_dump.1.xml">
-<!ENTITY apple_mv.1 SYSTEM "man/man1/apple_mv.1.xml">
-<!ENTITY apple_rm.1 SYSTEM "man/man1/apple_rm.1.xml">
 <!ENTITY getzones.1 SYSTEM "man/man1/getzones.1.xml">
 <!ENTITY megatron.1 SYSTEM "man/man1/megatron.1.xml">
 <!ENTITY nbp.1 SYSTEM "man/man1/nbp.1.xml">
@@ -45,11 +40,11 @@
 <!ENTITY dbd.1 SYSTEM "man/man1/dbd.1.xml">
 ]>
 <book id="netatalk-manual">
-  <title revision="0.1 initial version">Netatalk 2.1 Manual</title>
+  <title revision="0.1 initial version">Netatalk 2.2 Manual</title>
   
 
   <bookinfo>
-    <date>31-03-2010</date>
+    <date>31-10-2010</date>
     <releaseinfo>:VERSION:</releaseinfo>
   </bookinfo>
 
@@ -87,13 +82,9 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
 
     <para>This is a collection of the man pages delivered with Netatalk.</para>
 
-    &achfile.1;
-    
     &ad.1;
 
     &aecho.1;
-
-    &afile.1;
 
     &afp_ldap.conf.5;
 
@@ -107,13 +98,7 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
 
     &AppleVolumes.default.5;
 
-    &apple_cp.1;
-
     &apple_dump.1;
-
-    &apple_mv.1;
-
-    &apple_rm.1;
 
     &asip-status.pl.1;
 
