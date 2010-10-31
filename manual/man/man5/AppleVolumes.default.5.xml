@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="AppleVolumes.default.5">
-  <!--  $Id: AppleVolumes.default.5.xml,v 1.44 2010-04-23 14:23:57 hat001 Exp $ -->
-
   <refmeta>
     <refentrytitle>AppleVolumes.default</refentrytitle>
 
@@ -308,17 +306,6 @@
           delimited format. The available options are:</para>
 
           <variablelist>
-            <varlistentry>
-              <term>acls</term>
-
-              <listitem>
-                <para>Enable ACLs on this volume. Requires a <emphasis>NFSv4
-                ACLs</emphasis> compatible filesystem (e.g. ZFS) and an ACL
-                API compatible to *Solaris. In other words: this requires
-                Solaris, Opensolaris or a derived distribution.</para>
-              </listitem>
-            </varlistentry>
-
             <varlistentry>
               <term>tm</term>
 
