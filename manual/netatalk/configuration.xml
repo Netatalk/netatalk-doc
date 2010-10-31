@@ -1616,25 +1616,40 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
         </indexterm></title>
 
       <para>ACL support for AFP is implemented for Solaris/ZFS/NFSv4 ACLs and
-      POSIX 1e ACLs.</para>
+      POSIX 1e ACLs on Linux.</para>
 
       <sect3>
         <title>Configuration</title>
 
-        <para>In order to be able to support ACLs, the following things have
-        to be configured:</para>
+        <para>For a basic mode of operation where all you want to achieve is
+        that read/write/execute permissions are displayed appropiately, taking
+        ACLs into accout, there's nothing to configure. afpd reads ACLs on the
+        fly, calculating effective permissions and returning the calculated
+        permissions via the so called <emphasis>UARights</emphasis> permission
+        bits. The client, notable the Finder uses these bits to display
+        permissions.</para>
+
+        <para>If you want to be able to display ACLs on the client, things get
+        more involed as you must then setup both client and server to be part
+        on a authentication domain (eg LDAP, OpenDirectory). The reason is,
+        that in OS X ACLs are bound to UUIDs, not just uid's or gid's.
+        Therefor afpd must be able to map every filesystem uid and gid to a
+        UUID.</para>
+
+        <para>In detail:</para>
 
         <orderedlist>
           <listitem>
             <para>For Solaris/ZFS: ZFS Volumes</para>
 
-            <para>You should configure a ZFS ACL know for any volume you
-            want to use with Netatalk:</para>
+            <para>You should configure a ZFS ACL know for any volume you want
+            to use with Netatalk:</para>
 
-            <screen>aclinherit = passthrough</screen>
+            <screen>aclinherit = passthrough
+aclmode = passthrough (if available)</screen>
 
-            <para>For an explanation of what this knob doea and how to
-            apply it, check your hosts ZFS documentation (eg man zfs).</para>
+            <para>For an explanation of what this knob doea and how to apply
+            it, check your hosts ZFS documentation (eg man zfs).</para>
           </listitem>
 
           <listitem>
@@ -1674,45 +1689,6 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
               <para>ALL USERS AND GROUPS USED ON VOLUMES WHERE ACLS ARE USED
               SHOULD THEN COME FROM THE SHARED AUTHENTICATION DOMAIN !</para>
             </important>
-          </listitem>
-
-          <listitem>
-            <para>Netatalk Volumes</para>
-
-            <para>Finally you can add "options:acls" to your volume defintions
-            to add ACL support. In case your volume basedir doesn't grant read
-            permissions via mode (like: 0700 root:adm) but only via ACLs, you
-            MUST add the "nostat" option to the volume defintion.</para>
-          </listitem>
-        </orderedlist>
-      </sect3>
-
-      <sect3>
-        <title>Implemantation Notes</title>
-
-        <para>Some implementation details that are buried in the code are
-        worthwhile to be documented.</para>
-
-        <orderedlist>
-          <listitem>
-            <para>Darwin ACEs vs NFSv4 ACEs</para>
-
-            <para> * FPAccess:</para>
-
-            <para>The (10.5) AFP client frequently checks the
-            (DARWIN_)ACE_DELETE_CHILD right. This is most often not explicitly
-            granted via an ACE. Therefor the client would get an no access
-            error. The client in turn then declares the object in question
-            read only. Thus we have to the check the mode for every directory
-            and add ACE_DELETE_CHILD if the requestor has write
-            permissions.</para>
-
-            <para>* FPGetFileDirParms:</para>
-
-            <para>OS X does not only use unix mode and FPAccess for permission
-            check, but also OS 9 access bits from FPGetFileDirParms. Thus we
-            have to adjust the Access Rights bitmap user bits by including any
-            ACL rigths.</para>
           </listitem>
         </orderedlist>
       </sect3>
@@ -1948,9 +1924,9 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
     <para>The Netatalk distribution comes with several operating system
     specific startup script templates that are tailored according to the
     options given to the "configure" script before compiling. Currently,
-    templates are provided for NetBSD, BSD, Debian, Gentoo, RedHat, SuSE
-    and True64. You can select to install the generated startup script(s)
-      <indexterm>
+    templates are provided for NetBSD, BSD, Debian, Gentoo, RedHat, SuSE and
+    True64. You can select to install the generated startup script(s)
+    <indexterm>
         <primary>Startscript</primary>
 
         <secondary>startup script</secondary>
