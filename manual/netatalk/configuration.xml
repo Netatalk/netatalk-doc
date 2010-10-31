@@ -79,9 +79,8 @@
         configuration:</para>
 
         <para>
-          <programlisting>- -tcp -noddp -uamlist uams_dhx.so,uams_dhx2.so
-          -nosavepassword</programlisting>
-        </para>
+        <programlisting>- -tcp -noddp -uamlist uams_dhx.so,uams_dhx2.so -nosavepassword</programlisting>
+         </para>
 
         <para>For a more detailed explanation of the available options, please
         refer to the <citerefentry>
@@ -339,7 +338,7 @@
           <primary>Unicode</primary>
         </indexterm></title>
 
-      <para />
+      <para></para>
 
       <sect3>
         <title>Why Unicode?</title>
@@ -486,10 +485,9 @@
         is encoded into 1-6 ASCII characters. UTF-8 is therefore not really a
         charset itself, it's an encoding of the Unicode charset.</para>
 
-        <para>To complicate things, Unicode defines several <emphasis>
-            <ulink
-            url="http://www.unicode.org/reports/tr15/index.html">normalization</ulink>
-          </emphasis> forms. While <ulink
+        <para>To complicate things, Unicode defines several <emphasis> <ulink
+        url="http://www.unicode.org/reports/tr15/index.html">normalization</ulink>
+        </emphasis> forms. While <ulink
         url="http://www.samba.org">samba</ulink><indexterm>
             <primary>Samba</primary>
           </indexterm> uses <emphasis>precomposed</emphasis><indexterm>
@@ -1275,8 +1273,8 @@
             <para>You should configure a ZFS ACL know for any volume you want
             to use with Netatalk:</para>
 
-            <screen>aclinherit = passthrough aclmode = passthrough (if
-            available)</screen>
+            <screen>aclinherit = passthrough
+aclmode = passthrough (if available)</screen>
 
             <para>For an explanation of what this knob doea and how to apply
             it, check your hosts ZFS documentation (eg man zfs).</para>
@@ -1712,15 +1710,11 @@
         <secondary>Printer Access Protocol</secondary>
       </indexterm> client to access AppleTalk-capable printers and a PAP
     server. The former by using the <citerefentry>
-        <refentrytitle>
-          <command>pap</command>
-        </refentrytitle>
+        <refentrytitle><command>pap</command></refentrytitle>
 
         <manvolnum>1</manvolnum>
       </citerefentry> utility and the latter by starting the <citerefentry>
-        <refentrytitle>
-          <command>papd</command>
-        </refentrytitle>
+        <refentrytitle><command>papd</command></refentrytitle>
 
         <manvolnum>8</manvolnum>
       </citerefentry> service.</para>
@@ -1841,21 +1835,15 @@
       <title>Using AppleTalk printers</title>
 
       <para>Netatalk's <citerefentry>
-          <refentrytitle>
-            <command>papstatus</command>
-          </refentrytitle>
+          <refentrytitle><command>papstatus</command></refentrytitle>
 
           <manvolnum>8</manvolnum>
         </citerefentry> can be used to query AppleTalk printers, <citerefentry>
-          <refentrytitle>
-            <command>pap</command>
-          </refentrytitle>
+          <refentrytitle><command>pap</command></refentrytitle>
 
           <manvolnum>1</manvolnum>
         </citerefentry> to print to them. With <citerefentry>
-          <refentrytitle>
-            <command>psf</command>
-          </refentrytitle>
+          <refentrytitle><command>psf</command></refentrytitle>
 
           <manvolnum>8</manvolnum>
         </citerefentry> there exists a lpd filter program suitable for
@@ -1863,9 +1851,7 @@
       accounting<indexterm>
           <primary>page accounting</primary>
         </indexterm> and eventually change the page order using <citerefentry>
-          <refentrytitle>
-            <command>psorder</command>
-          </refentrytitle>
+          <refentrytitle><command>psorder</command></refentrytitle>
 
           <manvolnum>1</manvolnum>
         </citerefentry>. But these days, modern printing systems like CUPS can
