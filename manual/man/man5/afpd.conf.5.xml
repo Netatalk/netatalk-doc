@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
-  <!--  $Id: afpd.conf.5.xml,v 1.32 2010-03-29 20:13:26 franklahm Exp $ -->
-
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">23 December 2009</refmiscinfo>
+    <refmiscinfo class="date">1 November 2010</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -216,8 +214,8 @@
     users.</para>
 
     <para>As <command>afpd</command> needs to interact with unix operating
-    system as well, it need's to be able to convert from UTF8-MAC/MacCodepage to
-    the unix codepage. By default <command>afpd</command> uses the systems
+    system as well, it need's to be able to convert from UTF8-MAC/MacCodepage
+    to the unix codepage. By default <command>afpd</command> uses the systems
     LOCALE, or ASCII if your system doesn't support locales. You can set the
     unix codepage using the <option>-unixcodepage</option> option. If you're
     using extended characters in the configuration files for
@@ -562,7 +560,23 @@
           <para>Specifies the IP address and port of a cnid_metad server,
           required for CNID dbd backend. Defaults to localhost:4700. The
           network address may be specified either in dotted-decimal format for
-          IPv4 or in hexadecimal format for IPv6.</para>
+          IPv4 or in hexadecimal format for IPv6.-</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-dircachesize<replaceable> entries</replaceable></term>
+
+        <listitem>
+          <para>Maximum possible entries in the directory cache. The cache
+          stores directories and files. It is used to cache the full path to
+          directories and CNIDs which considerably speeds up directory
+          enumeration.</para>
+
+          <para>Default size is 8192, maximum size is 131072. Given value is
+          rounded up to nearest power of 2. Each entry takes about 100 bytes,
+          which is not much, but remember that every afpd child process for
+          every connected user has its cache.</para>
         </listitem>
       </varlistentry>
 
@@ -579,7 +593,8 @@
         <term>-[no]icon</term>
 
         <listitem>
-          <para>[Dont't] Use the platform-specific icon. Recent Mac OS don't display it any longer.</para>
+          <para>[Dont't] Use the platform-specific icon. Recent Mac OS don't
+          display it any longer.</para>
         </listitem>
       </varlistentry>
 
@@ -616,14 +631,13 @@
         <listitem>
           <para>Specify a server signature. This option is useful while
           running multiple independent instances of afpd on one machine (eg.
-          in clustered environments, to provide fault isolation etc.). 
-          Default is "auto". "auto" signature type allows afpd generating
-          signature and saving it to
-          <filename>:ETCDIR:/afp_signature.conf</filename> automatically
-          (based on random number). "host" signature type switches back to
-          "auto" because it is obsoleted. "user" signature type allows
-          administrator to set up a signature string manually.
-          The maximum length is 16 characters.</para>
+          in clustered environments, to provide fault isolation etc.). Default
+          is "auto". "auto" signature type allows afpd generating signature
+          and saving it to <filename>:ETCDIR:/afp_signature.conf</filename>
+          automatically (based on random number). "host" signature type
+          switches back to "auto" because it is obsoleted. "user" signature
+          type allows administrator to set up a signature string manually. The
+          maximum length is 16 characters.</para>
 
           <example>
             <title>Three server definitions using 2 different server
