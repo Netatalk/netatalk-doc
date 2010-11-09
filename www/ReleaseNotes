@@ -30,7 +30,7 @@ at:
 
   http://www.gnu.org/licenses/gpl.html
 
-Changes in 2.2alpha1
+Changes in 2.2alpha2
 ~~~~~~~~~~~~~~~~~~~~
 
 * FIX: afpd: fix compilation error when ACL support is not available
@@ -120,4 +120,4 @@ We would like to thank all contributors to the Netatalk project for
 their commitment.  Without the many suggestions, bug and problem reports,
 patches, and reviews this project wouldn't be where it is.
 
- - The Netatalk Development Team, October 2010
+ - The Netatalk Development Team, November 2010
