@@ -1,6 +1,6 @@
-Netatalk 2.2alpha2
+Netatalk 2.2alpha4
 ==================
-The Netatalk development team is proud to announce version 2.2alpha2 of
+The Netatalk development team is proud to announce version 2.2alpha4 of
 the Netatalk File Sharing suite. This is an unstable version, published
 for the sole purpose of receiving wider testing. Do not run this on
 production systems.
@@ -24,11 +24,47 @@ The suite contains:
   BinHex, AppleSingle, or MacBinary into files readable by Unix computers
 * various supporting programs and utilities
 
+Summary of hot stuff and ehancements since 2.1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Support for fast AFP searches (CNID backend "dbd" only)
+* POSIX draft 1e ACL support
+* Complete Netatalk volume compatible `ad` file utility suite
+* Dynamic filesystem cache
+* Builtin Zeroconf registration of the AFP server and TimeMachine volumes
+* Support for ACLs without a common Directory Service between server and client
+
+Important
+~~~~~~~~~
+
+The enhancements for fast AFP searches are only implemented for the CNID backend "dbd"
+and require changes to the underlying CNID database, ie an additional index.
+This breaks drop-in compatibility between the CNID backends "cdb" and "dbd". Once "dbd"
+has upgraded a CNID database of a volume, "cdb" will reject to open it.
+
 Netatalk is a Free/Open Source Software project and is released under
 the GNU General Public License (GPL).  The full license text is available
 at:
 
   http://www.gnu.org/licenses/gpl.html
+
+Changes in 2.2alpha4
+~~~~~~~~~~~~~~~~~~~~
+
+* NEW: Enhanced CNID "dbd" database for fast name search support.
+       Important: this makes cnidscheme "cdb" incompatible with "dbd".
+* NEW: afpd: support for fast catalog searches
+* NEW: ad utility: ad find
+* UPD: afpd: CNID database versioning check for "cdb" scheme
+* UPD: cnid_dbd: CNID database versioning and upgrading. Additional
+       CNID database index for fast name searches.
+
+
+Changes in 2.2alpha3
+~~~~~~~~~~~~~~~~~~~~
+
+* FIX: afpd: various fixes
+* FIX: Any daemon did not run if atalkd doesn't exist (redhat/debian)
 
 Changes in 2.2alpha2
 ~~~~~~~~~~~~~~~~~~~~
@@ -69,7 +105,7 @@ Changes in not yet released 2.1.5
 Supported Platforms
 ~~~~~~~~~~~~~~~~~~~
 
-As of Netatalk 2.1.4 the following operating systems are supported:
+As of Netatalk 2.2 the following operating systems are supported:
 
  * FreeBSD
  * Linux
