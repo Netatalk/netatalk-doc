@@ -617,17 +617,6 @@
       </varlistentry>
 
       <varlistentry>
-        <term>-searchtype db</term>
-
-        <listitem>
-          <para>Use fast CNID database namesearch instead of slow recursive
-          filesystem search. Relys on a consistent CNID database, ie Samba
-          or local filesystem access lead to inaccurate or wrong results.
-          </para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
         <term>-sleep <replaceable>[number]</replaceable></term>
 
         <listitem>
