@@ -62,10 +62,6 @@
     avoid corruption of the CNID database even if the system crashes
     unexpectedly.</para>
 
-    <para><command>cnid_dbd</command> uses the same on-disk database format as
-    the <emphasis remap="B">cdb</emphasis> backend. It is therefore possible
-    to switch between the two backends as necessary.</para>
-
     <para><command>cnid_dbd</command> inherits the effective userid and
     groupid from <emphasis remap="B">cnid_metad</emphasis> on startup, which
     is normally caused by <emphasis remap="B">afpd</emphasis> serving a
