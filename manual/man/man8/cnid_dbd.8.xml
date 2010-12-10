@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">07 Dec 2010</refmiscinfo>
+    <refmiscinfo class="date">10 Dec 2010</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -29,7 +29,7 @@
           <secondary>Network File System</secondary>
         </indexterm></command>
 
-      <arg choice="plain"><replaceable>dbdir</replaceable></arg>
+      <arg choice="plain"><replaceable>volpath</replaceable></arg>
 
       <arg choice="plain"><replaceable>ctrlfd</replaceable></arg>
 
@@ -53,7 +53,7 @@
 
     <para><command>cnid_dbd</command> is never started via the command line or
     system startup scripts but only by the <emphasis
-    remap="B">cnid_metad</emphasis> daemon. There is at most one instance of
+    remap="B">cnid_metad</emphasis> daemon. There is one instance of
     <command>cnid_dbd</command> per netatalk volume.</para>
 
     <para><command>cnid_dbd</command> uses the <emphasis remap="B">Berkleley
@@ -100,7 +100,7 @@
     changes. They will be removed regularily, unless the <emphasis
     remap="B">logfile_autoremove</emphasis> option is specified in the
     <emphasis remap="I">db_param</emphasis> configuration file (see
-    below).</para>
+    below) with a value of 0 (default 1).</para>
 
     <para>Do not use <command>cnid_dbd</command> for databases on NFS mounted
     file systems. It makes the whole point of securing database changes
@@ -206,7 +206,14 @@
   <refsect1>
     <title>UPDATING</title>
 
-    <para>In order to update between Netatalk releases using different
+    <para>Note that the first version to appear <emphasis>after</emphasis>
+    Netatalk 2.1 ie Netatalk 2.1.1, will support BerkeleyDB updates on the fly
+    without manual intervention. In other words Netatalk 2.1 does contain code
+    to prepare the BerkeleyDB database for upgrades and to upgrade it in case
+    it has been prepared before. That means it can't upgrade a 2.0.x version
+    because that one didn't prepare the database.</para>
+
+    <para>In order to update between older Netatalk releases using different
     BerkeleyDB library versions, follow this steps:</para>
 
     <itemizedlist>
@@ -234,12 +241,6 @@
       </listitem>
     </itemizedlist>
 
-    <para>Note that the first version to appear <emphasis>after</emphasis>
-    Netatalk 2.1 ie Netatalk 2.1.1, will support BerkeleyDB updates on the fly
-    without manual intervention. In other words Netatalk 2.1 does contain code
-    to prepare the BerkeleyDB database for upgrades and to upgrade it in case
-    it has been prepared before. That means it can't upgrade a 2.0.x version
-    because that one didn't prepare the database.</para>
   </refsect1>
 
   <refsect1>
