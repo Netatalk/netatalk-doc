@@ -1,6 +1,6 @@
-Netatalk 2.2alpha4
+Netatalk 2.2alpha5
 ==================
-The Netatalk development team is proud to announce version 2.2alpha4 of
+The Netatalk development team is proud to announce version 2.2alpha5 of
 the Netatalk File Sharing suite. This is an unstable version, published
 for the sole purpose of receiving wider testing. Do not run this on
 production systems.
@@ -24,8 +24,8 @@ The suite contains:
   BinHex, AppleSingle, or MacBinary into files readable by Unix computers
 * various supporting programs and utilities
 
-Summary of hot stuff and ehancements since 2.1
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Summary of hot stuff and enhancements since 2.1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Support for fast AFP searches (CNID backend "dbd" only)
 * POSIX draft 1e ACL support
@@ -42,11 +42,25 @@ and require changes to the underlying CNID database, ie an additional index.
 This breaks drop-in compatibility between the CNID backends "cdb" and "dbd". Once "dbd"
 has upgraded a CNID database of a volume, "cdb" will reject to open it.
 
+License
+~~~~~~~
+
 Netatalk is a Free/Open Source Software project and is released under
 the GNU General Public License (GPL).  The full license text is available
 at:
 
   http://www.gnu.org/licenses/gpl.html
+
+Changes in 2.2alpha5
+~~~~~~~~~~~~~~~~~~~~
+
+* UPD: afpd: new option "searchdb" which enables fast catalog searches
+       using the CNID db.
+* UPD: Case-insensitive fast search with the CNID db
+* UPD: cnid_dbd: afpd now passes the volume path, not the db path when
+       connecting for a volume. cnid_dbd will read the
+       ".AppleDesktop/.volinfo" file of the volume in order to figure
+       out the CNID db path and the volume charset encoding.
 
 Changes in 2.2alpha4
 ~~~~~~~~~~~~~~~~~~~~
@@ -92,15 +106,6 @@ Changes in 2.2alpha1
 * FIX: cnid_dbd: Solaris 10 compatibilty fix: don't use SO_SNDTIMEO/SO_RCVTIMEO,
        use non-blocking IO and select instead.
 * REM: afile/achfile/apple_cm/apple_mv/apple_rm: use ad
-
-Changes in not yet released 2.1.5
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* UPD: afpd: support newlines in -loginmesg with \n escaping syntax
-* UPD: afpd: support for changed chmod semantics on ZFS with ACLs
-       in onnv145+
-* FIX: afpd: fix leaking ressource when moving objects on the server
-
 
 Supported Platforms
 ~~~~~~~~~~~~~~~~~~~
@@ -156,4 +161,4 @@ We would like to thank all contributors to the Netatalk project for
 their commitment.  Without the many suggestions, bug and problem reports,
 patches, and reviews this project wouldn't be where it is.
 
- - The Netatalk Development Team, November 2010
+ - The Netatalk Development Team, December 2010
