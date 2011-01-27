@@ -1,6 +1,6 @@
-Netatalk 2.2alpha5
+Netatalk 2.2-beta1
 ==================
-The Netatalk development team is proud to announce version 2.2alpha5 of
+The Netatalk development team is proud to announce version 2.2-beta1 of
 the Netatalk File Sharing suite. This is an unstable version, published
 for the sole purpose of receiving wider testing. Do not run this on
 production systems.
@@ -50,6 +50,13 @@ the GNU General Public License (GPL).  The full license text is available
 at:
 
   http://www.gnu.org/licenses/gpl.html
+
+Changes in 2.2-beta1
+~~~~~~~~~~~~~~~~~~~~
+
+* FIX: composition of Surrogate Pair
+* UPD: gentoo,suse,cobalt,tru64: inistscript name is "netatalk", not "atalk"
+* UPD: gentoo: rc-update install don't hook in the Makefile
 
 Changes in 2.2alpha5
 ~~~~~~~~~~~~~~~~~~~~
@@ -161,4 +168,4 @@ We would like to thank all contributors to the Netatalk project for
 their commitment.  Without the many suggestions, bug and problem reports,
 patches, and reviews this project wouldn't be where it is.
 
- - The Netatalk Development Team, December 2010
+ - The Netatalk Development Team, January 2010
