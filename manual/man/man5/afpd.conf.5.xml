@@ -39,8 +39,8 @@
 
     <para><note>
         <para>Each server has to be configured on a <emphasis
-        role="bold">single</emphasis> line. Though newline escaping is
-        supported.</para>
+        role="bold">single</emphasis> line. Though, using "\" character,
+        newline escaping is supported.</para>
       </note>The possible options and their meanings are:</para>
   </refsect1>
 
@@ -114,7 +114,7 @@
 
               <listitem>
                 <para>(uams_pam.so or uams_passwd.so) Allow logins with
-                passwords transmitted in the clear.</para>
+                passwords transmitted in the clear. (legacy)</para>
               </listitem>
             </varlistentry>
 
@@ -129,7 +129,7 @@
                     <refentrytitle>afppasswd</refentrytitle>
 
                     <manvolnum>1</manvolnum>
-                  </citerefentry> for details</para>
+                  </citerefentry> for details. (legacy)</para>
               </listitem>
             </varlistentry>
 
@@ -419,9 +419,9 @@
           <para><example>
               <title>IP/hostname example configuration</title>
 
-              <para>fluxxus <option>-hostname</option> afp.apple.com
-              <option>-ipaddr</option> 127.0.0.1 <option>-fqdn</option>
-              www.microsoft.com</para>
+              <para>fluxxus <option>-hostname</option> afp.example.org
+              <option>-ipaddr</option> 192.168.0.1 <option>-fqdn</option>
+              www.example.com</para>
             </example>Result:<informaltable>
               <tgroup cols="1">
                 <tbody>
@@ -431,12 +431,12 @@
 
                   <row>
                     <entry>Listening and advertised network address:
-                    127.0.0.1</entry>
+                    192.168.0.1</entry>
                   </row>
 
                   <row>
                     <entry>Advertised network address:
-                    www.microsoft.com</entry>
+                    www.example.com</entry>
                   </row>
                 </tbody>
               </tgroup>
@@ -579,7 +579,7 @@
         <term>-[no]icon</term>
 
         <listitem>
-          <para>[Dont't] Use the platform-specific icon. Recent Mac OS don't display it any longer.</para>
+          <para>[Don't] Use the platform-specific icon. Recent Mac OS don't display it any longer.</para>
         </listitem>
       </varlistentry>
 
@@ -654,7 +654,6 @@ third -signature user:ADMINS</programlisting></para>
 
           <para><programlisting>73:  limit of Mac OS X 10.1
 80:  limit for Mac OS X 10.4/10.5 (default)
-123: limit for Mac OS X 10.6
 255: limit of spec</programlisting>Mac OS 9 and earlier are not influenced by
           this, because Maccharset volume name is always limitted to 27
           bytes.</para>
@@ -779,19 +778,19 @@ third -signature user:ADMINS</programlisting></para>
     <example>
       <title>afpd.conf default configuration</title>
 
-      <programlisting>- -transall -uamlist uams_dhx.so,uams_dhx2.so</programlisting>
+      <programlisting>- -tcp -noddp -uamlist uams_dhx.so,uams_dhx2.so -nosavepassword</programlisting>
     </example>
 
     <example>
       <title>afpd.conf MacCyrillic setup / UTF8 unix locale</title>
 
-      <programlisting>- -transall -maccodepage mac_cyrillic -unixcodepage utf8</programlisting>
+      <programlisting>- -maccodepage mac_cyrillic -unixcodepage utf8</programlisting>
     </example>
 
     <example>
       <title>afpd.conf setup for Kerberos V auth with newline escaping</title>
 
-      <programlisting>- -transall -uamlist uams_dhx.so,uams_dhx2.so,uams_guest.so,uams_gss.so \ 
+      <programlisting>- -uamlist uams_dhx.so,uams_dhx2.so,uams_guest.so,uams_gss.so \ 
 -k5service afpserver -k5keytab /path/to/afpserver.keytab \ 
 -k5realm YOUR.REALM -fqdn your.fqdn.namel:548</programlisting>
     </example>
@@ -801,7 +800,7 @@ third -signature user:ADMINS</programlisting></para>
 
       <programlisting>"Guest Server" -uamlist uams_guest.so -loginmesg "Welcome guest!"
 "User Server" -uamlist uams_dhx2.so -port 12000
-"special" -notcp -defaultvol &lt;path&gt; -systemvol &lt;path&gt;</programlisting>
+"special" -ddp -notcp -defaultvol &lt;path&gt; -systemvol &lt;path&gt;</programlisting>
     </example>
   </refsect1>
 
