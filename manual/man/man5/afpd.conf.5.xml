@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afpd.conf.5">
+
   <refmeta>
     <refentrytitle>afpd.conf</refentrytitle>
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">1 November 2010</refmiscinfo>
+    <refmiscinfo class="date">14 February 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -713,21 +714,21 @@ third -signature user:ADMINS</programlisting></para>
           <example>
             <title>Useful default config</title>
 
-            <programlisting>-setuplog "default log_info /var/log/afpd.log"
+            <programlisting>- -setuplog "default log_info /var/log/afpd.log"
 </programlisting>
           </example>
 
           <example>
             <title>Debugging config</title>
 
-            <programlisting>-setuplog "default log_maxdebug /var/log/afpd.log"
+            <programlisting>- -setuplog "default log_maxdebug /var/log/afpd.log"
 </programlisting>
           </example>
 
           <example>
             <title>afpd logging to different files</title>
 
-            <programlisting>-setuplog "default log_info /var/log/afpd.log"
+            <programlisting>- -setuplog "default log_info /var/log/afpd.log" \
 -setuplog "UAMSDaemon log_maxdebug /var/log/uams.log"
 </programlisting>
           </example>
@@ -750,7 +751,7 @@ third -signature user:ADMINS</programlisting></para>
             <title>Disable afpd logging set at build-time from
             configure</title>
 
-            <programlisting>-unsetuplog "default -"
+            <programlisting>- -unsetuplog "default -"
 </programlisting>
           </example>
         </listitem>
