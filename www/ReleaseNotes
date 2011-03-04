@@ -1,6 +1,6 @@
-Netatalk 2.2-beta1
+Netatalk 2.2-beta2
 ==================
-The Netatalk development team is proud to announce version 2.2-beta1 of
+The Netatalk development team is proud to announce version 2.2-beta2 of
 the Netatalk File Sharing suite. This is an unstable version, published
 for the sole purpose of receiving wider testing. Do not run this on
 production systems.
@@ -27,6 +27,7 @@ The suite contains:
 Summary of hot stuff and enhancements since 2.1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* AFP 3.3 support
 * Support for fast AFP searches (CNID backend "dbd" only)
 * POSIX draft 1e ACL support
 * Complete Netatalk volume compatible `ad` file utility suite
@@ -50,6 +51,12 @@ the GNU General Public License (GPL).  The full license text is available
 at:
 
   http://www.gnu.org/licenses/gpl.html
+
+Changes in 2.2beta2
+~~~~~~~~~~~~~~~~~~~~
+
+* NEW: afpd: AFP 3.3
+* UPD: afpd: AFP 3.x can't be disabled
 
 Changes in 2.2-beta1
 ~~~~~~~~~~~~~~~~~~~~
@@ -168,4 +175,4 @@ We would like to thank all contributors to the Netatalk project for
 their commitment.  Without the many suggestions, bug and problem reports,
 patches, and reviews this project wouldn't be where it is.
 
- - The Netatalk Development Team, February 2011
+ - The Netatalk Development Team, March 2011
