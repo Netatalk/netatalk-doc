@@ -36,6 +36,7 @@ manpages = manpages/ad.1 \
 		manpages/afpd.conf.5  \
 		manpages/afp_signature.conf.5  \
 		manpages/afp_ldap.conf.5 \
+		manpages/afp_voluuid.conf.5 \
 		manpages/papd.conf.5 \
 		manpages/AppleVolumes.default.5 \
 		manpages/atalkd.conf.5 \

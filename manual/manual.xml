@@ -19,6 +19,7 @@
 <!ENTITY netatalk.conf.5 SYSTEM "man/man5/netatalk.conf.5.xml">
 <!ENTITY afpd.conf.5 SYSTEM "man/man5/afpd.conf.5.xml">
 <!ENTITY afp_signature.conf.5 SYSTEM "man/man5/afp_signature.conf.5.xml">
+<!ENTITY afp_voluuid.conf.5 SYSTEM "man/man5/afp_voluuid.conf.5.xml">
 <!ENTITY AppleVolumes.default.5 SYSTEM "man/man5/AppleVolumes.default.5.xml">
 <!ENTITY atalkd.conf.5 SYSTEM "man/man5/atalkd.conf.5.xml">
 <!ENTITY papd.conf.5 SYSTEM "man/man5/papd.conf.5.xml">
@@ -44,7 +45,7 @@
   
 
   <bookinfo>
-    <date>31-10-2010</date>
+    <date>08-03-2011</date>
     <releaseinfo>:VERSION:</releaseinfo>
   </bookinfo>
 
@@ -90,6 +91,8 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
 
     &afp_signature.conf.5;
 
+    &afp_voluuid.conf.5;
+
     &afpd.8;
 
     &afpd.conf.5;
@@ -114,7 +117,7 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
 
     &cnid_metad.8;
 
-	&dbd.1;
+    &dbd.1;
 
     &getzones.1;
 
