@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">21 Apr 2010</refmiscinfo>
+    <refmiscinfo class="date">08 Mar 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -405,7 +405,23 @@
       </varlistentry>
 
       <varlistentry>
-        <term><filename>:ETCDIR:/netatalk/msg/message.pid</filename></term>
+        <term><filename>:ETCDIR:/afp_voluuid.conf</filename></term>
+
+        <listitem>
+          <para>list of UUID for Time Machine volume</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>:ETCDIR:/afp_ldap.conf</filename></term>
+
+        <listitem>
+          <para>configuration file for LDAP and ACL support</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>:ETCDIR:/msg/message.pid</filename></term>
 
         <listitem>
           <para>contains messages to be sent to users.</para>
@@ -437,6 +453,14 @@
         <manvolnum>5</manvolnum>
       </citerefentry>, <citerefentry>
         <refentrytitle>afp_signature.conf</refentrytitle>
+
+        <manvolnum>5</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>afp_voluuid.conf</refentrytitle>
+
+        <manvolnum>5</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>afp_ldap.conf</refentrytitle>
 
         <manvolnum>5</manvolnum>
       </citerefentry>, <citerefentry>
