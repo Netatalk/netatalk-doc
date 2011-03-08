@@ -73,7 +73,23 @@ clean:
 
 # manpage targets
 
-manpages/% : manual/man/man*/%.xml
+manpages/%.1 : manual/man/man1/%.1.xml
+		@xsltproc -o manpages/ $(MAN_XSL_TMP) $<
+		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
+
+manpages/%.3 : manual/man/man3/%.3.xml
+		@xsltproc -o manpages/ $(MAN_XSL_TMP) $<
+		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
+
+manpages/%.4 : manual/man/man4/%.4.xml
+		@xsltproc -o manpages/ $(MAN_XSL_TMP) $<
+		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
+
+manpages/%.5 : manual/man/man5/%.5.xml
+		@xsltproc -o manpages/ $(MAN_XSL_TMP) $<
+		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
+
+manpages/%.8 : manual/man/man8/%.8.xml
 		@xsltproc -o manpages/ $(MAN_XSL_TMP) $<
 		@sed -i -e "s@:NETATALK_VERSION:@Netatalk $(VERSION)@g" $@
 
