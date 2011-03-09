@@ -415,31 +415,19 @@
             </indexterm> when used together with the <option>-proxy</option>
           option.</para>
 
-          <para><example>
-              <title>IP/hostname example configuration</title>
-
-              <para>fluxxus <option>-hostname</option> afp.example.org
-              <option>-ipaddr</option> 192.168.0.1 <option>-fqdn</option>
-              www.example.com</para>
-            </example>Result:<informaltable>
-              <tgroup cols="1">
-                <tbody>
-                  <row>
-                    <entry>(UTF8) Server name: fluxxus</entry>
-                  </row>
-
-                  <row>
-                    <entry>Listening and advertised network address:
-                    192.168.0.1</entry>
-                  </row>
-
-                  <row>
-                    <entry>Advertised network address:
-                    www.example.com</entry>
-                  </row>
-                </tbody>
-              </tgroup>
-            </informaltable></para>
+          <example>
+            <title>afpd.conf onfiguration line</title>
+            <programlisting>
+              fluxxus -hostname afp.example.org -ipaddr 192.168.0.1 -fqdn www.example.com
+            </programlisting>
+            <para>
+              <emphasis role="bold">Result</emphasis>
+            </para>
+            <para>
+              (UTF8) Server name: fluxxus, Listening and advertised network address: 192.168.0.1, Advertised network address: www.example.com,
+               hostname is not used.
+            </para>
+          </example>
         </listitem>
       </varlistentry>
 
