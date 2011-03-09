@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="installation">
   <chapterinfo>
-    <date>24.10.2010</date>
+    <date>09.03.2011</date>
   </chapterinfo>
 
   <title>Installation</title>
@@ -27,13 +27,46 @@
       <title>Binary packages</title>
 
       <para>Binary packages of Netatalk are included in some Linux and UNIX
-      distributions. You might want to have a look at the usual locations, too
-      (<ulink url="http://rpmfind.net/">http://rpmfind.net/</ulink>, <ulink
-      url="http://packages.debian.org/">http://packages.debian.org/</ulink>,
-      <ulink url="http://www.blastwave.org/">http://www.blastwave.org/</ulink>
-      <ulink
-      url="http://www.freebsd.org/ports/index.html">http://www.freebsd.org/ports/index.html</ulink>,
-      etc.)<indexterm>
+      distributions. You might want to have a look at the usual locations,
+      too.</para>
+
+      <para><ulink
+      url="https://launchpad.net/ubuntu">https://launchpad.net/ubuntu
+      </ulink></para>
+
+      <para><ulink
+      url="http://packages.debian.org/">http://packages.debian.org/
+      </ulink></para>
+
+      <para><ulink
+      url="http://rpmfind.net/">http://rpmfind.net/
+      </ulink></para>
+
+      <para><ulink
+      url="http://koji.fedoraproject.org/koji/search">http://koji.fedoraproject.org/koji/search
+      </ulink></para>
+
+      <para><ulink
+      url="http://packages.gentoo.org/">http://packages.gentoo.org/
+      </ulink></para>
+
+      <para><ulink
+      url="http://www.blastwave.org/">http://www.blastwave.org/
+      </ulink></para>
+
+      <para><ulink
+      url="http://www.freebsd.org/ports/index.html">http://www.freebsd.org/ports/index.html
+      </ulink></para>
+
+      <para><ulink
+      url="http://pkgsrc.se/search.php">http://pkgsrc.se/search.php
+      </ulink></para>
+
+      <para><ulink
+      url="http://openports.se/search.php">http://openports.se/search.php
+      </ulink></para>
+
+      <para>etc.<indexterm>
           <primary>RPM</primary>
 
           <secondary>Red Hat Package Manager package</secondary>
@@ -179,16 +212,16 @@ remote: Counting objects: 2503, done.
 
         <itemizedlist>
           <listitem>
-            <para>OpenSSL or libgcrypt (recommended)</para>
+            <para>OpenSSL and/or Libgcrypt (recommended)</para>
 
             <para>Required for encrypted passwords. Without it, the password
             will be sent over the network in clear text. OpenSSL is needed for
-            the older DHCAST128, libgcrypt is needed for DHX2.</para>
+            the older DHCAST128, Libgcrypt is needed for DHX2.</para>
 
             <para>OpenSSL can be downloaded from: <ulink
             url="http://www.openssl.org/">http://www.openssl.org/</ulink>.</para>
 
-            <para>libgcrypt can be downloaded from: <ulink
+            <para>Libgcrypt can be downloaded from: <ulink
             url="http://directory.fsf.org/project/libgcrypt/">http://directory.fsf.org/project/libgcrypt/</ulink>.</para>
           </listitem>
 
@@ -228,7 +261,7 @@ remote: Counting objects: 2503, done.
           </listitem>
 
           <listitem>
-            <para>OpenSLP</para>
+            <para>OpenSLP and/or Avahi</para>
 
             <para>SLP<indexterm>
                 <primary>SLP</primary>
@@ -243,11 +276,18 @@ remote: Counting objects: 2503, done.
             location, and configuration of networked services in enterprise
             networks.</para>
 
-            <para>Mac OS X 10.4 and earlier uses it to locate AFP servers,
-            even though 10.2 and later prefer Bonjour.</para>
+            <para>Mac OS 8.5 - Mac OS X 10.4 use SLP to locate AFP servers.
+            </para>
 
             <para>You can download OpenSLP from: <ulink
             url="http://www.openslp.org/">http://www.openslp.org/</ulink>.</para>
+            <para>Mac OS X 10.2 and later prefer Bonjour (aka Zeroconf).
+            Avahi is a freely-available implementation of Zeroconf.
+            Netatalk can advertise AFP server and Time Machine volume by
+            using Avahi.</para>
+
+            <para>You can download Avahi from: <ulink
+            url="http://www.avahi.org/">http://www.avahi.org/</ulink>.</para>
           </listitem>
 
           <listitem>
