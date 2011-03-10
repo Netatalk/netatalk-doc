@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">22 Aug 2004</refmiscinfo>
+    <refmiscinfo class="date">10 Mar 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -17,17 +17,24 @@
   </refnamediv>
 
   <refsynopsisdiv>
-    <para><emphasis remap="B">:BINDIR:/asip-status.pl<indexterm>
-        <primary>asip-status.pl</primary>
-      </indexterm></emphasis> ADDRESS<emphasis
-    remap="I">:PORT</emphasis>...</para>
+    <cmdsynopsis>
+      <command>asip-status.pl<indexterm>
+          <primary>asip-status.pl</primary>
+        </indexterm></command>
+
+      <arg choice="opt">-d</arg>
+      <arg choice="opt">-i</arg>
+      <arg choice="opt">-x</arg>
+
+      <arg choice="plain">HOSTNAME[:PORT]</arg>
+    </cmdsynopsis>
   </refsynopsisdiv>
 
   <refsect1>
     <title>DESCRIPTION</title>
 
     <para><emphasis remap="B">asip-status.pl</emphasis> is a perl script that
-    sends a FPGetSrvrInfo request to an AFP server at ADDRESS:PORT and
+    sends a FPGetSrvrInfo request to an AFP server at HOSTNAME:PORT and
     displays the results, namely "Machine type", the server's name, supported
     AFP versions, UAMs and AFP flags, the "server signature" and the network
     addresses, the server provides AFP services on.</para>
@@ -37,9 +44,39 @@
   </refsect1>
 
   <refsect1>
+    <title>OPTIONS</title>
+
+    <variablelist remap="TP">
+      <varlistentry>
+        <term><option>-d</option></term>
+
+        <listitem>
+          <para>Enable debug output.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>-i</option></term>
+
+        <listitem>
+          <para>Show icon if it exists.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>-x</option></term>
+
+        <listitem>
+          <para>Enable hex dump output.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
     <title>EXAMPLES</title>
 
-    <para><programlisting><emphasis remap="B">:BINDIR:/asip-status.pl</emphasis> 192.168.21.2
+    <para><programlisting><emphasis remap="B">asip-status.pl</emphasis> 192.168.21.2
 AFP reply from 192.168.21.2:548
 Flags: 1  Cmd: 3  ID: 57005
 Reply: DSIGetStatus
@@ -57,8 +94,8 @@ Network address: 192.168.21.2:548 (tcp/ip address and port)
 Network address: 10.20 (ddp address)
 </programlisting></para>
 
-    <para><programlisting><emphasis remap="B">:BINDIR:/asip-status.pl</emphasis> 192.168.21.1:10548
-AFP reply from 192.168.21.1:10548
+    <para><programlisting><emphasis remap="B">asip-status.pl</emphasis> myserver:10548
+AFP reply from myserver:10548
 Flags: 1  Cmd: 3  ID: 57005
 Reply: DSIGetStatus
 Request ID: 57005
