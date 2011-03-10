@@ -18,9 +18,12 @@ MANDIR="$1/man"
 cd "$MANDIR"
 
 for am in */*.am; do
-    FILES="`grep -Ev "SUFFIXES|.tmpl:" $am | grep tmpl | sed -e "s/TEMPLATE_FILES.*=//" -e "s/.tmpl//g" | tr -d '\n' | tr -d '\\' `"
+    echo Examining Makefile.am \"$am\"
+    FILES="$(grep -Ev "SUFFIXES|.tmpl:" $am | grep tmpl | sed -e "s/TEMPLATE_FILES.*=//g" -e "s/ATALK_MANS.*=//g" -e "s/.tmpl//g" | tr -d '\n' | tr -d '\\')"
+    echo Found generated files: \"$FILES\"
     GENERATED="$GENERATED $FILES"
 done
+
 echo "Generated manpages are: $GENERATED"
 
 cd "$WORKDIR"
