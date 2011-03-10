@@ -1,6 +1,6 @@
-Netatalk 2.2-beta2
+Netatalk 2.2-beta3
 ==================
-The Netatalk development team is proud to announce version 2.2-beta2 of
+The Netatalk development team is proud to announce version 2.2-beta3 of
 the Netatalk File Sharing suite. This is an unstable version, published
 for the sole purpose of receiving wider testing. Do not run this on
 production systems.
@@ -28,6 +28,7 @@ Summary of hot stuff and enhancements since 2.1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * AFP 3.3 support
+* Robust network disconnect/reconnect, especially important for Time Machine
 * Support for fast AFP searches (CNID backend "dbd" only)
 * POSIX draft 1e ACL support
 * Complete Netatalk volume compatible `ad` file utility suite
@@ -52,7 +53,17 @@ at:
 
   http://www.gnu.org/licenses/gpl.html
 
-Changes in 2.2beta2
+Changes in 2.2-beta3
+~~~~~~~~~~~~~~~~~~~~
+
+* FIX: afpd: fix option volsizelimit to return a usefull value for the
+       volume free space using `du -sh` with popen
+* FIX: afpd: fix idle connection disconnects
+* FIX: afpd: don't disconnect sessions for clients if boottimes don't match
+* FIX: afpd: better handling of very long filenames that contain many
+       multibyte UTF-8 glyphs
+
+Changes in 2.2-beta2
 ~~~~~~~~~~~~~~~~~~~~
 
 * NEW: afpd: AFP 3.3
