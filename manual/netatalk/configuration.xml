@@ -1312,11 +1312,6 @@ aclmode = passthrough (if available)</screen>
                 queries</para>
               </listitem>
             </itemizedlist>
-
-            <important>
-              <para>ALL USERS AND GROUPS USED ON VOLUMES WHERE ACLS ARE USED
-              SHOULD THEN COME FROM THE SHARED AUTHENTICATION DOMAIN !</para>
-            </important>
           </listitem>
         </orderedlist>
       </sect3>
