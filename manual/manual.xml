@@ -26,6 +26,7 @@
 <!ENTITY afp_ldap.conf.5 SYSTEM "man/man5/afp_ldap.conf.5.xml">
 <!ENTITY atalk.4 SYSTEM "man/man4/atalk.4.xml">
 <!ENTITY aecho.1 SYSTEM "man/man1/aecho.1.xml">
+<!ENTITY afpldaptest.1 SYSTEM "man/man1/afpldaptest.1.xml">
 <!ENTITY afppasswd.1 SYSTEM "man/man1/afppasswd.1.xml">
 <!ENTITY apple_dump.1 SYSTEM "man/man1/apple_dump.1.xml">
 <!ENTITY getzones.1 SYSTEM "man/man1/getzones.1.xml">
@@ -96,6 +97,8 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
     &afpd.8;
 
     &afpd.conf.5;
+
+    &afpldaptest.1;
 
     &afppasswd.1;
 
