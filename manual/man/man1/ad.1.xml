@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">12 Oct 2010</refmiscinfo>
+    <refmiscinfo class="date">30 Mar 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -381,6 +381,10 @@ Note: any letter appearing in uppercase means the flag is set but it's a directo
 
     <para><citerefentry>
         <refentrytitle>dbd</refentrytitle>
+
+        <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>apple_dump</refentrytitle>
 
         <manvolnum>1</manvolnum>
       </citerefentry>.</para>

@@ -7,7 +7,7 @@
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">28 November 2009</refmiscinfo>
+    <refmiscinfo class="date">30 Mar 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -214,7 +214,7 @@ ldap_group_attr  = cn</programlisting>
         <refentrytitle>AppleVolumes.default</refentrytitle>
 
         <manvolnum>5</manvolnum>
-      </citerefentry>,<citerefentry>
+      </citerefentry>, <citerefentry>
         <refentrytitle>afpldaptest</refentrytitle>
 
         <manvolnum>1</manvolnum>

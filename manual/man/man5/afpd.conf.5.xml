@@ -6,7 +6,7 @@
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">14 February 2011</refmiscinfo>
+    <refmiscinfo class="date">30 Mar 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -825,6 +825,10 @@ third -signature user:ADMINS</programlisting></para>
         <refentrytitle>afp_signature.conf</refentrytitle>
 
         <manvolnum>5</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>cnid_metad</refentrytitle>
+
+        <manvolnum>8</manvolnum>
       </citerefentry></para>
   </refsect1>
 </refentry>

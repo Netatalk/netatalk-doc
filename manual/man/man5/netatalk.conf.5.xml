@@ -6,7 +6,7 @@
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">26 Sep 2010</refmiscinfo>
+    <refmiscinfo class="date">30 Mar 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -14,7 +14,7 @@
   <refnamediv>
     <refname>netatalk.conf</refname>
 
-    <refpurpose>Configuration file used by netatalk(8) to determine its
+    <refpurpose>Configuration file used by Netatalk to determine its
     general configuration<indexterm>
         <primary>netatalk.conf</primary>
       </indexterm><indexterm>
@@ -213,6 +213,18 @@
     <title>SEE ALSO</title>
 
     <para><citerefentry>
+        <refentrytitle>afpd</refentrytitle>
+
+        <manvolnum>8</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>afpd.conf</refentrytitle>
+
+        <manvolnum>5</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>cnid_metad</refentrytitle>
+
+        <manvolnum>8</manvolnum>
+      </citerefentry>, <citerefentry>
         <refentrytitle>atalkd</refentrytitle>
 
         <manvolnum>8</manvolnum>

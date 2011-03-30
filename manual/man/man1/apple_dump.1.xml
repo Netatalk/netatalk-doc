@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">31 Mar 2010</refmiscinfo>
+    <refmiscinfo class="date">30 Mar 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -129,6 +129,6 @@
   <refsect1 id="see_also">
     <title>SEE ALSO</title>
 
-    <para><citerefentry><refentrytitle>afile</refentrytitle><manvolnum>1</manvolnum></citerefentry></para>
+    <para><citerefentry><refentrytitle>ad</refentrytitle><manvolnum>1</manvolnum></citerefentry></para>
   </refsect1>
 </refentry>
