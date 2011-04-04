@@ -1,6 +1,6 @@
-Netatalk 2.2-beta3
+Netatalk 2.2-beta4
 ==================
-The Netatalk development team is proud to announce version 2.2-beta3 of
+The Netatalk development team is proud to announce version 2.2-beta4 of
 the Netatalk File Sharing suite. This is an unstable version, published
 for the sole purpose of receiving wider testing. Do not run this on
 production systems.
@@ -52,6 +52,21 @@ the GNU General Public License (GPL).  The full license text is available
 at:
 
   http://www.gnu.org/licenses/gpl.html
+
+Changes in 2.2-beta3
+~~~~~~~~~~~~~~~~~~~~
+
+* NEW: afpd: new afpd.conf options "tcprcvbuf" and "tcpsndbuf" to customize
+       the corresponding TCP socket options.
+* NEW: afpd: new afpd.conf option "nozeroconf" which disabled automatic
+       Zeroconf service registration.
+* FIX: afpd: generate mersenne primes for DHX2 UAM once at startup,
+       not for every login
+* FIX: afpd: DSI streaming deadlock
+* FIX: afpd: extended sleep
+* FIX: afpd: directory cache
+* FIX: Support for platforms that do not have the *at functions
+* UPD: afpd: put POSIX write lock on volume files while reading them
 
 Changes in 2.2-beta3
 ~~~~~~~~~~~~~~~~~~~~
@@ -186,4 +201,4 @@ We would like to thank all contributors to the Netatalk project for
 their commitment.  Without the many suggestions, bug and problem reports,
 patches, and reviews this project wouldn't be where it is.
 
- - The Netatalk Development Team, March 2011
+ - The Netatalk Development Team, April 2011
