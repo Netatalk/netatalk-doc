@@ -469,6 +469,52 @@
       </varlistentry>
 
       <varlistentry>
+        <term>-dsireadbuf <replaceable>[number]</replaceable></term>
+        <listitem>
+          <para>
+            Scale factor that determines the size of the DSI/TCP readahead buffer, default is 12.
+            This is multiplies with the DSI server quantum (default ~300k) to give the size of
+            the buffer. Increasing this value might increase throughput in fast local networks
+            for volume to volume copies.
+            <emphasis>Note</emphasis>: This buffer is allocated per afpd child process, so
+            specifying large values will eat up large amount of memory (buffer size * number of
+            clients).
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-tcprcvbuf <replaceable>[number]</replaceable></term>
+        <listitem>
+          <para>
+            Try to set TCP receive buffer using setsockpt(). Often OSes impose restrictions
+            on the applications ability to set this value.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-tcpsndbuf <replaceable>[number]</replaceable></term>
+        <listitem>
+          <para>
+            Try to set TCP send buffer using setsockpt(). Often OSes impose restrictions
+            on the applications ability to set this value.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-nozeroconf</term>
+
+        <listitem>
+          <para>Disable automatic Zeroconf<indexterm>
+              <primary>Zeroconf</primary>
+              <secondary>Bonjour</secondary>
+            </indexterm> service registration if support was compiled in.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term>-slp</term>
 
         <listitem>
