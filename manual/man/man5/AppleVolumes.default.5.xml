@@ -377,10 +377,10 @@
               <term>upriv</term>
 
               <listitem>
-                <para>use AFP3 unix privileges. Become familiar with the new
-                "unix privileges" AFP permissions concepts in MacOS X before
-                using this option. See also:
-                <option>perm|fperm|dperm</option>.</para>
+                <para>use AFP3 unix privileges. This should be set for OS X
+                  clients. Starting with Netatalk 2.1 it's part of the
+                  default config :DEFAULT: line.
+                  See also: <option>perm|fperm|dperm</option>.</para>
               </listitem>
             </varlistentry>
 
