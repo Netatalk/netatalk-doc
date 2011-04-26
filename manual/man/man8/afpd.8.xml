@@ -299,6 +299,13 @@
 
     <para>Signals that are sent to the main <command>afpd</command> process
     are propagated to the children, so all will be affected.</para>
+    <para>To shut down a user's <command>afpd</command> process it is
+      recommended that <command>SIGKILL (-9)</command>
+      <emphasis>NOT</emphasis> be used, except as a last resort, as this
+      may leave the CNID database in an inconsistent state. The safe way
+      to terminate an <command>afpd</command> is to send it a
+      <command>SIGTERM (-15)</command> signal and wait for it to die on
+      its own.</para>
 
     <variablelist>
       <varlistentry>
@@ -318,7 +325,7 @@
           <command>afpd</command> enables <emphasis>max_debug</emphasis>
           logging for this process. The log is sent to fhe file
           <filename>/tmp/afpd.PID.XXXXXX</filename>. Sending another
-          <command>SIGINT</command> will terminate the process.</para>
+          <command>SIGINT</command> will revert to the original log settings.</para>
         </listitem>
       </varlistentry>
 
@@ -344,14 +351,6 @@
           associated AFP client. The file is removed after the message is
           sent. This should only be sent to a child
           <command>afpd</command>.</para>
-
-          <para>To shut down a user's <command>afpd</command> process it is
-          recommended that <command>SIGKILL (-9)</command>
-          <emphasis>NOT</emphasis> be used, except as a last resort, as this
-          may leave the CNID database in an inconsistent state. The safe way
-          to terminate an <command>afpd</command> is to send it a
-          <command>SIGTERM (-15)</command> signal and wait for it to die on
-          its own.</para>
         </listitem>
       </varlistentry>
     </variablelist>
