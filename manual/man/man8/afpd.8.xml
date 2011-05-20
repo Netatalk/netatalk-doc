@@ -297,8 +297,6 @@
   <refsect1>
     <title>SIGNALS</title>
 
-    <para>Signals that are sent to the main <command>afpd</command> process
-    are propagated to the children, so all will be affected.</para>
     <para>To shut down a user's <command>afpd</command> process it is
       recommended that <command>SIGKILL (-9)</command>
       <emphasis>NOT</emphasis> be used, except as a last resort, as this
@@ -306,11 +304,28 @@
       to terminate an <command>afpd</command> is to send it a
       <command>SIGTERM (-15)</command> signal and wait for it to die on
       its own.</para>
+    <para>SIGTERM and SIGUSR1 signals that are sent to the main <command>afpd</command> process
+    are propagated to the children, so all will be affected.</para>
 
     <variablelist>
       <varlistentry>
-        <term>SIGHUP</term>
+        <term>SIGTERM</term>
+        <listitem>
+          <para>Clean exit. Propagates from master to childs.</para>
+        </listitem>
+      </varlistentry>
 
+      <varlistentry>
+        <term>SIGQUIT</term>
+        <listitem>
+          <para>Send this to the master <command>afpd</command>, it will
+          exit leaving all children running! Can be used to implement
+          AFP service without downtime.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>SIGHUP</term>
         <listitem>
           <para>Sending a <command>SIGHUP</command> to afpd will cause it to
           reload its configuration files.</para>
@@ -319,7 +334,6 @@
 
       <varlistentry>
         <term>SIGINT</term>
-
         <listitem>
           <para>Sending a <command>SIGINT</command> to a child
           <command>afpd</command> enables <emphasis>max_debug</emphasis>
@@ -331,7 +345,6 @@
 
       <varlistentry>
         <term>SIGUSR1</term>
-
         <listitem>
           <para>The <command>afpd</command> process will send the message "The
           server is going down for maintenance." to the client and shut itself
@@ -343,7 +356,6 @@
 
       <varlistentry>
         <term>SIGUSR2</term>
-
         <listitem>
           <para>The <command>afpd</command> process will look in the message
           directory configured at build time for a file named message.pid. For

@@ -334,6 +334,14 @@
             </varlistentry>
 
             <varlistentry>
+              <term>nonetids</term>
+
+              <listitem>
+                <para>Try to force ACL unawareness on the client.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
               <term>limitsize</term>
 
               <listitem>
