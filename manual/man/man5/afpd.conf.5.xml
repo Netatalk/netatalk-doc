@@ -616,6 +616,35 @@
       </varlistentry>
 
       <varlistentry>
+        <term>-fcelistener <replaceable>host[:port]</replaceable></term>
+        <listitem>
+          <para>
+            Enables sending FCE events to the specified <parameter>host</parameter>,
+            default <parameter>port</parameter> is 12250 if not specified. Specifying
+            mutliple listeners is done by having this option once for each of them.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-fceevents <replaceable>fmod,fdel,ddel,fcre,dcre,tmsz</replaceable></term>
+        <listitem>
+          <para>
+            Speficies which FCE events are active, default is <parameter>fmod,fdel,ddel,fcre,dcre</parameter>.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-fcecoalesce <replaceable>all|delete|create</replaceable></term>
+        <listitem>
+          <para>
+            Coalesce FCE events.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term>-guestname <replaceable>[name]</replaceable></term>
 
         <listitem>
