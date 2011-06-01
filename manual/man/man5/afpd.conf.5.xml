@@ -672,6 +672,20 @@
       </varlistentry>
 
       <varlistentry>
+        <term>-mimicmodel <replaceable>model</replaceable></term>
+
+        <listitem>
+          <para>
+            Specifies the icon model that appears on
+            clients. Defaults to off. Examples: RackMac
+            (same as Xserve), PowerBook, PowerMac, Macmini,
+            iMac, MacBook, MacBookPro, MacBookAir, MacPro,
+            AppleTV1,1, AirPort.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term>-nodebug</term>
 
         <listitem>
