@@ -186,13 +186,10 @@
         <term>-u</term>
 
         <listitem>
-          <para>Prepare upgrade:</para>
+          <para>Upgrade:</para>
 
-          <para>Before installing an upgraded version of Netatalk that is
-          linked against a newer BerkeleyDB lib, run `dbd -u ...` from the OLD
-          Netatalk pior to upgrading on all volumes. This removes the
-          BerkleyDB environment. On exit cnid_dbd does this automatically, so
-          normally calling dbd -u should not be necessary !</para>
+          <para>Opens the database which triggers any necessary upgrades, then
+            closes and exits.</para>
         </listitem>
       </varlistentry>
     </variablelist>
