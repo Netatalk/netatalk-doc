@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">22 Aug 2004</refmiscinfo>
+    <refmiscinfo class="date">31 May 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -55,9 +55,9 @@
       specific UAMs. As they provide only weak password encryption, the use of
       the "Randnum exchange" and "2-Way Randnum exchange" UAMs is deprecated
       unless one has to support very old AFP clients, that can not deal with
-      the more secure "DHCAST128" UAM instead. Please compare with the <link
-      linkend="authentication">Authentication chapter</link> inside Netatalk's
-      documentation.</para>
+      the more secure "DHCAST128" and "DHX2" UAM instead. Please compare with
+      the <link linkend="authentication">Authentication chapter</link> inside
+      Netatalk's documentation.</para>
     </note>
   </refsect1>
 
