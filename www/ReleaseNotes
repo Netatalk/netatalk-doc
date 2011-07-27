@@ -1,9 +1,9 @@
-Netatalk 2.2-beta4
-==================
-The Netatalk development team is proud to announce version 2.2-beta4 of
-the Netatalk File Sharing suite. This is an unstable version, published
-for the sole purpose of receiving wider testing. Do not run this on
-production systems.
+Netatalk 2.2.0
+==============
+The Netatalk development team is proud to announce version 2.2.0 of
+the Netatalk File Sharing suite. This is first stable release of the
+new 2.2 series. Earyl adopters are encouraged to upgrade their systems
+to 2.2.0.
 
 Netatalk is a freely-available Open Source AFP fileserver. It also
 provides a kernel level implementation of the AppleTalk Protocol Suite.
@@ -24,10 +24,10 @@ The suite contains:
   BinHex, AppleSingle, or MacBinary into files readable by Unix computers
 * various supporting programs and utilities
 
-Summary of hot stuff and enhancements since 2.1
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Summary of hot stuff and enhancements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* AFP 3.3 support
+* AFP 3.3 support (necessary for TimeMachine and Lion)
 * Robust network disconnect/reconnect, especially important for Time Machine
 * Support for fast AFP searches (CNID backend "dbd" only)
 * POSIX draft 1e ACL support
@@ -52,6 +52,43 @@ the GNU General Public License (GPL).  The full license text is available
 at:
 
   http://www.gnu.org/licenses/gpl.html
+
+Changes in 2.2.0
+~~~~~~~~~~~~~~~~
+
+* NEW: afpd: new volume option "nonetids"
+* NEW: afpd: ACL access check caching
+* NEW: afpd: FCE event notifications
+* NEW: afpd: new option "-mimicmodel" for specifying Bonjour model registration
+* UPD: Support for Berkeley DB 5.1
+* UPD: case-conversion is based on Unicode 6.0.0
+* UPD: cnid_metad: allow up to 4096 volumes
+* UPD: afpd: only forward SIGTERM and SIGUSR1 from parent to childs
+* UPD: afpd: use internal function instead of popening du -sh in order to
+       calculate the used size of a volume for option "volsizelimit"
+* UPD: afpd: Add negative UUID caching, enhance local UUID handling
+* FIX: afpd: configuration reload with SIGHUP
+* FIX: afpd: crashes in the dircache
+* FIX: afpd: Correct afp logout vs dsi eof behaviour
+* FIX: afpd: new catsearch was broken
+* FIX: afpd: only use volume UUIDs in master afpd
+* FIX: dbd: Multiple fixes, reliable locking
+* FIX: ad file suite: fix an error that resulted in CNID database inconsistencies
+
+Changes in 2.2-beta4
+~~~~~~~~~~~~~~~~~~~~
+
+* NEW: afpd: new afpd.conf options "tcprcvbuf" and "tcpsndbuf" to customize
+       the corresponding TCP socket options.
+* NEW: afpd: new afpd.conf option "nozeroconf" which disabled automatic
+       Zeroconf service registration.
+* FIX: afpd: generate mersenne primes for DHX2 UAM once at startup,
+       not for every login
+* FIX: afpd: DSI streaming deadlock
+* FIX: afpd: extended sleep
+* FIX: afpd: directory cache
+* FIX: Support for platforms that do not have the *at functions
+* UPD: afpd: put POSIX write lock on volume files while reading them
 
 Changes in 2.2-beta3
 ~~~~~~~~~~~~~~~~~~~~
@@ -201,4 +238,4 @@ We would like to thank all contributors to the Netatalk project for
 their commitment.  Without the many suggestions, bug and problem reports,
 patches, and reviews this project wouldn't be where it is.
 
- - The Netatalk Development Team, April 2011
+ - The Netatalk Development Team, July 2011
