@@ -309,8 +309,8 @@
             <emphasis>not</emphasis> shared and accessed by multiple clients
             at once !</para>
           </important>This backend is also used internally (as in-memory CNID
-        database) as a fallback in case opening the primary database (Netatalk
-        2.1-beta1: only for <abbrev>cdb</abbrev>) can't be opened, because
+        database) as a fallback in case opening the primary database
+        can't be opened, because
         <abbrev>tdb</abbrev> can work as in-memory database. This of course
         means upon restart the CNIDs are gone.</para>
       </sect3>
