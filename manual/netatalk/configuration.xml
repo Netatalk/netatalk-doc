@@ -78,9 +78,7 @@
         <para>Leaving the afpd.conf file empty equals to the following
         configuration:</para>
 
-        <para>
-        <programlisting>- -tcp -noddp -uamlist uams_dhx.so,uams_dhx2.so -nosavepassword</programlisting>
-         </para>
+        <para><programlisting>- -tcp -noddp -uamlist uams_dhx.so,uams_dhx2.so -nosavepassword</programlisting></para>
 
         <para>For a more detailed explanation of the available options, please
         refer to the <citerefentry>
@@ -309,10 +307,9 @@
             <emphasis>not</emphasis> shared and accessed by multiple clients
             at once !</para>
           </important>This backend is also used internally (as in-memory CNID
-        database) as a fallback in case opening the primary database
-        can't be opened, because
-        <abbrev>tdb</abbrev> can work as in-memory database. This of course
-        means upon restart the CNIDs are gone.</para>
+        database) as a fallback in case opening the primary database can't be
+        opened, because <abbrev>tdb</abbrev> can work as in-memory database.
+        This of course means upon restart the CNIDs are gone.</para>
       </sect3>
 
       <sect3>
@@ -938,14 +935,14 @@
         <filename>uams_dhx2_pam.so</filename>.</para>
 
         <para>So, if it looks like this in Netatalk's UAMs folder (per default
-        <filename>/etc/netatalk/uams/</filename>):<programlisting>uams_clrtxt.so
-        -&gt; uams_pam.so uams_dhx.so -&gt; uams_dhx_pam.so uams_dhx2.so -&gt;
-        uams_dhx2_pam.so</programlisting> then you're using PAM, otherwise
-        classic Unix passwords. The main advantage of using PAM is that one
-        can integrate Netatalk in centralized authentication scenarios, eg.
-        via LDAP, NIS and the like. Please always keep in mind that the
-        protection of your user's login credentials in such scenarios also
-        depends on the strength of encryption that the UAM in question
+        <filename>/etc/netatalk/uams/</filename>):<programlisting>uams_clrtxt.so -&gt; uams_pam.so
+uams_dhx.so -&gt; uams_dhx_pam.so
+uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
+        otherwise classic Unix passwords. The main advantage of using PAM is
+        that one can integrate Netatalk in centralized authentication
+        scenarios, eg. via LDAP, NIS and the like. Please always keep in mind
+        that the protection of your user's login credentials in such scenarios
+        also depends on the strength of encryption that the UAM in question
         supplies. So think about eliminating weak UAMs like "ClearTxt Passwrd"
         and "Randnum exchange" completely from your network.</para>
       </sect3>
@@ -1143,8 +1140,7 @@
           AFP port to a local port different than 548 and connects locally to
           this port afterwards. On MacOS X this can be done by</para>
 
-          <programlisting>ssh -l $USER $SERVER -L 10548:127.0.0.1:548 sleep
-          3000</programlisting>
+          <programlisting>ssh -l $USER $SERVER -L 10548:127.0.0.1:548 sleep 3000</programlisting>
 
           <para>After establishing the tunnel one will use
           <filename>"afp://127.0.0.1:10548"</filename> in the "Connect to
@@ -1407,13 +1403,13 @@ aclmode = passthrough (if available)</screen>
             <title>atalkd.conf containing one entry after atalkd
             started</title>
 
-            <para><programlisting>eth0 -phase 2 -net 0-65534 -addr
-            65280.166</programlisting> atalkd filled in the AppleTalk settings
-            that apply to this network segment. A netrange of 0-65534
-            indicates that there is no AppleTalk router present, so atalkd
-            will fetch an address that matches the following criteria:
-            netrange from inside the so called "startup range" 65280-65533 and
-            a node address between 142 and 255.</para>
+            <para><programlisting>eth0 -phase 2 -net 0-65534 -addr 65280.166</programlisting>
+            atalkd filled in the AppleTalk settings that apply to this network
+            segment. A netrange of 0-65534 indicates that there is no
+            AppleTalk router present, so atalkd will fetch an address that
+            matches the following criteria: netrange from inside the so called
+            "startup range" 65280-65533 and a node address between 142 and
+            255.</para>
           </example>
         </listitem>
 
@@ -1425,26 +1421,25 @@ aclmode = passthrough (if available)</screen>
             <title>atalkd.conf containing several entries with the -dontroute
             option</title>
 
-            <para><programlisting>eth0 -dontroute eth1 -dontroute eth2
-            -dontroute</programlisting>Appletalk networking should be enabled
-            on all three interfaces, but no routing should be done between the
-            different segments. Again, all the necessary configuration will be
-            fetched from the connected networks.</para>
+            <para><programlisting>eth0 -dontroute eth1 -dontroute eth2 -dontroute</programlisting>Appletalk
+            networking should be enabled on all three interfaces, but no
+            routing should be done between the different segments. Again, all
+            the necessary configuration will be fetched from the connected
+            networks.</para>
           </example>
 
           <example>
             <title>atalkd.conf containing several entries with the -dontroute
             option after atalkd started</title>
 
-            <para><programlisting>eth0 -dontroute -phase 2 -net 0-65534 -addr
-            65280.152 eth1 -dontroute -phase 2 -net 0-65534 -addr 65280.208
-            eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone
-            "Printers"</programlisting> On eth0 and eth1, there are no other
-            routers present, so atalkd chooses an address from within the
-            startup range. But on eth2 there lives an already connected
-            AppleTalk router, publishing one zone called "Printers" and
-            forcing clients to assign themselves an address in a netrange
-            between 1 and 1000.</para>
+            <para><programlisting>eth0 -dontroute -phase 2 -net 0-65534 -addr 65280.152
+eth1 -dontroute -phase 2 -net 0-65534 -addr 65280.208
+eth2 -dontroute -phase 2 -net 1-1000 -addr 10.142 -zone "Printers"</programlisting>
+            On eth0 and eth1, there are no other routers present, so atalkd
+            chooses an address from within the startup range. But on eth2
+            there lives an already connected AppleTalk router, publishing one
+            zone called "Printers" and forcing clients to assign themselves an
+            address in a netrange between 1 and 1000.</para>
           </example>
 
           <para>In this case, atalkd will handle each interface as it would be
@@ -1613,16 +1608,15 @@ aclmode = passthrough (if available)</screen>
         <title>atalkd.conf making netatalk a seed router on two
         interfaces</title>
 
-        <para><programlisting>eth0 -seed -phase 2 -net 1-1000 -addr 1000.142
-        -zone "Printers" -zone "Spoolers" eth1 -seed -phase 2 -net 1001-2000
-        -addr 2000.142 -zone "Macs" -zone "Servers"</programlisting> The
-        settings for eth0 force AppleTalk devices within the connected network
-        to assign themselves an address in the netrange 1-1000. Two zone names
-        are published into this segment, "Printers" being the so called
-        "standard zone", forcing dumb AppleTalk devices like Laser printers to
-        show up automatically into this zone. AppleTalk printer queues
-        supplied by netatalk's papd can be registered into the zone "Spoolers"
-        simply by adjusting the settings in <citerefentry>
+        <para><programlisting>eth0 -seed -phase 2 -net 1-1000 -addr 1000.142 -zone "Printers" -zone "Spoolers"
+eth1 -seed -phase 2 -net 1001-2000 -addr 2000.142 -zone "Macs" -zone "Servers"</programlisting>
+        The settings for eth0 force AppleTalk devices within the connected
+        network to assign themselves an address in the netrange 1-1000. Two
+        zone names are published into this segment, "Printers" being the so
+        called "standard zone", forcing dumb AppleTalk devices like Laser
+        printers to show up automatically into this zone. AppleTalk printer
+        queues supplied by netatalk's papd can be registered into the zone
+        "Spoolers" simply by adjusting the settings in <citerefentry>
             <refentrytitle>papd.conf</refentrytitle>
 
             <manvolnum>5</manvolnum>
@@ -1634,15 +1628,14 @@ aclmode = passthrough (if available)</screen>
       <example>
         <title>atalkd.conf configured for "zone mapping"</title>
 
-        <para><programlisting>eth0 -seed -phase 2 -net 1-1000 -addr 1000.142
-        -zone "foo" lo0 -phase 1 -net 1 -addr 1.142 -zone
-        "foo"</programlisting> We use the same network settings as in the
-        example above but let atalkd publish the same zone name on both
-        segments. As the same zone name will be used on all segments of the
-        AppleTalk network no zone names will show up at all... but AppleTalk
-        routing will still be active. In this case, we connect a so called
-        "non-extended" LocalTalk network (phase 1) to an EtherTalk "extended"
-        network (phase 2) transparently.</para>
+        <para><programlisting>eth0 -seed -phase 2 -net 1-1000 -addr 1000.142 -zone "foo"
+lo0 -phase 1 -net 1 -addr 1.142 -zone "foo"</programlisting> We use the same
+        network settings as in the example above but let atalkd publish the
+        same zone name on both segments. As the same zone name will be used on
+        all segments of the AppleTalk network no zone names will show up at
+        all... but AppleTalk routing will still be active. In this case, we
+        connect a so called "non-extended" LocalTalk network (phase 1) to an
+        EtherTalk "extended" network (phase 2) transparently.</para>
       </example>
 
       <example>
@@ -1660,30 +1653,30 @@ aclmode = passthrough (if available)</screen>
         <title>atalkd.conf for a soft-seed router configuration after atalkd
         started</title>
 
-        <para><programlisting>eth0 -phase 2 -net 10-10 -addr 10.166 -zone
-        "Parking" eth1 -phase 2 -net 10000-11000 -addr 10324.151 -zone "No
-        Parking" -zone "Parking" eth2 -phase 2 -net 65279-65279 -addr
-        65279.142 -zone "Parking" -zone "No Parking"</programlisting> In this
-        case, active seed routers are present in all three connected networks,
-        so atalkd was able to fetch the network configuration from them and,
-        since the settings do not conflict, act as a soft-seed router from now
-        on between the segments. So even in case, all of the three seed
-        routers would disappear from the net, atalkd would still supply the
-        connected network with the network configuration once learned from
-        them. Only in case, atalkd would be restarted afterwards, the routing
-        information will be lost (as we're not acting as seed router).</para>
+        <para><programlisting>eth0 -phase 2 -net 10-10 -addr 10.166 -zone "Parking"
+eth1 -phase 2 -net 10000-11000 -addr 10324.151 -zone "No Parking" -zone "Parking"
+eth2 -phase 2 -net 65279-65279 -addr 65279.142 -zone "Parking" -zone "No Parking"</programlisting>
+        In this case, active seed routers are present in all three connected
+        networks, so atalkd was able to fetch the network configuration from
+        them and, since the settings do not conflict, act as a soft-seed
+        router from now on between the segments. So even in case, all of the
+        three seed routers would disappear from the net, atalkd would still
+        supply the connected network with the network configuration once
+        learned from them. Only in case, atalkd would be restarted afterwards,
+        the routing information will be lost (as we're not acting as seed
+        router).</para>
       </example>
 
       <example>
         <title>atalkd.conf ready for mixed seed/soft-seed mode</title>
 
-        <para><programlisting>eth0 eth1 -seed -phase 2 -net 99-100 -addr
-        99.200 -zone "Testing"</programlisting> In case in the network
-        connected to eth0 lives no active seed router or one with a
-        mismatching configuration (eg. an overlapping netrange of 1-200)
-        atalkd will fail. Otherwise it will fetch the configuration from this
-        machine and will route between eth0 and eth1, on the latter acting as
-        a seed router itself.</para>
+        <para><programlisting>eth0
+eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
+        In case in the network connected to eth0 lives no active seed router
+        or one with a mismatching configuration (eg. an overlapping netrange
+        of 1-200) atalkd will fail. Otherwise it will fetch the configuration
+        from this machine and will route between eth0 and eth1, on the latter
+        acting as a seed router itself.</para>
       </example>
 
       <para>By the way: It is perfectly legal to have more than one seed
@@ -1864,26 +1857,24 @@ aclmode = passthrough (if available)</screen>
         <title><command>pap</command> printing to a PostScript
         LaserWriter</title>
 
-        <para><programlisting>pap -p"ColorLaserWriter 16/600@*"
-        /usr/share/doc/gs/examples/tiger.ps</programlisting> The file
-        <filename>/usr/share/doc/gs/examples/tiger.ps</filename> is sent to a
-        printer called "ColorLaserWriter 16/600" in the standard zone "*". The
-        device type is "LaserWriter" (can be suppressed since it is the
-        default).</para>
+        <para><programlisting>pap -p"ColorLaserWriter 16/600@*" /usr/share/doc/gs/examples/tiger.ps</programlisting>
+        The file <filename>/usr/share/doc/gs/examples/tiger.ps</filename> is
+        sent to a printer called "ColorLaserWriter 16/600" in the standard
+        zone "*". The device type is "LaserWriter" (can be suppressed since it
+        is the default).</para>
       </example>
 
       <example>
         <title><command>pap</command> printing to a non-PostScript
         printer</title>
 
-        <para><programlisting>gs -q -dNOPAUSE -sDEVICE=cdjcolor -sOutputFile=-
-        test.ps | pap -E</programlisting>GhostScript is used to convert a
-        PostScript job to PCL3 output suitable for a Color DeskWriter. Since
-        no file has been supplied on the command line, <command>pap</command>
-        reads the data from stdin. The printer's address will be read from the
-        <filename>.paprc</filename> file in the same directory,
-        <command>pap</command> will be called (in our example simply
-        containing "Color DeskWriter:DeskWriter@Printers"). The
+        <para><programlisting>gs -q -dNOPAUSE -sDEVICE=cdjcolor -sOutputFile=test.ps | pap -E</programlisting>GhostScript
+        is used to convert a PostScript job to PCL3 output suitable for a
+        Color DeskWriter. Since no file has been supplied on the command line,
+        <command>pap</command> reads the data from stdin. The printer's
+        address will be read from the <filename>.paprc</filename> file in the
+        same directory, <command>pap</command> will be called (in our example
+        simply containing "Color DeskWriter:DeskWriter@Printers"). The
         <option>-E</option> switch forces <command>pap</command> to not wait
         for an EOF from the printer.</para>
       </example>
