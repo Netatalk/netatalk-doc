@@ -6,7 +6,7 @@
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">30 Mar 2011</refmiscinfo>
+    <refmiscinfo class="date">15 Aug 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -645,6 +645,18 @@
       </varlistentry>
 
       <varlistentry>
+        <term>-fceholdfmod <replaceable>seconds</replaceable></term>
+        <listitem>
+          <para>
+            This determines the time delay in seconds which is always waited if another file modification for the
+            same file is done by a client before sending an FCE file modification event (fmod). For example saving
+            a file in Photoshop would generate multiple events by itself because the application is opening,
+            modifying and closing a file mutliple times for every "save". Defautl: 60 seconds.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term>-guestname <replaceable>[name]</replaceable></term>
 
         <listitem>
@@ -658,6 +670,18 @@
 
         <listitem>
           <para>[Don't] Use the platform-specific icon. Recent Mac OS don't display it any longer.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-keepsessions</term>
+        <listitem>
+          <para>Enable "Continuous AFP Service". This means the ability to stop the master afpd process with
+          a SIGQUIT signal, possibly install an afpd update and start the afpd process. Existing AFP sessions
+          afpd processes will remain unaffected. Technically they will be notified of the master afpd shutdown,
+          sleep 15-20 seconds and then try to reconnect their IPC channel to the master afpd process. If this
+          reconnect fails, the sessions are in an undefined state. Therefor it's absolutely critical to restart
+          the master process in time!</para>
         </listitem>
       </varlistentry>
 
@@ -682,6 +706,13 @@
             iMac, MacBook, MacBookPro, MacBookAir, MacPro,
             AppleTV1,1, AirPort.
           </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>-noacl2maccess</term>
+        <listitem>
+          <para>Don't map filesystem ACLs to effective permissions.</para>
         </listitem>
       </varlistentry>
 
