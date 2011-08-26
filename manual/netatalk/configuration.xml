@@ -1916,15 +1916,16 @@ eth1 -seed -phase 2 -net 99-100 -addr 99.200 -zone "Testing"</programlisting>
     <para>The Netatalk distribution comes with several operating system
     specific startup script templates that are tailored according to the
     options given to the "configure" script before compiling. Currently,
-    templates are provided for NetBSD, BSD, Debian, Gentoo, RedHat, SuSE and
-    True64. You can select to install the generated startup script(s)
+    templates are provided for RedHat (sysv style), RedHat (systemd style),
+    SuSE, Gentoo, NetBSD and Debian. You can select to install the generated
+    startup script(s)
     <indexterm>
         <primary>Startscript</primary>
 
         <secondary>startup script</secondary>
       </indexterm> by specifying a system type to "configure". To
-    automatically install startup scripts for e.g. the SuSE Linux distribution
-    try to give the <option>--enable-suse</option> option to "configure". Some
+    automatically install startup scripts for e.g. the Ubuntu distribution
+    try to give the <option>--enable-debian</option> option to "configure". Some
     of the scripts can be further parametrized by the configuration file
     netatalk.conf (described in the <citerefentry>
         <refentrytitle>netatalk.conf</refentrytitle>

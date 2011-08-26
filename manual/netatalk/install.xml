@@ -30,39 +30,43 @@
       distributions. You might want to have a look at the usual locations,
       too.</para>
 
-      <para><ulink
+      <para>Ubuntu package: <ulink
       url="https://launchpad.net/ubuntu">https://launchpad.net/ubuntu
       </ulink></para>
 
-      <para><ulink
+      <para>Debian package: <ulink
       url="http://packages.debian.org/">http://packages.debian.org/
       </ulink></para>
 
-      <para><ulink
+      <para>various RPM package: <ulink
       url="http://rpmfind.net/">http://rpmfind.net/
       </ulink></para>
 
-      <para><ulink
+      <para>Fedora/RHEL package: <ulink
       url="http://koji.fedoraproject.org/koji/search">http://koji.fedoraproject.org/koji/search
       </ulink></para>
 
-      <para><ulink
+      <para>Gentoo package: <ulink
       url="http://packages.gentoo.org/">http://packages.gentoo.org/
       </ulink></para>
 
-      <para><ulink
+      <para>openSULE package: <ulink
+      url="http://software.opensuse.org/">http://software.opensuse.org/
+      </ulink></para>
+
+      <para>Solaris package: <ulink
       url="http://www.blastwave.org/">http://www.blastwave.org/
       </ulink></para>
 
-      <para><ulink
+      <para>FreeBSD ports: <ulink
       url="http://www.freebsd.org/ports/index.html">http://www.freebsd.org/ports/index.html
       </ulink></para>
 
-      <para><ulink
+      <para>NetBSD pkgsrc: <ulink
       url="http://pkgsrc.se/search.php">http://pkgsrc.se/search.php
       </ulink></para>
 
-      <para><ulink
+      <para>OpenBSD ports:<ulink
       url="http://openports.se/search.php">http://openports.se/search.php
       </ulink></para>
 
@@ -88,7 +92,8 @@
         <title>Tarballs</title>
 
         <para>Prepacked tarballs in .tar.gz and tar.bz2 format are available
-        on the netatalk page on sourceforge</para>
+        on the netatalk page on <ulink
+	url="http://netatalk.sourceforge.net/">sourceforge</ulink>.</para>
       </sect3>
 
       <sect3>
@@ -147,6 +152,14 @@ remote: Counting objects: 2503, done.
 
         <para></para>
       </sect3>
+
+      <sect3>
+        <title>Snapshot of Git</title>
+
+        <para>You can also get the snapshot from <ulink
+	url="http://netatalk.git.sourceforge.net/git/gitweb.cgi?p=netatalk/netatalk">
+	http://netatalk.git.sourceforge.net/git/gitweb.cgi?p=netatalk/netatalk</ulink>.</para>
+      </sect3>
     </sect2>
   </sect1>
 
@@ -198,7 +211,8 @@ remote: Counting objects: 2503, done.
         download it from:</para>
 
         <para><ulink
-        url="http://www.oracle.com/database/berkeley-db/index.html">http://www.oracle.com/database/berkeley-db/index.html</ulink></para>
+        url="http://www.oracle.com/database/berkeley-db/index.html">
+	http://www.oracle.com/database/berkeley-db/index.html</ulink></para>
 
         <para>and follow the <link linkend="build-bdb">installation
         instructions</link>.</para>
@@ -212,17 +226,50 @@ remote: Counting objects: 2503, done.
 
         <itemizedlist>
           <listitem>
-            <para>OpenSSL and/or Libgcrypt (recommended)</para>
+            <para>Libgcrypt (recommended) and OpenSSL</para>
 
             <para>Required for encrypted passwords. Without it, the password
-            will be sent over the network in clear text. OpenSSL is needed for
-            the older DHCAST128, Libgcrypt is needed for DHX2.</para>
-
-            <para>OpenSSL can be downloaded from: <ulink
-            url="http://www.openssl.org/">http://www.openssl.org/</ulink>.</para>
+            will be sent over the network in clear text. Libgcrypt is needed
+	    for DHX2. OpenSSL is needed for the older DHCAST128 (aka DHX).
+	    </para>
 
             <para>Libgcrypt can be downloaded from: <ulink
-            url="http://directory.fsf.org/project/libgcrypt/">http://directory.fsf.org/project/libgcrypt/</ulink>.</para>
+            url="http://directory.fsf.org/project/libgcrypt/">
+	    http://directory.fsf.org/project/libgcrypt/</ulink>.</para>
+
+            <para>OpenSSL can be downloaded from: <ulink
+            url="http://www.openssl.org/">http://www.openssl.org/</ulink>.
+	    </para>
+          </listitem>
+
+          <listitem>
+            <para>Avahi (recommended) and OpenSLP</para>
+
+            <para>SLP<indexterm>
+                <primary>SLP</primary>
+
+                <secondary>Service Location Protocol</secondary>
+              </indexterm> (Service Location Protocol) is an IETF<indexterm>
+                <primary>IETF</primary>
+
+                <secondary>Internet Engineering Task Force</secondary>
+              </indexterm> standards track protocol that provides a framework
+            to allow networking applications to discover the existence,
+            location, and configuration of networked services in enterprise
+            networks.</para>
+
+            <para>Mac OS 8.5 - Mac OS X 10.4 use SLP to locate AFP servers.
+            </para>
+
+            <para>You can download OpenSLP from: <ulink
+            url="http://www.openslp.org/">http://www.openslp.org/</ulink>.</para>
+            <para>Mac OS X 10.2 and later prefer Bonjour (aka Zeroconf).
+            Avahi is a freely-available implementation of Zeroconf.
+            Netatalk can advertise AFP server and Time Machine volume by
+            using Avahi.</para>
+
+            <para>You can download Avahi from: <ulink
+            url="http://www.avahi.org/">http://www.avahi.org/</ulink>.</para>
           </listitem>
 
           <listitem>
@@ -258,36 +305,6 @@ remote: Counting objects: 2503, done.
             <para>You can get the Linux PAM documentation and sources from
             <ulink
             url="http://www.kernel.org/pub/linux/libs/pam/">http://www.kernel.org/pub/linux/libs/pam/</ulink>.</para>
-          </listitem>
-
-          <listitem>
-            <para>OpenSLP and/or Avahi</para>
-
-            <para>SLP<indexterm>
-                <primary>SLP</primary>
-
-                <secondary>Service Location Protocol</secondary>
-              </indexterm> (Service Location Protocol) is an IETF<indexterm>
-                <primary>IETF</primary>
-
-                <secondary>Internet Engineering Task Force</secondary>
-              </indexterm> standards track protocol that provides a framework
-            to allow networking applications to discover the existence,
-            location, and configuration of networked services in enterprise
-            networks.</para>
-
-            <para>Mac OS 8.5 - Mac OS X 10.4 use SLP to locate AFP servers.
-            </para>
-
-            <para>You can download OpenSLP from: <ulink
-            url="http://www.openslp.org/">http://www.openslp.org/</ulink>.</para>
-            <para>Mac OS X 10.2 and later prefer Bonjour (aka Zeroconf).
-            Avahi is a freely-available implementation of Zeroconf.
-            Netatalk can advertise AFP server and Time Machine volume by
-            using Avahi.</para>
-
-            <para>You can download Avahi from: <ulink
-            url="http://www.avahi.org/">http://www.avahi.org/</ulink>.</para>
           </listitem>
 
           <listitem>
@@ -329,7 +346,7 @@ remote: Counting objects: 2503, done.
 
         <itemizedlist>
           <listitem>
-            <para>--enable-[redhat/suse/cobalt/netbsd/fhs]</para>
+            <para>--enable-[redhat-sysv/redhat-systemd/suse/gentoo/netbsd/debian/fhs]</para>
 
             <para>This option helps netatalk to determine where to install the
             start scripts.</para>
