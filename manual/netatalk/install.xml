@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="installation">
   <chapterinfo>
-    <date>09.03.2011</date>
+    <date>30.08.2011</date>
   </chapterinfo>
 
   <title>Installation</title>
@@ -39,8 +39,7 @@
       </ulink></para>
 
       <para>various RPM package: <ulink
-      url="http://rpmfind.net/">http://rpmfind.net/
-      </ulink></para>
+      url="http://rpmfind.net/">http://rpmfind.net/ </ulink></para>
 
       <para>Fedora/RHEL package: <ulink
       url="http://koji.fedoraproject.org/koji/search">http://koji.fedoraproject.org/koji/search
@@ -93,7 +92,7 @@
 
         <para>Prepacked tarballs in .tar.gz and tar.bz2 format are available
         on the netatalk page on <ulink
-	url="http://netatalk.sourceforge.net/">sourceforge</ulink>.</para>
+        url="http://netatalk.sourceforge.net/">sourceforge</ulink>.</para>
       </sect3>
 
       <sect3>
@@ -157,8 +156,8 @@ remote: Counting objects: 2503, done.
         <title>Snapshot of Git</title>
 
         <para>You can also get the snapshot from <ulink
-	url="http://netatalk.git.sourceforge.net/git/gitweb.cgi?p=netatalk/netatalk">
-	http://netatalk.git.sourceforge.net/git/gitweb.cgi?p=netatalk/netatalk</ulink>.</para>
+        url="http://netatalk.git.sourceforge.net/git/gitweb.cgi?p=netatalk/netatalk">
+        http://netatalk.git.sourceforge.net/git/gitweb.cgi?p=netatalk/netatalk</ulink>.</para>
       </sect3>
     </sect2>
   </sect1>
@@ -212,7 +211,7 @@ remote: Counting objects: 2503, done.
 
         <para><ulink
         url="http://www.oracle.com/database/berkeley-db/index.html">
-	http://www.oracle.com/database/berkeley-db/index.html</ulink></para>
+        http://www.oracle.com/database/berkeley-db/index.html</ulink></para>
 
         <para>and follow the <link linkend="build-bdb">installation
         instructions</link>.</para>
@@ -230,16 +229,15 @@ remote: Counting objects: 2503, done.
 
             <para>Required for encrypted passwords. Without it, the password
             will be sent over the network in clear text. Libgcrypt is needed
-	    for DHX2. OpenSSL is needed for the older DHCAST128 (aka DHX).
-	    </para>
+            for DHX2. OpenSSL is needed for the older DHCAST128 (aka
+            DHX).</para>
 
             <para>Libgcrypt can be downloaded from: <ulink
             url="http://directory.fsf.org/project/libgcrypt/">
-	    http://directory.fsf.org/project/libgcrypt/</ulink>.</para>
+            http://directory.fsf.org/project/libgcrypt/</ulink>.</para>
 
             <para>OpenSSL can be downloaded from: <ulink
-            url="http://www.openssl.org/">http://www.openssl.org/</ulink>.
-	    </para>
+            url="http://www.openssl.org/">http://www.openssl.org/</ulink>.</para>
           </listitem>
 
           <listitem>
@@ -258,15 +256,16 @@ remote: Counting objects: 2503, done.
             location, and configuration of networked services in enterprise
             networks.</para>
 
-            <para>Mac OS 8.5 - Mac OS X 10.4 use SLP to locate AFP servers.
-            </para>
+            <para>Mac OS 8.5 - Mac OS X 10.4 use SLP to locate AFP
+            servers.</para>
 
             <para>You can download OpenSLP from: <ulink
             url="http://www.openslp.org/">http://www.openslp.org/</ulink>.</para>
-            <para>Mac OS X 10.2 and later prefer Bonjour (aka Zeroconf).
-            Avahi is a freely-available implementation of Zeroconf.
-            Netatalk can advertise AFP server and Time Machine volume by
-            using Avahi.</para>
+
+            <para>Mac OS X 10.2 and later prefer Bonjour (aka Zeroconf). Avahi
+            is a freely-available implementation of Zeroconf. Netatalk can
+            advertise AFP server and Time Machine volume by using
+            Avahi.</para>
 
             <para>You can download Avahi from: <ulink
             url="http://www.avahi.org/">http://www.avahi.org/</ulink>.</para>
@@ -372,21 +371,6 @@ remote: Counting objects: 2503, done.
         url="http://netatalk.sourceforge.net/wiki/index.php/Troubleshooting">troubleshooting
         guide</ulink>.</para>
 
-        <note>
-          <para>With recent RedHat releases, Berkeley DB links to libpthread.
-          Netatalk does not link to libpthread, so detection of Berkeley DB
-          fails when running configure. It's recommended to <link
-          linkend="build-bdb">(re)compile Berkeley DB</link> with
-          <option>--with-mutex="x86/gcc-assembly"</option> (on x86 platforms)
-          to disable the use of libpthread. Alternatively you could use</para>
-
-          <screen><prompt>$&gt;</prompt><userinput> LIBS="-lpthread" ./configure [arguments]</userinput></screen>
-
-          <para>to trick Netatalk into linking to libpthread. However, this is
-          not recommended, as there have been some trouble reports indicating
-          that linking to libpthread badly damages performance.</para>
-        </note>
-
         <para>Next, running</para>
 
         <screen><prompt>$&gt;</prompt> <userinput>make</userinput></screen>
@@ -400,82 +384,6 @@ remote: Counting objects: 2503, done.
 
         <para>to install the binaries and documentation (must be done as
         "root" when using default locations).</para>
-      </sect3>
-    </sect2>
-
-    <sect2 id="build-bdb">
-      <title>Compiling a new Berkeley DB for Netatalk</title>
-
-      <para>Netatalk 2.1 requires Berkeley DB version 4.6 or newer. Even if
-      you already have a supported version of Berkeley DB installed on your
-      system, there are several reasons, why you might still want to consider
-      building a new version for Netatalk.</para>
-
-      <para>Many linux distributions provide a precompiled Berkeley DB
-      version. This is usually nice, but also has one major drawback: If you
-      update your system to a newer release, the installed version of Berkeley
-      DB may change. This can lead to a number of problems, starting with
-      strange behaviour of Netatalk, unreadable CNID Databases. Most likely
-      Netatalk(afpd) won't start anymore, so you'll have to recompile
-      Netatalk.</para>
-
-      <para>For instructions compiling Berkeley DB, you should generally refer
-      to the documentation provided by Sleepycat. The following information is
-      meant to help you avoid problems, users experienced in the past.</para>
-
-      <para>In case you are building on a recent RedHat release, please use
-      <option>--with-mutex="x86/gcc-assembly"</option> on x86 platforms to
-      prevent Berkeley DB from linking against libpthread.</para>
-
-      <sect3>
-        <title>Using a statically linked Berkeley DB</title>
-
-        <para>To link Netatalk statically to Berkeley DB, you have to disable
-        shared libraries when building Berkeley DB. If shared libraries exist,
-        Netatalk will always link to them, even if a static version exists in
-        the same location.</para>
-
-        <screen><prompt>root#</prompt> <userinput>cd build_unix</userinput>
-<prompt>root#</prompt> <userinput>../dist/configure --prefix=/install/path --disable-shared</userinput>
-<prompt>root#</prompt> <userinput>make</userinput>
-<prompt>root#</prompt> <userinput>make install</userinput></screen>
-
-        <para>You should now continue with <link
-        linkend="compiling-netatalk">building Netatalk</link>.</para>
-      </sect3>
-
-      <sect3>
-        <title>Using a dynamically linked Berkeley DB</title>
-
-        <para>Building a shared version of Berkeley DB is rather
-        straightforward. However, especially under Linux, some care needs to
-        be taken. Underlying system libraries, i.e. libnss_db, might be using
-        Berkeley DB as well. As these libraries have likely been build with
-        another, i.e. older, version of Berkeley DB, linking afpd to a newer
-        version can lead to unexpected results.</para>
-
-        <para>You need to configure Berkeley DB with the
-        <option>--with-uniquename</option> configure switch to avoid these
-        kind of problems. This insures your new version will not interfere
-        with another installation of Berkeley DB on your system.</para>
-
-        <screen><prompt>root#</prompt> <userinput>cd build_unix</userinput>
-<prompt>root#</prompt> <userinput>../dist/configure --prefix=/install/path --with-uniquename</userinput>
-<prompt>root#</prompt> <userinput>make</userinput>
-<prompt>root#</prompt> <userinput>make install</userinput></screen>
-
-        <para>If you select an install path other than
-        <filename>/usr/local</filename>, you will have to configure your
-        linker to look for libraries in this directory.</para>
-
-        <para>On many operating systems, this is done by adding a new entry to
-        <filename>/etc/ld.so.conf</filename>.</para>
-
-        <screen><prompt>root#</prompt> <userinput>echo /install/path/lib &gt;/etc/ld.so.conf</userinput>
-<prompt>root#</prompt> <userinput>ldconfig</userinput></screen>
-
-        <para>You should now continue with <link
-        linkend="compiling-netatalk">building Netatalk</link>.</para>
       </sect3>
     </sect2>
   </sect1>
