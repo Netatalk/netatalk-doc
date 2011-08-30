@@ -3,7 +3,7 @@
   <title>Introduction to Netatalk</title>
 
   <para>Netatalk is an OpenSource software package, that can be used to turn
-  an inexpensive *NIX machine into an extremely high-performance and
+  a *NIX machine into an extremely high-performance and
   reliable file server for Macintosh computers.</para>
 
   <para>Using Netatalk's AFP 3.3 compliant file-server leads to significantly
