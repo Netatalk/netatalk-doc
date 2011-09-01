@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="installation">
   <chapterinfo>
-    <date>30.08.2011</date>
+    <date>01.09.2011</date>
   </chapterinfo>
 
   <title>Installation</title>
@@ -150,14 +150,6 @@ remote: Counting objects: 2503, done.
         </orderedlist>
 
         <para></para>
-      </sect3>
-
-      <sect3>
-        <title>Snapshot of Git</title>
-
-        <para>You can also get the snapshot from <ulink
-        url="http://netatalk.git.sourceforge.net/git/gitweb.cgi?p=netatalk/netatalk">
-        http://netatalk.git.sourceforge.net/git/gitweb.cgi?p=netatalk/netatalk</ulink>.</para>
       </sect3>
     </sect2>
   </sect1>
