@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">30 Mar 2011</refmiscinfo>
+    <refmiscinfo class="date">02 Sep 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -51,6 +51,16 @@
         <arg choice="plain">-h</arg>
         <arg choice="plain">-help</arg>
         <arg choice="plain">--help</arg>
+      </group>
+
+      <sbr />
+
+      <command>apple_dump<indexterm><primary>apple_dump</primary></indexterm></command>
+
+      <group choice="plain">
+        <arg choice="plain">-v</arg>
+        <arg choice="plain">-version</arg>
+        <arg choice="plain">--version</arg>
       </group>
 
     </cmdsynopsis>
@@ -107,6 +117,15 @@
 
         <listitem>
           <para>Display the help and exit</para>
+        </listitem>
+
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>-v, -version, --version</option></term>
+
+        <listitem>
+          <para>Show version and exit</para>
         </listitem>
 
       </varlistentry>

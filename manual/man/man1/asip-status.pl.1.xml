@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">10 Mar 2011</refmiscinfo>
+    <refmiscinfo class="date">02 Sep 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -28,6 +28,21 @@
 
       <arg choice="plain">HOSTNAME[:PORT]</arg>
     </cmdsynopsis>
+
+    <sbr />
+
+    <cmdsynopsis>
+      <command>asip-status.pl<indexterm>
+          <primary>asip-status.pl</primary>
+        </indexterm></command>
+
+      <group choice="plain">
+        <arg choice="plain">-v</arg>
+        <arg choice="plain">-version</arg>
+        <arg choice="plain">--version</arg>
+      </group>
+    </cmdsynopsis>
+
   </refsynopsisdiv>
 
   <refsect1>
@@ -69,6 +84,15 @@
         <listitem>
           <para>Enable hex dump output.</para>
         </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>-v, -version, --version</option></term>
+
+        <listitem>
+          <para>Show version.</para>
+        </listitem>
+
       </varlistentry>
     </variablelist>
   </refsect1>

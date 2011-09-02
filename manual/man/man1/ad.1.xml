@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">30 Mar 2011</refmiscinfo>
+    <refmiscinfo class="date">02 Sep 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -23,6 +23,12 @@
       <arg choice="req">ls | cp | mv | rm</arg>
 
       <arg>...</arg>
+    </cmdsynopsis>
+
+    <cmdsynopsis>
+      <command>ad</command>
+
+      <arg choice="req">-v | --version</arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -101,7 +107,11 @@
       <arg choice="req">file|directory</arg>
     </cmdsynopsis>
 
-    <para>Remove files and directories.</para>
+    <cmdsynopsis>
+      <command>ad -v|--version</command>
+    </cmdsynopsis>
+
+    <para>Show version.</para>
   </refsect1>
 
   <refsect1>
