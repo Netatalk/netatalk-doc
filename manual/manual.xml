@@ -30,6 +30,7 @@
 <!ENTITY afppasswd.1 SYSTEM "man/man1/afppasswd.1.xml">
 <!ENTITY apple_dump.1 SYSTEM "man/man1/apple_dump.1.xml">
 <!ENTITY getzones.1 SYSTEM "man/man1/getzones.1.xml">
+<!ENTITY macusers.1 SYSTEM "man/man1/macusers.1.xml">
 <!ENTITY megatron.1 SYSTEM "man/man1/megatron.1.xml">
 <!ENTITY nbp.1 SYSTEM "man/man1/nbp.1.xml">
 <!ENTITY nbp_name.3 SYSTEM "man/man3/nbp_name.3.xml">
@@ -123,6 +124,8 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
     &dbd.1;
 
     &getzones.1;
+
+    &macusers.1;
 
     &megatron.1;
 

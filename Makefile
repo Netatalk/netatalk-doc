@@ -25,6 +25,7 @@ manpages = manpages/ad.1 \
 		manpages/asip-status.pl.1 \
 		manpages/dbd.1 \
 		manpages/getzones.1 \
+		manpages/macusers.1 \
 		manpages/megatron.1 \
 		manpages/nbp.1 \
 		manpages/netatalk-config.1 \
