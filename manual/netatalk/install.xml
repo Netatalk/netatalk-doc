@@ -259,6 +259,9 @@ remote: Counting objects: 2503, done.
             advertise AFP server and Time Machine volume by using
             Avahi.</para>
 
+            <para>Avahi must be build with DBUS support (
+              <userinput>--enable-dbus<userinput>).</para>
+
             <para>You can download Avahi from: <ulink
             url="http://www.avahi.org/">http://www.avahi.org/</ulink>.</para>
           </listitem>
