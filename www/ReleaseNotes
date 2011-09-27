@@ -48,10 +48,10 @@ License
 ~~~~~~~
 
 Netatalk is a Free/Open Source Software project and is released under
-the GNU General Public License (GPL).  The full license text is available
+the GNU General Public License (GPLv2).  The full license text is available
 at:
 
-  http://www.gnu.org/licenses/gpl.html
+  http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 
 Changes in 2.2.1
 ~~~~~~~~~~~~~~~~
