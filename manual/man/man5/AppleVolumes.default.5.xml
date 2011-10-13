@@ -5,7 +5,7 @@
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">30 Mar 2011</refmiscinfo>
+    <refmiscinfo class="date">13 Oct 2011</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -722,7 +722,7 @@
     e.g. the Apple Logo (MacRoman: 0XF0) was saved as <literal>:f0</literal>.
     Some special characters will be converted as to :xx notation as well.
     '<keycode>/</keycode>' will be encoded to <literal>:2f</literal>, if
-    <option>-usedots</option> is not specified, a leading dot
+    <option>usedots</option> is not specified, a leading dot
     '<keycode>.</keycode>' will be encoded as <literal>:2e</literal>.</para>
 
     <para>This version now uses UTF-8 as the default encoding for names.

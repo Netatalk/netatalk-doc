@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="installation">
   <chapterinfo>
-    <date>01.09.2011</date>
+    <date>13.10.2011</date>
   </chapterinfo>
 
   <title>Installation</title>
@@ -49,7 +49,7 @@
       url="http://packages.gentoo.org/">http://packages.gentoo.org/
       </ulink></para>
 
-      <para>openSULE package: <ulink
+      <para>openSUSE package: <ulink
       url="http://software.opensuse.org/">http://software.opensuse.org/
       </ulink></para>
 
@@ -260,7 +260,7 @@ remote: Counting objects: 2503, done.
             Avahi.</para>
 
             <para>Avahi must be build with DBUS support (
-              <userinput>--enable-dbus<userinput>).</para>
+              <userinput>--enable-dbus</userinput>).</para>
 
             <para>You can download Avahi from: <ulink
             url="http://www.avahi.org/">http://www.avahi.org/</ulink>.</para>
