@@ -195,6 +195,20 @@
           modules.</para>
         </listitem>
       </varlistentry>
+
+      <varlistentry>
+        <term>-adminauthuser</term>
+        <listitem>
+          <para>
+            Specifying eg <option>-adminauthuser root</option>
+            whenever a normal user login fails, afpd will try to authenticate as
+            the specified <option>adminauthuser</option>. If this succeeds, a normal session is created
+            for the original connecting user. Said differently: if you know the
+            password of <option>adminauthuser</option>, you can authenticate as any other user.
+          </para>
+        </listitem>
+      </varlistentry>
+
     </variablelist>
   </refsect1>
 
