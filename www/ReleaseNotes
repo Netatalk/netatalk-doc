@@ -1,9 +1,9 @@
-Netatalk 2.2.1
+Netatalk 2.2.2
 ==============
 
-The Netatalk development team is proud to announce version 2.2.1 of
+The Netatalk development team is proud to announce version 2.2.2 of
 the Netatalk File Sharing suite. This is the first update to the new 2.2
-release series. All users are encouraged to upgrade their systems to 2.2.1.
+release series. All users are encouraged to upgrade their systems to 2.2.2.
 
 Netatalk is a freely-available Open Source AFP fileserver. It also
 provides a kernel level implementation of the AppleTalk Protocol Suite.
@@ -52,6 +52,44 @@ the GNU General Public License (GPLv2).  The full license text is available
 at:
 
   http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+
+Changes in 2.2.2
+~~~~~~~~~~~~~~~
+* NEW: afpd: New option "adminauthuser". Specifying eg "-adminauthuser root"
+       whenever a normal user login fails, afpd tries to authenticate as
+       the specified adminauthuser. If this succeeds, a normal session is
+       created for the original connecting user. Said differently: if you
+       know the password of adminauthuser, you can authenticate as any other
+       user.
+* NEW: configure option "--enable-suse-systemd" for openSUSE12.1 and later.
+       "--enable-redhat-systemd" and "--enable-suse-systemd" are same as
+       "--enable-systemd".
+       "--enable-suse" is renamed "--enable-suse-sysv".
+* NEW: experimental systemd service files in distrib/systemd/
+* UPD: afpd: Enhanced POSIX ACL mapping semantics, from Laura Mueller
+* UPD: afpd: Reset options every time a :DEFAULT: line is found in a
+       AppleVolumes file
+* UPD: afpd: Convert passwords from legacy encoding (wire format) to host
+       encoding, NetAFP Bug ID #14
+* UPD: afpd: Don't set ATTRBIT_SHARED flag for directories
+* UPD: afpd: Use sendfile() on Solaris and FreeBSD for sending data
+* UPD: afpd: Faster volume used size calculation for "volsizelimit" option,
+       cf man AppleVolume.default for details
+* FIX: afpd: ACL access checking
+* FIX: afpd: Fix an error when duplicating files that lacked an AppleDouble
+       file which lead to a possible Finder crash
+* FIX: afpd: Read-only filesystems lead to afpd processes running as root
+* FIX: afpd: Fix for filesystem without NFSv4 ACL support on Solaris
+* FIX: afpd: Fix catsearch bug, NetAFP Bug ID #12
+* FIX: afpd: Fix dircache bug, NetAFP Bug ID #13
+* FIX: dbd: Better checking for duplicated or bogus CNIDs from AppleDouble
+       files
+* FIX: dbd: Remove BerkeleyDB database environment after running `dbd`. This
+       is crucial for the automatic BerkeleyDB database upgrade feature which
+       is built into cnid_dbd and dbd.
+* FIX: Fix compilation error when AppleTalk support is disabled
+* FIX: Portability fixes
+* FIX: search of surrogate pair
 
 Changes in 2.2.1
 ~~~~~~~~~~~~~~~~
@@ -273,4 +311,4 @@ We would like to thank all contributors to the Netatalk project for
 their commitment.  Without the many suggestions, bug and problem reports,
 patches, and reviews this project wouldn't be where it is.
 
- - The Netatalk Development Team, September 2011
+ - The Netatalk Development Team, January 2012
