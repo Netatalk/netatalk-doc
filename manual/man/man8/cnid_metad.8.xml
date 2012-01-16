@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">23 Dec 2009</refmiscinfo>
+    <refmiscinfo class="date">01 Jan 2012</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -42,6 +42,17 @@
 
       <arg choice="opt"><arg choice="plain">-s </arg><arg
       choice="plain"><replaceable>cnid_dbdpathname</replaceable></arg></arg>
+
+      <sbr />
+
+      <command>cnid_metad<indexterm>
+          <primary>cnid_metad</primary>
+        </indexterm></command>
+
+	<group choice="plain">
+	  <arg choice="plain">-v</arg>
+	  <arg choice="plain">-V</arg>
+	</group>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -167,6 +178,14 @@
           pathname of the executeable of the <emphasis
           remap="B">cnid_dbd</emphasis> daemon. The default is <emphasis
           remap="I">:SBINDIR:/cnid_dbd.</emphasis></para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>-v, -V</option></term>
+
+        <listitem>
+          <para>Show version and exit.</para>
         </listitem>
       </varlistentry>
     </variablelist>
