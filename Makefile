@@ -27,6 +27,7 @@ manpages = manpages/ad.1 \
 		manpages/megatron.1 \
 		manpages/netatalk-config.1 \
 		manpages/uniconv.1 \
+		manpages/afp.conf.5  \
 		manpages/afpd.conf.5  \
 		manpages/afp_signature.conf.5  \
 		manpages/afp_ldap.conf.5 \
