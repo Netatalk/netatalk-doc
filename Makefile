@@ -18,39 +18,23 @@ MAN_XSL_TMP  = $(TMPDIR)/$(MAN_XSL)
 HTML_XSL_TMP = $(TMPDIR)/$(HTML_XSL)
 
 manpages = manpages/ad.1 \
-		manpages/aecho.1 \
 		manpages/afpldaptest.1 \
 		manpages/afppasswd.1 \
 		manpages/apple_dump.1 \
 		manpages/asip-status.pl.1 \
 		manpages/dbd.1 \
-		manpages/getzones.1 \
 		manpages/macusers.1 \
 		manpages/megatron.1 \
-		manpages/nbp.1 \
 		manpages/netatalk-config.1 \
-		manpages/pap.1 \
-		manpages/psorder.1  \
 		manpages/uniconv.1 \
-		manpages/atalk_aton.3 \
-		manpages/nbp_name.3 \
-		manpages/atalk.4 \
 		manpages/afpd.conf.5  \
 		manpages/afp_signature.conf.5  \
 		manpages/afp_ldap.conf.5 \
 		manpages/afp_voluuid.conf.5 \
-		manpages/papd.conf.5 \
 		manpages/AppleVolumes.default.5 \
-		manpages/atalkd.conf.5 \
 		manpages/netatalk.conf.5 \
-		manpages/afpd.8 \
-		manpages/atalkd.8 \
 		manpages/cnid_dbd.8 \
-		manpages/cnid_metad.8 \
-		manpages/papd.8 \
-		manpages/papstatus.8 \
-		manpages/psf.8 \
-		manpages/timelord.8
+		manpages/cnid_metad.8
 
 # General targets
 
