@@ -28,12 +28,8 @@ manpages = manpages/ad.1 \
 		manpages/netatalk-config.1 \
 		manpages/uniconv.1 \
 		manpages/afp.conf.5  \
-		manpages/afpd.conf.5  \
 		manpages/afp_signature.conf.5  \
-		manpages/afp_ldap.conf.5 \
 		manpages/afp_voluuid.conf.5 \
-		manpages/AppleVolumes.default.5 \
-		manpages/netatalk.conf.5 \
 		manpages/cnid_dbd.8 \
 		manpages/cnid_metad.8
 

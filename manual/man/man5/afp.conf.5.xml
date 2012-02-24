@@ -19,7 +19,7 @@
     <title>SYNOPSIS</title>
     <para>
       The <filename>afp.conf</filename> file is the configuration file
-    for the <emphasis role="bold">Netatalk</emphasis> AFP file server.
+      for the <emphasis role="bold">Netatalk</emphasis> AFP file server.
     </para>
     <para>All AFP specific configuration and AFP volume definitions are
       done via this file.
@@ -41,7 +41,7 @@
       a parameter.
     </para>
 
-    <para>Section and parameter names are not case sensitive.</para>
+    <para>Section and parameter names are case sensitive.</para>
 
     <para>
       Only the first equals sign in a parameter is significant.  Whitespace before or after the first equals sign is
@@ -51,7 +51,7 @@
     </para>
 
     <para>
-      Any line beginning with a semicolon (<quote>;</quote>) or a hash (<quote>#</quote>) 
+      Any line beginning with a semicolon (<quote>;</quote>) or a hash (<quote>#</quote>)
       character is ignored, as are lines containing only whitespace.
     </para>
 
@@ -71,8 +71,8 @@
 
     <para>
       Each section in the configuration file (except for the [Global] section) describes a shared resource (known as
-      a <quote>volume</quote>). The section name is the name of the shared resource and the parameters within the
-      section define the shares attributes.
+      a <quote>volume</quote>). The section name is the name of the volume and the parameters within the
+      section define the volume attributes and options.
     </para>
 
     <para>
@@ -87,8 +87,8 @@
     </para>
 
     <para>
-      Any section without <option>path</option> option is considered a <emphasis>preset</emphasis> which can
-      be selected in other volume sections via the <option>preset</option> option and constitutes defaults
+      Any section without <option>path</option> option is considered a <emphasis>vol preset</emphasis> which can
+      be selected in other volume sections via the <option>vol preset</option> option and constitutes defaults
       for the volume. For any option speficied both in a preset <emphasis>and</emphasis> in a volume section
       the volume section setting completly substitutes the preset option.
     </para>
@@ -97,9 +97,9 @@
       The access rights granted by the server are masked by the access rights granted to the specified or guest
       UNIX user by the host system. The server does not grant more access than the host system grants.
     </para>
-  
+
     <para>
-      The following sample section defines an AFP volume. The user has write access to the path
+      The following sample section defines an AFP volume. The user has full access to the path
       <filename>/foo/bar</filename>. The share is accessed via the share name <literal>baz</literal>:
       <programlisting>
         [baz]
@@ -110,13 +110,13 @@
 
   <refsect1>
     <title>SPECIAL SECTIONS</title>
-  
+
     <refsect2>
       <title>The [Global] section</title>
-    
+
       <para>
-        Parameters in this section apply to the server as a whole, or are defaults for sections that do not
-        specifically define certain items.
+        Parameters in this section apply to the server as a whole. Parameters denoted by a (G) below are
+        must be set in this section. Parameters denoted by a (V) belong to volume sections.
       </para>
     </refsect2>
   </refsect1>
@@ -144,24 +144,126 @@
   <refsect1>
     <title>VARIABLE SUBSTITUTIONS</title>
 
-    <para>
-      Many of the strings that are settable in the config file can take substitutions. For example the option
-      <quote>path = /tmp/%u</quote> is interpreted as <quote>path = /tmp/john</quote> if the user connected with the
-      username john.
-    </para>
+    <para>You can use variables in both volume path and volume name.</para>
 
-    <para>
-      These substitutions are mostly noted in the descriptions below, but there are some general substitutions
-      which apply whenever they might be relevant. These are:
-    </para>
+    <orderedlist>
+      <listitem>
+        <para>if you specify an unknown variable, it will not get
+          converted.</para>
+      </listitem>
+
+      <listitem>
+        <para>if you specify a known variable, but that variable doesn't have
+          a value, it will get ignored.</para>
+      </listitem>
+    </orderedlist>
+
+    <para>The variables which can be used for substitutions are:</para>
 
     <variablelist>
       <varlistentry>
-        <term>%U</term>
-        <listitem><para>session username (the username that the client wanted, not
-            necessarily the same as the one they got).</para></listitem>
+        <term>$b</term>
+
+        <listitem>
+          <para>basename</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>$c</term>
+
+        <listitem>
+          <para>client's ip address</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>$d</term>
+
+        <listitem>
+          <para>volume pathname on server</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>$f</term>
+
+        <listitem>
+          <para>full name (contents of the gecos field in the passwd
+            file)</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>$g</term>
+
+        <listitem>
+          <para>group name</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>$h</term>
+
+        <listitem>
+          <para>hostname</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>$i</term>
+
+        <listitem>
+          <para>client's ip, without port</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>$s</term>
+
+        <listitem>
+          <para>server name (this can be the hostname)</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>$u</term>
+
+        <listitem>
+          <para>user name (if guest, it is the user that guest is running
+            as)</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>$v</term>
+
+        <listitem>
+          <para>volume name</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>$$</term>
+
+        <listitem>
+          <para>prints dollar sign ($)</para>
+        </listitem>
       </varlistentry>
     </variablelist>
+
+    <example>
+      <title>Using variable substitution when defining volumes</title>
+
+      <para><programlisting>
+          [Groupdir for $g]
+          /home/groups/$g
+
+          [$f is the best one]
+          ~
+        </programlisting> We define "groupdirs" for each primary
+        group and use a personalized server name for homedir shares.</para>
+    </example>
   </refsect1>
 
   <refsect1>
@@ -170,655 +272,1422 @@
     <refsect2>
       <title>Authentication Methods</title>
 
-    <variablelist>
+      <variablelist>
+        <varlistentry>
+          <term>uamlist = <replaceable>uams list</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Comma separated list of UAMs. (The default is
+              uams_dhx.so,uams_dhx2.so).</para>
+
+            <para>The most commonly used UAMs are:</para>
+
+            <variablelist>
+              <varlistentry>
+                <term>uams_guest.so</term>
+
+                <listitem>
+                  <para>allows guest logins</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>uams_clrtxt.so</term>
+
+                <listitem>
+                  <para>(uams_pam.so or uams_passwd.so) Allow logins with
+                    passwords transmitted in the clear. (legacy)</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>uams_randum.so</term>
+
+                <listitem>
+                  <para>allows Random Number and Two-Way Random Number Exchange
+                    for authentication (requires a separate file containing the
+                    passwords, either :ETCDIR:/afppasswd file or the one specified
+                    via <option>-passwdfile</option>. See <citerefentry>
+                      <refentrytitle>afppasswd</refentrytitle>
+
+                      <manvolnum>1</manvolnum>
+                    </citerefentry> for details. (legacy)</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>uams_dhx.so</term>
+
+                <listitem>
+                  <para>(uams_dhx_pam.so or uams_dhx_passwd.so) Allow
+                    Diffie-Hellman eXchange (DHX) for authentication.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>uams_dhx2.so</term>
+
+                <listitem>
+                  <para>(uams_dhx2_pam.so or uams_dhx2_passwd.so) Allow
+                    Diffie-Hellman eXchange 2 (DHX2) for authentication.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>uam_gss.so</term>
+
+                <listitem>
+                  <para>Allow Kerberos V for authentication (optional)</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>uampath = <replaceable>path</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Sets the default path for UAMs for this server (default is
+              :ETCDIR:/uams).</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>k5keytab = <replaceable>path</replaceable> <type>(G)</type></term>
+          <term>k5service = <replaceable>service</replaceable> <type>(G)</type></term>
+          <term>k5realm = <replaceable>realm</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>These are required if the server supports the Kerberos 5
+              authentication UAM.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>ntdomain = <parameter>DOMAIN</parameter> <type>(G)</type></term>
+          <term>ntseparator = <parameter>SEPERATOR</parameter> <type>(G)</type></term>
+
+          <listitem>
+            <para>Use for eg. winbind authentication, prepends both strings
+              before the username from login and then tries to authenticate with
+              the result through the availabel and active UAM authentication
+              modules.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>adminauthuser = <parameter>user</parameter> <type>(G)</type></term>
+          <listitem>
+            <para>
+              Specifying eg <option>adminauthuser root</option>
+              whenever a normal user login fails, afpd will try to authenticate as
+              the specified <option>adminauthuser</option>. If this succeeds, a normal session is created
+              for the original connecting user. Said differently: if you know the
+              password of <option>adminauthuser</option>, you can authenticate as any other user.
+            </para>
+          </listitem>
+        </varlistentry>
+
       <varlistentry>
-        <term>uamlist = <replaceable>uams list</replaceable></term>
+        <term>ldap_server = <parameter>host</parameter> <type>(G)</type></term>
 
         <listitem>
-          <para>Comma separated list of UAMs. (The default is
-          uams_dhx.so,uams_dhx2.so).</para>
-
-          <para>The most commonly used UAMs are:</para>
-
-          <variablelist>
-            <varlistentry>
-              <term>uams_guest.so</term>
-
-              <listitem>
-                <para>allows guest logins</para>
-              </listitem>
-            </varlistentry>
-
-            <varlistentry>
-              <term>uams_clrtxt.so</term>
-
-              <listitem>
-                <para>(uams_pam.so or uams_passwd.so) Allow logins with
-                passwords transmitted in the clear. (legacy)</para>
-              </listitem>
-            </varlistentry>
-
-            <varlistentry>
-              <term>uams_randum.so</term>
-
-              <listitem>
-                <para>allows Random Number and Two-Way Random Number Exchange
-                for authentication (requires a separate file containing the
-                passwords, either :ETCDIR:/afppasswd file or the one specified
-                via <option>-passwdfile</option>. See <citerefentry>
-                    <refentrytitle>afppasswd</refentrytitle>
-
-                    <manvolnum>1</manvolnum>
-                  </citerefentry> for details. (legacy)</para>
-              </listitem>
-            </varlistentry>
-
-            <varlistentry>
-              <term>uams_dhx.so</term>
-
-              <listitem>
-                <para>(uams_dhx_pam.so or uams_dhx_passwd.so) Allow
-                Diffie-Hellman eXchange (DHX) for authentication.</para>
-              </listitem>
-            </varlistentry>
-
-            <varlistentry>
-              <term>uams_dhx2.so</term>
-
-              <listitem>
-                <para>(uams_dhx2_pam.so or uams_dhx2_passwd.so) Allow
-                Diffie-Hellman eXchange 2 (DHX2) for authentication.</para>
-              </listitem>
-            </varlistentry>
-
-            <varlistentry>
-              <term>uam_gss.so</term>
-
-              <listitem>
-                <para>Allow Kerberos V for authentication (optional)</para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
+          <para>Name or IP address of your LDAP Server. This is only needed for explicit ACL support in order to
+            be able to query LDAP for UUIDs.</para>
+          <para>You can use <citerefentry>
+              <refentrytitle>afpldaptest</refentrytitle>
+              <manvolnum>1</manvolnum>
+            </citerefentry> to syntactically check your config.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>uampath = <replaceable>path</replaceable></term>
+        <term>ldap_auth_method = <parameter>none|simple|sasl</parameter> <type>(G)</type></term>
 
         <listitem>
-          <para>Sets the default path for UAMs for this server (default is
-          :ETCDIR:/uams).</para>
+          <para>Authentication method: <option>none | simple |
+          sasl</option></para>
+
+          <para><variablelist>
+              <varlistentry>
+                <term>none</term>
+
+                <listitem>
+                  <para>anonymous LDAP bind</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>simple</term>
+
+                <listitem>
+                  <para>simple LDAP bind</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>sasl</term>
+
+                <listitem>
+                  <para>SASL. Not yet supported !</para>
+                </listitem>
+              </varlistentry>
+            </variablelist></para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>k5keytab = <replaceable>path</replaceable></term>
-
-        <term>k5service = <replaceable>service</replaceable></term>
-
-        <term>k5realm = <replaceable>realm</replaceable></term>
+        <term>ldap_auth_dn = <parameter>dn</parameter> <type>(G)</type></term>
 
         <listitem>
-          <para>These are required if the server supports the Kerberos 5
-          authentication UAM.</para>
+          <para>Distinguished Name of the user for simple bind.</para>
+
+          <para></para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>ntdomain = <parameter>DOMAIN</parameter></term>
-        <term>ntseparator = <parameter>SEPERATOR</parameter></term>
+        <term>ldap_auth_pw = <parameter>password</parameter> <type>(G)</type></term>
 
         <listitem>
-          <para>Use for eg. winbind authentication, prepends both strings
-          before the username from login and then tries to authenticate with
-          the result through the availabel and active UAM authentication
-          modules.</para>
+          <para>Distinguished Name of the user for simple bind.</para>
+
+          <para></para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>adminauthuser = <parameter>user</parameter></term>
-        <listitem>
-          <para>
-            Specifying eg <option>adminauthuser root</option>
-            whenever a normal user login fails, afpd will try to authenticate as
-            the specified <option>adminauthuser</option>. If this succeeds, a normal session is created
-            for the original connecting user. Said differently: if you know the
-            password of <option>adminauthuser</option>, you can authenticate as any other user.
-          </para>
-        </listitem>
-      </varlistentry>
-
-    </variablelist>
-  </refsect2>
-
-  <refsect2>
-    <title>Codepage Options</title>
-
-    <para>With OS X Apple introduced the AFP3 protocol. One of the big changes
-    was, that AFP3 uses Unicode names encoded as Decomposed UTF-8 (UTF8-MAC).
-    Previous AFP/OS versions used codepages like MacRoman, MacCentralEurope,
-    etc.</para>
-
-    <para>To be able to serve AFP3 and older clients at the same time,
-    <command>afpd</command> needs to be able to convert between UTF-8 and Mac
-    codepages. Even OS X clients partly still rely on codepages. As there's no
-    way, <command>afpd</command> can detect the codepage a pre AFP3 client
-    uses, you have to specify it using the <option>maccodepage</option>
-    option. The default is MacRoman, which should be fine for most western
-    users.</para>
-
-    <para>As <command>afpd</command> needs to interact with unix operating
-    system as well, it need's to be able to convert from UTF8-MAC/MacCodepage
-    to the unix codepage. By default <command>afpd</command> uses the systems
-    LOCALE, or ASCII if your system doesn't support locales. You can set the
-    unix codepage using the <option>unixcodepage</option> option. If you're
-    using extended characters in the configuration files for
-    <command>afpd</command>, make sure your terminal matches the
-    <option>unixcodepage</option>.</para>
-
-    <variablelist>
-      <varlistentry>
-        <term>unixcodepage = <parameter>CODEPAGE</parameter></term>
+        <term>ldap_userbase = <parameter>base dn</parameter> <type>(G)</type></term>
 
         <listitem>
-          <para>Specifies the servers unix codepage, e.g. "ISO-8859-15" or
-          "UTF8". This is used to convert strings to/from the systems locale,
-          e.g. for authenthication, server messages and volume names. Defaults
-          to LOCALE if your system supports it, otherwise ASCII will be
-          used.</para>
+          <para>DN of the user container in LDAP.</para>
+
+          <para></para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>maccodepage = <parameter>CODEPAGE</parameter></term>
+        <term>ldap_userscope = <parameter>scope</parameter> <type>(G)</type></term>
 
         <listitem>
-          <para>Specifies the mac clients codepage, e.g. "MAC_ROMAN". This is
-          used to convert strings and filenames to the clients codepage for
-          OS9 and Classic, i.e. for authentication and AFP messages (SIGUSR2
-          messaging). This will also be the default for the volumes
-          maccharset. Defaults to MAC_ROMAN.</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </refsect2>
+          <para>Search scope for user search: <option>base | one |
+          sub</option></para>
 
-  <refsect2>
-    <title>Password Options</title>
-
-    <variablelist>
-      <varlistentry>
-        <term>passwdfile = <parameter>path</parameter></term>
-
-        <listitem>
-          <para>Sets the path to the Randnum UAM passwd file for this server
-          (default is :ETCDIR:/afppasswd).</para>
+          <para></para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>passwdminlen = <parameter>number</parameter></term>
+        <term>ldap_groupbase = <parameter>base dn</parameter> <type>(G)</type></term>
 
         <listitem>
-          <para>Sets the minimum password length, if supported by the
-          UAM</para>
-        </listitem>
-      </varlistentry>
+          <para>DN of the group container in LDAP.</para>
 
-    </variablelist>
-  </refsect2>
-
-  <refsect2>
-    <title>Network Options</title>
-
-    <variablelist>
-      <varlistentry>
-        <term>fqdn = <replaceable>name:port</replaceable></term>
-
-        <listitem>
-          <para>Specifies a fully-qualified domain name, with an optional
-          port. This is discarded if the server cannot resolve it. This option
-          is not honored by AppleShare clients &lt;= 3.8.3. This option is
-          disabled by default. Use with caution as this will involve a second
-          name resolution step on the client side. Also note that afpd will
-          advertise this name:port combination but not automatically listen to
-          it.</para>
+          <para></para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>hostname = <replaceable>name</replaceable></term>
+        <term>ldap_groupscope = <parameter>scope</parameter> <type>(G)</type></term>
 
         <listitem>
-          <para>Use this instead of the result from calling hostname for
-          dertermening which IP address to advertise, therfore the hostname is
-          resolved to an IP which is the advertised. This is NOT used for
-          listening and it is also overwritten by
-          <option>-listen</option>.</para>
+          <para>Search scope for user search: <option>base | one
+          | sub</option></para>
+
+          <para></para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>listen = <replaceable>ip address[:port][,ip adress[:port], ...]</replaceable></term>
+        <term>ldap_uuuid_attr = <parameter>dn</parameter> <type>(G)</type></term>
 
         <listitem>
-          <para>Specifies the IP address that the server should advertise
-          <emphasis role="bold">and</emphasis> listens to. The default is
-          advertise the first IP address of the system, but to listen for any
-          incoming request. The network address may be specified either in
-          dotted-decimal format for IPv4 or in hexadecimal format for IPv6.
-          </para>
+          <para>Name of the LDAP attribute with the UUIDs.</para>
+
+          <para>Note: this is used both for users and groups.</para>
+
+          <para></para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>port = <replaceable>port number</replaceable></term>
+        <term>ldap_name_attr = <parameter>dn</parameter> <type>(G)</type></term>
 
         <listitem>
-          <para>Allows a different TCP port to be used for AFP-over-TCP. The
-          default is 548. Also sets the default port applied when none specified
-          in an <option>listen</option> option.</para>
+          <para>Name of the LDAP attribute with the users short name.</para>
+
+          <para></para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>server_quantum = <replaceable>number</replaceable></term>
+        <term>ldap_group_attr = <parameter>dn</parameter> <type>(G)</type></term>
 
         <listitem>
-          <para>This specifies the DSI server quantum. The default value is
-          303840. The maximum value is 0xFFFFFFFFF, the minimum is 32000. If
-          you specify a value that is out of range, the default value will be
-          set. Do not change this value unless you're absolutely sure, what
-          you're doing</para>
+          <para>Name of the LDAP attribute with the groups short name.</para>
+
+          <para></para>
         </listitem>
       </varlistentry>
 
-      <varlistentry>
-        <term>dsireadbuf = <replaceable>number</replaceable></term>
-        <listitem>
-          <para>
-            Scale factor that determines the size of the DSI/TCP readahead buffer, default is 12.
-            This is multiplies with the DSI server quantum (default ~300k) to give the size of
-            the buffer. Increasing this value might increase throughput in fast local networks
-            for volume to volume copies.
-            <emphasis>Note</emphasis>: This buffer is allocated per afpd child process, so
-            specifying large values will eat up large amount of memory (buffer size * number of
-            clients).
-          </para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>tcprcvbuf = <replaceable>number</replaceable></term>
-        <listitem>
-          <para>
-            Try to set TCP receive buffer using setsockpt(). Often OSes impose restrictions
-            on the applications ability to set this value.
-          </para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>tcpsndbuf = <replaceable>number</replaceable></term>
-        <listitem>
-          <para>
-            Try to set TCP send buffer using setsockpt(). Often OSes impose restrictions
-            on the applications ability to set this value.
-          </para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </refsect2>
-
-  <refsect2>
-    <title>Miscellaneous Options</title>
-
-    <variablelist>
-      <varlistentry>
-        <term>admingroup = <replaceable>group</replaceable></term>
-
-        <listitem>
-          <para>Allows users of a certain group to be seen as the superuser
-          when they log in. This option is disabled by default.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>cnidserver = <replaceable>ipaddress[:port]</replaceable></term>
-
-        <listitem>
-          <para>Specifies the IP address and port of a cnid_metad server,
-          required for CNID dbd backend. Defaults to localhost:4700. The
-          network address may be specified either in dotted-decimal format for
-          IPv4 or in hexadecimal format for IPv6.-</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>dircachesize = <replaceable>number</replaceable></term>
-
-        <listitem>
-          <para>Maximum possible entries in the directory cache. The cache
-          stores directories and files. It is used to cache the full path to
-          directories and CNIDs which considerably speeds up directory
-          enumeration.</para>
-
-          <para>Default size is 8192, maximum size is 131072. Given value is
-          rounded up to nearest power of 2. Each entry takes about 100 bytes,
-          which is not much, but remember that every afpd child process for
-          every connected user has its cache.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>fcelistener = <replaceable>host[:port]</replaceable></term>
-        <listitem>
-          <para>
-            Enables sending FCE events to the specified <parameter>host</parameter>,
-            default <parameter>port</parameter> is 12250 if not specified. Specifying
-            mutliple listeners is done by having this option once for each of them.
-          </para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>fceevents = <replaceable>fmod,fdel,ddel,fcre,dcre,tmsz</replaceable></term>
-        <listitem>
-          <para>
-            Speficies which FCE events are active, default is <parameter>fmod,fdel,ddel,fcre,dcre</parameter>.
-          </para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>fcecoalesce = <replaceable>all|delete|create</replaceable></term>
-        <listitem>
-          <para>
-            Coalesce FCE events.
-          </para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>fceholdfmod = <replaceable>seconds</replaceable></term>
-        <listitem>
-          <para>
-            This determines the time delay in seconds which is always waited if another file modification for the
-            same file is done by a client before sending an FCE file modification event (fmod). For example saving
-            a file in Photoshop would generate multiple events by itself because the application is opening,
-            modifying and closing a file mutliple times for every "save". Defautl: 60 seconds.
-          </para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>guestname = <replaceable>name</replaceable></term>
-
-        <listitem>
-          <para>Specifies the user that guests should use (default is
-          "nobody"). The name should be quoted.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>loginmesg = <replaceable>message</replaceable></term>
-
-        <listitem>
-          <para>Sets a message to be displayed when clients logon to the
-          server. The message should be in <option>unixcodepage</option> and
-          should be quoted. Extended characters are allowed.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>mimicmodel = <replaceable>model</replaceable></term>
-
-        <listitem>
-          <para>
-            Specifies the icon model that appears on
-            clients. Defaults to off. Examples: RackMac
-            (same as Xserve), PowerBook, PowerMac, Macmini,
-            iMac, MacBook, MacBookPro, MacBookAir, MacPro,
-            AppleTV1,1, AirPort.
-          </para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>noacl2maccess</term>
-        <listitem>
-          <para>Don't map filesystem ACLs to effective permissions.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>signature = { user:&lt;text&gt; | auto }</term>
-
-        <listitem>
-          <para>Specify a server signature. This option is useful while
-          running multiple independent instances of afpd on one machine (eg.
-          in clustered environments, to provide fault isolation etc.). Default
-          is "auto". "auto" signature type allows afpd generating signature
-          and saving it to <filename>:ETCDIR:/afp_signature.conf</filename>
-          automatically (based on random number). "host" signature type
-          switches back to "auto" because it is obsoleted. "user" signature
-          type allows administrator to set up a signature string manually. The
-          maximum length is 16 characters.</para>
-
-          <example>
-            <title>Three server definitions using 2 different server
-            signatures</title>
-
-            <para><programlisting>first -signature user:USERS 
-second -signature user:USERS 
-third -signature user:ADMINS</programlisting></para>
-          </example>
-
-          <para>First two servers will appear as one logical AFP service to
-          the clients - if user logs in to first one and then connects to
-          second one, session will be automatically redirected to the first
-          one. But if client connects to first and then to third, will be
-          asked for password twice and will see resources of both servers.
-          Traditional method of signature generation causes two independent
-          afpd instances to have the same signature and thus cause clients to
-          be redirected automatically to server (s)he logged in first.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>volnamelen = <replaceable>number</replaceable></term>
-
-        <listitem>
-          <para>Max length of UTF8-MAC volume name for Mac OS X. Note that
-          Hangul is especially sensitive to this.</para>
-
-          <para><programlisting>73:  limit of Mac OS X 10.1
-80:  limit for Mac OS X 10.4/10.5 (default)
-255: limit of spec</programlisting>Mac OS 9 and earlier are not influenced by
-          this, because Maccharset volume name is always limitted to 27
-          bytes.</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </refsect2>
-
-  <refsect2>
-    <title>Logging Options</title>
-
-    <variablelist>
-      <varlistentry>
-        <term>loglevel = <replaceable>TYPE:LEVEL,[TYPE:LEVEL, ...]</replaceable></term>
-        <term>logfile = <replaceable>FILE</replaceable></term>
-
-        <listitem>
-          <para>Specify that any message of a loglevel up to the given
-          <option>loglevel</option> should be logged to the given file. If the
-          filename is ommited the loglevel applies to messages passed to
-          syslog.</para>
-
-          <para>By default afpd logs
-          to syslog with a default logging setup equivalent to
-          <option>default:note</option></para>
-
-          <para>logtypes: Default, AFPDaemon, Logger, UAMSDaemon</para>
-
-          <para>loglevels: SEVERE, ERROR, WARN, NOTE,
-          INFO, DEBUG, DEBUG6, DEBUG7, DEBUG8, DEBUG9,
-          MAXDEBUG</para>
-
-          <note>
-            <para>Both logtype and loglevels are case insensitive.</para>
-          </note>
-
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </refsect2>
-
-  <refsect2>
-    <title>Options</title>
-
-    <para>Misc options:</para>
-    <para>options = <replaceable>option,[option,...]</replaceable> or</para>
-    <para>options = <replaceable>option [option ...]</replaceable> or</para>
-
-    <variablelist>
-      <varlistentry>
-        <term>[no]savepassword</term>
-
-        <listitem>
-          <para>Enables or disables the ability of clients to save passwords
-          locally</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>[no]setpassword</term>
-
-        <listitem>
-          <para>Enables or disables the ability of clients to change their
-          passwords via chooser or the "connect to server" dialog</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>advertise_ssh</term>
-
-        <listitem>
-          <para>Allows Mac OS X clients (10.3.3-10.4) to automagically
-          establish a tunneled AFP connection through SSH. If this option is
-          set, the server's answers to client's FPGetSrvrInfo requests contain
-          an additional entry. It depends on both client's settings and a
-          correctly configured and running <citerefentry>
-              <refentrytitle>sshd</refentrytitle>
-
-              <manvolnum>8</manvolnum>
-            </citerefentry> on the server to let things work.</para>
-
-          <note>
-            <para>Setting this option is not recommended since globally
-            encrypting AFP connections via SSH will increase the server's load
-            significantly. On the other hand, Apple's client side
-            implementation of this feature in MacOS X versions prior to 10.3.4
-            contained a security flaw.</para>
-          </note>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>nozeroconf</term>
-
-        <listitem>
-          <para>Disable automatic Zeroconf<indexterm>
-              <primary>Zeroconf</primary>
-              <secondary>Bonjour</secondary>
-            </indexterm> service registration if support was compiled in.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>client_polling </term>
-
-        <listitem>
-          <para>With this switch enabled, afpd won't advertise that it is
-          capable of server notifications, so that connected clients poll the
-          server every 10 seconds to detect changes in opened server windows.
-          <emphasis>Note</emphasis>: Depending on the number of simultaneously
-          connected clients and the network's speed, this can lead to a
-          significant higher load on your network!</para>
-
-          <note>
-            <para>Do not use this option any longer as Netatalk 2.x correctly
-            supports server notifications, allowing connected clients to
-            update folder listings in case another client changed the
-            contents.</para>
-          </note>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>[no]icon</term>
-
-        <listitem>
-          <para>[Don't] Use the platform-specific icon. Recent Mac OS don't display it any longer.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>keepsessions</term>
-        <listitem>
-          <para>Enable "Continuous AFP Service". This means the ability to stop the master afpd process with
-          a SIGQUIT signal, possibly install an afpd update and start the afpd process. Existing AFP sessions
-          afpd processes will remain unaffected. Technically they will be notified of the master afpd shutdown,
-          sleep 15-20 seconds and then try to reconnect their IPC channel to the master afpd process. If this
-          reconnect fails, the sessions are in an undefined state. Therefor it's absolutely critical to restart
-          the master process in time!</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>sleep <replaceable>number</replaceable></term>
-
-        <listitem>
-          <para>AFP 3.x waits <parameter>number</parameter> hours before
-          disconnecting clients in sleep mode. Default is 10 hours.</para>
-        </listitem>
-      </varlistentry>
-
-    </variablelist>
-  </refsect2>
-
-  <refsect2>
-    <title>Debug Options</title>
-
-    <para>These options are useful for debugging only.</para>
-
-    <variablelist>
-      <varlistentry>
-        <term>tickleval = <replaceable>number</replaceable></term>
-
-        <listitem>
-          <para>Sets the tickle timeout interval (in seconds). Defaults to
-          30.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>timeout = <replaceable>number</replaceable></term>
-
-        <listitem>
-          <para>Specify the number of tickles to send before timing out a
-          connection. The default is 4, therefore a connection will timeout
-          after 2 minutes.</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </refsect2>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Codepage Options</title>
+
+      <para>With OS X Apple introduced the AFP3 protocol. One of the big changes
+        was, that AFP3 uses Unicode names encoded as Decomposed UTF-8 (UTF8-MAC).
+        Previous AFP/OS versions used codepages like MacRoman, MacCentralEurope,
+        etc.</para>
+
+      <para>To be able to serve AFP3 and older clients at the same time,
+        <command>afpd</command> needs to be able to convert between UTF-8 and Mac
+        codepages. Even OS X clients partly still rely on codepages. As there's no
+        way, <command>afpd</command> can detect the codepage a pre AFP3 client
+        uses, you have to specify it using the <option>maccodepage</option>
+        option. The default is MacRoman, which should be fine for most western
+        users.</para>
+
+      <para>As <command>afpd</command> needs to interact with unix operating
+        system as well, it need's to be able to convert from UTF8-MAC/MacCodepage
+        to the unix codepage. By default <command>afpd</command> uses the systems
+        LOCALE, or ASCII if your system doesn't support locales. You can set the
+        unix codepage using the <option>unixcodepage</option> option. If you're
+        using extended characters in the configuration files for
+        <command>afpd</command>, make sure your terminal matches the
+        <option>unixcodepage</option>.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>unixcodepage = <parameter>CODEPAGE</parameter> <type>(G)</type></term>
+
+          <listitem>
+            <para>Specifies the servers unix codepage, e.g. "ISO-8859-15" or
+              "UTF8". This is used to convert strings to/from the systems locale,
+              e.g. for authenthication, server messages and volume names. Defaults
+              to LOCALE if your system supports it, otherwise ASCII will be
+              used.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>maccodepage = <parameter>CODEPAGE</parameter> <type>(G)</type></term>
+
+          <listitem>
+            <para>Specifies the mac clients codepage, e.g. "MAC_ROMAN". This is
+              used to convert strings and filenames to the clients codepage for
+              OS9 and Classic, i.e. for authentication and AFP messages (SIGUSR2
+              messaging). This will also be the default for the volumes
+              maccharset. Defaults to MAC_ROMAN.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Password Options</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>passwdfile = <parameter>path</parameter> <type>(G)</type></term>
+
+          <listitem>
+            <para>Sets the path to the Randnum UAM passwd file for this server
+              (default is :ETCDIR:/afppasswd).</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>passwdminlen = <parameter>number</parameter> <type>(G)</type></term>
+
+          <listitem>
+            <para>Sets the minimum password length, if supported by the
+              UAM</para>
+          </listitem>
+        </varlistentry>
+
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Network Options</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>fqdn = <replaceable>name:port</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Specifies a fully-qualified domain name, with an optional
+              port. This is discarded if the server cannot resolve it. This option
+              is not honored by AppleShare clients &lt;= 3.8.3. This option is
+              disabled by default. Use with caution as this will involve a second
+              name resolution step on the client side. Also note that afpd will
+              advertise this name:port combination but not automatically listen to
+              it.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>hostname = <replaceable>name</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Use this instead of the result from calling hostname for
+              dertermening which IP address to advertise, therfore the hostname is
+              resolved to an IP which is the advertised. This is NOT used for
+              listening and it is also overwritten by
+              <option>afp listen</option>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>afp listen = <replaceable>ip address[:port][,ip adress[:port], ...]</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Specifies the IP address that the server should advertise
+              <emphasis role="bold">and</emphasis> listens to. The default is
+              advertise the first IP address of the system, but to listen for any
+              incoming request. The network address may be specified either in
+              dotted-decimal format for IPv4 or in hexadecimal format for IPv6.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>cnid listen = <replaceable>ip address[:port][,ip adress[:port], ...]</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Specifies the IP address that the CNID server should listen on.
+              The default is <emphasis role="bold">localhost:4700</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>afp port = <replaceable>port number</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Allows a different TCP port to be used for AFP. The
+              default is 548. Also sets the default port applied when none specified
+              in an <option>afp listen</option> option.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>server_quantum = <replaceable>number</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>This specifies the DSI server quantum. The default value is
+              303840. The maximum value is 0xFFFFFFFFF, the minimum is 32000. If
+              you specify a value that is out of range, the default value will be
+              set. Do not change this value unless you're absolutely sure, what
+              you're doing</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>dsireadbuf = <replaceable>number</replaceable> <type>(G)</type></term>
+          <listitem>
+            <para>
+              Scale factor that determines the size of the DSI/TCP readahead buffer, default is 12.
+              This is multiplies with the DSI server quantum (default ~300k) to give the size of
+              the buffer. Increasing this value might increase throughput in fast local networks
+              for volume to volume copies.
+              <emphasis>Note</emphasis>: This buffer is allocated per afpd child process, so
+              specifying large values will eat up large amount of memory (buffer size * number of
+              clients).
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>tcprcvbuf = <replaceable>number</replaceable> <type>(G)</type></term>
+          <listitem>
+            <para>
+              Try to set TCP receive buffer using setsockpt(). Often OSes impose restrictions
+              on the applications ability to set this value.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>tcpsndbuf = <replaceable>number</replaceable> <type>(G)</type></term>
+          <listitem>
+            <para>
+              Try to set TCP send buffer using setsockpt(). Often OSes impose restrictions
+              on the applications ability to set this value.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Miscellaneous Options</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>vol preset = <replaceable>name</replaceable> <type>(G)/(V)</type></term>
+
+          <listitem>
+            <para>
+              Use section <option>name</option> as option preset for all volumes (when set in the
+              global section) or for one volume (when set in that volume's section).
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>admingroup = <replaceable>group</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Allows users of a certain group to be seen as the superuser
+              when they log in. This option is disabled by default.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>cnidserver = <replaceable>ipaddress[:port]</replaceable> <type>(G)/(V)</type></term>
+
+          <listitem>
+            <para>Specifies the IP address and port of a cnid_metad server,
+              required for CNID dbd backend. Defaults to localhost:4700. The
+              network address may be specified either in dotted-decimal format for
+              IPv4 or in hexadecimal format for IPv6.-</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>dircachesize = <replaceable>number</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Maximum possible entries in the directory cache. The cache
+              stores directories and files. It is used to cache the full path to
+              directories and CNIDs which considerably speeds up directory
+              enumeration.</para>
+
+            <para>Default size is 8192, maximum size is 131072. Given value is
+              rounded up to nearest power of 2. Each entry takes about 100 bytes,
+              which is not much, but remember that every afpd child process for
+              every connected user has its cache.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>fcelistener = <replaceable>host[:port]</replaceable> <type>(G)</type></term>
+          <listitem>
+            <para>
+              Enables sending FCE events to the specified <parameter>host</parameter>,
+              default <parameter>port</parameter> is 12250 if not specified. Specifying
+              mutliple listeners is done by having this option once for each of them.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>fceevents = <replaceable>fmod,fdel,ddel,fcre,dcre,tmsz</replaceable> <type>(G)</type></term>
+          <listitem>
+            <para>
+              Speficies which FCE events are active, default is <parameter>fmod,fdel,ddel,fcre,dcre</parameter>.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>fcecoalesce = <replaceable>all|delete|create</replaceable> <type>(G)</type></term>
+          <listitem>
+            <para>
+              Coalesce FCE events.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>fceholdfmod = <replaceable>seconds</replaceable> <type>(G)</type></term>
+          <listitem>
+            <para>
+              This determines the time delay in seconds which is always waited if another file modification for the
+              same file is done by a client before sending an FCE file modification event (fmod). For example saving
+              a file in Photoshop would generate multiple events by itself because the application is opening,
+              modifying and closing a file mutliple times for every "save". Defautl: 60 seconds.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>guestname = <replaceable>name</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Specifies the user that guests should use (default is
+              "nobody"). The name should be quoted.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>loginmesg = <replaceable>message</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Sets a message to be displayed when clients logon to the
+              server. The message should be in <option>unixcodepage</option> and
+              should be quoted. Extended characters are allowed.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>mimicmodel = <replaceable>model</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>
+              Specifies the icon model that appears on
+              clients. Defaults to off. Examples: RackMac
+              (same as Xserve), PowerBook, PowerMac, Macmini,
+              iMac, MacBook, MacBookPro, MacBookAir, MacPro,
+              AppleTV1,1, AirPort.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>signature = { user:&lt;text&gt; | auto } <type>(G)</type></term>
+
+          <listitem>
+            <para>Specify a server signature. This option is useful while
+              running multiple independent instances of afpd on one machine (eg.
+              in clustered environments, to provide fault isolation etc.). Default
+              is "auto". "auto" signature type allows afpd generating signature
+              and saving it to <filename>:ETCDIR:/afp_signature.conf</filename>
+              automatically (based on random number). "host" signature type
+              switches back to "auto" because it is obsoleted. "user" signature
+              type allows administrator to set up a signature string manually. The
+              maximum length is 16 characters.</para>
+
+            <example>
+              <title>Three server definitions using 2 different server
+                signatures</title>
+
+              <para><programlisting>first -signature user:USERS
+                  second -signature user:USERS
+                  third -signature user:ADMINS</programlisting></para>
+            </example>
+
+            <para>First two servers will appear as one logical AFP service to
+              the clients - if user logs in to first one and then connects to
+              second one, session will be automatically redirected to the first
+              one. But if client connects to first and then to third, will be
+              asked for password twice and will see resources of both servers.
+              Traditional method of signature generation causes two independent
+              afpd instances to have the same signature and thus cause clients to
+              be redirected automatically to server (s)he logged in first.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>volnamelen = <replaceable>number</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Max length of UTF8-MAC volume name for Mac OS X. Note that
+              Hangul is especially sensitive to this.</para>
+
+            <para><programlisting>73:  limit of Mac OS X 10.1
+                80:  limit for Mac OS X 10.4/10.5 (default)
+                255: limit of spec</programlisting>Mac OS 9 and earlier are not influenced by
+              this, because Maccharset volume name is always limitted to 27
+              bytes.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Logging Options</title>
+
+      <variablelist>
+
+        <varlistentry>
+          <term>logfile = <replaceable>file</replaceable> <type>(G)</type></term>
+          <listitem>
+            <para>
+              If not specified Netatalk logs to syslogs daemon facilify. Otherwise it logs
+              to <option>logfile</option>.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>loglevel = <replaceable>type:level,[type:level, ...]</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Specify that any message of a loglevel up to the given
+              <option>loglevel</option> should be logged.
+            </para>
+
+            <para>By default afpd logs
+              to syslog with a default logging setup equivalent to
+              <option>default:note</option></para>
+
+            <para>logtypes: default, afpdaemon, logger, uamsdaemon</para>
+
+            <para>loglevels: severe, error, warn, note,
+              info, debug, debug6, debug7, debug8, debug9,
+              maxdebug</para>
+
+            <note>
+              <para>Both logtype and loglevels are case insensitive.</para>
+            </note>
+
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Global Options</title>
+
+      <para>options = <replaceable>option,[option,...]</replaceable> <type>(G)</type></para>
+      <para>options = <replaceable>option [option ...]</replaceable> <type>(G)</type></para>
+
+      <para>This allows multiple options to be specified in a comma or space
+        delimited format. The available options are:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>[no]savepassword <type>(G)</type></term>
+
+          <listitem>
+            <para>Enables or disables the ability of clients to save passwords
+              locally</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[no]setpassword <type>(G)</type></term>
+
+          <listitem>
+            <para>Enables or disables the ability of clients to change their
+              passwords via chooser or the "connect to server" dialog</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>advertise_ssh <type>(G)</type></term>
+
+          <listitem>
+            <para>Allows Mac OS X clients (10.3.3-10.4) to automagically
+              establish a tunneled AFP connection through SSH. If this option is
+              set, the server's answers to client's FPGetSrvrInfo requests contain
+              an additional entry. It depends on both client's settings and a
+              correctly configured and running <citerefentry>
+                <refentrytitle>sshd</refentrytitle>
+
+                <manvolnum>8</manvolnum>
+              </citerefentry> on the server to let things work.</para>
+
+            <note>
+              <para>Setting this option is not recommended since globally
+                encrypting AFP connections via SSH will increase the server's load
+                significantly. On the other hand, Apple's client side
+                implementation of this feature in MacOS X versions prior to 10.3.4
+                contained a security flaw.</para>
+            </note>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nozeroconf <type>(G)</type></term>
+
+          <listitem>
+            <para>Disable automatic Zeroconf<indexterm>
+                <primary>Zeroconf</primary>
+                <secondary>Bonjour</secondary>
+              </indexterm> service registration if support was compiled in.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>client_polling <type>(G)</type></term>
+
+          <listitem>
+            <para>With this switch enabled, afpd won't advertise that it is
+              capable of server notifications, so that connected clients poll the
+              server every 10 seconds to detect changes in opened server windows.
+              <emphasis>Note</emphasis>: Depending on the number of simultaneously
+              connected clients and the network's speed, this can lead to a
+              significant higher load on your network!</para>
+
+            <note>
+              <para>Do not use this option any longer as Netatalk 2.x correctly
+                supports server notifications, allowing connected clients to
+                update folder listings in case another client changed the
+                contents.</para>
+            </note>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>[no]icon <type>(G)</type></term>
+
+          <listitem>
+            <para>[Don't] Use the platform-specific icon. Recent Mac OS don't display it any longer.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>keepsessions <type>(G)</type></term>
+          <listitem>
+            <para>Enable "Continuous AFP Service". This means the ability to stop the master afpd process with
+              a SIGQUIT signal, possibly install an afpd update and start the afpd process. Existing AFP sessions
+              afpd processes will remain unaffected. Technically they will be notified of the master afpd shutdown,
+              sleep 15-20 seconds and then try to reconnect their IPC channel to the master afpd process. If this
+              reconnect fails, the sessions are in an undefined state. Therefor it's absolutely critical to restart
+              the master process in time!</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>sleep <replaceable>number</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>AFP 3.x waits <parameter>number</parameter> hours before
+              disconnecting clients in sleep mode. Default is 10 hours.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>noacl2maccess <type>(G)</type></term>
+          <listitem>
+            <para>Don't map filesystem ACLs to effective permissions.</para>
+          </listitem>
+        </varlistentry>
+
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Debug Parameters</title>
+
+      <para>These options are useful for debugging only.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>tickleval = <replaceable>number</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Sets the tickle timeout interval (in seconds). Defaults to
+              30.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>timeout = <replaceable>number</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Specify the number of tickles to send before timing out a
+              connection. The default is 4, therefore a connection will timeout
+              after 2 minutes.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
   </refsect1>
 
   <refsect1>
-    <title>See also</title>
+    <title>EXPLANATION OF VOLUME PARAMETERS</title>
+
+    <refsect2>
+      <title>Parameters</title>
+
+      <para>The section name defines the volume name which is the name that appears in the Chooser ot the
+        "connect to server" dialog on Macintoshes to represent the appropriate share.
+        No two volumes may have the same name.
+        The volume name cannot contain the <keycode>':'</keycode>
+        character. The volume name is mangled if it is very long. Mac codepage
+        volume name is limited to 27 characters. UTF8-MAC volume name is limited
+        to -volnamelen parameter in afpd.conf</para>
+
+      <variablelist>
+
+        <varlistentry>
+          <term>path = <replaceable>PATH</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>The path name must be a fully qualified path name, or a path name
+              using either the ~ shell shorthand or any of the substitution variables,
+              which are listed below.</para>
+
+            <para>The volume name is the name that appears in the Chooser ot the
+              "connect to server" dialog on Macintoshes to represent the appropriate
+              share. If volumename is unspecified, the last component of pathname
+              is used. No two volumes may have the same name. If there are spaces in
+              the name, it should be in quotes (i.e. "File Share").
+              The volume name cannot contain the <keycode>':'</keycode>
+              character. The volume name is mangled if it is very long. Mac codepage
+              volume name is limited to 27 characters. UTF8-MAC volume name is limited
+              to -volnamelen parameter in afpd.conf</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>adouble = <replaceable>ea|v2</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>Specify the format of the metadata files, which are used for
+              saving Mac resource fork as well. Earlier versions used AppleDouble
+              v2, the new default format is <emphasis role="bold">ea</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>volsizelimit = <replaceable>size in MiB</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>Useful for TimeMachine: limits the reported volume size,
+              thus preventing TM from using the whole real disk space for
+              backup. Example: "volsizelimit:1000" would limit the reported
+              disk space to 1 GB. <emphasis role="bold">IMPORTANT: </emphasis>
+              This is an approximated calculation taking into accout
+              the contents of TM sparsebundle images. Therefor you MUST NOT
+              use this volume to store other content when using this
+              option, because it would NOT be accounted.
+              The calculation works by reading the band size from the Info.plist
+              XML file of the sparsebundle, reading the bands/ directory
+              counting the number of band files, and then multiplying one
+              with the other.
+            </para>
+
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>allow = <replaceable>users/groups</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>The allow option allows the users and groups that access a
+              share to be specified. Users and groups are specified, delimited by
+              commas. Groups are designated by a @ prefix. Example:
+              allow:user1,user2,@group</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>deny = <replaceable>users/groups</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>The deny option specifies users and groups who are not allowed
+              access to the share. It follows the same format as the allow
+              option.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>allowed_hosts = <replaceable>IP host address/IP netmask bits[,
+              ... ]</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>Only listed hosts and networks are allowed, all others are
+              rejected. The network address may be specified either in
+              dotted-decimal format for IPv4 or in hexadecimal format for
+              IPv6.</para>
+
+            <para>Example:
+              allowed_hosts:10.1.0.0/16,10.2.1.100,2001:0db8:1234::/48</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>denied_hosts = <replaceable>IP host address/IP netmask bits[,
+              ...]</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>Listed hosts and nets are rejected, all others are
+              allowed.</para>
+
+            <para>Example: denied_hosts:
+              192.168.100/24,10.1.1.1,2001:db8::1428:57ab</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>cnidscheme = <replaceable>backend</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>set the CNID backend to be used for the volume, default is
+              [:DEFAULT_CNID_SCHEME:] available schemes:
+              [:COMPILED_BACKENDS:]</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>dbpath = <replaceable>path</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>Sets the database information to be stored in path. You have
+              to specifiy a writable location, even if the volume is read
+              only.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>cnidserver = <replaceable>host[:port]</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>Query this servername or IP address
+              (default:<emphasis>localhost</emphasis>) and port (default:
+              <emphasis>4700</emphasis>) for CNIDs. Only used with CNID backend
+              "<emphasis>dbd</emphasis>". This option here overrides any setting
+              from
+              <filename>afpd.conf</filename>:<option>cnidserver</option>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>ea = <replaceable>none|auto|sys|ad</replaceable></term>
+
+          <listitem>
+            <para>Specify how Extended Attributes<indexterm>
+                <primary>Extended Attributes</primary>
+              </indexterm> are stored. <option>auto</option> is the
+              default.</para>
+
+            <variablelist>
+              <varlistentry>
+                <term>auto</term>
+
+                <listitem>
+                  <para>Try <option>sys</option> (by setting an EA on the shared
+                    directory itself), fallback to <option>ad</option>. Requires
+                    writeable volume for perfoming test.
+                    <option>options:ro</option> overwrites <option>auto</option>
+                    with <option>none</option>. Use explicit
+                    <option>ea:sys|ad</option> for read-only volumes where
+                    appropiate.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>sys</term>
+
+                <listitem>
+                  <para>Use filesystem Extended Attributes.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>ad</term>
+
+                <listitem>
+                  <para>Use files in <emphasis>.AppleDouble</emphasis>
+                    directories.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>none</term>
+
+                <listitem>
+                  <para>No Extended Attributes support.</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>maccharset = <replaceable>charset</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>specifies the mac client codepage for this Volume, e.g.
+              "MAC_ROMAN", "MAC_CYRILLIC". If not specified the setting from
+              <filename>afpd.conf</filename> is inherited. This setting is only
+              required if you need volumes, where the mac codepage differs from
+              the one globally set in <filename>afpd.conf</filename>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>casefold = <option>option</option></term>
+
+          <listitem>
+            <para>The casefold option handles, if the case of filenames should
+              be changed. The available options are:</para>
+
+            <para><option>tolower</option> - Lowercases names in both
+              directions.</para>
+
+            <para><option>toupper</option> - Uppercases names in both
+              directions.</para>
+
+            <para><option>xlatelower</option> - Client sees lowercase, server
+              sees uppercase.</para>
+
+            <para><option>xlateupper</option> - Client sees uppercase, server
+              sees lowercase.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>password = <replaceable>password</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>This option allows you to set a volume password, which can be
+              a maximum of 8 characters long (using ASCII strongly recommended at
+              the time of this writing).</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>perm|fperm|dperm:<replaceable>mode</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>Add(or) with the client requested permissions:
+              <option>perm</option> affects files and directories,
+              <option>fperm</option> is for files only, <option>dperm</option> is
+              for directories only. Use with
+              <option>options:upriv</option>.</para>
+
+            <example>
+              <title>Volume for a collaborative workgroup</title>
+
+              <programlisting>/path/to/volume "Workgroup" options:upriv dperm:0770 fperm:0660</programlisting>
+            </example>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>umask = <replaceable>mode</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>set perm mask. Use with <option>options:upriv</option>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>preexec = <replaceable>command</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>command to be run when the volume is mounted, ignored for user
+              defined volumes</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>postexec = <replaceable>command</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>command to be run when the volume is closed, ignored for user
+              defined volumes</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>root_preexec = <replaceable>command</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>command to be run as root when the volume is mounted, ignored
+              for user defined volumes</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>root_postexec = <replaceable>command</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>command to be run as root when the volume is closed, ignored
+              for user defined volumes</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>rolist = <option>users/groups</option> <type>(V)</type></term>
+
+          <listitem>
+            <para>Allows certain users and groups to have read-only access to a
+              share. This follows the allow option format.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>rwlist = <replaceable>users/groups</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>Allows certain users and groups to have read/write access to a
+              share. This follows the allow option format.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>veto = <replaceable>vetoed names</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>hide files and directories,where the path matches one of the
+              '/' delimited vetoed names. The veto string must always be
+              terminated with a '/', eg. "veto1/", "veto1/veto2/".</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>volcharset = <replaceable>charset</replaceable> <type>(V)</type></term>
+
+          <listitem>
+            <para>specifies the volume codepage, e.g. "UTF8", "UTF8-MAC",
+              "ISO-8859-15". Defaults to "UTF8".</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Volume options</title>
+
+      <para>vol options = <replaceable>option,[option,...]</replaceable> <type>(V)</type></para>
+      <para>vol options = <replaceable>option [option ...]</replaceable> <type>(V)</type></para>
+
+      <para>This allows multiple options to be specified in a comma or space
+        delimited format. The available options are:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>searchdb <type>(V)</type></term>
+          <listitem>
+            <para>Use fast CNID database namesearch instead of slow recursive
+              filesystem search. Relies on a consistent CNID database, ie Samba
+              or local filesystem access lead to inaccurate or wrong results.
+              Works only for "dbd" CNID db volumes.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>tm <type>(V)</type></term>
+
+          <listitem>
+            <para>Enable Time Machine suport for this volume.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>invisibledots <type>(V)</type></term>
+
+          <listitem>
+            <para>Use with <option>usedots</option>: make dot files
+              invisible.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nonetids <type>(V)</type></term>
+
+          <listitem>
+            <para>Try to force ACL unawareness on the client.</para>
+          </listitem>
+        </varlistentry>
+
+
+        <varlistentry>
+          <term>preexec_close <type>(V)</type></term>
+
+          <listitem>
+            <para>a non-zero return code from preexec close the volume
+              being immediately, preventing clients to mount/see the volume
+              in question.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>ro <type>(V)</type></term>
+
+          <listitem>
+            <para>Specifies the share as being read only for all users.
+              The .AppleDB directory has to be writeable, you can use the
+              <option>-dbpath</option> option to relocate it. Overwrites
+              <option>ea:auto</option> with <option>ea:none</option></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>root_preexec_close <type>(V)</type></term>
+
+          <listitem>
+            <para>a non-zero return code from root_preexec closes the
+              volume immediately, preventing clients to mount/see the volume
+              in question.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>upriv <type>(V)</type></term>
+
+          <listitem>
+            <para>use AFP3 unix privileges. This should be set for OS X
+              clients. Starting with Netatalk 2.1 it's part of the
+              default config :DEFAULT: line.
+              See also: <option>perm|fperm|dperm</option>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>usedots <type>(V)</type></term>
+
+          <listitem>
+            <para>Don't do :hex translation for dot files. note: when this
+              option gets set, certain file names become illegal. These are
+              .Parent and anything that starts with .Apple. See also
+              <option>invisibledots</option>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nodev <type>(V)</type></term>
+
+          <listitem>
+            <para>always use 0 for device number, helps when the device
+              number is not constant across a reboot, cluster, ...</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nohex <type>(V)</type></term>
+
+          <listitem>
+            <para>Disables :hex translations for anything except dot
+              files. This option makes the <keycode>'/</keycode>' character
+              illegal.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>nostat <type>(V)</type></term>
+
+          <listitem>
+            <para>don't stat volume path when enumerating volumes list,
+              useful for automounting or volumes created by a preexec
+              script.</para>
+          </listitem>
+        </varlistentry>
+
+      </variablelist>
+    </refsect2>
+  </refsect1>
+
+  <refsect1>
+    <title>CNID backends</title>
+
+    <para>The AFP protocol mostly refers to files and directories by ID and
+      not by name. Netatalk needs a way to store these ID's in a persistent way,
+      to achieve this several different CNID backends are available. The CNID
+      Databases are by default located in the <filename>.AppleDB</filename>
+      folder in the volume root.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>cdb</term>
+
+        <listitem>
+          <para>"Concurrent database", backend is based on Sleepycat's Berkely
+            DB. With this backend several <command>afpd</command> deamons access
+            the CNID database directly. Berkeley DB locking is used to
+            synchronize access, if more than one <command>afpd</command> process
+            is active for a volume. The drawback is, that the crash of a single
+            <command>afpd</command> process might corrupt the database.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>dbd</term>
+
+        <listitem>
+          <para>Access to the CNID database is restricted to the
+            <command>cnid_metad</command> daemon process.
+            <command>afpd</command> processes communicate with the daemon for
+            database reads and updates. If built with Berkeley DB transactions
+            the probability for database corruption is practically zero, but
+            performance can be slower than with <option>cdb</option></para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>last</term>
+
+        <listitem>
+          <para>This backend is an exception, in terms of ID persistency. ID's
+            are only valid for the current session. This is basically what
+            <command>afpd</command> did in the 1.5 (and 1.6) versions. This
+            backend is still available, as it is useful for e.g. sharing
+            cdroms.</para>
+
+          <para><emphasis role="bold">Warning</emphasis>: It is
+            <emphasis>NOT</emphasis> recommended to use this backend for volumes
+            anymore, as <command>afpd</command> now relies heavily on a
+            persistent ID database. Aliases will likely not work and filename
+            mangling is not supported.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>Even though <command>./configure --help</command> might show that
+      there are other CNID backends available, be warned those are likely broken
+      or mainly used for testing. Don't use them unless you know what you're
+      doing, they may be removed without further notice from future
+      versions.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>Charset options</title>
+
+    <para>With OS X Apple introduced the AFP3 protocol. One of the most
+      important changes was that AFP3 uses unicode names encoded as UTF-8
+      decomposed. Previous AFP/OS versions used codepages, like MacRoman,
+      MacCentralEurope, etc.</para>
+
+    <para><command>afpd</command> needs a way to preserve extended macintosh
+      characters, or characters illegal in unix filenames, when saving files on
+      a unix filesystem. Earlier versions used the the so called CAP encoding.
+      An extended character (&gt;0x7F) would be converted to a :xx sequence,
+      e.g. the Apple Logo (MacRoman: 0XF0) was saved as <literal>:f0</literal>.
+      Some special characters will be converted as to :xx notation as well.
+      '<keycode>/</keycode>' will be encoded to <literal>:2f</literal>, if
+      <option>usedots</option> is not specified, a leading dot
+      '<keycode>.</keycode>' will be encoded as <literal>:2e</literal>.</para>
+
+    <para>This version now uses UTF-8 as the default encoding for names.
+      Special characters, like '<keycode>/</keycode>' and a leading
+      '<keycode>.</keycode>' will still be CAP style encoded .</para>
+
+    <para>The <option>volcharset</option> option will allow you to select
+      another volume encoding. E.g. for western users another useful setting
+      could be volcharset ISO-8859-15. <command>apfd</command> will accept any
+      <citerefentry>
+        <refentrytitle><command>iconv</command></refentrytitle>
+
+        <manvolnum>1</manvolnum>
+      </citerefentry> provided charset. If a character cannot be converted
+      from the mac codepage to the selected volcharset, afpd will save it as a
+      CAP encoded character. For AFP3 clients, <command>afpd</command> will
+      convert the UTF-8<indexterm>
+        <primary>UTF8</primary>
+
+        <secondary>afpd's volcharset setting</secondary>
+      </indexterm><indexterm>
+        <primary>UTF8-MAC</primary>
+
+        <secondary>afpd's volcharset setting</secondary>
+      </indexterm><indexterm>
+        <primary>ISO-8859-15</primary>
+
+        <secondary>afpd's volcharset setting</secondary>
+      </indexterm><indexterm>
+        <primary>ISO-8859-1</primary>
+
+        <secondary>afpd's volcharset setting</secondary>
+      </indexterm> character to <option>maccharset</option> first. If this
+      conversion fails, you'll receive a -50 error on the mac.</para>
+
+    <para><emphasis>Note</emphasis>: Whenever you can, please stick with the
+      default UTF-8 volume format.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>SEE ALSO</title>
 
     <para><citerefentry>
         <refentrytitle>afpd</refentrytitle>
@@ -836,6 +1705,6 @@ third -signature user:ADMINS</programlisting></para>
         <refentrytitle>cnid_metad</refentrytitle>
 
         <manvolnum>8</manvolnum>
-      </citerefentry></para>
+    </citerefentry></para>
   </refsect1>
 </refentry>
