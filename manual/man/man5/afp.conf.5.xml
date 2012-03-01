@@ -76,7 +76,7 @@
     </para>
 
     <para>
-      There is one special sections, [Global], which is described under
+      There are two special sections, [Global] and [Homes], which are described under
       <emphasis>special sections</emphasis>. The following notes apply to ordinary section descriptions.
     </para>
 
@@ -87,7 +87,7 @@
     </para>
 
     <para>
-      Any section without <option>path</option> option is considered a <emphasis>vol preset</emphasis> which can
+      Any volume section without <option>path</option> option is considered a <emphasis>vol preset</emphasis> which can
       be selected in other volume sections via the <option>vol preset</option> option and constitutes defaults
       for the volume. For any option speficied both in a preset <emphasis>and</emphasis> in a volume section
       the volume section setting completly substitutes the preset option.
@@ -116,8 +116,34 @@
 
       <para>
         Parameters in this section apply to the server as a whole. Parameters denoted by a (G) below are
-        must be set in this section. Parameters denoted by a (V) belong to volume sections.
+        must be set in this section.
       </para>
+    </refsect2>
+
+    <refsect2>
+      <title>The [Homes] section</title>
+
+      <para>
+        This section enable sharing of the UNIX server user home directories. Specifying an optional
+        <option>path</option> parameter means that not the whole user home will be shared but the
+        subdirectory <option>path</option>.
+        It is neccessary to define the <option>basedir regex</option> option. It should be a regex
+        which matches the parent directory of the user homes.
+        Parameters denoted by a (H) belong to volume sections.
+        The optional parameter <option>name</option> can be used to change the AFP volume name which
+        <emphasis>users's home</emphasis> by default. See below under VARIABLE SUBSTITUTIONS.
+      </para>
+    <para>
+      The following example illustrates this. Given all user home directories are stored under
+      <filename>/home</filename>:
+      <programlisting>
+        [Homes]
+        path = afp-data
+        basedir regex = /home
+      </programlisting>
+      For a user <emphasis>john</emphasis> this results in an AFP home volume with a path of
+      <filename>/home/john/afp-data</filename>.
+    </para>
     </refsect2>
   </refsect1>
 
@@ -132,12 +158,6 @@
       The letter <emphasis>G</emphasis> in parentheses indicates that a parameter is specific to
       the [Global] section. The letter <emphasis>V</emphasis> indicates that a parameter can be specified in a
       volume specific section.
-    </para>
-
-    <para>
-      Parameters are arranged here in alphabetical order - this may not create best bedfellows, but at least you can
-      find them! Where there are synonyms, the preferred synonym is described, others refer to the preferred
-      synonym.
     </para>
   </refsect1>
 
@@ -727,6 +747,29 @@
       <title>Miscellaneous Options</title>
 
       <variablelist>
+
+        <varlistentry>
+          <term>basedir regex = <replaceable>regex</replaceable> <type>(H)</type></term>
+
+          <listitem>
+            <para>
+              Regular expression which matches the parent directory of the user homes. In the
+              simple case this is just a path ie <option>basedir regex = /home</option>
+
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>name = <replaceable>name</replaceable> <type>(H)</type></term>
+
+          <listitem>
+            <para>
+              AFP user home volume name. The default is <emphasis>users's home</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+
         <varlistentry>
           <term>vol preset = <replaceable>name</replaceable> <type>(G)/(V)</type></term>
 

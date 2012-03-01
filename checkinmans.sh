@@ -31,6 +31,7 @@ cd "$WORKDIR"
 for section in 1 3 4 5 8 ; do
     echo "Now processing man pages from section $section "
     files=`find . -name "*.$section" -print`
+    echo "Files: $files"
     for file in $files ; do
 	file=`basename $file`
 	echo "    man page: $file"
