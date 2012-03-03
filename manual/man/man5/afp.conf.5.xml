@@ -64,6 +64,12 @@
       which may be given as yes/no, 1/0 or true/false. Case is not significant in boolean values, but is preserved
       in string values. Some items such as create masks are numeric.
     </para>
+
+    <para>
+      The parameter <option>include = <replaceable>path</replaceable></option> allows you to include one config file inside another.
+      The file is included literally, as though typed in place. Nested includes are not supported.
+    </para>
+
   </refsect1>
 
   <refsect1>
