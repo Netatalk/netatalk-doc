@@ -755,6 +755,17 @@
       <variablelist>
 
         <varlistentry>
+          <term>vol dbpath = <replaceable>path</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Sets the database information to be stored in path. You have
+              to specifiy a writable location, even if the volume is read
+              only. The default is <filename>$localstatedir/netatalk/CNID/</filename>,
+              where $localstatedir defaults to <filename>/var</filename>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>basedir regex = <replaceable>regex</replaceable> <type>(H)</type></term>
 
           <listitem>
@@ -1264,16 +1275,6 @@
             <para>set the CNID backend to be used for the volume, default is
               [:DEFAULT_CNID_SCHEME:] available schemes:
               [:COMPILED_BACKENDS:]</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>dbpath = <replaceable>path</replaceable> <type>(V)</type></term>
-
-          <listitem>
-            <para>Sets the database information to be stored in path. You have
-              to specifiy a writable location, even if the volume is read
-              only.</para>
           </listitem>
         </varlistentry>
 
