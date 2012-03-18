@@ -4,7 +4,7 @@
   <refmeta>
     <refentrytitle>afp.conf</refentrytitle>
     <manvolnum>5</manvolnum>
-    <refmiscinfo class="date">23 Feb 2012</refmiscinfo>
+    <refmiscinfo class="date">18 Mar 2012</refmiscinfo>
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
 
@@ -300,11 +300,11 @@
 
       <variablelist>
         <varlistentry>
-          <term>uamlist = <replaceable>uams list</replaceable> <type>(G)</type></term>
+          <term>uam list = <replaceable>uam list</replaceable> <type>(G)</type></term>
 
           <listitem>
-            <para>Comma separated list of UAMs. (The default is
-              uams_dhx.so,uams_dhx2.so).</para>
+            <para>Space or comma separated list of UAMs. (The default is
+              "uams_dhx.so uams_dhx2.so").</para>
 
             <para>The most commonly used UAMs are:</para>
 
@@ -371,7 +371,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>uampath = <replaceable>path</replaceable> <type>(G)</type></term>
+          <term>uam path = <replaceable>path</replaceable> <type>(G)</type></term>
 
           <listitem>
             <para>Sets the default path for UAMs for this server (default is
@@ -380,9 +380,9 @@
         </varlistentry>
 
         <varlistentry>
-          <term>k5keytab = <replaceable>path</replaceable> <type>(G)</type></term>
-          <term>k5service = <replaceable>service</replaceable> <type>(G)</type></term>
-          <term>k5realm = <replaceable>realm</replaceable> <type>(G)</type></term>
+          <term>k5 keytab = <replaceable>path</replaceable> <type>(G)</type></term>
+          <term>k5 service = <replaceable>service</replaceable> <type>(G)</type></term>
+          <term>k5 realm = <replaceable>realm</replaceable> <type>(G)</type></term>
 
           <listitem>
             <para>These are required if the server supports the Kerberos 5
@@ -391,8 +391,8 @@
         </varlistentry>
 
         <varlistentry>
-          <term>ntdomain = <parameter>DOMAIN</parameter> <type>(G)</type></term>
-          <term>ntseparator = <parameter>SEPERATOR</parameter> <type>(G)</type></term>
+          <term>nt domain = <parameter>DOMAIN</parameter> <type>(G)</type></term>
+          <term>nt separator = <parameter>SEPERATOR</parameter> <type>(G)</type></term>
 
           <listitem>
             <para>Use for eg. winbind authentication, prepends both strings
@@ -403,20 +403,20 @@
         </varlistentry>
 
         <varlistentry>
-          <term>adminauthuser = <parameter>user</parameter> <type>(G)</type></term>
+          <term>admin auth user = <parameter>user</parameter> <type>(G)</type></term>
           <listitem>
             <para>
-              Specifying eg <option>adminauthuser root</option>
+              Specifying eg "<option>admin auth user = root</option>"
               whenever a normal user login fails, afpd will try to authenticate as
-              the specified <option>adminauthuser</option>. If this succeeds, a normal session is created
+              the specified <option>admin auth user</option>. If this succeeds, a normal session is created
               for the original connecting user. Said differently: if you know the
-              password of <option>adminauthuser</option>, you can authenticate as any other user.
+              password of <option>admin auth user</option>, you can authenticate as any other user.
             </para>
           </listitem>
         </varlistentry>
 
       <varlistentry>
-        <term>ldap_server = <parameter>host</parameter> <type>(G)</type></term>
+        <term>ldap server = <parameter>host</parameter> <type>(G)</type></term>
 
         <listitem>
           <para>Name or IP address of your LDAP Server. This is only needed for explicit ACL support in order to
@@ -429,7 +429,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>ldap_auth_method = <parameter>none|simple|sasl</parameter> <type>(G)</type></term>
+        <term>ldap auth method = <parameter>none|simple|sasl</parameter> <type>(G)</type></term>
 
         <listitem>
           <para>Authentication method: <option>none | simple |
@@ -464,7 +464,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>ldap_auth_dn = <parameter>dn</parameter> <type>(G)</type></term>
+        <term>ldap auth dn = <parameter>dn</parameter> <type>(G)</type></term>
 
         <listitem>
           <para>Distinguished Name of the user for simple bind.</para>
@@ -474,7 +474,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>ldap_auth_pw = <parameter>password</parameter> <type>(G)</type></term>
+        <term>ldap auth pw = <parameter>password</parameter> <type>(G)</type></term>
 
         <listitem>
           <para>Distinguished Name of the user for simple bind.</para>
@@ -484,7 +484,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>ldap_userbase = <parameter>base dn</parameter> <type>(G)</type></term>
+        <term>ldap userbase = <parameter>base dn</parameter> <type>(G)</type></term>
 
         <listitem>
           <para>DN of the user container in LDAP.</para>
@@ -494,7 +494,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>ldap_userscope = <parameter>scope</parameter> <type>(G)</type></term>
+        <term>ldap userscope = <parameter>scope</parameter> <type>(G)</type></term>
 
         <listitem>
           <para>Search scope for user search: <option>base | one |
@@ -505,7 +505,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>ldap_groupbase = <parameter>base dn</parameter> <type>(G)</type></term>
+        <term>ldap groupbase = <parameter>base dn</parameter> <type>(G)</type></term>
 
         <listitem>
           <para>DN of the group container in LDAP.</para>
@@ -515,7 +515,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>ldap_groupscope = <parameter>scope</parameter> <type>(G)</type></term>
+        <term>ldap groupscope = <parameter>scope</parameter> <type>(G)</type></term>
 
         <listitem>
           <para>Search scope for user search: <option>base | one
@@ -526,7 +526,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>ldap_uuuid_attr = <parameter>dn</parameter> <type>(G)</type></term>
+        <term>ldap uuuid attr = <parameter>dn</parameter> <type>(G)</type></term>
 
         <listitem>
           <para>Name of the LDAP attribute with the UUIDs.</para>
@@ -538,7 +538,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>ldap_name_attr = <parameter>dn</parameter> <type>(G)</type></term>
+        <term>ldap name attr = <parameter>dn</parameter> <type>(G)</type></term>
 
         <listitem>
           <para>Name of the LDAP attribute with the users short name.</para>
@@ -548,7 +548,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>ldap_group_attr = <parameter>dn</parameter> <type>(G)</type></term>
+        <term>ldap group attr = <parameter>dn</parameter> <type>(G)</type></term>
 
         <listitem>
           <para>Name of the LDAP attribute with the groups short name.</para>
@@ -617,7 +617,7 @@
 
       <variablelist>
         <varlistentry>
-          <term>passwdfile = <parameter>path</parameter> <type>(G)</type></term>
+          <term>passwd file = <parameter>path</parameter> <type>(G)</type></term>
 
           <listitem>
             <para>Sets the path to the Randnum UAM passwd file for this server
@@ -626,7 +626,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>passwdminlen = <parameter>number</parameter> <type>(G)</type></term>
+          <term>passwd minlen = <parameter>number</parameter> <type>(G)</type></term>
 
           <listitem>
             <para>Sets the minimum password length, if supported by the
@@ -668,7 +668,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>afp listen = <replaceable>ip address[:port][,ip adress[:port], ...]</replaceable> <type>(G)</type></term>
+          <term>afp listen = <replaceable>ip address[:port] [ip adress[:port] ...]</replaceable> <type>(G)</type></term>
 
           <listitem>
             <para>Specifies the IP address that the server should advertise
@@ -681,7 +681,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>cnid listen = <replaceable>ip address[:port][,ip adress[:port], ...]</replaceable> <type>(G)</type></term>
+          <term>cnid listen = <replaceable>ip address[:port] [ip adress[:port] ...]</replaceable> <type>(G)</type></term>
 
           <listitem>
             <para>Specifies the IP address that the CNID server should listen on.
@@ -717,7 +717,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>server_quantum = <replaceable>number</replaceable> <type>(G)</type></term>
+          <term>server quantum = <replaceable>number</replaceable> <type>(G)</type></term>
 
           <listitem>
             <para>This specifies the DSI server quantum. The default value is
@@ -794,7 +794,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>name = <replaceable>name</replaceable> <type>(H)</type></term>
+          <term>home name = <replaceable>name</replaceable> <type>(H)</type></term>
 
           <listitem>
             <para>
@@ -815,7 +815,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>admingroup = <replaceable>group</replaceable> <type>(G)</type></term>
+          <term>admin group = <replaceable>group</replaceable> <type>(G)</type></term>
 
           <listitem>
             <para>Allows users of a certain group to be seen as the superuser
@@ -824,7 +824,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>cnidserver = <replaceable>ipaddress[:port]</replaceable> <type>(G)/(V)</type></term>
+          <term>cnid server = <replaceable>ipaddress[:port]</replaceable> <type>(G)/(V)</type></term>
 
           <listitem>
             <para>Specifies the IP address and port of a cnid_metad server,
@@ -851,7 +851,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>fcelistener = <replaceable>host[:port]</replaceable> <type>(G)</type></term>
+          <term>fce listener = <replaceable>host[:port]</replaceable> <type>(G)</type></term>
           <listitem>
             <para>
               Enables sending FCE events to the specified <parameter>host</parameter>,
@@ -862,7 +862,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>fceevents = <replaceable>fmod,fdel,ddel,fcre,dcre,tmsz</replaceable> <type>(G)</type></term>
+          <term>fce events = <replaceable>fmod,fdel,ddel,fcre,dcre,tmsz</replaceable> <type>(G)</type></term>
           <listitem>
             <para>
               Speficies which FCE events are active, default is <parameter>fmod,fdel,ddel,fcre,dcre</parameter>.
@@ -871,7 +871,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>fcecoalesce = <replaceable>all|delete|create</replaceable> <type>(G)</type></term>
+          <term>fce coalesce = <replaceable>all|delete|create</replaceable> <type>(G)</type></term>
           <listitem>
             <para>
               Coalesce FCE events.
@@ -880,7 +880,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>fceholdfmod = <replaceable>seconds</replaceable> <type>(G)</type></term>
+          <term>fce holdfmod = <replaceable>seconds</replaceable> <type>(G)</type></term>
           <listitem>
             <para>
               This determines the time delay in seconds which is always waited if another file modification for the
@@ -892,7 +892,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>guestname = <replaceable>name</replaceable> <type>(G)</type></term>
+          <term>guest account = <replaceable>name</replaceable> <type>(G)</type></term>
 
           <listitem>
             <para>Specifies the user that guests should use (default is
@@ -911,7 +911,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>mimicmodel = <replaceable>model</replaceable> <type>(G)</type></term>
+          <term>mimic model = <replaceable>model</replaceable> <type>(G)</type></term>
 
           <listitem>
             <para>
@@ -981,7 +981,7 @@
       <variablelist>
 
         <varlistentry>
-          <term>logfile = <replaceable>file</replaceable> <type>(G)</type></term>
+          <term>log file = <replaceable>logfile</replaceable> <type>(G)</type></term>
           <listitem>
             <para>
               If not specified Netatalk logs to syslogs daemon facilify. Otherwise it logs
@@ -991,7 +991,8 @@
         </varlistentry>
 
         <varlistentry>
-          <term>loglevel = <replaceable>type:level,[type:level, ...]</replaceable> <type>(G)</type></term>
+          <term>log level = <replaceable>type:level [type:level  ...]</replaceable> <type>(G)</type></term>
+          <term>log level = <replaceable>type:level,[type:level, ...]</replaceable> <type>(G)</type></term>
 
           <listitem>
             <para>Specify that any message of a loglevel up to the given
@@ -1018,10 +1019,10 @@
     </refsect2>
 
     <refsect2>
-      <title>Global Options</title>
+      <title>Server Options</title>
 
-      <para>options = <replaceable>option,[option,...]</replaceable> <type>(G)</type></para>
-      <para>options = <replaceable>option [option ...]</replaceable> <type>(G)</type></para>
+      <para>server options = <replaceable>option,[option,...]</replaceable> <type>(G)</type></para>
+      <para>server options = <replaceable>option [option ...]</replaceable> <type>(G)</type></para>
 
       <para>This allows multiple options to be specified in a comma or space
         delimited format. The available options are:</para>
@@ -1195,7 +1196,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>adouble = <replaceable>ea|v2</replaceable> <type>(V)</type></term>
+          <term>appledouble = <replaceable>ea|v2</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>Specify the format of the metadata files, which are used for
@@ -1206,12 +1207,12 @@
         </varlistentry>
 
         <varlistentry>
-          <term>volsizelimit = <replaceable>size in MiB</replaceable> <type>(V)</type></term>
+          <term>vol size limit = <replaceable>size in MiB</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>Useful for TimeMachine: limits the reported volume size,
               thus preventing TM from using the whole real disk space for
-              backup. Example: "volsizelimit:1000" would limit the reported
+              backup. Example: "vol size limit = 1000" would limit the reported
               disk space to 1 GB. <emphasis role="bold">IMPORTANT: </emphasis>
               This is an approximated calculation taking into accout
               the contents of TM sparsebundle images. Therefor you MUST NOT
@@ -1227,28 +1228,28 @@
         </varlistentry>
 
         <varlistentry>
-          <term>allow = <replaceable>users/groups</replaceable> <type>(V)</type></term>
+          <term>valid users = <replaceable>users/groups</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>The allow option allows the users and groups that access a
               share to be specified. Users and groups are specified, delimited by
-              commas. Groups are designated by a @ prefix. Example:
-              allow:user1,user2,@group</para>
+              spaces or commas. Groups are designated by a @ prefix. Example:
+              "valid users = user1 user2 @group"</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>deny = <replaceable>users/groups</replaceable> <type>(V)</type></term>
+          <term>invalid users = <replaceable>users/groups</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>The deny option specifies users and groups who are not allowed
-              access to the share. It follows the same format as the allow
+              access to the share. It follows the same format as the "valid users"
               option.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>allowed_hosts = <replaceable>IP host address/IP netmask bits[,
+          <term>hosts allow = <replaceable>IP host address/IP netmask bits[,
               ... ]</replaceable> <type>(V)</type></term>
 
           <listitem>
@@ -1258,25 +1259,25 @@
               IPv6.</para>
 
             <para>Example:
-              allowed_hosts:10.1.0.0/16,10.2.1.100,2001:0db8:1234::/48</para>
+              hosts allow = 10.1.0.0/16 10.2.1.100 2001:0db8:1234::/48</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>denied_hosts = <replaceable>IP host address/IP netmask bits[,
-              ...]</replaceable> <type>(V)</type></term>
+          <term>hosts deny = <replaceable>IP host address/IP netmask bits
+              [...]</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>Listed hosts and nets are rejected, all others are
               allowed.</para>
 
-            <para>Example: denied_hosts:
-              192.168.100/24,10.1.1.1,2001:db8::1428:57ab</para>
+            <para>Example:
+              hosts deny = 192.168.100/24 10.1.1.1 2001:db8::1428:57ab</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>cnidscheme = <replaceable>backend</replaceable> <type>(V)</type></term>
+          <term>cnid scheme = <replaceable>backend</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>set the CNID backend to be used for the volume, default is
@@ -1286,7 +1287,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>cnidserver = <replaceable>host[:port]</replaceable> <type>(V)</type></term>
+          <term>cnid server = <replaceable>host[:port]</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>Query this servername or IP address
@@ -1294,7 +1295,7 @@
               <emphasis>4700</emphasis>) for CNIDs. Only used with CNID backend
               "<emphasis>dbd</emphasis>". This option here overrides any setting
               from
-              <filename>afpd.conf</filename>:<option>cnidserver</option>.</para>
+              <filename>afp.conf</filename>:<option>cnid server</option>.</para>
           </listitem>
         </varlistentry>
 
@@ -1394,19 +1395,20 @@
         </varlistentry>
 
         <varlistentry>
-          <term>perm|fperm|dperm:<replaceable>mode</replaceable> <type>(V)</type></term>
+          <term>file perm = <replaceable>mode</replaceable> <type>(V)</type></term>
+          <term>directory perm = <replaceable>mode</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>Add(or) with the client requested permissions:
-              <option>perm</option> affects files and directories,
-              <option>fperm</option> is for files only, <option>dperm</option> is
-              for directories only. Use with
-              <option>options:upriv</option>.</para>
+              <option>file perm</option> is for files only, <option>directory perm</option> is
+              for directories only. Use without
+              <option>vol options = noupriv</option>.</para>
 
             <example>
               <title>Volume for a collaborative workgroup</title>
 
-              <programlisting>/path/to/volume "Workgroup" options:upriv dperm:0770 fperm:0660</programlisting>
+              <para><programlisting>file perm = 0660
+directory perm = 0770</programlisting></para>
             </example>
           </listitem>
         </varlistentry>
@@ -1415,7 +1417,7 @@
           <term>umask = <replaceable>mode</replaceable> <type>(V)</type></term>
 
           <listitem>
-            <para>set perm mask. Use with <option>options:upriv</option>.</para>
+            <para>set perm mask. Use without <option>vol options = noupriv</option>.</para>
           </listitem>
         </varlistentry>
 
@@ -1438,7 +1440,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>root_preexec = <replaceable>command</replaceable> <type>(V)</type></term>
+          <term>root preexec = <replaceable>command</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>command to be run as root when the volume is mounted, ignored
@@ -1447,7 +1449,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>root_postexec = <replaceable>command</replaceable> <type>(V)</type></term>
+          <term>root postexec = <replaceable>command</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>command to be run as root when the volume is closed, ignored
@@ -1474,7 +1476,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>veto = <replaceable>vetoed names</replaceable> <type>(V)</type></term>
+          <term>veto files = <replaceable>vetoed names</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>hide files and directories,where the path matches one of the

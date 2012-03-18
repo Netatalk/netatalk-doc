@@ -11,12 +11,9 @@
 <!ENTITY afpd.8 SYSTEM "man/man8/afpd.8.xml">
 <!ENTITY cnid_dbd.8 SYSTEM "man/man8/cnid_dbd.8.xml">
 <!ENTITY cnid_metad.8 SYSTEM "man/man8/cnid_metad.8.xml">
-<!ENTITY netatalk.conf.5 SYSTEM "man/man5/netatalk.conf.5.xml">
-<!ENTITY afpd.conf.5 SYSTEM "man/man5/afpd.conf.5.xml">
+<!ENTITY afp.conf.5 SYSTEM "man/man5/afp.conf.5.xml">
 <!ENTITY afp_signature.conf.5 SYSTEM "man/man5/afp_signature.conf.5.xml">
 <!ENTITY afp_voluuid.conf.5 SYSTEM "man/man5/afp_voluuid.conf.5.xml">
-<!ENTITY AppleVolumes.default.5 SYSTEM "man/man5/AppleVolumes.default.5.xml">
-<!ENTITY afp_ldap.conf.5 SYSTEM "man/man5/afp_ldap.conf.5.xml">
 <!ENTITY afpldaptest.1 SYSTEM "man/man1/afpldaptest.1.xml">
 <!ENTITY afppasswd.1 SYSTEM "man/man1/afppasswd.1.xml">
 <!ENTITY apple_dump.1 SYSTEM "man/man1/apple_dump.1.xml">
@@ -31,7 +28,7 @@
   <title>Netatalk 3.0 Manual</title>
   
   <bookinfo>
-    <date>02-23-2012</date>
+    <date>03-18-2012</date>
     <releaseinfo>:VERSION:</releaseinfo>
   </bookinfo>
 
@@ -71,7 +68,7 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
 
     &ad.1;
 
-    &afp_ldap.conf.5;
+    &afp.conf.5;
 
     &afp_signature.conf.5;
 
@@ -79,13 +76,9 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
 
     &afpd.8;
 
-    &afpd.conf.5;
-
     &afpldaptest.1;
 
     &afppasswd.1;
-
-    &AppleVolumes.default.5;
 
     &apple_dump.1;
 
@@ -100,8 +93,6 @@ url="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/li
     &macusers.1;
 
     &megatron.1;
-
-    &netatalk.conf.5;
 
     &netatalk-config.1;
 
