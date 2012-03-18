@@ -701,6 +701,22 @@
         </varlistentry>
 
         <varlistentry>
+          <term>sleep time = <replaceable>number</replaceable> <type>(G)</type></term>
+          <listitem>
+            <para>Keep sleeping AFP sessions for <parameter>number</parameter> hours before
+              disconnecting clients in sleep mode. Default is 10 hours.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>disconnect time = <replaceable>number</replaceable> <type>(G)</type></term>
+          <listitem>
+            <para>Keep disconnected AFP sessions for <parameter>number</parameter> hours before
+              dropping them. Default is 24 hours.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>server_quantum = <replaceable>number</replaceable> <type>(G)</type></term>
 
           <listitem>
@@ -1101,15 +1117,6 @@
               sleep 15-20 seconds and then try to reconnect their IPC channel to the master afpd process. If this
               reconnect fails, the sessions are in an undefined state. Therefor it's absolutely critical to restart
               the master process in time!</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>sleep <replaceable>number</replaceable> <type>(G)</type></term>
-
-          <listitem>
-            <para>AFP 3.x waits <parameter>number</parameter> hours before
-              disconnecting clients in sleep mode. Default is 10 hours.</para>
           </listitem>
         </varlistentry>
 
