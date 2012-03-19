@@ -4,7 +4,7 @@
   <refmeta>
     <refentrytitle>afp.conf</refentrytitle>
     <manvolnum>5</manvolnum>
-    <refmiscinfo class="date">18 Mar 2012</refmiscinfo>
+    <refmiscinfo class="date">19 Mar 2012</refmiscinfo>
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
 
@@ -136,8 +136,8 @@
         It is neccessary to define the <option>basedir regex</option> option. It should be a regex
         which matches the parent directory of the user homes.
         Parameters denoted by a (H) belong to volume sections.
-        The optional parameter <option>name</option> can be used to change the AFP volume name which
-        <emphasis>users's home</emphasis> by default. See below under VARIABLE SUBSTITUTIONS.
+        The optional parameter <option>home name</option> can be used to change the AFP volume name which
+        <emphasis>$u's home</emphasis> by default. See below under VARIABLE SUBSTITUTIONS.
       </para>
     <para>
       The following example illustrates this. Given all user home directories are stored under
@@ -1528,8 +1528,7 @@ directory perm = 0770</programlisting></para>
           <term>invisibledots <type>(V)</type></term>
 
           <listitem>
-            <para>Use with <option>usedots</option>: make dot files
-              invisible.</para>
+            <para>make dot files invisible. Use without <option>nousedots</option>. </para>
           </listitem>
         </varlistentry>
 
@@ -1558,8 +1557,8 @@ directory perm = 0770</programlisting></para>
           <listitem>
             <para>Specifies the share as being read only for all users.
               The .AppleDB directory has to be writeable, you can use the
-              <option>-dbpath</option> option to relocate it. Overwrites
-              <option>ea:auto</option> with <option>ea:none</option></para>
+              <option>vol dbpath</option> option to relocate it. Overwrites
+              <option>ea = auto</option> with <option>ea = none</option></para>
           </listitem>
         </varlistentry>
 
@@ -1574,23 +1573,21 @@ directory perm = 0770</programlisting></para>
         </varlistentry>
 
         <varlistentry>
-          <term>upriv <type>(V)</type></term>
+          <term>noupriv <type>(V)</type></term>
 
           <listitem>
-            <para>use AFP3 unix privileges. This should be set for OS X
-              clients. Starting with Netatalk 2.1 it's part of the
-              default config :DEFAULT: line.
-              See also: <option>perm|fperm|dperm</option>.</para>
+            <para>Don't use AFP3 unix privileges. This should not be set for OS X
+              clients. 
+              See also: "<option>file perm =</option>" and "<option>directory perm =</option>".</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>usedots <type>(V)</type></term>
+          <term>nousedots <type>(V)</type></term>
 
           <listitem>
-            <para>Don't do :hex translation for dot files. note: when this
-              option gets set, certain file names become illegal. These are
-              .Parent and anything that starts with .Apple. See also
+            <para>do :hex translation for dot files.
+              See also
               <option>invisibledots</option>.</para>
           </listitem>
         </varlistentry>
