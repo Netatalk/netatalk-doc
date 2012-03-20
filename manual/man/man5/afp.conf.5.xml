@@ -561,54 +561,62 @@
     </refsect2>
 
     <refsect2>
-      <title>Codepage Options</title>
+      <title>Charset Options</title>
 
       <para>With OS X Apple introduced the AFP3 protocol. One of the big changes
         was, that AFP3 uses Unicode names encoded as Decomposed UTF-8 (UTF8-MAC).
-        Previous AFP/OS versions used codepages like MacRoman, MacCentralEurope,
+        Previous AFP/OS versions used charsets like MacRoman, MacCentralEurope,
         etc.</para>
 
       <para>To be able to serve AFP3 and older clients at the same time,
         <command>afpd</command> needs to be able to convert between UTF-8 and Mac
-        codepages. Even OS X clients partly still rely on codepages. As there's no
+        charsets. Even OS X clients partly still rely on the mac charset. As there's no
         way, <command>afpd</command> can detect the codepage a pre AFP3 client
-        uses, you have to specify it using the <option>maccodepage</option>
+        uses, you have to specify it using the <option>mac charset</option>
         option. The default is MacRoman, which should be fine for most western
         users.</para>
 
-      <para>As <command>afpd</command> needs to interact with unix operating
-        system as well, it need's to be able to convert from UTF8-MAC/MacCodepage
-        to the unix codepage. By default <command>afpd</command> uses the systems
-        LOCALE, or ASCII if your system doesn't support locales. You can set the
-        unix codepage using the <option>unixcodepage</option> option. If you're
+      <para>As <command>afpd</command> needs to interact with UNIX operating
+        system as well, it need's to be able to convert from UTF8-MAC / Mac charset
+        to the UNIX charset. By default <command>afpd</command> uses <emphasis>UTF8</emphasis>. You can set the
+        UNIX charset using the <option>unix charset</option> option. If you're
         using extended characters in the configuration files for
         <command>afpd</command>, make sure your terminal matches the
-        <option>unixcodepage</option>.</para>
+        <option>unix charset</option>.</para>
 
       <variablelist>
         <varlistentry>
-          <term>unixcodepage = <parameter>CODEPAGE</parameter> <type>(G)</type></term>
+          <term>unix charset = <parameter>CHARSET</parameter> <type>(G)</type></term>
 
           <listitem>
-            <para>Specifies the servers unix codepage, e.g. "ISO-8859-15" or
-              "UTF8". This is used to convert strings to/from the systems locale,
+            <para>Specifies the servers unix charset, e.g. <emphasis>ISO-8859-15</emphasis> or
+              <emphasis>UTF8</emphasis>. This is used to convert strings to/from the systems locale,
               e.g. for authenthication, server messages and volume names. Defaults
-              to LOCALE if your system supports it, otherwise ASCII will be
-              used.</para>
+              to the systems locale setting.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>maccodepage = <parameter>CODEPAGE</parameter> <type>(G)</type></term>
+          <term>mac charset = <parameter>CHARSET</parameter> <type>(G)/(V)</type></term>
 
           <listitem>
-            <para>Specifies the mac clients codepage, e.g. "MAC_ROMAN". This is
+            <para>Specifies the Mac clients charset, e.g. <emphasis>MAC_ROMAN</emphasis>. This is
               used to convert strings and filenames to the clients codepage for
               OS9 and Classic, i.e. for authentication and AFP messages (SIGUSR2
               messaging). This will also be the default for the volumes
-              maccharset. Defaults to MAC_ROMAN.</para>
+              <option>mac charset</option>. Defaults to <emphasis>MAC_ROMAN</emphasis>.</para>
           </listitem>
         </varlistentry>
+
+        <varlistentry>
+          <term>vol charset = <parameter>CHARSET</parameter> <type>(G)/(V)</type></term>
+          <listitem>
+            <para>Specifies the encoding of the volumes filesystem, defaults to
+              <emphasis>UTF8</emphasis>.</para>
+          </listitem>
+        </varlistentry>
+
+
       </variablelist>
     </refsect2>
 
@@ -905,7 +913,7 @@
 
           <listitem>
             <para>Sets a message to be displayed when clients logon to the
-              server. The message should be in <option>unixcodepage</option> and
+              server. The message should be in <option>unix charset</option> and
               should be quoted. Extended characters are allowed.</para>
           </listitem>
         </varlistentry>
@@ -1169,7 +1177,7 @@
         "connect to server" dialog on Macintoshes to represent the appropriate share.
         No two volumes may have the same name.
         The volume name cannot contain the <keycode>':'</keycode>
-        character. The volume name is mangled if it is very long. Mac codepage
+        character. The volume name is mangled if it is very long. Mac charset
         volume name is limited to 27 characters. UTF8-MAC volume name is limited
         to -volnamelen parameter in afpd.conf</para>
 
@@ -1189,7 +1197,7 @@
               is used. No two volumes may have the same name. If there are spaces in
               the name, it should be in quotes (i.e. "File Share").
               The volume name cannot contain the <keycode>':'</keycode>
-              character. The volume name is mangled if it is very long. Mac codepage
+              character. The volume name is mangled if it is very long. Mac charset
               volume name is limited to 27 characters. UTF8-MAC volume name is limited
               to -volnamelen parameter in afpd.conf</para>
           </listitem>
@@ -1352,14 +1360,14 @@
         </varlistentry>
 
         <varlistentry>
-          <term>maccharset = <replaceable>charset</replaceable> <type>(V)</type></term>
+          <term>mac charset = <replaceable>CHARSET</replaceable> <type>(V)</type></term>
 
           <listitem>
-            <para>specifies the mac client codepage for this Volume, e.g.
-              "MAC_ROMAN", "MAC_CYRILLIC". If not specified the setting from
-              <filename>afpd.conf</filename> is inherited. This setting is only
-              required if you need volumes, where the mac codepage differs from
-              the one globally set in <filename>afpd.conf</filename>.</para>
+            <para>specifies the Mac client charset for this Volume, e.g.
+              <emphasis>MAC_ROMAN</emphasis>, <emphasis>MAC_CYRILLIC</emphasis>.
+              If not specified the global setting is applied. This setting is only
+              required if you need volumes, where the Mac charset differs from
+              the one globally set in the global section</para>
           </listitem>
         </varlistentry>
 
@@ -1485,14 +1493,6 @@ directory perm = 0770</programlisting></para>
           </listitem>
         </varlistentry>
 
-        <varlistentry>
-          <term>volcharset = <replaceable>charset</replaceable> <type>(V)</type></term>
-
-          <listitem>
-            <para>specifies the volume codepage, e.g. "UTF8", "UTF8-MAC",
-              "ISO-8859-15". Defaults to "UTF8".</para>
-          </listitem>
-        </varlistentry>
       </variablelist>
     </refsect2>
 
@@ -1709,7 +1709,7 @@ directory perm = 0770</programlisting></para>
       Special characters, like '<keycode>/</keycode>' and a leading
       '<keycode>.</keycode>' will still be CAP style encoded .</para>
 
-    <para>The <option>volcharset</option> option will allow you to select
+    <para>The <option>vol charset</option> option will allow you to select
       another volume encoding. E.g. for western users another useful setting
       could be volcharset ISO-8859-15. <command>apfd</command> will accept any
       <citerefentry>
@@ -1735,7 +1735,7 @@ directory perm = 0770</programlisting></para>
         <primary>ISO-8859-1</primary>
 
         <secondary>afpd's volcharset setting</secondary>
-      </indexterm> character to <option>maccharset</option> first. If this
+      </indexterm> character to <option>mac charset</option> first. If this
       conversion fails, you'll receive a -50 error on the mac.</para>
 
     <para><emphasis>Note</emphasis>: Whenever you can, please stick with the
