@@ -170,7 +170,7 @@
   <refsect1>
     <title>VARIABLE SUBSTITUTIONS</title>
 
-    <para>You can use variables in both volume path and volume name.</para>
+    <para>You can use variables in volume names. The use of variables in paths is not supported for now.</para>
 
     <orderedlist>
       <listitem>
@@ -278,27 +278,36 @@
       </varlistentry>
     </variablelist>
 
-    <example>
-      <title>Using variable substitution when defining volumes</title>
-
-      <para><programlisting>
-          [Groupdir for $g]
-          /home/groups/$g
-
-          [$f is the best one]
-          ~
-        </programlisting> We define "groupdirs" for each primary
-        group and use a personalized server name for homedir shares.</para>
-    </example>
   </refsect1>
 
   <refsect1>
     <title>EXPLANATION OF GLOBAL PARAMETERS</title>
 
     <refsect2>
-      <title>Authentication Methods</title>
+      <title>Authentication Options</title>
 
       <variablelist>
+        <varlistentry>
+          <term>save password = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>yes</emphasis>)
+            <type>(G)</type></term>
+          <listitem>
+            <para>Enables or disables the ability of clients to save passwords
+              locally.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>set password = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>no</emphasis>)
+            <type>(G)</type></term>
+
+          <listitem>
+            <para>Enables or disables the ability of clients to change their
+              passwords via chooser or the "connect to server" dialog. </para>
+          </listitem>
+        </varlistentry>
+
         <varlistentry>
           <term>uam list = <replaceable>uam list</replaceable> <type>(G)</type></term>
 
@@ -650,6 +659,19 @@
 
       <variablelist>
         <varlistentry>
+          <term>afp listen = <replaceable>ip address[:port] [ip adress[:port] ...]</replaceable> <type>(G)</type></term>
+
+          <listitem>
+            <para>Specifies the IP address that the server should advertise
+              <emphasis role="bold">and</emphasis> listens to. The default is
+              advertise the first IP address of the system, but to listen for any
+              incoming request. The network address may be specified either in
+              dotted-decimal format for IPv4 or in hexadecimal format for IPv6.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>fqdn = <replaceable>name:port</replaceable> <type>(G)</type></term>
 
           <listitem>
@@ -672,19 +694,6 @@
               resolved to an IP which is the advertised. This is NOT used for
               listening and it is also overwritten by
               <option>afp listen</option>.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>afp listen = <replaceable>ip address[:port] [ip adress[:port] ...]</replaceable> <type>(G)</type></term>
-
-          <listitem>
-            <para>Specifies the IP address that the server should advertise
-              <emphasis role="bold">and</emphasis> listens to. The default is
-              advertise the first IP address of the system, but to listen for any
-              incoming request. The network address may be specified either in
-              dotted-decimal format for IPv4 or in hexadecimal format for IPv6.
-            </para>
           </listitem>
         </varlistentry>
 
@@ -770,6 +779,57 @@
             </para>
           </listitem>
         </varlistentry>
+
+        <varlistentry>
+          <term>advertise ssh = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>no</emphasis>)
+            <type>(G)</type></term>
+
+          <listitem>
+            <para>Allows Mac OS X clients (10.3.3-10.4) to automagically
+              establish a tunneled AFP connection through SSH. If this option is
+              set, the server's answers to client's FPGetSrvrInfo requests contain
+              an additional entry. It depends on both client's settings and a
+              correctly configured and running <citerefentry>
+                <refentrytitle>sshd</refentrytitle>
+
+                <manvolnum>8</manvolnum>
+              </citerefentry> on the server to let things work.</para>
+
+            <note>
+              <para>Setting this option is not recommended since globally
+                encrypting AFP connections via SSH will increase the server's load
+                significantly. On the other hand, Apple's client side
+                implementation of this feature in MacOS X versions prior to 10.3.4
+                contained a security flaw.</para>
+            </note>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>zeroconf = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>yes</emphasis>)
+            <type>(G)</type></term>
+
+          <listitem>
+            <para>Whether to use automatic Zeroconf<indexterm>
+                <primary>Zeroconf</primary>
+                <secondary>Bonjour</secondary>
+              </indexterm> service registration if support was compiled in.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>use sendfile = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>yes</emphasis>)
+            <type>(G)</type></term>
+
+          <listitem>
+            <para>Whether to use sendfile<indexterm><primary>sendfile</primary></indexterm>
+            syscall for sending file data to clients.</para>
+          </listitem>
+        </varlistentry>
+
       </variablelist>
     </refsect2>
 
@@ -909,7 +969,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>loginmesg = <replaceable>message</replaceable> <type>(G)</type></term>
+          <term>login message = <replaceable>message</replaceable> <type>(G)</type></term>
 
           <listitem>
             <para>Sets a message to be displayed when clients logon to the
@@ -980,6 +1040,50 @@
               bytes.</para>
           </listitem>
         </varlistentry>
+
+        <varlistentry>
+          <term>icon = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>no</emphasis>)
+            <type>(G)</type></term>
+
+          <listitem>
+            <para>Use the platform-specific icon. Mac OS X doesn't display it.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>keep sessions = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>no</emphasis>)
+            <type>(G)</type></term>
+          <listitem>
+            <para>Enable "Continuous AFP Service". This means the ability to stop the master afpd process with
+              a SIGQUIT signal, possibly install an afpd update and start the afpd process. Existing AFP sessions
+              afpd processes will remain unaffected. Technically they will be notified of the master afpd shutdown,
+              sleep 15-20 seconds and then try to reconnect their IPC channel to the master afpd process. If this
+              reconnect fails, the sessions are in an undefined state. Therefor it's absolutely critical to restart
+              the master process in time!</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>map acls = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>yes</emphasis>)
+            <type>(G)</type></term>
+          <listitem>
+            <para>Whether to map filesystem ACLs to effective permissions.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>close vol = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>no</emphasis>)
+            <type>(G)</type></term>
+          <listitem>
+            <para>Whether to close volumes possibly opened by clients when they're removed from the configuration
+              and the configuration is reloaded.</para>
+          </listitem>
+        </varlistentry>
+
       </variablelist>
     </refsect2>
 
@@ -1023,119 +1127,6 @@
 
           </listitem>
         </varlistentry>
-      </variablelist>
-    </refsect2>
-
-    <refsect2>
-      <title>Server Options</title>
-
-      <para>server options = <replaceable>option,[option,...]</replaceable> <type>(G)</type></para>
-      <para>server options = <replaceable>option [option ...]</replaceable> <type>(G)</type></para>
-
-      <para>This allows multiple options to be specified in a comma or space
-        delimited format. The available options are:</para>
-
-      <variablelist>
-        <varlistentry>
-          <term>[no]savepassword <type>(G)</type></term>
-
-          <listitem>
-            <para>Enables or disables the ability of clients to save passwords
-              locally</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>[no]setpassword <type>(G)</type></term>
-
-          <listitem>
-            <para>Enables or disables the ability of clients to change their
-              passwords via chooser or the "connect to server" dialog</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>advertise_ssh <type>(G)</type></term>
-
-          <listitem>
-            <para>Allows Mac OS X clients (10.3.3-10.4) to automagically
-              establish a tunneled AFP connection through SSH. If this option is
-              set, the server's answers to client's FPGetSrvrInfo requests contain
-              an additional entry. It depends on both client's settings and a
-              correctly configured and running <citerefentry>
-                <refentrytitle>sshd</refentrytitle>
-
-                <manvolnum>8</manvolnum>
-              </citerefentry> on the server to let things work.</para>
-
-            <note>
-              <para>Setting this option is not recommended since globally
-                encrypting AFP connections via SSH will increase the server's load
-                significantly. On the other hand, Apple's client side
-                implementation of this feature in MacOS X versions prior to 10.3.4
-                contained a security flaw.</para>
-            </note>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>nozeroconf <type>(G)</type></term>
-
-          <listitem>
-            <para>Disable automatic Zeroconf<indexterm>
-                <primary>Zeroconf</primary>
-                <secondary>Bonjour</secondary>
-              </indexterm> service registration if support was compiled in.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>client_polling <type>(G)</type></term>
-
-          <listitem>
-            <para>With this switch enabled, afpd won't advertise that it is
-              capable of server notifications, so that connected clients poll the
-              server every 10 seconds to detect changes in opened server windows.
-              <emphasis>Note</emphasis>: Depending on the number of simultaneously
-              connected clients and the network's speed, this can lead to a
-              significant higher load on your network!</para>
-
-            <note>
-              <para>Do not use this option any longer as Netatalk 2.x correctly
-                supports server notifications, allowing connected clients to
-                update folder listings in case another client changed the
-                contents.</para>
-            </note>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>[no]icon <type>(G)</type></term>
-
-          <listitem>
-            <para>[Don't] Use the platform-specific icon. Recent Mac OS don't display it any longer.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>keepsessions <type>(G)</type></term>
-          <listitem>
-            <para>Enable "Continuous AFP Service". This means the ability to stop the master afpd process with
-              a SIGQUIT signal, possibly install an afpd update and start the afpd process. Existing AFP sessions
-              afpd processes will remain unaffected. Technically they will be notified of the master afpd shutdown,
-              sleep 15-20 seconds and then try to reconnect their IPC channel to the master afpd process. If this
-              reconnect fails, the sessions are in an undefined state. Therefor it's absolutely critical to restart
-              the master process in time!</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>noacl2maccess <type>(G)</type></term>
-          <listitem>
-            <para>Don't map filesystem ACLs to effective permissions.</para>
-          </listitem>
-        </varlistentry>
-
       </variablelist>
     </refsect2>
 
@@ -1291,19 +1282,6 @@
             <para>set the CNID backend to be used for the volume, default is
               [:DEFAULT_CNID_SCHEME:] available schemes:
               [:COMPILED_BACKENDS:]</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>cnid server = <replaceable>host[:port]</replaceable> <type>(V)</type></term>
-
-          <listitem>
-            <para>Query this servername or IP address
-              (default:<emphasis>localhost</emphasis>) and port (default:
-              <emphasis>4700</emphasis>) for CNIDs. Only used with CNID backend
-              "<emphasis>dbd</emphasis>". This option here overrides any setting
-              from
-              <filename>afp.conf</filename>:<option>cnid server</option>.</para>
           </listitem>
         </varlistentry>
 
@@ -1499,15 +1477,109 @@ directory perm = 0770</programlisting></para>
     <refsect2>
       <title>Volume options</title>
 
-      <para>vol options = <replaceable>option,[option,...]</replaceable> <type>(V)</type></para>
-      <para>vol options = <replaceable>option [option ...]</replaceable> <type>(V)</type></para>
-
-      <para>This allows multiple options to be specified in a comma or space
-        delimited format. The available options are:</para>
+      <para>Boolean volume options.</para>
 
       <variablelist>
+
         <varlistentry>
-          <term>searchdb <type>(V)</type></term>
+          <term>acls = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>true</emphasis>)
+            <type>(V)</type></term>
+          <listitem>
+            <para>Whether to flag volumes as supporting ACLs. If ACL support is compiled in,
+              this is true by default.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>cnid dev = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>yes</emphasis>)
+            <type>(V)</type></term>
+          <listitem>
+            <para>Whether to use the device number in the CNID backends. Helps when the device
+              number is not constant across a reboot, eg cluster, ...</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>convert adouble = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>true</emphasis>)
+            <type>(V)</type></term>
+          <listitem>
+            <para>Whether automatic conversion from <option>apple double = v2</option> to 
+              <option>apple double = ea</option> is performed when accessing filesystems
+              from clients. This is generally useful, but costs some performance. It's
+              recommdable to run <command>dbd</command> on volumes and do the conversion with that.
+              Then this option can be set to no.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>hex encoding = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>yes</emphasis>)
+            <type>(V)</type></term>
+          <listitem>
+            <para>Whether :hex encoding is done for file and directory names containing the character <keycode>/</keycode>.
+              Setting this option to no makes the <keycode>/</keycode> character
+              illegal.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>invisible dots = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>no</emphasis>)
+            <type>(V)</type></term>
+          <listitem>
+            <para>make dot files invisible. Use without <option>nousedots</option>. </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>network ids = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>yes</emphasis>)
+            <type>(V)</type></term>
+          <listitem>
+            <para>Whether the server support network ids. Setting this to <emphasis>no</emphasis> will
+            result in the client not using ACL AFP functions.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>preexec close = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>no</emphasis>)
+            <type>(V)</type></term>
+          <listitem>
+            <para>A non-zero return code from preexec close the volume
+              being immediately, preventing clients to mount/see the volume
+              in question.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>read only = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>no</emphasis>)
+            <type>(V)</type></term>
+          <listitem>
+            <para>Specifies the share as being read only for all users. Overwrites
+              <option>ea = auto</option> with <option>ea = none</option></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>root preexec close= <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>no</emphasis>)
+            <type>(V)</type></term>
+          <listitem>
+            <para>A non-zero return code from root_preexec closes the
+              volume immediately, preventing clients to mount/see the volume
+              in question.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>search db = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>no</emphasis>)
+            <type>(V)</type></term>
           <listitem>
             <para>Use fast CNID database namesearch instead of slow recursive
               filesystem search. Relies on a consistent CNID database, ie Samba
@@ -1517,107 +1589,42 @@ directory perm = 0770</programlisting></para>
         </varlistentry>
 
         <varlistentry>
-          <term>tm <type>(V)</type></term>
-
+          <term>stat vol = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>yes</emphasis>)
+            <type>(V)</type></term>
           <listitem>
-            <para>Enable Time Machine suport for this volume.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>invisibledots <type>(V)</type></term>
-
-          <listitem>
-            <para>make dot files invisible. Use without <option>nousedots</option>. </para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>nonetids <type>(V)</type></term>
-
-          <listitem>
-            <para>Try to force ACL unawareness on the client.</para>
-          </listitem>
-        </varlistentry>
-
-
-        <varlistentry>
-          <term>preexec_close <type>(V)</type></term>
-
-          <listitem>
-            <para>a non-zero return code from preexec close the volume
-              being immediately, preventing clients to mount/see the volume
-              in question.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>ro <type>(V)</type></term>
-
-          <listitem>
-            <para>Specifies the share as being read only for all users.
-              The .AppleDB directory has to be writeable, you can use the
-              <option>vol dbpath</option> option to relocate it. Overwrites
-              <option>ea = auto</option> with <option>ea = none</option></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>root_preexec_close <type>(V)</type></term>
-
-          <listitem>
-            <para>a non-zero return code from root_preexec closes the
-              volume immediately, preventing clients to mount/see the volume
-              in question.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>noupriv <type>(V)</type></term>
-
-          <listitem>
-            <para>Don't use AFP3 unix privileges. This should not be set for OS X
-              clients. 
-              See also: "<option>file perm =</option>" and "<option>directory perm =</option>".</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>nousedots <type>(V)</type></term>
-
-          <listitem>
-            <para>do :hex translation for dot files.
-              See also
-              <option>invisibledots</option>.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>nodev <type>(V)</type></term>
-
-          <listitem>
-            <para>always use 0 for device number, helps when the device
-              number is not constant across a reboot, cluster, ...</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>nohex <type>(V)</type></term>
-
-          <listitem>
-            <para>Disables :hex translations for anything except dot
-              files. This option makes the <keycode>'/</keycode>' character
-              illegal.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>nostat <type>(V)</type></term>
-
-          <listitem>
-            <para>don't stat volume path when enumerating volumes list,
+            <para>Whether to stat volume path when enumerating volumes list,
               useful for automounting or volumes created by a preexec
               script.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>time machine = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>no</emphasis>)
+            <type>(V)</type></term>
+          <listitem>
+            <para>Whether to enable Time Machine suport for this volume.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>unix priv = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>yes</emphasis>)
+            <type>(V)</type></term>
+          <listitem>
+            <para>Whether to use AFP3 UNIX privileges. This should be set for OS X clients.
+              See also: <option>file perm</option> and <option>directory perm</option>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>use dots = <replaceable>BOOLEAN</replaceable>
+            (default: <emphasis>yes</emphasis>)
+            <type>(V)</type></term>
+          <listitem>
+            <para>Whether to do :hex translation for dot files.
+              See also <option>invisible dots</option>.</para>              
           </listitem>
         </varlistentry>
 
