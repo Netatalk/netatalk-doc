@@ -29,14 +29,6 @@
           <secondary>Network File System</secondary>
         </indexterm></command>
 
-      <arg choice="plain"><replaceable>volpath</replaceable></arg>
-
-      <arg choice="plain"><replaceable>ctrlfd</replaceable></arg>
-
-      <arg choice="plain"><replaceable>clntfd</replaceable></arg>
-
-      <arg choice="plain"><replaceable>logconfig_string</replaceable></arg>
-
       <sbr />
 
       <command>cnid_dbd<indexterm>
@@ -89,10 +81,6 @@
     are redirected to the running <command>cnid_dbd</command> process by
     <emphasis remap="B">cnid_metad</emphasis> via the filedescriptor <emphasis
     remap="I">ctrlfd</emphasis>.</para>
-
-    <para><command>cnid_dbd</command> uses <option>logconfig_string</option>
-    which is passed from <command>cnid_metad</command> to configure its
-    logging output.</para>
 
     <para><command>cnid_dbd</command> can be configured to run forever or to
     exit after a period of inactivity. If <command>cnid_dbd</command> receives

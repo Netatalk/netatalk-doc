@@ -30,6 +30,7 @@ manpages = manpages/ad.1 \
 		manpages/afp.conf.5  \
 		manpages/afp_signature.conf.5  \
 		manpages/afp_voluuid.conf.5 \
+		manpages/afpd.8 \
 		manpages/cnid_dbd.8 \
 		manpages/cnid_metad.8
 

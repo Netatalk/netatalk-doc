@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">01 Jan 2012</refmiscinfo>
+    <refmiscinfo class="date">21 Mar 2012</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -22,26 +22,10 @@
           <primary>cnid_metad</primary>
         </indexterm></command>
 
-      <arg choice="opt"><arg choice="plain">-l </arg><arg
-      choice="plain"><replaceable>loglevel</replaceable><arg>-f
-      <replaceable>filename</replaceable></arg></arg></arg>
-
       <arg choice="opt">-d</arg>
 
-      <arg choice="opt"><arg choice="plain">-h </arg><arg
-      choice="plain"><replaceable>hostname</replaceable></arg></arg>
-
-      <arg choice="opt"><arg choice="plain">-p </arg><arg
-      choice="plain"><replaceable>port</replaceable></arg></arg>
-
-      <arg choice="opt"><arg choice="plain">-u </arg><arg
-      choice="plain"><replaceable>user</replaceable></arg></arg>
-
-      <arg choice="opt"><arg choice="plain">-g </arg><arg
-      choice="plain"><replaceable>group</replaceable></arg></arg>
-
-      <arg choice="opt"><arg choice="plain">-s </arg><arg
-      choice="plain"><replaceable>cnid_dbdpathname</replaceable></arg></arg>
+      <arg choice="opt"><arg choice="plain">-F </arg><arg
+      choice="plain"><replaceable>configuration file</replaceable></arg></arg>
 
       <sbr />
 
@@ -65,56 +49,15 @@
     <emphasis remap="B">cnid_dbd</emphasis> instance once started and will
     restart it if necessary. <command>cnid_metad</command> is normally started
     at boot time from <filename>/etc/rc</filename> or equivalent and runs
-    until shutdown. <emphasis remap="B">afpd</emphasis> needs to be configured
-    with the <option>-cnidserver</option> option in <emphasis
-    remap="B">afpd.conf</emphasis> in order to access <emphasis
-    remap="B">cnid_metad.</emphasis> It is possible to run more than one
-    instance of <command>cnid_metad</command> on the same machine if different
-    values for the interface and/or port are specified with the
-    <option>-h</option> and <option>-p</option> options.</para>
+    until shutdown.</para>
   </refsect1>
 
   <refsect1>
     <title>OPTIONS</title>
 
     <variablelist remap="TP">
-      <varlistentry>
-        <term><option>-l</option><replaceable> &lt;loglevel&gt; [-f
-        &lt;filename&gt;]</replaceable></term>
-
-        <listitem>
-          <para>Specify that any message of a loglevel up to the given
-          <option>loglevel</option> should be logged to the given file. If the
-          filename is ommited the loglevel applies to messages passed to
-          syslog. Default is logs to syslog with a default logging setup of
-          <option>"log_note</option>".</para>
-
-          <para><emphasis remap="B">Note:</emphasis>
-          <command>cnid_metad</command> passes this to
-          <command>cnid_dbd</command> which will in turn use this for its
-          logging setup.</para>
-
-          <para>loglevels: LOG_SEVERE, LOG_ERROR, LOG_WARN, LOG_NOTE,
-          LOG_INFO, LOG_DEBUG, LOG_DEBUG6, LOG_DEBUG7, LOG_DEBUG8, LOG_DEBUG9,
-          LOG_MAXDEBUG</para>
-
-          <example>
-            <title>Useful default config</title>
-
-            <programlisting>-l log_info -f /var/log/afpd.log
-</programlisting>
-          </example>
-
-          <example>
-            <title>Debugging config</title>
-
-            <programlisting>-l log_maxdebug -f /var/log/afpd.log
-</programlisting>
-          </example>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
+ 
+     <varlistentry>
         <term><option>-d</option></term>
 
         <listitem>
@@ -126,58 +69,12 @@
       </varlistentry>
 
       <varlistentry>
-        <term><option>-h</option><replaceable> hostname</replaceable></term>
+        <term><option>-F</option> <replaceable>configuration file</replaceable></term>
 
         <listitem>
-          <para>Use <emphasis remap="I">hostname</emphasis> as the network
-          interface for requests as opposed to the default <emphasis
-          remap="B">localhost</emphasis>. The network address may be specified
-          either in dotted-decimal format for IPv4 or in hexadecimal format
-          for IPv6.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term><option>-p</option><replaceable> port</replaceable></term>
-
-        <listitem>
-          <para>Use <emphasis remap="I">port</emphasis> as the port number for
-          reqests. Default is 4700.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term><option>-u</option><replaceable> user</replaceable></term>
-
-        <listitem>
-          <para>Switch to the userid of <emphasis remap="I">user</emphasis>
-          before serving requests. This userid will be inherited by all
-          <emphasis remap="B">cnid_dbd</emphasis> daemon processes
-          started.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term><option>-g</option><replaceable> group</replaceable></term>
-
-        <listitem>
-          <para>Switch to the groupid of <emphasis remap="I">group</emphasis>
-          before serving requests. This groupid will be inherited by all
-          <emphasis remap="B">cnid_dbd</emphasis> daemon processes started.
-          Both <emphasis remap="I">user</emphasis> and <emphasis
-          remap="I">group</emphasis> must be specified as strings.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term><option>-s</option><replaceable> cnid_dbd
-        pathname</replaceable></term>
-
-        <listitem>
-          <para>Use <emphasis remap="I">cnid_dbd pathname</emphasis> as the
-          pathname of the executeable of the <emphasis
-          remap="B">cnid_dbd</emphasis> daemon. The default is <emphasis
-          remap="I">:SBINDIR:/cnid_dbd.</emphasis></para>
+          <para>Use <emphasis remap="I">configuration file</emphasis> as the
+            configuration file. The default is
+            <emphasis remap="I">:ETCDIR:/afp.conf</emphasis>.</para>
         </listitem>
       </varlistentry>
 
@@ -193,9 +90,6 @@
 
   <refsect1>
     <title>CAVEATS</title>
-
-    <para>The number of <emphasis remap="B">cnid_dbd</emphasis> subprocecesses
-    is currently limited to 512.</para>
 
     <para><command>cnid_metad</command> does not block or catch any signals
     apart from SIGPIPE. It will therefore exit on most signals received. This
