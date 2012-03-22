@@ -224,11 +224,7 @@
 
         <manvolnum>5</manvolnum>
       </citerefentry>, <citerefentry>
-        <refentrytitle>afpd.conf</refentrytitle>
-
-        <manvolnum>5</manvolnum>
-      </citerefentry>, <citerefentry>
-        <refentrytitle>AppleVolumes.default</refentrytitle>
+        <refentrytitle>afp.conf</refentrytitle>
 
         <manvolnum>5</manvolnum>
       </citerefentry>, <citerefentry>
