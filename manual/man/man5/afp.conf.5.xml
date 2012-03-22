@@ -993,18 +993,16 @@ basedir regex = /home
         </varlistentry>
 
         <varlistentry>
-          <term>signature = { user:&lt;text&gt; | auto } <type>(G)</type></term>
+          <term>signature = &lt;text&gt; <type>(G)</type></term>
 
           <listitem>
-            <para>Specify a server signature. This option is useful while
-              running multiple independent instances of afpd on one machine (eg.
-              in clustered environments, to provide fault isolation etc.). Default
-              is "auto". "auto" signature type allows afpd generating signature
+            <para>Specify a server signature. The maximum length is 16
+              characters.
+              This option is useful for clustered environments, to provide
+              fault isolation etc. By default, afpd generate signature
               and saving it to <filename>:ETCDIR:/afp_signature.conf</filename>
-              automatically (based on random number). "host" signature type
-              switches back to "auto" because it is obsoleted. "user" signature
-              type allows administrator to set up a signature string manually. The
-              maximum length is 16 characters.</para>
+              automatically (based on random number).
+              See also asip-status.pl(1).</para>
           </listitem>
         </varlistentry>
 
