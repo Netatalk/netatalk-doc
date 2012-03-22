@@ -79,7 +79,7 @@
         <term><filename>:ETCDIR:/afp.conf</filename></term>
 
         <listitem>
-          <para>configuration file used by afpd</para>
+          <para>configuration file used by afpd and cnid_metad</para>
         </listitem>
       </varlistentry>
 
@@ -90,29 +90,17 @@
     <title>SEE ALSO</title>
 
     <para><citerefentry>
-        <refentrytitle>hosts_access</refentrytitle>
+        <refentrytitle>afpd</refentrytitle>
 
-        <manvolnum>5</manvolnum>
+        <manvolnum>8</manvolnum>
+      </citerefentry>, <citerefentry>
+        <refentrytitle>cnid_metad</refentrytitle>
+
+        <manvolnum>8</manvolnum>
       </citerefentry>, <citerefentry>
         <refentrytitle>afp.conf</refentrytitle>
 
         <manvolnum>5</manvolnum>
-      </citerefentry>, <citerefentry>
-        <refentrytitle>afp_signature.conf</refentrytitle>
-
-        <manvolnum>5</manvolnum>
-      </citerefentry>, <citerefentry>
-        <refentrytitle>afp_voluuid.conf</refentrytitle>
-
-        <manvolnum>5</manvolnum>
-      </citerefentry>, <citerefentry>
-        <refentrytitle>afp_ldap.conf</refentrytitle>
-
-        <manvolnum>5</manvolnum>
-      </citerefentry>, <citerefentry>
-        <refentrytitle>dbd</refentrytitle>
-
-        <manvolnum>1</manvolnum>
       </citerefentry>.</para>
   </refsect1>
 </refentry>
