@@ -32,7 +32,8 @@ manpages = manpages/ad.1 \
 		manpages/afp_voluuid.conf.5 \
 		manpages/afpd.8 \
 		manpages/cnid_dbd.8 \
-		manpages/cnid_metad.8
+		manpages/cnid_metad.8 \
+		manpages/netatalk.8
 
 # General targets
 
