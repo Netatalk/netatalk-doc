@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="uniconv.1">
-  <!--  $Id: uniconv.1.xml,v 1.5 2009-06-14 09:02:50 franklahm Exp $ -->
 
   <refmeta>
     <refentrytitle>uniconv</refentrytitle>
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">24 Jun 2004</refmiscinfo>
+    <refmiscinfo class="date">22 Mar 2012</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -54,7 +53,7 @@
         <listitem>
           <para>CNID backend used on this volume, usually cdb or dbd. Should
           match the backend selected with afpd for this volume. If not
-          specified, the default CNID backend `:DEFAULT_CNID_SCHEME:&#39; is
+          specified, the default CNID backend ":DEFAULT_CNID_SCHEME:" is
           used</para>
         </listitem>
       </varlistentry>
@@ -63,8 +62,8 @@
         <term>-d</term>
 
         <listitem>
-          <para>don&#39;t CAP encode leading dots (:2e), equivalent to
-          <option>usedots</option> in <citerefentry><refentrytitle>AppleVolumes.default</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
+          <para>don't HEX encode leading dots (:2e), equivalent to
+          <option>use dots = yes</option> in <citerefentry><refentrytitle>afp.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
         </listitem>
       </varlistentry>
 
@@ -72,7 +71,7 @@
         <term>-f</term>
 
         <listitem>
-          <para>encoding to convert from, use ASCII for CAP encoded volumes</para>
+          <para>encoding to convert from, use ASCII for HEX encoded volumes</para>
         </listitem>
       </varlistentry>
 
@@ -88,8 +87,8 @@
         <term>-m</term>
 
         <listitem>
-          <para>Macintosh client codepage, required for CAP encoded volumes.
-          Defaults to `MAC_ROMAN&#39;</para>
+          <para>Macintosh client codepage, required for HEX encoded volumes.
+          Defaults to "MAC_ROMAN"</para>
         </listitem>
       </varlistentry>
 
@@ -97,7 +96,7 @@
         <term>-n</term>
 
         <listitem>
-          <para>`dry run&#39;, don&#39;t do any real changes</para>
+          <para>"dry run", don't do any real changes</para>
         </listitem>
       </varlistentry>
 
@@ -136,7 +135,7 @@
     sure you know what you are doing. Always backup your data first.</para>
 
     <para>It is <emphasis role="bold">*strongly*</emphasis> recommended to do
-    a `dry run&#39; first and to check the output for conversion errors.</para>
+    a "dry run" first and to check the output for conversion errors.</para>
 
     <para><citerefentry><refentrytitle>afpd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
     should <emphasis>not</emphasis> be running while you change the volume
@@ -156,7 +155,7 @@
     <title>Selectable charsets</title>
 
     <para>Netatalk provides internal support for UTF-8 (pre- and decomposed)
-    and CAP. If you want to use other charsets, they must be provided by
+    and HEX. If you want to use other charsets, they must be provided by
     <citerefentry><refentrytitle>iconv</refentrytitle><manvolnum>1</manvolnum></citerefentry></para>
 
     <para><command>uniconv</command> also knows iso-8859.adapted, an old style
@@ -178,7 +177,7 @@
 
     <para>If you change a lot of filenames at once, chances are higher that
     the afpds fallback mechanisms fail, i.e. files will be assigned new IDs,
-    even though the file hasn&#39;t changed. <command>uniconv</command>
+    even though the file hasn't changed. <command>uniconv</command>
     therefore updates the CNID entry for each file/directory directly after it
     changes the name to avoid inconsistencies. The two supported backends for
     volumes, dbd and cdb, use the same CNID db format. Therefore, you
@@ -210,11 +209,11 @@
 
     <screen><prompt>example%</prompt><userinput> uniconv -c cdb -f ISO-8859-1 -t UTF8 -m MAC_ROMAN /path/to/share</userinput></screen>
 
-    <para>convert 1.x volume using iso8859-1 adapted NLS to CAP encoding:</para>
+    <para>convert 1.x volume using iso8859-1 adapted NLS to HEX encoding:</para>
 
     <screen><prompt>example%</prompt><userinput> uniconv -f ISO-8859-ADAPTED -t ASCII -m MAC_ROMAN/path/to/share</userinput></screen>
 
-    <para>convert UTF-8 volume to CAP, for MacCyrillic clients:</para>
+    <para>convert UTF-8 volume to HEX, for MacCyrillic clients:</para>
 
     <screen><prompt>example%</prompt><userinput> uniconv -f UTF8 -t ASCII -m MAC_CYRILLIC /path/to/share</userinput></screen>
   </refsect1>

@@ -236,10 +236,6 @@
 
         <manvolnum>5</manvolnum>
       </citerefentry>, <citerefentry>
-        <refentrytitle>afp_ldap.conf</refentrytitle>
-
-        <manvolnum>5</manvolnum>
-      </citerefentry>, <citerefentry>
         <refentrytitle>dbd</refentrytitle>
 
         <manvolnum>1</manvolnum>

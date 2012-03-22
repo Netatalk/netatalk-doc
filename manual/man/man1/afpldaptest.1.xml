@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">30 Mar 2011</refmiscinfo>
+    <refmiscinfo class="date">22 Mar 2012</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -13,7 +13,7 @@
   <refnamediv id="name">
     <refname>afpldaptest</refname>
 
-    <refpurpose>Syntactically check an afp_ldap.conf</refpurpose>
+    <refpurpose>Syntactically check ldap parameters in afp.conf</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv id="synopsis">
@@ -43,7 +43,7 @@
     <title>DESCRIPTION</title>
 
     <para><command>afpldaptest</command> is a simple command to syntactically
-    check :ETCDIR:/afp_ldap.conf.</para>
+    check ldap parameters in :ETCDIR:/afp.conf.</para>
 
   </refsect1>
 
@@ -92,6 +92,6 @@
   <refsect1 id="see_also">
     <title>SEE ALSO</title>
 
-    <para><citerefentry><refentrytitle>afp_ldap.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
+    <para><citerefentry><refentrytitle>afp.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry></para>
   </refsect1>
 </refentry>

@@ -4,7 +4,7 @@
   <refmeta>
     <refentrytitle>afp.conf</refentrytitle>
     <manvolnum>5</manvolnum>
-    <refmiscinfo class="date">19 Mar 2012</refmiscinfo>
+    <refmiscinfo class="date">22 Mar 2012</refmiscinfo>
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
 
@@ -32,7 +32,7 @@
       The file consists of sections and parameters. A section begins with the name of the section in square brackets
       and continues until the next section begins. Sections contain parameters of the form:
       <programlisting>
-        <replaceable>name</replaceable> = <replaceable>value </replaceable>
+<replaceable>name</replaceable> = <replaceable>value </replaceable>
       </programlisting>
     </para>
 
@@ -108,8 +108,8 @@
       The following sample section defines an AFP volume. The user has full access to the path
       <filename>/foo/bar</filename>. The share is accessed via the share name <literal>baz</literal>:
       <programlisting>
-        [baz]
-        path = /foo/bar
+[baz]
+path = /foo/bar
       </programlisting>
     </para>
   </refsect1>
@@ -143,9 +143,9 @@
       The following example illustrates this. Given all user home directories are stored under
       <filename>/home</filename>:
       <programlisting>
-        [Homes]
-        path = afp-data
-        basedir regex = /home
+[Homes]
+path = afp-data
+basedir regex = /home
       </programlisting>
       For a user <emphasis>john</emphasis> this results in an AFP home volume with a path of
       <filename>/home/john/afp-data</filename>.
@@ -159,7 +159,7 @@
     <para>Parameters define the specific attributes of sections.</para>
 
     <para>
-      Some parameters are specific to the [Global] section (e.g., <emphasis>logtype</emphasis>).
+      Some parameters are specific to the [Global] section (e.g., <emphasis>log type</emphasis>).
       All others are permissible only in volume sections.
       The letter <emphasis>G</emphasis> in parentheses indicates that a parameter is specific to
       the [Global] section. The letter <emphasis>V</emphasis> indicates that a parameter can be specified in a
@@ -342,7 +342,7 @@
                   <para>allows Random Number and Two-Way Random Number Exchange
                     for authentication (requires a separate file containing the
                     passwords, either :ETCDIR:/afppasswd file or the one specified
-                    via <option>-passwdfile</option>. See <citerefentry>
+                    via "<option>passwd file</option>". See <citerefentry>
                       <refentrytitle>afppasswd</refentrytitle>
 
                       <manvolnum>1</manvolnum>
@@ -786,7 +786,7 @@
             <type>(G)</type></term>
 
           <listitem>
-            <para>Allows Mac OS X clients (10.3.3-10.4) to automagically
+            <para>Allows old Mac OS X clients (10.3.3-10.4) to automagically
               establish a tunneled AFP connection through SSH. If this option is
               set, the server's answers to client's FPGetSrvrInfo requests contain
               an additional entry. It depends on both client's settings and a
@@ -815,7 +815,7 @@
             <para>Whether to use automatic Zeroconf<indexterm>
                 <primary>Zeroconf</primary>
                 <secondary>Bonjour</secondary>
-              </indexterm> service registration if support was compiled in.</para>
+              </indexterm> service registration if Avahi or mDNSResponder were compiled in.</para>
           </listitem>
         </varlistentry>
 
@@ -877,7 +877,7 @@
           <listitem>
             <para>
               Use section <option>name</option> as option preset for all volumes (when set in the
-              global section) or for one volume (when set in that volume's section).
+              [Global] section) or for one volume (when set in that volume's section).
             </para>
           </listitem>
         </varlistentry>
@@ -1005,24 +1005,6 @@
               switches back to "auto" because it is obsoleted. "user" signature
               type allows administrator to set up a signature string manually. The
               maximum length is 16 characters.</para>
-
-            <example>
-              <title>Three server definitions using 2 different server
-                signatures</title>
-
-              <para><programlisting>first -signature user:USERS
-                  second -signature user:USERS
-                  third -signature user:ADMINS</programlisting></para>
-            </example>
-
-            <para>First two servers will appear as one logical AFP service to
-              the clients - if user logs in to first one and then connects to
-              second one, session will be automatically redirected to the first
-              one. But if client connects to first and then to third, will be
-              asked for password twice and will see resources of both servers.
-              Traditional method of signature generation causes two independent
-              afpd instances to have the same signature and thus cause clients to
-              be redirected automatically to server (s)he logged in first.</para>
           </listitem>
         </varlistentry>
 
@@ -1033,9 +1015,11 @@
             <para>Max length of UTF8-MAC volume name for Mac OS X. Note that
               Hangul is especially sensitive to this.</para>
 
-            <para><programlisting>73:  limit of Mac OS X 10.1
-                80:  limit for Mac OS X 10.4/10.5 (default)
-                255: limit of spec</programlisting>Mac OS 9 and earlier are not influenced by
+            <para><programlisting>
+73:  limit of Mac OS X 10.1
+80:  limit of Mac OS X 10.4/10.5 (default)
+255: limit of recent Mac OS X</programlisting>
+              Mac OS 9 and earlier are not influenced by
               this, because Maccharset volume name is always limitted to 27
               bytes.</para>
           </listitem>
@@ -1164,13 +1148,13 @@
     <refsect2>
       <title>Parameters</title>
 
-      <para>The section name defines the volume name which is the name that appears in the Chooser ot the
+      <para>The section name defines the volume name which is the name that appears in the Chooser or the
         "connect to server" dialog on Macintoshes to represent the appropriate share.
         No two volumes may have the same name.
         The volume name cannot contain the <keycode>':'</keycode>
         character. The volume name is mangled if it is very long. Mac charset
         volume name is limited to 27 characters. UTF8-MAC volume name is limited
-        to -volnamelen parameter in afpd.conf</para>
+        to volnamelen parameter.</para>
 
       <variablelist>
 
@@ -1190,7 +1174,7 @@
               The volume name cannot contain the <keycode>':'</keycode>
               character. The volume name is mangled if it is very long. Mac charset
               volume name is limited to 27 characters. UTF8-MAC volume name is limited
-              to -volnamelen parameter in afpd.conf</para>
+              to volnamelen parameter.</para>
           </listitem>
         </varlistentry>
 
@@ -1209,12 +1193,12 @@
           <term>vol size limit = <replaceable>size in MiB</replaceable> <type>(V)</type></term>
 
           <listitem>
-            <para>Useful for TimeMachine: limits the reported volume size,
-              thus preventing TM from using the whole real disk space for
+            <para>Useful for Time Machine: limits the reported volume size,
+              thus preventing Time Machine from using the whole real disk space for
               backup. Example: "vol size limit = 1000" would limit the reported
               disk space to 1 GB. <emphasis role="bold">IMPORTANT: </emphasis>
               This is an approximated calculation taking into accout
-              the contents of TM sparsebundle images. Therefor you MUST NOT
+              the contents of Time Machine sparsebundle images. Therefor you MUST NOT
               use this volume to store other content when using this
               option, because it would NOT be accounted.
               The calculation works by reading the band size from the Info.plist
@@ -1302,9 +1286,9 @@
                   <para>Try <option>sys</option> (by setting an EA on the shared
                     directory itself), fallback to <option>ad</option>. Requires
                     writeable volume for perfoming test.
-                    <option>options:ro</option> overwrites <option>auto</option>
+                    "<option>read only = yes</option>" overwrites <option>auto</option>
                     with <option>none</option>. Use explicit
-                    <option>ea:sys|ad</option> for read-only volumes where
+                    "<option>ea = sys|ad</option>" for read-only volumes where
                     appropiate.</para>
                 </listitem>
               </varlistentry>
@@ -1345,7 +1329,7 @@
               <emphasis>MAC_ROMAN</emphasis>, <emphasis>MAC_CYRILLIC</emphasis>.
               If not specified the global setting is applied. This setting is only
               required if you need volumes, where the Mac charset differs from
-              the one globally set in the global section</para>
+              the one globally set in the [Global] section.</para>
           </listitem>
         </varlistentry>
 
@@ -1387,8 +1371,7 @@
           <listitem>
             <para>Add(or) with the client requested permissions:
               <option>file perm</option> is for files only, <option>directory perm</option> is
-              for directories only. Use without
-              <option>vol options = noupriv</option>.</para>
+              for directories only. Don't use with "<option>unix priv = no</option>".</para>
 
             <example>
               <title>Volume for a collaborative workgroup</title>
@@ -1403,7 +1386,7 @@ directory perm = 0770</programlisting></para>
           <term>umask = <replaceable>mode</replaceable> <type>(V)</type></term>
 
           <listitem>
-            <para>set perm mask. Use without <option>vol options = noupriv</option>.</para>
+            <para>set perm mask. Don't use with "<option>unix priv = no</option>".</para>
           </listitem>
         </varlistentry>
 
@@ -1506,8 +1489,8 @@ directory perm = 0770</programlisting></para>
             (default: <emphasis>true</emphasis>)
             <type>(V)</type></term>
           <listitem>
-            <para>Whether automatic conversion from <option>apple double = v2</option> to 
-              <option>apple double = ea</option> is performed when accessing filesystems
+            <para>Whether automatic conversion from <option>appledouble = v2</option> to 
+              <option>appledouble = ea</option> is performed when accessing filesystems
               from clients. This is generally useful, but costs some performance. It's
               recommdable to run <command>dbd</command> on volumes and do the conversion with that.
               Then this option can be set to no.</para>
@@ -1530,7 +1513,8 @@ directory perm = 0770</programlisting></para>
             (default: <emphasis>no</emphasis>)
             <type>(V)</type></term>
           <listitem>
-            <para>make dot files invisible. Use without <option>nousedots</option>. </para>
+            <para>make dot files invisible. If "<option>use dots = no</option>",
+            this parameter is not unnecessary.</para>
           </listitem>
         </varlistentry>
 
@@ -1614,7 +1598,7 @@ directory perm = 0770</programlisting></para>
             <type>(V)</type></term>
           <listitem>
             <para>Whether to use AFP3 UNIX privileges. This should be set for OS X clients.
-              See also: <option>file perm</option> and <option>directory perm</option>.</para>
+              See also: <option>file perm</option>, <option>directory perm</option> and <option>umask</option>.</para>
           </listitem>
         </varlistentry>
 
