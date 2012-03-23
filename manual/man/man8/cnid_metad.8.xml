@@ -5,7 +5,7 @@
 
     <manvolnum>8</manvolnum>
 
-    <refmiscinfo class="date">22 Mar 2012</refmiscinfo>
+    <refmiscinfo class="date">23 Mar 2012</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -48,7 +48,7 @@
     remap="B">cnid_dbd</emphasis> daemon. It keeps track of the status of a
     <emphasis remap="B">cnid_dbd</emphasis> instance once started and will
     restart it if necessary. <command>cnid_metad</command> is normally started
-    at boot time from <filename>/etc/rc</filename> or equivalent and runs
+    at boot time by <command>netatalk</command>(8) and runs
     until shutdown.</para>
   </refsect1>
 
@@ -105,6 +105,10 @@
     <title>SEE ALSO</title>
 
     <para><citerefentry>
+        <refentrytitle>netatalk</refentrytitle>
+
+        <manvolnum>8</manvolnum>
+      </citerefentry>, <citerefentry>
         <refentrytitle>cnid_dbd</refentrytitle>
 
         <manvolnum>8</manvolnum>

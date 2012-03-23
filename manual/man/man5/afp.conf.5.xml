@@ -4,7 +4,7 @@
   <refmeta>
     <refentrytitle>afp.conf</refentrytitle>
     <manvolnum>5</manvolnum>
-    <refmiscinfo class="date">22 Mar 2012</refmiscinfo>
+    <refmiscinfo class="date">23 Mar 2012</refmiscinfo>
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
 
@@ -384,7 +384,7 @@ basedir regex = /home
 
           <listitem>
             <para>Sets the default path for UAMs for this server (default is
-              :ETCDIR:/uams).</para>
+              :LIBDIR:/netatalk).</para>
           </listitem>
         </varlistentry>
 
@@ -844,8 +844,8 @@ basedir regex = /home
           <listitem>
             <para>Sets the database information to be stored in path. You have
               to specifiy a writable location, even if the volume is read
-              only. The default is <filename>$localstatedir/netatalk/CNID/</filename>,
-              where $localstatedir defaults to <filename>/var</filename>.</para>
+              only. The default is <filename>:STATEDIR:/netatalk/CNID/</filename>.
+              </para>
           </listitem>
         </varlistentry>
 
@@ -1000,7 +1000,7 @@ basedir regex = /home
               characters.
               This option is useful for clustered environments, to provide
               fault isolation etc. By default, afpd generate signature
-              and saving it to <filename>:ETCDIR:/afp_signature.conf</filename>
+              and saving it to <filename>:STATEDIR:/netatalk/afp_signature.conf</filename>
               automatically (based on random number).
               See also asip-status.pl(1).</para>
           </listitem>
@@ -1090,7 +1090,7 @@ basedir regex = /home
 
           <listitem>
             <para>Specify that any message of a loglevel up to the given
-              <option>loglevel</option> should be logged.
+              <option>log level</option> should be logged.
             </para>
 
             <para>By default afpd logs
@@ -1230,8 +1230,8 @@ basedir regex = /home
         </varlistentry>
 
         <varlistentry>
-          <term>hosts allow = <replaceable>IP host address/IP netmask bits[,
-              ... ]</replaceable> <type>(V)</type></term>
+          <term>hosts allow = <replaceable>IP host address/IP netmask bits
+              [ ... ]</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>Only listed hosts and networks are allowed, all others are
@@ -1246,7 +1246,7 @@ basedir regex = /home
 
         <varlistentry>
           <term>hosts deny = <replaceable>IP host address/IP netmask bits
-              [...]</replaceable> <type>(V)</type></term>
+              [ ... ]</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>Listed hosts and nets are rejected, all others are
@@ -1628,7 +1628,7 @@ directory perm = 0770</programlisting></para>
         <term>cdb</term>
 
         <listitem>
-          <para>"Concurrent database", backend is based on Sleepycat's Berkely
+          <para>"Concurrent database", backend is based on Oracle Berkely
             DB. With this backend several <command>afpd</command> deamons access
             the CNID database directly. Berkeley DB locking is used to
             synchronize access, if more than one <command>afpd</command> process
