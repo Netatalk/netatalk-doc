@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="installation">
   <chapterinfo>
-    <date>29.11.2011</date>
+    <date>24.3.2012</date>
   </chapterinfo>
 
   <title>Installation</title>
@@ -96,7 +96,7 @@
       </sect3>
 
       <sect3>
-        <title>Read-only Git</title>
+        <title>Git</title>
 
         <para>Downloading the Git repository can be done quickly and
         easily.</para>
@@ -161,52 +161,47 @@ remote: Counting objects: 2503, done.
       <title>Prerequisites</title>
 
       <sect3>
-        <title>System requirements</title>
-
-        <para>Your system needs to meet the following requirements:</para>
-
-        <itemizedlist>
-          <listitem>
-            <para>A C compiler, Netatalk compiles fine with gcc &gt;
-            2.7.95</para>
-          </listitem>
-        </itemizedlist>
-
-        <para>To be able to compile with AFP3 support, your system has to
-        support large files (&gt;2GB).</para>
-
-        <note>
-          <para>On linux systems glibc &gt; 2.2 is required.</para>
-        </note>
-
-        <para></para>
-      </sect3>
-
-      <sect3>
         <title>Required third party software</title>
 
-        <para>Netatalk makes use of sleepycats' Berkeley DB<indexterm>
-            <primary>BDB</primary>
-
-            <secondary>Berkeley DB</secondary>
-          </indexterm>. At the time of writing, the following versions are
-        supported:</para>
-
         <itemizedlist>
           <listitem>
-            <para>minimum 4.6.x</para>
+            <para>Berkeley DB<indexterm>
+                <primary>BDB</primary>
+
+                <secondary>Berkeley DB</secondary>
+              </indexterm>.</para>
+
+            <para>At the time of writing, the following versions are
+            supported:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>minimum 4.6.x</para>
+              </listitem>
+            </itemizedlist>
+
+            <para>In case Berkeley DB is not installed on your system, please
+            download it from:</para>
+
+            <para><ulink
+            url="http://www.oracle.com/database/berkeley-db/index.html">
+            http://www.oracle.com/database/berkeley-db/index.html</ulink></para>
+
+            <para>and follow the <link linkend="build-bdb">installation
+            instructions</link>.</para>
+          </listitem>
+
+          <listitem>
+            <para>Libgcrypt</para>
+
+            <para>Required for OS X 10.7 clients.Libgcrypt is needed for
+            DHX2.</para>
+
+            <para>Libgcrypt can be downloaded from: <ulink
+            url="http://directory.fsf.org/project/libgcrypt/">
+            http://directory.fsf.org/project/libgcrypt/</ulink>.</para>
           </listitem>
         </itemizedlist>
-
-        <para>In case Berkeley DB is not installed on your system, please
-        download it from:</para>
-
-        <para><ulink
-        url="http://www.oracle.com/database/berkeley-db/index.html">
-        http://www.oracle.com/database/berkeley-db/index.html</ulink></para>
-
-        <para>and follow the <link linkend="build-bdb">installation
-        instructions</link>.</para>
       </sect3>
 
       <sect3>
@@ -217,50 +212,14 @@ remote: Counting objects: 2503, done.
 
         <itemizedlist>
           <listitem>
-            <para>Libgcrypt (recommended) and OpenSSL</para>
+            <para>mDNSresponderPOSIX or Avahi for Bonjour (aka
+            Zeroconf)</para>
 
-            <para>Required for encrypted passwords. Without it, the password
-            will be sent over the network in clear text. Libgcrypt is needed
-            for DHX2. OpenSSL is needed for the older DHCAST128 (aka
-            DHX).</para>
-
-            <para>Libgcrypt can be downloaded from: <ulink
-            url="http://directory.fsf.org/project/libgcrypt/">
-            http://directory.fsf.org/project/libgcrypt/</ulink>.</para>
-
-            <para>OpenSSL can be downloaded from: <ulink
-            url="http://www.openssl.org/">http://www.openssl.org/</ulink>.</para>
-          </listitem>
-
-          <listitem>
-            <para>Avahi (recommended) and OpenSLP</para>
-
-            <para>SLP<indexterm>
-                <primary>SLP</primary>
-
-                <secondary>Service Location Protocol</secondary>
-              </indexterm> (Service Location Protocol) is an IETF<indexterm>
-                <primary>IETF</primary>
-
-                <secondary>Internet Engineering Task Force</secondary>
-              </indexterm> standards track protocol that provides a framework
-            to allow networking applications to discover the existence,
-            location, and configuration of networked services in enterprise
-            networks.</para>
-
-            <para>Mac OS 8.5 - Mac OS X 10.4 use SLP to locate AFP
-            servers.</para>
-
-            <para>You can download OpenSLP from: <ulink
-            url="http://www.openslp.org/">http://www.openslp.org/</ulink>.</para>
-
-            <para>Mac OS X 10.2 and later prefer Bonjour (aka Zeroconf). Avahi
-            is a freely-available implementation of Zeroconf. Netatalk can
-            advertise AFP server and Time Machine volume by using
-            Avahi.</para>
+            <para>Mac OS X 10.2 and later use Bonjour (aka Zeroconf) for
+            service discovery.</para>
 
             <para>Avahi must be build with DBUS support (
-              <userinput>--enable-dbus</userinput>).</para>
+            <userinput>--enable-dbus</userinput>).</para>
 
             <para>You can download Avahi from: <ulink
             url="http://www.avahi.org/">http://www.avahi.org/</ulink>.</para>
@@ -340,7 +299,7 @@ remote: Counting objects: 2503, done.
 
         <itemizedlist>
           <listitem>
-            <para>--enable-[redhat-sysv/redhat-systemd/suse-sysv/suse-systemd/gentoo/netbsd/debian/systemd/fhs]</para>
+            <para><option>--with-init-style</option>=redhat-sysv|redhat-systemd|suse-sysv|suse-systemd|gentoo|netbsd|debian|systemd</para>
 
             <para>This option helps netatalk to determine where to install the
             start scripts.</para>
@@ -357,7 +316,7 @@ remote: Counting objects: 2503, done.
 
         <para>Now run configure with any options you need</para>
 
-        <screen><prompt>$&gt;</prompt> <userinput>./configure [arguments] [--with-bdb=/bdb/install/path]</userinput></screen>
+        <screen><prompt>$&gt;</prompt> <userinput>./configure [arguments]</userinput></screen>
 
         <para>Configure will end up in an overview showing the settings the
         Netatalk Makefiles have been created with.</para>

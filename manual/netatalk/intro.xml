@@ -12,11 +12,4 @@
   (full support for Macintosh metadata, flawlessly supporting mixed
   environments of classic MacOS and MacOS X clients)</para>
 
-  <para>Due to Netatalk speaking AppleTalk, the print-server task can provide
-  printing clients with full AppleTalk support as well as the server itself
-  with printing capabilities for AppleTalk-only printers. Starting with
-  version 2.0, Netatalk seamlessly interacts with CUPS on the server.</para>
-
-  <para>After all, Netatalk can be used to act as an AppleTalk router,
-  providing both segmentation and zone names in Macintosh networks.</para>
 </chapter>
