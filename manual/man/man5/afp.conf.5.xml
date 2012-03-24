@@ -1038,12 +1038,19 @@ basedir regex = /home
             (default: <emphasis>no</emphasis>)
             <type>(G)</type></term>
           <listitem>
-            <para>Enable "Continuous AFP Service". This means the ability to stop the master afpd process with
-              a SIGQUIT signal, possibly install an afpd update and start the afpd process. Existing AFP sessions
-              afpd processes will remain unaffected. Technically they will be notified of the master afpd shutdown,
-              sleep 15-20 seconds and then try to reconnect their IPC channel to the master afpd process. If this
-              reconnect fails, the sessions are in an undefined state. Therefor it's absolutely critical to restart
-              the master process in time!</para>
+            <para>Enable "Continuous AFP Service". This means restarting AFP and CNID service daemons master
+              processes, but keeping the AFP session processes. This can be used to install (most) updates to
+              Netatalk without interruping active AFP sessions. Existing AFP sessions will still run the
+              version from before updating, but new AFP sessions will run the updated code.
+              After enabling this option when sending
+              SIGQUIT to the <emphasis>netatalk</emphasis> service controller process, the AFP and CNID
+              daemons will exit and then the service controller will restart them.
+              AFP session processes are notified of the master afpd shutdown, they will then
+              sleep 15-20 seconds and then try to reconnect their IPC channel to the master afpd process.
+              The IPC channel between the AFP master service daemon and the AFP session child is used
+              for keeping session state of AFP sessions in the AFP master process. The session state
+              is needed when AFP clients experience eg network outages and try to reconnect to the
+              AFP server.</para>
           </listitem>
         </varlistentry>
 
