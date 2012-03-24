@@ -535,7 +535,7 @@ basedir regex = /home
       </varlistentry>
 
       <varlistentry>
-        <term>ldap uuuid attr = <parameter>dn</parameter> <type>(G)</type></term>
+        <term>ldap uuid attr = <parameter>dn</parameter> <type>(G)</type></term>
 
         <listitem>
           <para>Name of the LDAP attribute with the UUIDs.</para>
