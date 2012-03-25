@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="upgrade">
   <chapterinfo>
-    <date>24.3.2012</date>
+    <date>25.3.2012</date>
 
     <author>
       <firstname>Frank</firstname>
@@ -9,7 +9,7 @@
       <surname>Lahm</surname>
     </author>
 
-    <pubdate>24 March, 2012</pubdate>
+    <pubdate>25 March, 2012</pubdate>
   </chapterinfo>
 
   <title>Upgrading from Netatalk 2</title>
@@ -126,14 +126,15 @@
 
       <para><itemizedlist>
           <listitem>
-            <para>New service controller daemon “netatalk” which is
-            responsible for starting and restarting the AFP and CNID daemons
-            </para>
+            <para>New service controller daemon <link
+            linkend="netatalk.8">netatalk</link> which is responsible for
+            starting and restarting the AFP and CNID daemons. All bundled
+            start scripts have been updated, make sure to update yours!</para>
           </listitem>
 
           <listitem>
-            <para>Volume options “usedots” and “upriv” now enabled by
-            default</para>
+            <para>Netatalk 2.x volume options “usedots” and “upriv” now
+            enabled by default</para>
           </listitem>
 
           <listitem>
@@ -143,10 +144,6 @@
           <listitem>
             <para>Removed type/creator &lt;-&gt; extension mapping
             support</para>
-          </listitem>
-
-          <listitem>
-            <para></para>
           </listitem>
         </itemizedlist></para>
     </sect2>
@@ -167,6 +164,12 @@
         <listitem>
           <para>Manually re-create configuration in
           <option>afp.conf</option></para>
+        </listitem>
+
+        <listitem>
+          <para>Update your Netatalk start script (SMF, systemd, whatever...)
+          to only start <link linkend="netatalk.8">netatalk</link>, not
+          <command>afpd</command> not <command>cnid_metad</command></para>
         </listitem>
 
         <listitem>
