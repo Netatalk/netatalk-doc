@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="installation">
   <chapterinfo>
-    <date>29.11.2011</date>
+    <date>22.03.2012</date>
   </chapterinfo>
 
   <title>Installation</title>
@@ -233,7 +233,7 @@ remote: Counting objects: 2503, done.
           </listitem>
 
           <listitem>
-            <para>Avahi (recommended) and OpenSLP</para>
+            <para>OpenSLP</para>
 
             <para>SLP<indexterm>
                 <primary>SLP</primary>
@@ -253,17 +253,27 @@ remote: Counting objects: 2503, done.
 
             <para>You can download OpenSLP from: <ulink
             url="http://www.openslp.org/">http://www.openslp.org/</ulink>.</para>
+          </listitem>
 
-            <para>Mac OS X 10.2 and later prefer Bonjour (aka Zeroconf). Avahi
-            is a freely-available implementation of Zeroconf. Netatalk can
-            advertise AFP server and Time Machine volume by using
-            Avahi.</para>
+          <listitem>
+            <para>Avahi or mDNSResponder</para>
 
-            <para>Avahi must be build with DBUS support (
+            <para>Mac OS X 10.2 and later prefer Bonjour (aka Zeroconf).
+            Netatalk can advertise AFP server and Time Machine volume by using
+            Avahi or mDNSResponder.</para>
+
+            <para>Avahi is a freely-available implementation of Zeroconf.
+            Avahi must be build with DBUS support (
               <userinput>--enable-dbus</userinput>).</para>
 
             <para>You can download Avahi from: <ulink
             url="http://www.avahi.org/">http://www.avahi.org/</ulink>.</para>
+
+            <para>Starting with Netatalk 2.2.3, mDNSResponder is also available.
+            </para>
+
+            <para>You can download mDNSResponder from: <ulink
+            url="http://developer.apple.com/bonjour/">http://developer.apple.com/bonjour/</ulink>.</para>
           </listitem>
 
           <listitem>
