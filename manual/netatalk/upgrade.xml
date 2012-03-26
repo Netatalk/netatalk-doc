@@ -133,6 +133,13 @@
           </listitem>
 
           <listitem>
+            <para>The CNID databases are now stored under
+              <filename>/var/netatalk/CNID/</filename>
+              by default. You can use configure --localstatedir=PATH at
+              compile time to change the location.</para>
+          </listitem>
+
+          <listitem>
             <para>Netatalk 2.x volume options “usedots” and “upriv” now
             enabled by default</para>
           </listitem>

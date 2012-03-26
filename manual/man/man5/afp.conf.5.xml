@@ -1,117 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry id="afp.conf.5">
-
   <refmeta>
     <refentrytitle>afp.conf</refentrytitle>
+
     <manvolnum>5</manvolnum>
+
     <refmiscinfo class="date">23 Mar 2012</refmiscinfo>
+
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
 
   <refnamediv>
     <refname>afp.conf</refname>
-    <refpurpose>Netatalk configuration file
-      <indexterm><primary>afp.conf</primary></indexterm>
-    </refpurpose>
+
+    <refpurpose>Netatalk configuration file <indexterm>
+        <primary>afp.conf</primary>
+      </indexterm></refpurpose>
   </refnamediv>
 
   <refsect1>
     <title>SYNOPSIS</title>
-    <para>
-      The <filename>afp.conf</filename> file is the configuration file
-      for the <emphasis role="bold">Netatalk</emphasis> AFP file server.
-    </para>
-    <para>All AFP specific configuration and AFP volume definitions are
-      done via this file.
-    </para>
+
+    <para>The <filename>afp.conf</filename> file is the configuration file for
+    the <emphasis role="bold">Netatalk</emphasis> AFP file server.</para>
+
+    <para>All AFP specific configuration and AFP volume definitions are done
+    via this file.</para>
   </refsect1>
 
   <refsect1 id="FILEFORMATSECT">
     <title>FILE FORMAT</title>
-    <para>
-      The file consists of sections and parameters. A section begins with the name of the section in square brackets
-      and continues until the next section begins. Sections contain parameters of the form:
-      <programlisting>
-<replaceable>name</replaceable> = <replaceable>value </replaceable>
-      </programlisting>
-    </para>
 
-    <para>
-      The file is line-based - that is, each newline-terminated line represents either a comment, a section name or
-      a parameter.
-    </para>
+    <para>The file consists of sections and parameters. A section begins with
+    the name of the section in square brackets and continues until the next
+    section begins. Sections contain parameters of the form: <programlisting>
+<replaceable>name</replaceable> = <replaceable>value </replaceable>
+      </programlisting></para>
+
+    <para>The file is line-based - that is, each newline-terminated line
+    represents either a comment, a section name or a parameter.</para>
 
     <para>Section and parameter names are case sensitive.</para>
 
-    <para>
-      Only the first equals sign in a parameter is significant.  Whitespace before or after the first equals sign is
-      discarded.  Leading, trailing and internal whitespace in section and parameter names is irrelevant. Leading
-      and trailing whitespace in a parameter value is discarded. Internal whitespace within a parameter value is
-      retained verbatim.
-    </para>
+    <para>Only the first equals sign in a parameter is significant. Whitespace
+    before or after the first equals sign is discarded. Leading, trailing and
+    internal whitespace in section and parameter names is irrelevant. Leading
+    and trailing whitespace in a parameter value is discarded. Internal
+    whitespace within a parameter value is retained verbatim.</para>
 
-    <para>
-      Any line beginning with a semicolon (<quote>;</quote>) or a hash (<quote>#</quote>)
-      character is ignored, as are lines containing only whitespace.
-    </para>
+    <para>Any line beginning with a semicolon (<quote>;</quote>) or a hash
+    (<quote>#</quote>) character is ignored, as are lines containing only
+    whitespace.</para>
 
-    <para>
-      Any line ending in a <quote><literal>\</literal></quote> is continued on the next line in the customary UNIX fashion.
-    </para>
+    <para>Any line ending in a <quote><literal>\</literal></quote> is
+    continued on the next line in the customary UNIX fashion.</para>
 
-    <para>
-      The values following the equals sign in parameters are all either a string (no quotes needed) or a boolean,
-      which may be given as yes/no, 1/0 or true/false. Case is not significant in boolean values, but is preserved
-      in string values. Some items such as create masks are numeric.
-    </para>
+    <para>The values following the equals sign in parameters are all either a
+    string (no quotes needed) or a boolean, which may be given as yes/no, 1/0
+    or true/false. Case is not significant in boolean values, but is preserved
+    in string values. Some items such as create masks are numeric.</para>
 
-    <para>
-      The parameter <option>include = <replaceable>path</replaceable></option> allows you to include one config file inside another.
-      The file is included literally, as though typed in place. Nested includes are not supported.
-    </para>
-
+    <para>The parameter <option>include =
+    <replaceable>path</replaceable></option> allows you to include one config
+    file inside another. The file is included literally, as though typed in
+    place. Nested includes are not supported.</para>
   </refsect1>
 
   <refsect1>
     <title>SECTION DESCRIPTIONS</title>
 
-    <para>
-      Each section in the configuration file (except for the [Global] section) describes a shared resource (known as
-      a <quote>volume</quote>). The section name is the name of the volume and the parameters within the
-      section define the volume attributes and options.
-    </para>
+    <para>Each section in the configuration file (except for the [Global]
+    section) describes a shared resource (known as a <quote>volume</quote>).
+    The section name is the name of the volume and the parameters within the
+    section define the volume attributes and options.</para>
 
-    <para>
-      There are two special sections, [Global] and [Homes], which are described under
-      <emphasis>special sections</emphasis>. The following notes apply to ordinary section descriptions.
-    </para>
+    <para>There are two special sections, [Global] and [Homes], which are
+    described under <emphasis>special sections</emphasis>. The following notes
+    apply to ordinary section descriptions.</para>
 
-    <para>
-      A volume consists of a directory to which access is being given plus a description of the access rights
-      which are granted to the user of the service. For volumes the <option>path</option> option must specify
-      the directory to share.
-    </para>
+    <para>A volume consists of a directory to which access is being given plus
+    a description of the access rights which are granted to the user of the
+    service. For volumes the <option>path</option> option must specify the
+    directory to share.</para>
 
-    <para>
-      Any volume section without <option>path</option> option is considered a <emphasis>vol preset</emphasis> which can
-      be selected in other volume sections via the <option>vol preset</option> option and constitutes defaults
-      for the volume. For any option speficied both in a preset <emphasis>and</emphasis> in a volume section
-      the volume section setting completly substitutes the preset option.
-    </para>
+    <para>Any volume section without <option>path</option> option is
+    considered a <emphasis>vol preset</emphasis> which can be selected in
+    other volume sections via the <option>vol preset</option> option and
+    constitutes defaults for the volume. For any option speficied both in a
+    preset <emphasis>and</emphasis> in a volume section the volume section
+    setting completly substitutes the preset option.</para>
 
-    <para>
-      The access rights granted by the server are masked by the access rights granted to the specified or guest
-      UNIX user by the host system. The server does not grant more access than the host system grants.
-    </para>
+    <para>The access rights granted by the server are masked by the access
+    rights granted to the specified or guest UNIX user by the host system. The
+    server does not grant more access than the host system grants.</para>
 
-    <para>
-      The following sample section defines an AFP volume. The user has full access to the path
-      <filename>/foo/bar</filename>. The share is accessed via the share name <literal>baz</literal>:
-      <programlisting>
+    <para>The following sample section defines an AFP volume. The user has
+    full access to the path <filename>/foo/bar</filename>. The share is
+    accessed via the share name <literal>baz</literal>: <programlisting>
 [baz]
 path = /foo/bar
-      </programlisting>
-    </para>
+      </programlisting></para>
   </refsect1>
 
   <refsect1>
@@ -120,36 +108,34 @@ path = /foo/bar
     <refsect2>
       <title>The [Global] section</title>
 
-      <para>
-        Parameters in this section apply to the server as a whole. Parameters denoted by a (G) below are
-        must be set in this section.
-      </para>
+      <para>Parameters in this section apply to the server as a whole.
+      Parameters denoted by a (G) below are must be set in this
+      section.</para>
     </refsect2>
 
     <refsect2>
       <title>The [Homes] section</title>
 
-      <para>
-        This section enable sharing of the UNIX server user home directories. Specifying an optional
-        <option>path</option> parameter means that not the whole user home will be shared but the
-        subdirectory <option>path</option>.
-        It is neccessary to define the <option>basedir regex</option> option. It should be a regex
-        which matches the parent directory of the user homes.
-        Parameters denoted by a (H) belong to volume sections.
-        The optional parameter <option>home name</option> can be used to change the AFP volume name which
-        <emphasis>$u's home</emphasis> by default. See below under VARIABLE SUBSTITUTIONS.
-      </para>
-    <para>
-      The following example illustrates this. Given all user home directories are stored under
-      <filename>/home</filename>:
+      <para>This section enable sharing of the UNIX server user home
+      directories. Specifying an optional <option>path</option> parameter
+      means that not the whole user home will be shared but the subdirectory
+      <option>path</option>. It is neccessary to define the <option>basedir
+      regex</option> option. It should be a regex which matches the parent
+      directory of the user homes. Parameters denoted by a (H) belong to
+      volume sections. The optional parameter <option>home name</option> can
+      be used to change the AFP volume name which <emphasis>$u's
+      home</emphasis> by default. See below under VARIABLE
+      SUBSTITUTIONS.</para>
+
+      <para>The following example illustrates this. Given all user home
+      directories are stored under <filename>/home</filename>:
       <programlisting>
 [Homes]
 path = afp-data
 basedir regex = /home
-      </programlisting>
-      For a user <emphasis>john</emphasis> this results in an AFP home volume with a path of
-      <filename>/home/john/afp-data</filename>.
-    </para>
+      </programlisting> For a user <emphasis>john</emphasis> this results in
+      an AFP home volume with a path of
+      <filename>/home/john/afp-data</filename>.</para>
     </refsect2>
   </refsect1>
 
@@ -158,29 +144,29 @@ basedir regex = /home
 
     <para>Parameters define the specific attributes of sections.</para>
 
-    <para>
-      Some parameters are specific to the [Global] section (e.g., <emphasis>log type</emphasis>).
-      All others are permissible only in volume sections.
-      The letter <emphasis>G</emphasis> in parentheses indicates that a parameter is specific to
-      the [Global] section. The letter <emphasis>V</emphasis> indicates that a parameter can be specified in a
-      volume specific section.
-    </para>
+    <para>Some parameters are specific to the [Global] section (e.g.,
+    <emphasis>log type</emphasis>). All others are permissible only in volume
+    sections. The letter <emphasis>G</emphasis> in parentheses indicates that
+    a parameter is specific to the [Global] section. The letter
+    <emphasis>V</emphasis> indicates that a parameter can be specified in a
+    volume specific section.</para>
   </refsect1>
 
   <refsect1>
     <title>VARIABLE SUBSTITUTIONS</title>
 
-    <para>You can use variables in volume names. The use of variables in paths is not supported for now.</para>
+    <para>You can use variables in volume names. The use of variables in paths
+    is not supported for now.</para>
 
     <orderedlist>
       <listitem>
         <para>if you specify an unknown variable, it will not get
-          converted.</para>
+        converted.</para>
       </listitem>
 
       <listitem>
         <para>if you specify a known variable, but that variable doesn't have
-          a value, it will get ignored.</para>
+        a value, it will get ignored.</para>
       </listitem>
     </orderedlist>
 
@@ -216,7 +202,7 @@ basedir regex = /home
 
         <listitem>
           <para>full name (contents of the gecos field in the passwd
-            file)</para>
+          file)</para>
         </listitem>
       </varlistentry>
 
@@ -257,7 +243,7 @@ basedir regex = /home
 
         <listitem>
           <para>user name (if guest, it is the user that guest is running
-            as)</para>
+          as)</para>
         </listitem>
       </varlistentry>
 
@@ -277,7 +263,6 @@ basedir regex = /home
         </listitem>
       </varlistentry>
     </variablelist>
-
   </refsect1>
 
   <refsect1>
@@ -288,32 +273,32 @@ basedir regex = /home
 
       <variablelist>
         <varlistentry>
-          <term>save password = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>yes</emphasis>)
-            <type>(G)</type></term>
+          <term>save password = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>yes</emphasis>) <type>(G)</type></term>
+
           <listitem>
             <para>Enables or disables the ability of clients to save passwords
-              locally.</para>
+            locally.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>set password = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>no</emphasis>)
-            <type>(G)</type></term>
+          <term>set password = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>no</emphasis>) <type>(G)</type></term>
 
           <listitem>
             <para>Enables or disables the ability of clients to change their
-              passwords via chooser or the "connect to server" dialog. </para>
+            passwords via chooser or the "connect to server" dialog.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>uam list = <replaceable>uam list</replaceable> <type>(G)</type></term>
+          <term>uam list = <replaceable>uam list</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Space or comma separated list of UAMs. (The default is
-              "uams_dhx.so uams_dhx2.so").</para>
+            "uams_dhx.so uams_dhx2.so").</para>
 
             <para>The most commonly used UAMs are:</para>
 
@@ -331,7 +316,7 @@ basedir regex = /home
 
                 <listitem>
                   <para>(uams_pam.so or uams_passwd.so) Allow logins with
-                    passwords transmitted in the clear. (legacy)</para>
+                  passwords transmitted in the clear. (legacy)</para>
                 </listitem>
               </varlistentry>
 
@@ -339,10 +324,11 @@ basedir regex = /home
                 <term>uams_randum.so</term>
 
                 <listitem>
-                  <para>allows Random Number and Two-Way Random Number Exchange
-                    for authentication (requires a separate file containing the
-                    passwords, either :ETCDIR:/afppasswd file or the one specified
-                    via "<option>passwd file</option>". See <citerefentry>
+                  <para>allows Random Number and Two-Way Random Number
+                  Exchange for authentication (requires a separate file
+                  containing the passwords, either :ETCDIR:/afppasswd file or
+                  the one specified via "<option>passwd file</option>". See
+                  <citerefentry>
                       <refentrytitle>afppasswd</refentrytitle>
 
                       <manvolnum>1</manvolnum>
@@ -355,7 +341,7 @@ basedir regex = /home
 
                 <listitem>
                   <para>(uams_dhx_pam.so or uams_dhx_passwd.so) Allow
-                    Diffie-Hellman eXchange (DHX) for authentication.</para>
+                  Diffie-Hellman eXchange (DHX) for authentication.</para>
                 </listitem>
               </varlistentry>
 
@@ -364,7 +350,7 @@ basedir regex = /home
 
                 <listitem>
                   <para>(uams_dhx2_pam.so or uams_dhx2_passwd.so) Allow
-                    Diffie-Hellman eXchange 2 (DHX2) for authentication.</para>
+                  Diffie-Hellman eXchange 2 (DHX2) for authentication.</para>
                 </listitem>
               </varlistentry>
 
@@ -380,252 +366,280 @@ basedir regex = /home
         </varlistentry>
 
         <varlistentry>
-          <term>uam path = <replaceable>path</replaceable> <type>(G)</type></term>
+          <term>uam path = <replaceable>path</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Sets the default path for UAMs for this server (default is
-              :LIBDIR:/netatalk).</para>
+            :LIBDIR:/netatalk).</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>k5 keytab = <replaceable>path</replaceable> <type>(G)</type></term>
-          <term>k5 service = <replaceable>service</replaceable> <type>(G)</type></term>
-          <term>k5 realm = <replaceable>realm</replaceable> <type>(G)</type></term>
+          <term>k5 keytab = <replaceable>path</replaceable>
+          <type>(G)</type></term>
+
+          <term>k5 service = <replaceable>service</replaceable>
+          <type>(G)</type></term>
+
+          <term>k5 realm = <replaceable>realm</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>These are required if the server supports the Kerberos 5
-              authentication UAM.</para>
+            authentication UAM.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>nt domain = <parameter>DOMAIN</parameter> <type>(G)</type></term>
-          <term>nt separator = <parameter>SEPERATOR</parameter> <type>(G)</type></term>
+          <term>nt domain = <parameter>DOMAIN</parameter>
+          <type>(G)</type></term>
+
+          <term>nt separator = <parameter>SEPERATOR</parameter>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Use for eg. winbind authentication, prepends both strings
-              before the username from login and then tries to authenticate with
-              the result through the availabel and active UAM authentication
-              modules.</para>
+            before the username from login and then tries to authenticate with
+            the result through the availabel and active UAM authentication
+            modules.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>admin auth user = <parameter>user</parameter> <type>(G)</type></term>
+          <term>admin auth user = <parameter>user</parameter>
+          <type>(G)</type></term>
+
           <listitem>
-            <para>
-              Specifying eg "<option>admin auth user = root</option>"
-              whenever a normal user login fails, afpd will try to authenticate as
-              the specified <option>admin auth user</option>. If this succeeds, a normal session is created
-              for the original connecting user. Said differently: if you know the
-              password of <option>admin auth user</option>, you can authenticate as any other user.
-            </para>
+            <para>Specifying eg "<option>admin auth user = root</option>"
+            whenever a normal user login fails, afpd will try to authenticate
+            as the specified <option>admin auth user</option>. If this
+            succeeds, a normal session is created for the original connecting
+            user. Said differently: if you know the password of <option>admin
+            auth user</option>, you can authenticate as any other user.</para>
           </listitem>
         </varlistentry>
 
-      <varlistentry>
-        <term>ldap server = <parameter>host</parameter> <type>(G)</type></term>
+        <varlistentry>
+          <term>ldap server = <parameter>host</parameter>
+          <type>(G)</type></term>
 
-        <listitem>
-          <para>Name or IP address of your LDAP Server. This is only needed for explicit ACL support in order to
-            be able to query LDAP for UUIDs.</para>
-          <para>You can use <citerefentry>
-              <refentrytitle>afpldaptest</refentrytitle>
-              <manvolnum>1</manvolnum>
-            </citerefentry> to syntactically check your config.</para>
-        </listitem>
-      </varlistentry>
+          <listitem>
+            <para>Name or IP address of your LDAP Server. This is only needed
+            for explicit ACL support in order to be able to query LDAP for
+            UUIDs.</para>
 
-      <varlistentry>
-        <term>ldap auth method = <parameter>none|simple|sasl</parameter> <type>(G)</type></term>
+            <para>You can use <citerefentry>
+                <refentrytitle>afpldaptest</refentrytitle>
 
-        <listitem>
-          <para>Authentication method: <option>none | simple |
-          sasl</option></para>
+                <manvolnum>1</manvolnum>
+              </citerefentry> to syntactically check your config.</para>
+          </listitem>
+        </varlistentry>
 
-          <para><variablelist>
-              <varlistentry>
-                <term>none</term>
+        <varlistentry>
+          <term>ldap auth method = <parameter>none|simple|sasl</parameter>
+          <type>(G)</type></term>
 
-                <listitem>
-                  <para>anonymous LDAP bind</para>
-                </listitem>
-              </varlistentry>
+          <listitem>
+            <para>Authentication method: <option>none | simple |
+            sasl</option></para>
 
-              <varlistentry>
-                <term>simple</term>
+            <para><variablelist>
+                <varlistentry>
+                  <term>none</term>
 
-                <listitem>
-                  <para>simple LDAP bind</para>
-                </listitem>
-              </varlistentry>
+                  <listitem>
+                    <para>anonymous LDAP bind</para>
+                  </listitem>
+                </varlistentry>
 
-              <varlistentry>
-                <term>sasl</term>
+                <varlistentry>
+                  <term>simple</term>
 
-                <listitem>
-                  <para>SASL. Not yet supported !</para>
-                </listitem>
-              </varlistentry>
-            </variablelist></para>
-        </listitem>
-      </varlistentry>
+                  <listitem>
+                    <para>simple LDAP bind</para>
+                  </listitem>
+                </varlistentry>
 
-      <varlistentry>
-        <term>ldap auth dn = <parameter>dn</parameter> <type>(G)</type></term>
+                <varlistentry>
+                  <term>sasl</term>
 
-        <listitem>
-          <para>Distinguished Name of the user for simple bind.</para>
+                  <listitem>
+                    <para>SASL. Not yet supported !</para>
+                  </listitem>
+                </varlistentry>
+              </variablelist></para>
+          </listitem>
+        </varlistentry>
 
-          <para></para>
-        </listitem>
-      </varlistentry>
+        <varlistentry>
+          <term>ldap auth dn = <parameter>dn</parameter>
+          <type>(G)</type></term>
 
-      <varlistentry>
-        <term>ldap auth pw = <parameter>password</parameter> <type>(G)</type></term>
+          <listitem>
+            <para>Distinguished Name of the user for simple bind.</para>
 
-        <listitem>
-          <para>Distinguished Name of the user for simple bind.</para>
+            <para></para>
+          </listitem>
+        </varlistentry>
 
-          <para></para>
-        </listitem>
-      </varlistentry>
+        <varlistentry>
+          <term>ldap auth pw = <parameter>password</parameter>
+          <type>(G)</type></term>
 
-      <varlistentry>
-        <term>ldap userbase = <parameter>base dn</parameter> <type>(G)</type></term>
+          <listitem>
+            <para>Distinguished Name of the user for simple bind.</para>
 
-        <listitem>
-          <para>DN of the user container in LDAP.</para>
+            <para></para>
+          </listitem>
+        </varlistentry>
 
-          <para></para>
-        </listitem>
-      </varlistentry>
+        <varlistentry>
+          <term>ldap userbase = <parameter>base dn</parameter>
+          <type>(G)</type></term>
 
-      <varlistentry>
-        <term>ldap userscope = <parameter>scope</parameter> <type>(G)</type></term>
+          <listitem>
+            <para>DN of the user container in LDAP.</para>
 
-        <listitem>
-          <para>Search scope for user search: <option>base | one |
-          sub</option></para>
+            <para></para>
+          </listitem>
+        </varlistentry>
 
-          <para></para>
-        </listitem>
-      </varlistentry>
+        <varlistentry>
+          <term>ldap userscope = <parameter>scope</parameter>
+          <type>(G)</type></term>
 
-      <varlistentry>
-        <term>ldap groupbase = <parameter>base dn</parameter> <type>(G)</type></term>
+          <listitem>
+            <para>Search scope for user search: <option>base | one |
+            sub</option></para>
 
-        <listitem>
-          <para>DN of the group container in LDAP.</para>
+            <para></para>
+          </listitem>
+        </varlistentry>
 
-          <para></para>
-        </listitem>
-      </varlistentry>
+        <varlistentry>
+          <term>ldap groupbase = <parameter>base dn</parameter>
+          <type>(G)</type></term>
 
-      <varlistentry>
-        <term>ldap groupscope = <parameter>scope</parameter> <type>(G)</type></term>
+          <listitem>
+            <para>DN of the group container in LDAP.</para>
 
-        <listitem>
-          <para>Search scope for user search: <option>base | one
-          | sub</option></para>
+            <para></para>
+          </listitem>
+        </varlistentry>
 
-          <para></para>
-        </listitem>
-      </varlistentry>
+        <varlistentry>
+          <term>ldap groupscope = <parameter>scope</parameter>
+          <type>(G)</type></term>
 
-      <varlistentry>
-        <term>ldap uuid attr = <parameter>dn</parameter> <type>(G)</type></term>
+          <listitem>
+            <para>Search scope for user search: <option>base | one |
+            sub</option></para>
 
-        <listitem>
-          <para>Name of the LDAP attribute with the UUIDs.</para>
+            <para></para>
+          </listitem>
+        </varlistentry>
 
-          <para>Note: this is used both for users and groups.</para>
+        <varlistentry>
+          <term>ldap uuid attr = <parameter>dn</parameter>
+          <type>(G)</type></term>
 
-          <para></para>
-        </listitem>
-      </varlistentry>
+          <listitem>
+            <para>Name of the LDAP attribute with the UUIDs.</para>
 
-      <varlistentry>
-        <term>ldap name attr = <parameter>dn</parameter> <type>(G)</type></term>
+            <para>Note: this is used both for users and groups.</para>
 
-        <listitem>
-          <para>Name of the LDAP attribute with the users short name.</para>
+            <para></para>
+          </listitem>
+        </varlistentry>
 
-          <para></para>
-        </listitem>
-      </varlistentry>
+        <varlistentry>
+          <term>ldap name attr = <parameter>dn</parameter>
+          <type>(G)</type></term>
 
-      <varlistentry>
-        <term>ldap group attr = <parameter>dn</parameter> <type>(G)</type></term>
+          <listitem>
+            <para>Name of the LDAP attribute with the users short name.</para>
 
-        <listitem>
-          <para>Name of the LDAP attribute with the groups short name.</para>
+            <para></para>
+          </listitem>
+        </varlistentry>
 
-          <para></para>
-        </listitem>
-      </varlistentry>
+        <varlistentry>
+          <term>ldap group attr = <parameter>dn</parameter>
+          <type>(G)</type></term>
 
+          <listitem>
+            <para>Name of the LDAP attribute with the groups short
+            name.</para>
+
+            <para></para>
+          </listitem>
+        </varlistentry>
       </variablelist>
     </refsect2>
 
     <refsect2>
       <title>Charset Options</title>
 
-      <para>With OS X Apple introduced the AFP3 protocol. One of the big changes
-        was, that AFP3 uses Unicode names encoded as Decomposed UTF-8 (UTF8-MAC).
-        Previous AFP/OS versions used charsets like MacRoman, MacCentralEurope,
-        etc.</para>
+      <para>With OS X Apple introduced the AFP3 protocol. One of the big
+      changes was, that AFP3 uses Unicode names encoded as Decomposed UTF-8
+      (UTF8-MAC). Previous AFP/OS versions used charsets like MacRoman,
+      MacCentralEurope, etc.</para>
 
       <para>To be able to serve AFP3 and older clients at the same time,
-        <command>afpd</command> needs to be able to convert between UTF-8 and Mac
-        charsets. Even OS X clients partly still rely on the mac charset. As there's no
-        way, <command>afpd</command> can detect the codepage a pre AFP3 client
-        uses, you have to specify it using the <option>mac charset</option>
-        option. The default is MacRoman, which should be fine for most western
-        users.</para>
+      <command>afpd</command> needs to be able to convert between UTF-8 and
+      Mac charsets. Even OS X clients partly still rely on the mac charset. As
+      there's no way, <command>afpd</command> can detect the codepage a pre
+      AFP3 client uses, you have to specify it using the <option>mac
+      charset</option> option. The default is MacRoman, which should be fine
+      for most western users.</para>
 
       <para>As <command>afpd</command> needs to interact with UNIX operating
-        system as well, it need's to be able to convert from UTF8-MAC / Mac charset
-        to the UNIX charset. By default <command>afpd</command> uses <emphasis>UTF8</emphasis>. You can set the
-        UNIX charset using the <option>unix charset</option> option. If you're
-        using extended characters in the configuration files for
-        <command>afpd</command>, make sure your terminal matches the
-        <option>unix charset</option>.</para>
+      system as well, it need's to be able to convert from UTF8-MAC / Mac
+      charset to the UNIX charset. By default <command>afpd</command> uses
+      <emphasis>UTF8</emphasis>. You can set the UNIX charset using the
+      <option>unix charset</option> option. If you're using extended
+      characters in the configuration files for <command>afpd</command>, make
+      sure your terminal matches the <option>unix charset</option>.</para>
 
       <variablelist>
         <varlistentry>
-          <term>unix charset = <parameter>CHARSET</parameter> <type>(G)</type></term>
+          <term>unix charset = <parameter>CHARSET</parameter>
+          <type>(G)</type></term>
 
           <listitem>
-            <para>Specifies the servers unix charset, e.g. <emphasis>ISO-8859-15</emphasis> or
-              <emphasis>UTF8</emphasis>. This is used to convert strings to/from the systems locale,
-              e.g. for authenthication, server messages and volume names. Defaults
-              to the systems locale setting.</para>
+            <para>Specifies the servers unix charset, e.g.
+            <emphasis>ISO-8859-15</emphasis> or <emphasis>UTF8</emphasis>.
+            This is used to convert strings to/from the systems locale, e.g.
+            for authenthication, server messages and volume names. Defaults to
+            the systems locale setting.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>mac charset = <parameter>CHARSET</parameter> <type>(G)/(V)</type></term>
+          <term>mac charset = <parameter>CHARSET</parameter>
+          <type>(G)/(V)</type></term>
 
           <listitem>
-            <para>Specifies the Mac clients charset, e.g. <emphasis>MAC_ROMAN</emphasis>. This is
-              used to convert strings and filenames to the clients codepage for
-              OS9 and Classic, i.e. for authentication and AFP messages (SIGUSR2
-              messaging). This will also be the default for the volumes
-              <option>mac charset</option>. Defaults to <emphasis>MAC_ROMAN</emphasis>.</para>
+            <para>Specifies the Mac clients charset, e.g.
+            <emphasis>MAC_ROMAN</emphasis>. This is used to convert strings
+            and filenames to the clients codepage for OS9 and Classic, i.e.
+            for authentication and AFP messages (SIGUSR2 messaging). This will
+            also be the default for the volumes <option>mac charset</option>.
+            Defaults to <emphasis>MAC_ROMAN</emphasis>.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>vol charset = <parameter>CHARSET</parameter> <type>(G)/(V)</type></term>
+          <term>vol charset = <parameter>CHARSET</parameter>
+          <type>(G)/(V)</type></term>
+
           <listitem>
-            <para>Specifies the encoding of the volumes filesystem, defaults to
-              <emphasis>UTF8</emphasis>.</para>
+            <para>Specifies the encoding of the volumes filesystem, defaults
+            to <emphasis>UTF8</emphasis>.</para>
           </listitem>
         </varlistentry>
-
-
       </variablelist>
     </refsect2>
 
@@ -634,23 +648,24 @@ basedir regex = /home
 
       <variablelist>
         <varlistentry>
-          <term>passwd file = <parameter>path</parameter> <type>(G)</type></term>
+          <term>passwd file = <parameter>path</parameter>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Sets the path to the Randnum UAM passwd file for this server
-              (default is :ETCDIR:/afppasswd).</para>
+            (default is :ETCDIR:/afppasswd).</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>passwd minlen = <parameter>number</parameter> <type>(G)</type></term>
+          <term>passwd minlen = <parameter>number</parameter>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Sets the minimum password length, if supported by the
-              UAM</para>
+            UAM</para>
           </listitem>
         </varlistentry>
-
       </variablelist>
     </refsect2>
 
@@ -659,138 +674,152 @@ basedir regex = /home
 
       <variablelist>
         <varlistentry>
-          <term>afp listen = <replaceable>ip address[:port] [ip adress[:port] ...]</replaceable> <type>(G)</type></term>
+          <term>afp listen = <replaceable>ip address[:port] [ip adress[:port]
+          ...]</replaceable> <type>(G)</type></term>
 
           <listitem>
             <para>Specifies the IP address that the server should advertise
-              <emphasis role="bold">and</emphasis> listens to. The default is
-              advertise the first IP address of the system, but to listen for any
-              incoming request. The network address may be specified either in
-              dotted-decimal format for IPv4 or in hexadecimal format for IPv6.
-            </para>
+            <emphasis role="bold">and</emphasis> listens to. The default is
+            advertise the first IP address of the system, but to listen for
+            any incoming request. The network address may be specified either
+            in dotted-decimal format for IPv4 or in hexadecimal format for
+            IPv6.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>fqdn = <replaceable>name:port</replaceable> <type>(G)</type></term>
+          <term>fqdn = <replaceable>name:port</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Specifies a fully-qualified domain name, with an optional
-              port. This is discarded if the server cannot resolve it. This option
-              is not honored by AppleShare clients &lt;= 3.8.3. This option is
-              disabled by default. Use with caution as this will involve a second
-              name resolution step on the client side. Also note that afpd will
-              advertise this name:port combination but not automatically listen to
-              it.</para>
+            port. This is discarded if the server cannot resolve it. This
+            option is not honored by AppleShare clients &lt;= 3.8.3. This
+            option is disabled by default. Use with caution as this will
+            involve a second name resolution step on the client side. Also
+            note that afpd will advertise this name:port combination but not
+            automatically listen to it.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>hostname = <replaceable>name</replaceable> <type>(G)</type></term>
+          <term>hostname = <replaceable>name</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Use this instead of the result from calling hostname for
-              dertermening which IP address to advertise, therfore the hostname is
-              resolved to an IP which is the advertised. This is NOT used for
-              listening and it is also overwritten by
-              <option>afp listen</option>.</para>
+            dertermening which IP address to advertise, therfore the hostname
+            is resolved to an IP which is the advertised. This is NOT used for
+            listening and it is also overwritten by <option>afp
+            listen</option>.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>cnid listen = <replaceable>ip address[:port] [ip adress[:port] ...]</replaceable> <type>(G)</type></term>
+          <term>cnid listen = <replaceable>ip address[:port] [ip adress[:port]
+          ...]</replaceable> <type>(G)</type></term>
 
           <listitem>
-            <para>Specifies the IP address that the CNID server should listen on.
-              The default is <emphasis role="bold">localhost:4700</emphasis>.
-            </para>
+            <para>Specifies the IP address that the CNID server should listen
+            on. The default is <emphasis
+            role="bold">localhost:4700</emphasis>.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>afp port = <replaceable>port number</replaceable> <type>(G)</type></term>
+          <term>afp port = <replaceable>port number</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
-            <para>Allows a different TCP port to be used for AFP. The
-              default is 548. Also sets the default port applied when none specified
-              in an <option>afp listen</option> option.</para>
+            <para>Allows a different TCP port to be used for AFP. The default
+            is 548. Also sets the default port applied when none specified in
+            an <option>afp listen</option> option.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>sleep time = <replaceable>number</replaceable> <type>(G)</type></term>
+          <term>sleep time = <replaceable>number</replaceable>
+          <type>(G)</type></term>
+
           <listitem>
-            <para>Keep sleeping AFP sessions for <parameter>number</parameter> hours before
-              disconnecting clients in sleep mode. Default is 10 hours.</para>
+            <para>Keep sleeping AFP sessions for <parameter>number</parameter>
+            hours before disconnecting clients in sleep mode. Default is 10
+            hours.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>disconnect time = <replaceable>number</replaceable> <type>(G)</type></term>
+          <term>disconnect time = <replaceable>number</replaceable>
+          <type>(G)</type></term>
+
           <listitem>
-            <para>Keep disconnected AFP sessions for <parameter>number</parameter> hours before
-              dropping them. Default is 24 hours.</para>
+            <para>Keep disconnected AFP sessions for
+            <parameter>number</parameter> hours before dropping them. Default
+            is 24 hours.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>server quantum = <replaceable>number</replaceable> <type>(G)</type></term>
+          <term>server quantum = <replaceable>number</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>This specifies the DSI server quantum. The default value is
-              303840. The maximum value is 0xFFFFFFFFF, the minimum is 32000. If
-              you specify a value that is out of range, the default value will be
-              set. Do not change this value unless you're absolutely sure, what
-              you're doing</para>
+            303840. The maximum value is 0xFFFFFFFFF, the minimum is 32000. If
+            you specify a value that is out of range, the default value will
+            be set. Do not change this value unless you're absolutely sure,
+            what you're doing</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>dsireadbuf = <replaceable>number</replaceable> <type>(G)</type></term>
+          <term>dsireadbuf = <replaceable>number</replaceable>
+          <type>(G)</type></term>
+
           <listitem>
-            <para>
-              Scale factor that determines the size of the DSI/TCP readahead buffer, default is 12.
-              This is multiplies with the DSI server quantum (default ~300k) to give the size of
-              the buffer. Increasing this value might increase throughput in fast local networks
-              for volume to volume copies.
-              <emphasis>Note</emphasis>: This buffer is allocated per afpd child process, so
-              specifying large values will eat up large amount of memory (buffer size * number of
-              clients).
-            </para>
+            <para>Scale factor that determines the size of the DSI/TCP
+            readahead buffer, default is 12. This is multiplies with the DSI
+            server quantum (default ~300k) to give the size of the buffer.
+            Increasing this value might increase throughput in fast local
+            networks for volume to volume copies. <emphasis>Note</emphasis>:
+            This buffer is allocated per afpd child process, so specifying
+            large values will eat up large amount of memory (buffer size *
+            number of clients).</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>tcprcvbuf = <replaceable>number</replaceable> <type>(G)</type></term>
+          <term>tcprcvbuf = <replaceable>number</replaceable>
+          <type>(G)</type></term>
+
           <listitem>
-            <para>
-              Try to set TCP receive buffer using setsockpt(). Often OSes impose restrictions
-              on the applications ability to set this value.
-            </para>
+            <para>Try to set TCP receive buffer using setsockpt(). Often OSes
+            impose restrictions on the applications ability to set this
+            value.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>tcpsndbuf = <replaceable>number</replaceable> <type>(G)</type></term>
+          <term>tcpsndbuf = <replaceable>number</replaceable>
+          <type>(G)</type></term>
+
           <listitem>
-            <para>
-              Try to set TCP send buffer using setsockpt(). Often OSes impose restrictions
-              on the applications ability to set this value.
-            </para>
+            <para>Try to set TCP send buffer using setsockpt(). Often OSes
+            impose restrictions on the applications ability to set this
+            value.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>advertise ssh = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>no</emphasis>)
-            <type>(G)</type></term>
+          <term>advertise ssh = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>no</emphasis>) <type>(G)</type></term>
 
           <listitem>
             <para>Allows old Mac OS X clients (10.3.3-10.4) to automagically
-              establish a tunneled AFP connection through SSH. If this option is
-              set, the server's answers to client's FPGetSrvrInfo requests contain
-              an additional entry. It depends on both client's settings and a
-              correctly configured and running <citerefentry>
+            establish a tunneled AFP connection through SSH. If this option is
+            set, the server's answers to client's FPGetSrvrInfo requests
+            contain an additional entry. It depends on both client's settings
+            and a correctly configured and running <citerefentry>
                 <refentrytitle>sshd</refentrytitle>
 
                 <manvolnum>8</manvolnum>
@@ -798,38 +827,38 @@ basedir regex = /home
 
             <note>
               <para>Setting this option is not recommended since globally
-                encrypting AFP connections via SSH will increase the server's load
-                significantly. On the other hand, Apple's client side
-                implementation of this feature in MacOS X versions prior to 10.3.4
-                contained a security flaw.</para>
+              encrypting AFP connections via SSH will increase the server's
+              load significantly. On the other hand, Apple's client side
+              implementation of this feature in MacOS X versions prior to
+              10.3.4 contained a security flaw.</para>
             </note>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>zeroconf = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>yes</emphasis>)
-            <type>(G)</type></term>
+          <term>zeroconf = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>yes</emphasis>) <type>(G)</type></term>
 
           <listitem>
             <para>Whether to use automatic Zeroconf<indexterm>
                 <primary>Zeroconf</primary>
+
                 <secondary>Bonjour</secondary>
-              </indexterm> service registration if Avahi or mDNSResponder were compiled in.</para>
+              </indexterm> service registration if Avahi or mDNSResponder were
+            compiled in.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>use sendfile = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>yes</emphasis>)
-            <type>(G)</type></term>
+          <term>use sendfile = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>yes</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Whether to use sendfile<indexterm><primary>sendfile</primary></indexterm>
-            syscall for sending file data to clients.</para>
+            <para>Whether to use sendfile<indexterm>
+                <primary>sendfile</primary>
+              </indexterm> syscall for sending file data to clients.</para>
           </listitem>
         </varlistentry>
-
       </variablelist>
     </refsect2>
 
@@ -837,158 +866,166 @@ basedir regex = /home
       <title>Miscellaneous Options</title>
 
       <variablelist>
-
         <varlistentry>
-          <term>vol dbpath = <replaceable>path</replaceable> <type>(G)</type></term>
+          <term>vol dbpath = <replaceable>path</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Sets the database information to be stored in path. You have
-              to specifiy a writable location, even if the volume is read
-              only. The default is <filename>:STATEDIR:/netatalk/CNID/</filename>.
-              </para>
+            to specifiy a writable location, even if the volume is read only.
+            The default is
+            <filename>:STATEDIR:/netatalk/CNID/</filename>.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>basedir regex = <replaceable>regex</replaceable> <type>(H)</type></term>
+          <term>basedir regex = <replaceable>regex</replaceable>
+          <type>(H)</type></term>
 
           <listitem>
-            <para>
-              Regular expression which matches the parent directory of the user homes. In the
-              simple case this is just a path ie <option>basedir regex = /home</option>
-
-            </para>
+            <para>Regular expression which matches the parent directory of the
+            user homes. In the simple case this is just a path ie
+            <option>basedir regex = /home</option></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>home name = <replaceable>name</replaceable> <type>(H)</type></term>
+          <term>home name = <replaceable>name</replaceable>
+          <type>(H)</type></term>
 
           <listitem>
-            <para>
-              AFP user home volume name. The default is <emphasis>users's home</emphasis>.
-            </para>
+            <para>AFP user home volume name. The default is <emphasis>users's
+            home</emphasis>.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>vol preset = <replaceable>name</replaceable> <type>(G)/(V)</type></term>
+          <term>vol preset = <replaceable>name</replaceable>
+          <type>(G)/(V)</type></term>
 
           <listitem>
-            <para>
-              Use section <option>name</option> as option preset for all volumes (when set in the
-              [Global] section) or for one volume (when set in that volume's section).
-            </para>
+            <para>Use section <option>name</option> as option preset for all
+            volumes (when set in the [Global] section) or for one volume (when
+            set in that volume's section).</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>admin group = <replaceable>group</replaceable> <type>(G)</type></term>
+          <term>admin group = <replaceable>group</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Allows users of a certain group to be seen as the superuser
-              when they log in. This option is disabled by default.</para>
+            when they log in. This option is disabled by default.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>cnid server = <replaceable>ipaddress[:port]</replaceable> <type>(G)/(V)</type></term>
+          <term>cnid server = <replaceable>ipaddress[:port]</replaceable>
+          <type>(G)/(V)</type></term>
 
           <listitem>
             <para>Specifies the IP address and port of a cnid_metad server,
-              required for CNID dbd backend. Defaults to localhost:4700. The
-              network address may be specified either in dotted-decimal format for
-              IPv4 or in hexadecimal format for IPv6.-</para>
+            required for CNID dbd backend. Defaults to localhost:4700. The
+            network address may be specified either in dotted-decimal format
+            for IPv4 or in hexadecimal format for IPv6.-</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>dircachesize = <replaceable>number</replaceable> <type>(G)</type></term>
+          <term>dircachesize = <replaceable>number</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Maximum possible entries in the directory cache. The cache
-              stores directories and files. It is used to cache the full path to
-              directories and CNIDs which considerably speeds up directory
-              enumeration.</para>
+            stores directories and files. It is used to cache the full path to
+            directories and CNIDs which considerably speeds up directory
+            enumeration.</para>
 
             <para>Default size is 8192, maximum size is 131072. Given value is
-              rounded up to nearest power of 2. Each entry takes about 100 bytes,
-              which is not much, but remember that every afpd child process for
-              every connected user has its cache.</para>
+            rounded up to nearest power of 2. Each entry takes about 100
+            bytes, which is not much, but remember that every afpd child
+            process for every connected user has its cache.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>fce listener = <replaceable>host[:port]</replaceable> <type>(G)</type></term>
+          <term>fce listener = <replaceable>host[:port]</replaceable>
+          <type>(G)</type></term>
+
           <listitem>
-            <para>
-              Enables sending FCE events to the specified <parameter>host</parameter>,
-              default <parameter>port</parameter> is 12250 if not specified. Specifying
-              mutliple listeners is done by having this option once for each of them.
-            </para>
+            <para>Enables sending FCE events to the specified
+            <parameter>host</parameter>, default <parameter>port</parameter>
+            is 12250 if not specified. Specifying mutliple listeners is done
+            by having this option once for each of them.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>fce events = <replaceable>fmod,fdel,ddel,fcre,dcre,tmsz</replaceable> <type>(G)</type></term>
+          <term>fce events =
+          <replaceable>fmod,fdel,ddel,fcre,dcre,tmsz</replaceable>
+          <type>(G)</type></term>
+
           <listitem>
-            <para>
-              Speficies which FCE events are active, default is <parameter>fmod,fdel,ddel,fcre,dcre</parameter>.
-            </para>
+            <para>Speficies which FCE events are active, default is
+            <parameter>fmod,fdel,ddel,fcre,dcre</parameter>.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>fce coalesce = <replaceable>all|delete|create</replaceable> <type>(G)</type></term>
+          <term>fce coalesce = <replaceable>all|delete|create</replaceable>
+          <type>(G)</type></term>
+
           <listitem>
-            <para>
-              Coalesce FCE events.
-            </para>
+            <para>Coalesce FCE events.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>fce holdfmod = <replaceable>seconds</replaceable> <type>(G)</type></term>
+          <term>fce holdfmod = <replaceable>seconds</replaceable>
+          <type>(G)</type></term>
+
           <listitem>
-            <para>
-              This determines the time delay in seconds which is always waited if another file modification for the
-              same file is done by a client before sending an FCE file modification event (fmod). For example saving
-              a file in Photoshop would generate multiple events by itself because the application is opening,
-              modifying and closing a file mutliple times for every "save". Defautl: 60 seconds.
-            </para>
+            <para>This determines the time delay in seconds which is always
+            waited if another file modification for the same file is done by a
+            client before sending an FCE file modification event (fmod). For
+            example saving a file in Photoshop would generate multiple events
+            by itself because the application is opening, modifying and
+            closing a file mutliple times for every "save". Defautl: 60
+            seconds.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>guest account = <replaceable>name</replaceable> <type>(G)</type></term>
+          <term>guest account = <replaceable>name</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Specifies the user that guests should use (default is
-              "nobody"). The name should be quoted.</para>
+            "nobody"). The name should be quoted.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>login message = <replaceable>message</replaceable> <type>(G)</type></term>
+          <term>login message = <replaceable>message</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Sets a message to be displayed when clients logon to the
-              server. The message should be in <option>unix charset</option> and
-              should be quoted. Extended characters are allowed.</para>
+            server. The message should be in <option>unix charset</option> and
+            should be quoted. Extended characters are allowed.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>mimic model = <replaceable>model</replaceable> <type>(G)</type></term>
+          <term>mimic model = <replaceable>model</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
-            <para>
-              Specifies the icon model that appears on
-              clients. Defaults to off. Examples: RackMac
-              (same as Xserve), PowerBook, PowerMac, Macmini,
-              iMac, MacBook, MacBookPro, MacBookAir, MacPro,
-              AppleTV1,1, AirPort.
-            </para>
+            <para>Specifies the icon model that appears on clients. Defaults
+            to off. Examples: RackMac (same as Xserve), PowerBook, PowerMac,
+            Macmini, iMac, MacBook, MacBookPro, MacBookAir, MacPro,
+            AppleTV1,1, AirPort.</para>
           </listitem>
         </varlistentry>
 
@@ -997,82 +1034,88 @@ basedir regex = /home
 
           <listitem>
             <para>Specify a server signature. The maximum length is 16
-              characters.
-              This option is useful for clustered environments, to provide
-              fault isolation etc. By default, afpd generate signature
-              and saving it to <filename>:STATEDIR:/netatalk/afp_signature.conf</filename>
-              automatically (based on random number).
-              See also asip-status.pl(1).</para>
+            characters. This option is useful for clustered environments, to
+            provide fault isolation etc. By default, afpd generate signature
+            and saving it to
+            <filename>:STATEDIR:/netatalk/afp_signature.conf</filename>
+            automatically (based on random number). See also
+            asip-status.pl(1).</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>volnamelen = <replaceable>number</replaceable> <type>(G)</type></term>
+          <term>volnamelen = <replaceable>number</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Max length of UTF8-MAC volume name for Mac OS X. Note that
-              Hangul is especially sensitive to this.</para>
+            Hangul is especially sensitive to this.</para>
 
             <para><programlisting>
 73:  limit of Mac OS X 10.1
 80:  limit of Mac OS X 10.4/10.5 (default)
-255: limit of recent Mac OS X</programlisting>
-              Mac OS 9 and earlier are not influenced by
-              this, because Maccharset volume name is always limitted to 27
-              bytes.</para>
+255: limit of recent Mac OS X</programlisting> Mac OS 9 and earlier are not
+            influenced by this, because Maccharset volume name is always
+            limitted to 27 bytes.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>icon = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>no</emphasis>)
-            <type>(G)</type></term>
+          <term>icon = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>no</emphasis>) <type>(G)</type></term>
 
           <listitem>
-            <para>Use the platform-specific icon. Mac OS X doesn't display it.</para>
+            <para>Use the platform-specific icon. Mac OS X doesn't display
+            it.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry id="keep-sessions">
+          <term>keep sessions = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>no</emphasis>) <type>(G)</type></term>
+
+          <listitem>
+            <para>Enable "Continuous AFP Service<indexterm>
+                <primary>Continuous AFP Service</primary>
+              </indexterm>". This means restarting AFP and CNID service
+            daemons master processes, but keeping the AFP session processes.
+            This can be used to install (most) updates to Netatalk without
+            interruping active AFP sessions. Existing AFP sessions will still
+            run the version from before updating, but new AFP sessions will
+            run the updated code. After enabling this option when sending
+            SIGQUIT to the <emphasis>netatalk</emphasis> service controller
+            process, the AFP and CNID daemons will exit and then the service
+            controller will restart them. AFP session processes are notified
+            of the master afpd shutdown, they will then sleep 15-20 seconds
+            and then try to reconnect their IPC channel to the master afpd
+            process. The IPC channel between the AFP master service daemon and
+            the AFP session child is used for keeping session state of AFP
+            sessions in the AFP master process. The session state is needed
+            when AFP clients experience eg network outages and try to
+            reconnect to the AFP server.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>keep sessions = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>no</emphasis>)
-            <type>(G)</type></term>
+          <term>map acls = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>yes</emphasis>) <type>(G)</type></term>
+
           <listitem>
-            <para>Enable "Continuous AFP Service". This means restarting AFP and CNID service daemons master
-              processes, but keeping the AFP session processes. This can be used to install (most) updates to
-              Netatalk without interruping active AFP sessions. Existing AFP sessions will still run the
-              version from before updating, but new AFP sessions will run the updated code.
-              After enabling this option when sending
-              SIGQUIT to the <emphasis>netatalk</emphasis> service controller process, the AFP and CNID
-              daemons will exit and then the service controller will restart them.
-              AFP session processes are notified of the master afpd shutdown, they will then
-              sleep 15-20 seconds and then try to reconnect their IPC channel to the master afpd process.
-              The IPC channel between the AFP master service daemon and the AFP session child is used
-              for keeping session state of AFP sessions in the AFP master process. The session state
-              is needed when AFP clients experience eg network outages and try to reconnect to the
-              AFP server.</para>
+            <para>Whether to map filesystem ACLs to effective
+            permissions.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>map acls = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>yes</emphasis>)
-            <type>(G)</type></term>
+          <term>close vol = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>no</emphasis>) <type>(G)</type></term>
+
           <listitem>
-            <para>Whether to map filesystem ACLs to effective permissions.</para>
+            <para>Whether to close volumes possibly opened by clients when
+            they're removed from the configuration and the configuration is
+            reloaded.</para>
           </listitem>
         </varlistentry>
-
-        <varlistentry>
-          <term>close vol = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>no</emphasis>)
-            <type>(G)</type></term>
-          <listitem>
-            <para>Whether to close volumes possibly opened by clients when they're removed from the configuration
-              and the configuration is reloaded.</para>
-          </listitem>
-        </varlistentry>
-
       </variablelist>
     </refsect2>
 
@@ -1080,40 +1123,38 @@ basedir regex = /home
       <title>Logging Options</title>
 
       <variablelist>
-
         <varlistentry>
-          <term>log file = <replaceable>logfile</replaceable> <type>(G)</type></term>
+          <term>log file = <replaceable>logfile</replaceable>
+          <type>(G)</type></term>
+
           <listitem>
-            <para>
-              If not specified Netatalk logs to syslogs daemon facilify. Otherwise it logs
-              to <option>logfile</option>.
-            </para>
+            <para>If not specified Netatalk logs to syslogs daemon facilify.
+            Otherwise it logs to <option>logfile</option>.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>log level = <replaceable>type:level [type:level  ...]</replaceable> <type>(G)</type></term>
-          <term>log level = <replaceable>type:level,[type:level, ...]</replaceable> <type>(G)</type></term>
+          <term>log level = <replaceable>type:level [type:level
+          ...]</replaceable> <type>(G)</type></term>
+
+          <term>log level = <replaceable>type:level,[type:level,
+          ...]</replaceable> <type>(G)</type></term>
 
           <listitem>
             <para>Specify that any message of a loglevel up to the given
-              <option>log level</option> should be logged.
-            </para>
+            <option>log level</option> should be logged.</para>
 
-            <para>By default afpd logs
-              to syslog with a default logging setup equivalent to
-              <option>default:note</option></para>
+            <para>By default afpd logs to syslog with a default logging setup
+            equivalent to <option>default:note</option></para>
 
             <para>logtypes: default, afpdaemon, logger, uamsdaemon</para>
 
-            <para>loglevels: severe, error, warn, note,
-              info, debug, debug6, debug7, debug8, debug9,
-              maxdebug</para>
+            <para>loglevels: severe, error, warn, note, info, debug, debug6,
+            debug7, debug8, debug9, maxdebug</para>
 
             <note>
               <para>Both logtype and loglevels are case insensitive.</para>
             </note>
-
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1126,21 +1167,23 @@ basedir regex = /home
 
       <variablelist>
         <varlistentry>
-          <term>tickleval = <replaceable>number</replaceable> <type>(G)</type></term>
+          <term>tickleval = <replaceable>number</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Sets the tickle timeout interval (in seconds). Defaults to
-              30.</para>
+            30.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>timeout = <replaceable>number</replaceable> <type>(G)</type></term>
+          <term>timeout = <replaceable>number</replaceable>
+          <type>(G)</type></term>
 
           <listitem>
             <para>Specify the number of tickles to send before timing out a
-              connection. The default is 4, therefore a connection will timeout
-              after 2 minutes.</para>
+            connection. The default is 4, therefore a connection will timeout
+            after 2 minutes.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1153,124 +1196,125 @@ basedir regex = /home
     <refsect2>
       <title>Parameters</title>
 
-      <para>The section name defines the volume name which is the name that appears in the Chooser or the
-        "connect to server" dialog on Macintoshes to represent the appropriate share.
-        No two volumes may have the same name.
-        The volume name cannot contain the <keycode>':'</keycode>
-        character. The volume name is mangled if it is very long. Mac charset
-        volume name is limited to 27 characters. UTF8-MAC volume name is limited
-        to volnamelen parameter.</para>
+      <para>The section name defines the volume name which is the name that
+      appears in the Chooser or the "connect to server" dialog on Macintoshes
+      to represent the appropriate share. No two volumes may have the same
+      name. The volume name cannot contain the <keycode>':'</keycode>
+      character. The volume name is mangled if it is very long. Mac charset
+      volume name is limited to 27 characters. UTF8-MAC volume name is limited
+      to volnamelen parameter.</para>
 
       <variablelist>
-
         <varlistentry>
           <term>path = <replaceable>PATH</replaceable> <type>(V)</type></term>
 
           <listitem>
-            <para>The path name must be a fully qualified path name, or a path name
-              using either the ~ shell shorthand or any of the substitution variables,
-              which are listed below.</para>
+            <para>The path name must be a fully qualified path name, or a path
+            name using either the ~ shell shorthand or any of the substitution
+            variables, which are listed below.</para>
 
-            <para>The volume name is the name that appears in the Chooser ot the
-              "connect to server" dialog on Macintoshes to represent the appropriate
-              share. If volumename is unspecified, the last component of pathname
-              is used. No two volumes may have the same name. If there are spaces in
-              the name, it should be in quotes (i.e. "File Share").
-              The volume name cannot contain the <keycode>':'</keycode>
-              character. The volume name is mangled if it is very long. Mac charset
-              volume name is limited to 27 characters. UTF8-MAC volume name is limited
-              to volnamelen parameter.</para>
+            <para>The volume name is the name that appears in the Chooser ot
+            the "connect to server" dialog on Macintoshes to represent the
+            appropriate share. If volumename is unspecified, the last
+            component of pathname is used. No two volumes may have the same
+            name. If there are spaces in the name, it should be in quotes
+            (i.e. "File Share"). The volume name cannot contain the
+            <keycode>':'</keycode> character. The volume name is mangled if it
+            is very long. Mac charset volume name is limited to 27 characters.
+            UTF8-MAC volume name is limited to volnamelen parameter.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>appledouble = <replaceable>ea|v2</replaceable> <type>(V)</type></term>
+          <term>appledouble = <replaceable>ea|v2</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
             <para>Specify the format of the metadata files, which are used for
-              saving Mac resource fork as well. Earlier versions used AppleDouble
-              v2, the new default format is <emphasis role="bold">ea</emphasis>.
-            </para>
+            saving Mac resource fork as well. Earlier versions used
+            AppleDouble v2, the new default format is <emphasis
+            role="bold">ea</emphasis>.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>vol size limit = <replaceable>size in MiB</replaceable> <type>(V)</type></term>
+          <term>vol size limit = <replaceable>size in MiB</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
             <para>Useful for Time Machine: limits the reported volume size,
-              thus preventing Time Machine from using the whole real disk space for
-              backup. Example: "vol size limit = 1000" would limit the reported
-              disk space to 1 GB. <emphasis role="bold">IMPORTANT: </emphasis>
-              This is an approximated calculation taking into accout
-              the contents of Time Machine sparsebundle images. Therefor you MUST NOT
-              use this volume to store other content when using this
-              option, because it would NOT be accounted.
-              The calculation works by reading the band size from the Info.plist
-              XML file of the sparsebundle, reading the bands/ directory
-              counting the number of band files, and then multiplying one
-              with the other.
-            </para>
-
+            thus preventing Time Machine from using the whole real disk space
+            for backup. Example: "vol size limit = 1000" would limit the
+            reported disk space to 1 GB. <emphasis role="bold">IMPORTANT:
+            </emphasis> This is an approximated calculation taking into accout
+            the contents of Time Machine sparsebundle images. Therefor you
+            MUST NOT use this volume to store other content when using this
+            option, because it would NOT be accounted. The calculation works
+            by reading the band size from the Info.plist XML file of the
+            sparsebundle, reading the bands/ directory counting the number of
+            band files, and then multiplying one with the other.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>valid users = <replaceable>users/groups</replaceable> <type>(V)</type></term>
+          <term>valid users = <replaceable>users/groups</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
             <para>The allow option allows the users and groups that access a
-              share to be specified. Users and groups are specified, delimited by
-              spaces or commas. Groups are designated by a @ prefix. Example:
-              "valid users = user1 user2 @group"</para>
+            share to be specified. Users and groups are specified, delimited
+            by spaces or commas. Groups are designated by a @ prefix. Example:
+            "valid users = user1 user2 @group"</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>invalid users = <replaceable>users/groups</replaceable> <type>(V)</type></term>
+          <term>invalid users = <replaceable>users/groups</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
-            <para>The deny option specifies users and groups who are not allowed
-              access to the share. It follows the same format as the "valid users"
-              option.</para>
+            <para>The deny option specifies users and groups who are not
+            allowed access to the share. It follows the same format as the
+            "valid users" option.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>hosts allow = <replaceable>IP host address/IP netmask bits
-              [ ... ]</replaceable> <type>(V)</type></term>
+          <term>hosts allow = <replaceable>IP host address/IP netmask bits [
+          ... ]</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>Only listed hosts and networks are allowed, all others are
-              rejected. The network address may be specified either in
-              dotted-decimal format for IPv4 or in hexadecimal format for
-              IPv6.</para>
+            rejected. The network address may be specified either in
+            dotted-decimal format for IPv4 or in hexadecimal format for
+            IPv6.</para>
 
-            <para>Example:
-              hosts allow = 10.1.0.0/16 10.2.1.100 2001:0db8:1234::/48</para>
+            <para>Example: hosts allow = 10.1.0.0/16 10.2.1.100
+            2001:0db8:1234::/48</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>hosts deny = <replaceable>IP host address/IP netmask bits
-              [ ... ]</replaceable> <type>(V)</type></term>
+          <term>hosts deny = <replaceable>IP host address/IP netmask bits [
+          ... ]</replaceable> <type>(V)</type></term>
 
           <listitem>
             <para>Listed hosts and nets are rejected, all others are
-              allowed.</para>
+            allowed.</para>
 
-            <para>Example:
-              hosts deny = 192.168.100/24 10.1.1.1 2001:db8::1428:57ab</para>
+            <para>Example: hosts deny = 192.168.100/24 10.1.1.1
+            2001:db8::1428:57ab</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>cnid scheme = <replaceable>backend</replaceable> <type>(V)</type></term>
+          <term>cnid scheme = <replaceable>backend</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
             <para>set the CNID backend to be used for the volume, default is
-              [:DEFAULT_CNID_SCHEME:] available schemes:
-              [:COMPILED_BACKENDS:]</para>
+            [:DEFAULT_CNID_SCHEME:] available schemes:
+            [:COMPILED_BACKENDS:]</para>
           </listitem>
         </varlistentry>
 
@@ -1281,20 +1325,20 @@ basedir regex = /home
             <para>Specify how Extended Attributes<indexterm>
                 <primary>Extended Attributes</primary>
               </indexterm> are stored. <option>auto</option> is the
-              default.</para>
+            default.</para>
 
             <variablelist>
               <varlistentry>
                 <term>auto</term>
 
                 <listitem>
-                  <para>Try <option>sys</option> (by setting an EA on the shared
-                    directory itself), fallback to <option>ad</option>. Requires
-                    writeable volume for perfoming test.
-                    "<option>read only = yes</option>" overwrites <option>auto</option>
-                    with <option>none</option>. Use explicit
-                    "<option>ea = sys|ad</option>" for read-only volumes where
-                    appropiate.</para>
+                  <para>Try <option>sys</option> (by setting an EA on the
+                  shared directory itself), fallback to <option>ad</option>.
+                  Requires writeable volume for perfoming test. "<option>read
+                  only = yes</option>" overwrites <option>auto</option> with
+                  <option>none</option>. Use explicit "<option>ea =
+                  sys|ad</option>" for read-only volumes where
+                  appropiate.</para>
                 </listitem>
               </varlistentry>
 
@@ -1311,7 +1355,7 @@ basedir regex = /home
 
                 <listitem>
                   <para>Use files in <emphasis>.AppleDouble</emphasis>
-                    directories.</para>
+                  directories.</para>
                 </listitem>
               </varlistentry>
 
@@ -1327,14 +1371,15 @@ basedir regex = /home
         </varlistentry>
 
         <varlistentry>
-          <term>mac charset = <replaceable>CHARSET</replaceable> <type>(V)</type></term>
+          <term>mac charset = <replaceable>CHARSET</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
             <para>specifies the Mac client charset for this Volume, e.g.
-              <emphasis>MAC_ROMAN</emphasis>, <emphasis>MAC_CYRILLIC</emphasis>.
-              If not specified the global setting is applied. This setting is only
-              required if you need volumes, where the Mac charset differs from
-              the one globally set in the [Global] section.</para>
+            <emphasis>MAC_ROMAN</emphasis>, <emphasis>MAC_CYRILLIC</emphasis>.
+            If not specified the global setting is applied. This setting is
+            only required if you need volumes, where the Mac charset differs
+            from the one globally set in the [Global] section.</para>
           </listitem>
         </varlistentry>
 
@@ -1343,40 +1388,45 @@ basedir regex = /home
 
           <listitem>
             <para>The casefold option handles, if the case of filenames should
-              be changed. The available options are:</para>
+            be changed. The available options are:</para>
 
             <para><option>tolower</option> - Lowercases names in both
-              directions.</para>
+            directions.</para>
 
             <para><option>toupper</option> - Uppercases names in both
-              directions.</para>
+            directions.</para>
 
             <para><option>xlatelower</option> - Client sees lowercase, server
-              sees uppercase.</para>
+            sees uppercase.</para>
 
             <para><option>xlateupper</option> - Client sees uppercase, server
-              sees lowercase.</para>
+            sees lowercase.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>password = <replaceable>password</replaceable> <type>(V)</type></term>
+          <term>password = <replaceable>password</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
-            <para>This option allows you to set a volume password, which can be
-              a maximum of 8 characters long (using ASCII strongly recommended at
-              the time of this writing).</para>
+            <para>This option allows you to set a volume password, which can
+            be a maximum of 8 characters long (using ASCII strongly
+            recommended at the time of this writing).</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>file perm = <replaceable>mode</replaceable> <type>(V)</type></term>
-          <term>directory perm = <replaceable>mode</replaceable> <type>(V)</type></term>
+          <term>file perm = <replaceable>mode</replaceable>
+          <type>(V)</type></term>
+
+          <term>directory perm = <replaceable>mode</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
-            <para>Add(or) with the client requested permissions:
-              <option>file perm</option> is for files only, <option>directory perm</option> is
-              for directories only. Don't use with "<option>unix priv = no</option>".</para>
+            <para>Add(or) with the client requested permissions: <option>file
+            perm</option> is for files only, <option>directory perm</option>
+            is for directories only. Don't use with "<option>unix priv =
+            no</option>".</para>
 
             <example>
               <title>Volume for a collaborative workgroup</title>
@@ -1388,46 +1438,52 @@ directory perm = 0770</programlisting></para>
         </varlistentry>
 
         <varlistentry>
-          <term>umask = <replaceable>mode</replaceable> <type>(V)</type></term>
+          <term>umask = <replaceable>mode</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
-            <para>set perm mask. Don't use with "<option>unix priv = no</option>".</para>
+            <para>set perm mask. Don't use with "<option>unix priv =
+            no</option>".</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>preexec = <replaceable>command</replaceable> <type>(V)</type></term>
+          <term>preexec = <replaceable>command</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
-            <para>command to be run when the volume is mounted, ignored for user
-              defined volumes</para>
+            <para>command to be run when the volume is mounted, ignored for
+            user defined volumes</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>postexec = <replaceable>command</replaceable> <type>(V)</type></term>
+          <term>postexec = <replaceable>command</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
-            <para>command to be run when the volume is closed, ignored for user
-              defined volumes</para>
+            <para>command to be run when the volume is closed, ignored for
+            user defined volumes</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>root preexec = <replaceable>command</replaceable> <type>(V)</type></term>
+          <term>root preexec = <replaceable>command</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
-            <para>command to be run as root when the volume is mounted, ignored
-              for user defined volumes</para>
+            <para>command to be run as root when the volume is mounted,
+            ignored for user defined volumes</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>root postexec = <replaceable>command</replaceable> <type>(V)</type></term>
+          <term>root postexec = <replaceable>command</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
             <para>command to be run as root when the volume is closed, ignored
-              for user defined volumes</para>
+            for user defined volumes</para>
           </listitem>
         </varlistentry>
 
@@ -1435,30 +1491,31 @@ directory perm = 0770</programlisting></para>
           <term>rolist = <option>users/groups</option> <type>(V)</type></term>
 
           <listitem>
-            <para>Allows certain users and groups to have read-only access to a
-              share. This follows the allow option format.</para>
+            <para>Allows certain users and groups to have read-only access to
+            a share. This follows the allow option format.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>rwlist = <replaceable>users/groups</replaceable> <type>(V)</type></term>
+          <term>rwlist = <replaceable>users/groups</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
-            <para>Allows certain users and groups to have read/write access to a
-              share. This follows the allow option format.</para>
+            <para>Allows certain users and groups to have read/write access to
+            a share. This follows the allow option format.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>veto files = <replaceable>vetoed names</replaceable> <type>(V)</type></term>
+          <term>veto files = <replaceable>vetoed names</replaceable>
+          <type>(V)</type></term>
 
           <listitem>
             <para>hide files and directories,where the path matches one of the
-              '/' delimited vetoed names. The veto string must always be
-              terminated with a '/', eg. "veto1/", "veto1/veto2/".</para>
+            '/' delimited vetoed names. The veto string must always be
+            terminated with a '/', eg. "veto1/", "veto1/veto2/".</para>
           </listitem>
         </varlistentry>
-
       </variablelist>
     </refsect2>
 
@@ -1468,155 +1525,159 @@ directory perm = 0770</programlisting></para>
       <para>Boolean volume options.</para>
 
       <variablelist>
-
         <varlistentry>
-          <term>acls = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>true</emphasis>)
-            <type>(V)</type></term>
+          <term>acls = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>true</emphasis>) <type>(V)</type></term>
+
           <listitem>
-            <para>Whether to flag volumes as supporting ACLs. If ACL support is compiled in,
-              this is true by default.</para>
+            <para>Whether to flag volumes as supporting ACLs. If ACL support
+            is compiled in, this is true by default.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>cnid dev = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>yes</emphasis>)
-            <type>(V)</type></term>
+          <term>cnid dev = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>yes</emphasis>) <type>(V)</type></term>
+
           <listitem>
-            <para>Whether to use the device number in the CNID backends. Helps when the device
-              number is not constant across a reboot, eg cluster, ...</para>
+            <para>Whether to use the device number in the CNID backends. Helps
+            when the device number is not constant across a reboot, eg
+            cluster, ...</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>convert adouble = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>true</emphasis>)
-            <type>(V)</type></term>
+          <term>convert adouble = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>true</emphasis>) <type>(V)</type></term>
+
           <listitem>
-            <para>Whether automatic conversion from <option>appledouble = v2</option> to 
-              <option>appledouble = ea</option> is performed when accessing filesystems
-              from clients. This is generally useful, but costs some performance. It's
-              recommdable to run <command>dbd</command> on volumes and do the conversion with that.
-              Then this option can be set to no.</para>
+            <para>Whether automatic conversion from <option>appledouble =
+            v2</option> to <option>appledouble = ea</option> is performed when
+            accessing filesystems from clients. This is generally useful, but
+            costs some performance. It's recommdable to run
+            <command>dbd</command> on volumes and do the conversion with that.
+            Then this option can be set to no.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>hex encoding = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>yes</emphasis>)
-            <type>(V)</type></term>
+          <term>hex encoding = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>yes</emphasis>) <type>(V)</type></term>
+
           <listitem>
-            <para>Whether :hex encoding is done for file and directory names containing the character <keycode>/</keycode>.
-              Setting this option to no makes the <keycode>/</keycode> character
-              illegal.</para>
+            <para>Whether :hex encoding is done for file and directory names
+            containing the character <keycode>/</keycode>. Setting this option
+            to no makes the <keycode>/</keycode> character illegal.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>invisible dots = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>no</emphasis>)
-            <type>(V)</type></term>
+          <term>invisible dots = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>no</emphasis>) <type>(V)</type></term>
+
           <listitem>
-            <para>make dot files invisible. If "<option>use dots = no</option>",
-            this parameter is not unnecessary.</para>
+            <para>make dot files invisible. If "<option>use dots =
+            no</option>", this parameter is not unnecessary.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>network ids = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>yes</emphasis>)
-            <type>(V)</type></term>
+          <term>network ids = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>yes</emphasis>) <type>(V)</type></term>
+
           <listitem>
-            <para>Whether the server support network ids. Setting this to <emphasis>no</emphasis> will
-            result in the client not using ACL AFP functions.</para>
+            <para>Whether the server support network ids. Setting this to
+            <emphasis>no</emphasis> will result in the client not using ACL
+            AFP functions.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>preexec close = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>no</emphasis>)
-            <type>(V)</type></term>
+          <term>preexec close = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>no</emphasis>) <type>(V)</type></term>
+
           <listitem>
-            <para>A non-zero return code from preexec close the volume
-              being immediately, preventing clients to mount/see the volume
-              in question.</para>
+            <para>A non-zero return code from preexec close the volume being
+            immediately, preventing clients to mount/see the volume in
+            question.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>read only = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>no</emphasis>)
-            <type>(V)</type></term>
+          <term>read only = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>no</emphasis>) <type>(V)</type></term>
+
           <listitem>
-            <para>Specifies the share as being read only for all users. Overwrites
-              <option>ea = auto</option> with <option>ea = none</option></para>
+            <para>Specifies the share as being read only for all users.
+            Overwrites <option>ea = auto</option> with <option>ea =
+            none</option></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>root preexec close= <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>no</emphasis>)
-            <type>(V)</type></term>
+          (default: <emphasis>no</emphasis>) <type>(V)</type></term>
+
           <listitem>
-            <para>A non-zero return code from root_preexec closes the
-              volume immediately, preventing clients to mount/see the volume
-              in question.</para>
+            <para>A non-zero return code from root_preexec closes the volume
+            immediately, preventing clients to mount/see the volume in
+            question.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>search db = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>no</emphasis>)
-            <type>(V)</type></term>
+          <term>search db = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>no</emphasis>) <type>(V)</type></term>
+
           <listitem>
             <para>Use fast CNID database namesearch instead of slow recursive
-              filesystem search. Relies on a consistent CNID database, ie Samba
-              or local filesystem access lead to inaccurate or wrong results.
-              Works only for "dbd" CNID db volumes.</para>
+            filesystem search. Relies on a consistent CNID database, ie Samba
+            or local filesystem access lead to inaccurate or wrong results.
+            Works only for "dbd" CNID db volumes.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>stat vol = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>yes</emphasis>)
-            <type>(V)</type></term>
+          <term>stat vol = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>yes</emphasis>) <type>(V)</type></term>
+
           <listitem>
             <para>Whether to stat volume path when enumerating volumes list,
-              useful for automounting or volumes created by a preexec
-              script.</para>
+            useful for automounting or volumes created by a preexec
+            script.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>time machine = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>no</emphasis>)
-            <type>(V)</type></term>
+          <term>time machine = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>no</emphasis>) <type>(V)</type></term>
+
           <listitem>
-            <para>Whether to enable Time Machine suport for this volume.</para>
+            <para>Whether to enable Time Machine suport for this
+            volume.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>unix priv = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>yes</emphasis>)
-            <type>(V)</type></term>
+          <term>unix priv = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>yes</emphasis>) <type>(V)</type></term>
+
           <listitem>
-            <para>Whether to use AFP3 UNIX privileges. This should be set for OS X clients.
-              See also: <option>file perm</option>, <option>directory perm</option> and <option>umask</option>.</para>
+            <para>Whether to use AFP3 UNIX privileges. This should be set for
+            OS X clients. See also: <option>file perm</option>,
+            <option>directory perm</option> and <option>umask</option>.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>use dots = <replaceable>BOOLEAN</replaceable>
-            (default: <emphasis>yes</emphasis>)
-            <type>(V)</type></term>
+          <term>use dots = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>yes</emphasis>) <type>(V)</type></term>
+
           <listitem>
-            <para>Whether to do :hex translation for dot files.
-              See also <option>invisible dots</option>.</para>              
+            <para>Whether to do :hex translation for dot files. See also
+            <option>invisible dots</option>.</para>
           </listitem>
         </varlistentry>
-
       </variablelist>
     </refsect2>
   </refsect1>
@@ -1625,22 +1686,22 @@ directory perm = 0770</programlisting></para>
     <title>CNID backends</title>
 
     <para>The AFP protocol mostly refers to files and directories by ID and
-      not by name. Netatalk needs a way to store these ID's in a persistent way,
-      to achieve this several different CNID backends are available. The CNID
-      Databases are by default located in the <filename>.AppleDB</filename>
-      folder in the volume root.</para>
+    not by name. Netatalk needs a way to store these ID's in a persistent way,
+    to achieve this several different CNID backends are available. The CNID
+    Databases are by default located in the <filename>.AppleDB</filename>
+    folder in the volume root.</para>
 
     <variablelist>
       <varlistentry>
         <term>cdb</term>
 
         <listitem>
-          <para>"Concurrent database", backend is based on Oracle Berkely
-            DB. With this backend several <command>afpd</command> deamons access
-            the CNID database directly. Berkeley DB locking is used to
-            synchronize access, if more than one <command>afpd</command> process
-            is active for a volume. The drawback is, that the crash of a single
-            <command>afpd</command> process might corrupt the database.</para>
+          <para>"Concurrent database", backend is based on Oracle Berkely DB.
+          With this backend several <command>afpd</command> deamons access the
+          CNID database directly. Berkeley DB locking is used to synchronize
+          access, if more than one <command>afpd</command> process is active
+          for a volume. The drawback is, that the crash of a single
+          <command>afpd</command> process might corrupt the database.</para>
         </listitem>
       </varlistentry>
 
@@ -1649,11 +1710,11 @@ directory perm = 0770</programlisting></para>
 
         <listitem>
           <para>Access to the CNID database is restricted to the
-            <command>cnid_metad</command> daemon process.
-            <command>afpd</command> processes communicate with the daemon for
-            database reads and updates. If built with Berkeley DB transactions
-            the probability for database corruption is practically zero, but
-            performance can be slower than with <option>cdb</option></para>
+          <command>cnid_metad</command> daemon process.
+          <command>afpd</command> processes communicate with the daemon for
+          database reads and updates. If built with Berkeley DB transactions
+          the probability for database corruption is practically zero, but
+          performance can be slower than with <option>cdb</option></para>
         </listitem>
       </varlistentry>
 
@@ -1662,60 +1723,60 @@ directory perm = 0770</programlisting></para>
 
         <listitem>
           <para>This backend is an exception, in terms of ID persistency. ID's
-            are only valid for the current session. This is basically what
-            <command>afpd</command> did in the 1.5 (and 1.6) versions. This
-            backend is still available, as it is useful for e.g. sharing
-            cdroms.</para>
+          are only valid for the current session. This is basically what
+          <command>afpd</command> did in the 1.5 (and 1.6) versions. This
+          backend is still available, as it is useful for e.g. sharing
+          cdroms.</para>
 
           <para><emphasis role="bold">Warning</emphasis>: It is
-            <emphasis>NOT</emphasis> recommended to use this backend for volumes
-            anymore, as <command>afpd</command> now relies heavily on a
-            persistent ID database. Aliases will likely not work and filename
-            mangling is not supported.</para>
+          <emphasis>NOT</emphasis> recommended to use this backend for volumes
+          anymore, as <command>afpd</command> now relies heavily on a
+          persistent ID database. Aliases will likely not work and filename
+          mangling is not supported.</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
     <para>Even though <command>./configure --help</command> might show that
-      there are other CNID backends available, be warned those are likely broken
-      or mainly used for testing. Don't use them unless you know what you're
-      doing, they may be removed without further notice from future
-      versions.</para>
+    there are other CNID backends available, be warned those are likely broken
+    or mainly used for testing. Don't use them unless you know what you're
+    doing, they may be removed without further notice from future
+    versions.</para>
   </refsect1>
 
   <refsect1>
     <title>Charset options</title>
 
     <para>With OS X Apple introduced the AFP3 protocol. One of the most
-      important changes was that AFP3 uses unicode names encoded as UTF-8
-      decomposed. Previous AFP/OS versions used codepages, like MacRoman,
-      MacCentralEurope, etc.</para>
+    important changes was that AFP3 uses unicode names encoded as UTF-8
+    decomposed. Previous AFP/OS versions used codepages, like MacRoman,
+    MacCentralEurope, etc.</para>
 
     <para><command>afpd</command> needs a way to preserve extended macintosh
-      characters, or characters illegal in unix filenames, when saving files on
-      a unix filesystem. Earlier versions used the the so called CAP encoding.
-      An extended character (&gt;0x7F) would be converted to a :xx sequence,
-      e.g. the Apple Logo (MacRoman: 0XF0) was saved as <literal>:f0</literal>.
-      Some special characters will be converted as to :xx notation as well.
-      '<keycode>/</keycode>' will be encoded to <literal>:2f</literal>, if
-      <option>usedots</option> is not specified, a leading dot
-      '<keycode>.</keycode>' will be encoded as <literal>:2e</literal>.</para>
+    characters, or characters illegal in unix filenames, when saving files on
+    a unix filesystem. Earlier versions used the the so called CAP encoding.
+    An extended character (&gt;0x7F) would be converted to a :xx sequence,
+    e.g. the Apple Logo (MacRoman: 0XF0) was saved as <literal>:f0</literal>.
+    Some special characters will be converted as to :xx notation as well.
+    '<keycode>/</keycode>' will be encoded to <literal>:2f</literal>, if
+    <option>usedots</option> is not specified, a leading dot
+    '<keycode>.</keycode>' will be encoded as <literal>:2e</literal>.</para>
 
     <para>This version now uses UTF-8 as the default encoding for names.
-      Special characters, like '<keycode>/</keycode>' and a leading
-      '<keycode>.</keycode>' will still be CAP style encoded .</para>
+    Special characters, like '<keycode>/</keycode>' and a leading
+    '<keycode>.</keycode>' will still be CAP style encoded .</para>
 
     <para>The <option>vol charset</option> option will allow you to select
-      another volume encoding. E.g. for western users another useful setting
-      could be volcharset ISO-8859-15. <command>apfd</command> will accept any
-      <citerefentry>
+    another volume encoding. E.g. for western users another useful setting
+    could be volcharset ISO-8859-15. <command>apfd</command> will accept any
+    <citerefentry>
         <refentrytitle><command>iconv</command></refentrytitle>
 
         <manvolnum>1</manvolnum>
       </citerefentry> provided charset. If a character cannot be converted
-      from the mac codepage to the selected volcharset, afpd will save it as a
-      CAP encoded character. For AFP3 clients, <command>afpd</command> will
-      convert the UTF-8<indexterm>
+    from the mac codepage to the selected volcharset, afpd will save it as a
+    CAP encoded character. For AFP3 clients, <command>afpd</command> will
+    convert the UTF-8<indexterm>
         <primary>UTF8</primary>
 
         <secondary>afpd's volcharset setting</secondary>
@@ -1732,10 +1793,10 @@ directory perm = 0770</programlisting></para>
 
         <secondary>afpd's volcharset setting</secondary>
       </indexterm> character to <option>mac charset</option> first. If this
-      conversion fails, you'll receive a -50 error on the mac.</para>
+    conversion fails, you'll receive a -50 error on the mac.</para>
 
     <para><emphasis>Note</emphasis>: Whenever you can, please stick with the
-      default UTF-8 volume format.</para>
+    default UTF-8 volume format.</para>
   </refsect1>
 
   <refsect1>
@@ -1757,6 +1818,6 @@ directory perm = 0770</programlisting></para>
         <refentrytitle>cnid_metad</refentrytitle>
 
         <manvolnum>8</manvolnum>
-    </citerefentry></para>
+      </citerefentry></para>
   </refsect1>
 </refentry>
