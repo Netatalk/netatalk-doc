@@ -127,7 +127,7 @@ html-upload: htmlpages
                 echo 'Set $$USER to the Sourceforge user'; \
                 exit 1; \
         fi
-        scp html/* $(USER),netatalk@web.sourceforge.net:/home/project-web/netatalk/htdocs/2.2/htmldocs/
+		scp html/* $(USER),netatalk@web.sourceforge.net:/home/project-web/netatalk/htdocs/2.2/htmldocs/
 
 htmlpages:	htmlinit
 		@xsltproc -o html/ $(HTML_XSL_TMP) manual/manual.xml
