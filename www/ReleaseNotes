@@ -28,6 +28,9 @@ Summary of major new features and enhancements in 3.0
   restarting afpd and cnid_metad as necessary
 * AppleTalk support has been removed
 
+Please make sure to read the upgrading section in the Netatalk online
+manual before trying to upgrade your system to 3.0!
+
 License
 ~~~~~~~
 
