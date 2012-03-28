@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="upgrade">
   <chapterinfo>
-    <date>25.3.2012</date>
+    <date>28.3.2012</date>
 
     <author>
       <firstname>Frank</firstname>
@@ -9,7 +9,7 @@
       <surname>Lahm</surname>
     </author>
 
-    <pubdate>25 March, 2012</pubdate>
+    <pubdate>28 March, 2012</pubdate>
   </chapterinfo>
 
   <title>Upgrading from Netatalk 2</title>
@@ -25,7 +25,7 @@
         </listitem>
 
         <listitem>
-          <para>New AppleDouble backend <option>apple double = ea</option>
+          <para>New AppleDouble backend <option>appledouble = ea</option>
           which stores Mac metadata and ressource forks in extended attributes
           of the filesystem</para>
         </listitem>
@@ -57,7 +57,7 @@
     <sect2>
       <title>New AppleDouble backend</title>
 
-      <para>New AppleDouble backend <option>apple double = ea</option> which
+      <para>New AppleDouble backend <option>appledouble = ea</option> which
       stores Mac metadata and ressource forks in extended attributes of the
       filesystem.<itemizedlist>
           <listitem>
@@ -66,12 +66,12 @@
 
           <listitem>
             <para>requires a filesystem with Extended Attributes, fallback is
-            <option>apple double = v2</option></para>
+            <option>appledouble = v2</option></para>
           </listitem>
 
           <listitem>
-            <para>converts filesystems from <option>apple double = v2</option>
-            to <option>apple double = ea</option> on the fly when accessed
+            <para>converts filesystems from <option>appledouble = v2</option>
+            to <option>appledouble = ea</option> on the fly when accessed
             (can be disabled)</para>
           </listitem>
 
@@ -1246,7 +1246,7 @@
             </row>
             <row>
               <entry>adouble:</entry>
-              <entry>apple double</entry>
+              <entry>appledouble</entry>
               <entry>v2</entry>
               <entry>ea</entry>
               <entry>(V)</entry>
@@ -1595,7 +1595,7 @@
 
     <para><itemizedlist>
         <listitem>
-          <para>test <command>ad</command> utils with <option>apple double =
+          <para>test <command>ad</command> utils with <option>appledouble =
           ea</option></para>
         </listitem>
       </itemizedlist></para>
