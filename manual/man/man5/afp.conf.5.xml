@@ -1571,23 +1571,11 @@ directory perm = 0770</programlisting></para>
         </varlistentry>
 
         <varlistentry>
-          <term>hex encoding = <replaceable>BOOLEAN</replaceable> (default:
-          <emphasis>yes</emphasis>) <type>(V)</type></term>
-
-          <listitem>
-            <para>Whether :hex encoding is done for file and directory names
-            containing the character <keycode>/</keycode>. Setting this option
-            to no makes the <keycode>/</keycode> character illegal.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
           <term>invisible dots = <replaceable>BOOLEAN</replaceable> (default:
           <emphasis>no</emphasis>) <type>(V)</type></term>
 
           <listitem>
-            <para>make dot files invisible. If "<option>use dots =
-            no</option>", this parameter is not unnecessary.</para>
+            <para>make dot files invisible.</para>
           </listitem>
         </varlistentry>
 
@@ -1679,15 +1667,6 @@ directory perm = 0770</programlisting></para>
           </listitem>
         </varlistentry>
 
-        <varlistentry>
-          <term>use dots = <replaceable>BOOLEAN</replaceable> (default:
-          <emphasis>yes</emphasis>) <type>(V)</type></term>
-
-          <listitem>
-            <para>Whether to do :hex translation for dot files. See also
-            <option>invisible dots</option>.</para>
-          </listitem>
-        </varlistentry>
       </variablelist>
     </refsect2>
   </refsect1>
