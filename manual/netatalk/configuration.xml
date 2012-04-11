@@ -537,9 +537,10 @@ basedir regex = /RAID./.*homes
 
             <listitem>
               <para>This is the codepage used internally by your operating
-              system. If not specified and your system support Unix locales,
-              afpd tries to detect the codepage, otherwise it defaults to
-              ASCII. afpd uses this codepage to read its configuration files,
+              system. If not specified, it defaults to UTF8. If LOCALE is
+              specified and your system support Unix locales,
+              afpd tries to detect the codepage.
+              afpd uses this codepage to read its configuration files,
               so you can use extended characters for volume names, login
               messages, etc. see <citerefentry>
                   <refentrytitle>afp.conf</refentrytitle>
@@ -582,7 +583,8 @@ basedir regex = /RAID./.*homes
 
             <listitem>
               <para>This defines the charset afpd should use for filenames on
-              disk. The default is UTF8. If you have <ulink
+              disk. By default, it is the same as unix charset.
+              If you have <ulink
               url="http://www.gnu.org/software/libiconv/">iconv</ulink><indexterm>
                   <primary>Iconv</primary>
 
@@ -599,23 +601,24 @@ basedir regex = /RAID./.*homes
                   <secondary>CAP style character encoding</secondary>
                 </indexterm>. An extended character (&gt;0x7F) would be
               converted to a :xx hex sequence, e.g. the Apple Logo (MacRoman:
-              0XF0) was saved as :f0. Some special characters will be
+              0xF0) was saved as :f0. Some special characters will be
               converted as to :xx notation as well. '/' will be encoded to
-              :2f, if <option>usedots</option> is not specified, a leading dot
-              '.' will be encoded as :2e. Even though this version now uses
-              UTF-8 as the default encoding for filenames, special characters,
-              like '/' and a leading '.' will still be CAP style encoded. For
-              western users another useful setting could be
-              <emphasis>-volcharset ISO-8859-15</emphasis>.</para>
+              :2f, if <option>usedots</option> was not specified, a leading dot
+              '.' will be encoded as :2e.</para>
+
+              <para>Even though this version now uses UTF-8 as the default
+              encoding for filenames, '/' will be converted to ':'.
+              For western users another useful setting could be
+              <emphasis>vol charset = ISO-8859-15</emphasis>.</para>
 
               <para>If a character cannot be converted from the mac codepage
-              to the selected volcharset, afpd will save it as a CAP encoded
+              to the selected vol charset, afpd will save it as a CAP encoded
               character. For AFP3 clients, afpd will convert the UTF-8
-              character to <emphasis>maccodepage</emphasis> first. If this
+              character to <emphasis>mac charset</emphasis> first. If this
               conversion fails, you'll receive a -50 error on the mac.
               <emphasis>Note</emphasis>: Whenever you can, please stick with
               the default UTF-8 volume format. see <citerefentry>
-                  <refentrytitle>AppleVolumes.default</refentrytitle>
+                  <refentrytitle>afp.conf</refentrytitle>
 
                   <manvolnum>5</manvolnum>
                 </citerefentry>.</para>

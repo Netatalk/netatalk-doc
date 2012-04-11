@@ -5,7 +5,7 @@
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">26 Mar 2012</refmiscinfo>
+    <refmiscinfo class="date">11 Apr 2012</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -610,10 +610,11 @@ basedir regex = /home
 
           <listitem>
             <para>Specifies the servers unix charset, e.g.
-            <emphasis>ISO-8859-15</emphasis> or <emphasis>UTF8</emphasis>.
+            <emphasis>ISO-8859-15</emphasis> or <emphasis>EUC-JP</emphasis>.
             This is used to convert strings to/from the systems locale, e.g.
-            for authenthication, server messages and volume names. Defaults to
-            the systems locale setting.</para>
+            for authenthication, server messages and volume names.
+            If <emphasis>LOCALE</emphasis> is set, the systems locale is used.
+            Defaults to <emphasis>UTF8</emphasis>.</para>
           </listitem>
         </varlistentry>
 
@@ -636,8 +637,8 @@ basedir regex = /home
           <type>(G)/(V)</type></term>
 
           <listitem>
-            <para>Specifies the encoding of the volumes filesystem, defaults
-            to <emphasis>UTF8</emphasis>.</para>
+            <para>Specifies the encoding of the volumes filesystem. By
+            default, it is the same as <option>unix charset</option>.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1256,7 +1257,7 @@ basedir regex = /home
             thus preventing Time Machine from using the whole real disk space
             for backup. Example: "vol size limit = 1000" would limit the
             reported disk space to 1 GB. <emphasis role="bold">IMPORTANT:
-            </emphasis> This is an approximated calculation taking into accout
+            </emphasis> This is an approimated calculation taking into accout
             the contents of Time Machine sparsebundle images. Therefor you
             MUST NOT use this volume to store other content when using this
             option, because it would NOT be accounted. The calculation works
@@ -1745,42 +1746,42 @@ directory perm = 0770</programlisting></para>
     characters, or characters illegal in unix filenames, when saving files on
     a unix filesystem. Earlier versions used the the so called CAP encoding.
     An extended character (&gt;0x7F) would be converted to a :xx sequence,
-    e.g. the Apple Logo (MacRoman: 0XF0) was saved as <literal>:f0</literal>.
+    e.g. the Apple Logo (MacRoman: 0xF0) was saved as <literal>:f0</literal>.
     Some special characters will be converted as to :xx notation as well.
     '<keycode>/</keycode>' will be encoded to <literal>:2f</literal>, if
     <option>usedots</option> is not specified, a leading dot
     '<keycode>.</keycode>' will be encoded as <literal>:2e</literal>.</para>
 
     <para>This version now uses UTF-8 as the default encoding for names.
-    Special characters, like '<keycode>/</keycode>' and a leading
-    '<keycode>.</keycode>' will still be CAP style encoded .</para>
+    '<keycode>/</keycode>' will be converted to '<keycode>:</keycode>'.</para>
 
     <para>The <option>vol charset</option> option will allow you to select
     another volume encoding. E.g. for western users another useful setting
-    could be volcharset ISO-8859-15. <command>apfd</command> will accept any
+    could be vol charset ISO-8859-15. <command>afpd</command> will accept any
     <citerefentry>
         <refentrytitle><command>iconv</command></refentrytitle>
 
         <manvolnum>1</manvolnum>
       </citerefentry> provided charset. If a character cannot be converted
-    from the mac codepage to the selected volcharset, afpd will save it as a
-    CAP encoded character. For AFP3 clients, <command>afpd</command> will
-    convert the UTF-8<indexterm>
+    from the <option>mac charset</option> to the selected
+    <option>vol charset</option>, afpd will save it as a CAP encoded
+    character. For AFP3 clients, <command>afpd</command> will convert the
+    UTF-8<indexterm>
         <primary>UTF8</primary>
 
-        <secondary>afpd's volcharset setting</secondary>
+        <secondary>afpd's vol charset setting</secondary>
       </indexterm><indexterm>
         <primary>UTF8-MAC</primary>
 
-        <secondary>afpd's volcharset setting</secondary>
+        <secondary>afpd's vol charset setting</secondary>
       </indexterm><indexterm>
         <primary>ISO-8859-15</primary>
 
-        <secondary>afpd's volcharset setting</secondary>
+        <secondary>afpd's vol charset setting</secondary>
       </indexterm><indexterm>
         <primary>ISO-8859-1</primary>
 
-        <secondary>afpd's volcharset setting</secondary>
+        <secondary>afpd's vol charset setting</secondary>
       </indexterm> character to <option>mac charset</option> first. If this
     conversion fails, you'll receive a -50 error on the mac.</para>
 
