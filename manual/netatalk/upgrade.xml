@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="upgrade">
   <chapterinfo>
-    <date>28.3.2012</date>
+    <date>15.4.2012</date>
 
     <author>
       <firstname>Frank</firstname>
@@ -9,7 +9,7 @@
       <surname>Lahm</surname>
     </author>
 
-    <pubdate>28 March, 2012</pubdate>
+    <pubdate>15 Apr, 2012</pubdate>
   </chapterinfo>
 
   <title>Upgrading from Netatalk 2</title>
@@ -223,103 +223,75 @@
     </itemizedlist>
   </sect1>
   <sect1>
-    <title>Table with old and new option names</title>
-    <para>Table:<table frame="all">
-        <title/>
-        <tgroup cols="6">
+    <title>Table with old and new configuration file names</title>
+    <para><table frame="all">
+        <title>old and new configuration file names</title>
+        <tgroup cols="3">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>
           <colspec colname="c3" colnum="3" colwidth="1.0*"/>
-          <colspec colname="c4" colnum="4" colwidth="1.0*"/>
-          <colspec colname="c5" colnum="5" colwidth="1.0*"/>
-          <colspec colname="c6" colnum="6" colwidth="1.0*"/>
           <thead>
             <row>
               <entry>Old File Name</entry>
               <entry>New File Name</entry>
               <entry>Description</entry>
-              <entry/>
-              <entry/>
-              <entry/>
             </row>
           </thead>
           <tbody>
             <row>
-              <entry/>
-              <entry>afp.conf</entry>
+              <entry>-</entry>
+              <entry>etc/afp.conf</entry>
               <entry>new ini-style format</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-            </row>
-            <row>
-              <entry>netatalk.conf</entry>
-              <entry>-</entry>
-              <entry>obsolete</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-            </row>
-            <row>
-              <entry>afpd.conf</entry>
-              <entry>-</entry>
-              <entry>obsolete</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-            </row>
-            <row>
-              <entry>afp_ldap.conf</entry>
-              <entry>-</entry>
-              <entry>obsolete</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-            </row>
-            <row>
-              <entry>AppleVolumes.default</entry>
-              <entry>-</entry>
-              <entry>obsolete</entry>
-              <entry/>
-              <entry/>
-              <entry/>
             </row>
             <row>
               <entry>etc/netatalk/afp_signature.conf</entry>
               <entry>var/netatalk/afp_signature.conf</entry>
-              <entry>moved to var</entry>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>moved to $localstatedir</entry>
             </row>
             <row>
               <entry>etc/netatalk/afp_voluuid.conf</entry>
               <entry>var/netatalk/afp_voluuid.conf</entry>
-              <entry>moved to var</entry>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>moved to $localstatedir</entry>
+            </row>
+            <row>
+              <entry>etc/netatalk/netatalk.conf</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>etc/netatalk/afpd.conf</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>etc/netatalk/afp_ldap.conf</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>etc/netatalk/AppleVolumes.default</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
             </row>
             <row>
               <entry>etc/netatalk/AppleVolumes.system</entry>
               <entry>-</entry>
               <entry>obsolete</entry>
-              <entry/>
-              <entry/>
-              <entry/>
             </row>
             <row>
               <entry>~/.AppleVolumes</entry>
               <entry>-</entry>
               <entry>obsolete</entry>
-              <entry/>
-              <entry/>
-              <entry/>
             </row>
           </tbody>
         </tgroup>
-      </table><table frame="all">
-        <title/>
+      </table></para>
+  </sect1>
+
+  <sect1>
+    <title>Table with old and new option names</title>
+    <para><table frame="all">
+        <title>from netatalk.conf to afp.conf</title>
         <tgroup cols="6">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>
@@ -329,38 +301,30 @@
           <colspec colname="c6" colnum="6" colwidth="1.0*"/>
           <thead>
             <row>
-              <entry>Old File Name</entry>
-              <entry>New File Name</entry>
+              <entry>Old netatalk.conf</entry>
+              <entry>New afp.conf</entry>
+              <entry>Old Default Value</entry>
+              <entry>New Default Value</entry>
+              <entry>Section</entry>
               <entry>Description</entry>
-              <entry/>
-              <entry/>
-              <entry/>
             </row>
           </thead>
           <tbody>
             <row>
-              <entry>netatalk.conf</entry>
-              <entry>afp.conf</entry>
-              <entry>Old Default Value</entry>
-              <entry>New Default Value</entry>
-              <entry>Ssection</entry>
-              <entry>Description</entry>
-            </row>
-            <row>
               <entry>ATALK_NAME</entry>
               <entry>hostname</entry>
-              <entry>hostname</entry>
-              <entry>gethostname()</entry>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>use gethostname() by default</entry>
             </row>
             <row>
               <entry>ATALK_UNIX_CHARSET</entry>
               <entry>unix charset</entry>
-              <entry>LOCALE</entry>
-              <entry>UTF8</entry>
+              <entry><emphasis role="bold">LOCALE</emphasis></entry>
+              <entry><emphasis role="bold">UTF8</emphasis></entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>ATALK_MAC_CHARSET</entry>
@@ -368,15 +332,31 @@
               <entry>MAC_ROMAN</entry>
               <entry>MAC_ROMAN</entry>
               <entry>(G)/(V)</entry>
-              <entry/>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>CNID_METAD_RUN</entry>
+              <entry>-</entry>
+              <entry>yes</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>controlled by netatalk(8)</entry>
+            </row>
+            <row>
+              <entry>AFPD_RUN</entry>
+              <entry>-</entry>
+              <entry>yes</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>controlled by netatalk(8)</entry>
             </row>
             <row>
               <entry>AFPD_MAX_CLIENTS</entry>
               <entry>max connections</entry>
-              <entry>20.0</entry>
-              <entry>200.0</entry>
+              <entry><emphasis role="bold">20</emphasis></entry>
+              <entry><emphasis role="bold">200</emphasis></entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>AFPD_UAMLIST</entry>
@@ -384,7 +364,7 @@
               <entry>-U uams_dhx.so,uams_dhx2.so</entry>
               <entry>uams_dhx.so uams_dhx2.so</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>AFPD_GUEST</entry>
@@ -392,7 +372,7 @@
               <entry>nobody</entry>
               <entry>nobody</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>CNID_CONFIG</entry>
@@ -400,84 +380,68 @@
               <entry>-l log_note</entry>
               <entry>cnid:note</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
-              <entry/>
+              <entry>CNID_CONFIG</entry>
               <entry>log file</entry>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>ATALKD_RUN</entry>
               <entry>-</entry>
               <entry>no</entry>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>AppleTalk is obsoleted</entry>
             </row>
             <row>
               <entry>PAPD_RUN</entry>
-              <entry/>
+              <entry>-</entry>
               <entry>no</entry>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>AppleTalk is obsoleted</entry>
             </row>
             <row>
               <entry>TIMELORD_RUN</entry>
-              <entry/>
+              <entry>-</entry>
               <entry>no</entry>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>AppleTalk is obsoleted</entry>
             </row>
             <row>
               <entry>A2BOOT_RUN</entry>
-              <entry/>
+              <entry>-</entry>
               <entry>no</entry>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>AppleTalk is obsoleted</entry>
             </row>
             <row>
               <entry>ATALK_BGROUND</entry>
-              <entry/>
+              <entry>-</entry>
               <entry>no</entry>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>AppleTalk is obsoleted</entry>
             </row>
             <row>
               <entry>ATALK_ZONE</entry>
-              <entry/>
               <entry>-</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-            </row>
-            <row>
-              <entry>CNID_METAD_RUN</entry>
+              <entry>no</entry>
               <entry>-</entry>
-              <entry>yes</entry>
               <entry>-</entry>
-              <entry/>
-              <entry>controled by netatalk(8)</entry>
-            </row>
-            <row>
-              <entry>AFPD_RUN</entry>
-              <entry/>
-              <entry>yes</entry>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>AppleTalk is obsoleted</entry>
             </row>
           </tbody>
         </tgroup>
       </table><table frame="all">
-        <title/>
+        <title>from afpd.conf to afp.conf</title>
         <tgroup cols="6">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>
@@ -487,30 +451,22 @@
           <colspec colname="c6" colnum="6" colwidth="1.0*"/>
           <thead>
             <row>
-              <entry>Old File Name</entry>
-              <entry>New File Name</entry>
+              <entry>Old afpd.conf</entry>
+              <entry>New afp.conf</entry>
+              <entry>Old Default Value</entry>
+              <entry>New Default Value</entry>
+              <entry>Section</entry>
               <entry>Description</entry>
-              <entry/>
-              <entry/>
-              <entry/>
             </row>
           </thead>
           <tbody>
             <row>
-              <entry>afpd.conf</entry>
-              <entry>afp.conf</entry>
-              <entry>Old Default Value</entry>
-              <entry>New Default Value</entry>
-              <entry>Effective section</entry>
-              <entry>Description</entry>
-            </row>
-            <row>
               <entry>1st field ("-" or "server name")</entry>
               <entry>hostname</entry>
-              <entry>hostname</entry>
-              <entry>gethostname()</entry>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>use gethostname() by default</entry>
             </row>
             <row>
               <entry>-uamlist</entry>
@@ -518,7 +474,7 @@
               <entry>-U uams_dhx.so,uams_dhx2.so</entry>
               <entry>uams_dhx.so uams_dhx2.so</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-nozeroconf</entry>
@@ -526,7 +482,7 @@
               <entry>-</entry>
               <entry>yes (if supported)</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-[no]icon</entry>
@@ -534,7 +490,7 @@
               <entry>-noicon</entry>
               <entry>no</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-advertise_ssh</entry>
@@ -542,7 +498,7 @@
               <entry>-</entry>
               <entry>no</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-keepsessions</entry>
@@ -550,15 +506,15 @@
               <entry>-</entry>
               <entry>no</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-[no]savepassword</entry>
               <entry>save password</entry>
-              <entry>-nosavepassword</entry>
+              <entry>-savepassword</entry>
               <entry>yes</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-[no]setpassword</entry>
@@ -566,7 +522,7 @@
               <entry>-nosetpassword</entry>
               <entry>no</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-client_polling</entry>
@@ -574,15 +530,15 @@
               <entry>-</entry>
               <entry>yes</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-hostname</entry>
               <entry>hostname</entry>
-              <entry>$h</entry>
-              <entry>gethostname()</entry>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>use gethostname() by default</entry>
             </row>
             <row>
               <entry>-loginmesg</entry>
@@ -590,7 +546,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-guestname</entry>
@@ -598,7 +554,7 @@
               <entry>nobody</entry>
               <entry>nobody</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-passwdfile</entry>
@@ -606,7 +562,7 @@
               <entry>afppasswd</entry>
               <entry>afppasswd</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-passwdminlen</entry>
@@ -614,55 +570,55 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-tickleval</entry>
               <entry>tickleval</entry>
-              <entry>30.0</entry>
-              <entry>30.0</entry>
+              <entry>30</entry>
+              <entry>30</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-timeout</entry>
               <entry>timeout</entry>
-              <entry>4.0</entry>
-              <entry>4.0</entry>
+              <entry>4</entry>
+              <entry>4</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-sleep</entry>
               <entry>sleep time</entry>
-              <entry>10.0</entry>
-              <entry>10.0</entry>
+              <entry>10</entry>
+              <entry>10</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-dsireadbuf</entry>
               <entry>dsireadbuf</entry>
-              <entry>12.0</entry>
-              <entry>12.0</entry>
+              <entry>12</entry>
+              <entry>12</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-server_quantum</entry>
               <entry>server quantum</entry>
-              <entry>303840.0</entry>
-              <entry>303840.0</entry>
+              <entry>303840</entry>
+              <entry>303840</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-volnamelen</entry>
               <entry>volnamelen</entry>
-              <entry>80.0</entry>
-              <entry>80.0</entry>
+              <entry>80</entry>
+              <entry>80</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-setuplog</entry>
@@ -670,15 +626,15 @@
               <entry>default log_note</entry>
               <entry>default:note</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
-              <entry/>
+              <entry>-setuplog</entry>
               <entry>log file</entry>
-              <entry/>
+              <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-admingroup</entry>
@@ -686,7 +642,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-k5service</entry>
@@ -694,7 +650,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-k5realm</entry>
@@ -702,7 +658,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-k5keytab</entry>
@@ -710,23 +666,23 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-uampath</entry>
               <entry>uam path</entry>
-              <entry>uams/</entry>
-              <entry>uams/</entry>
+              <entry><emphasis role="bold">etc/netatalk/uams/</emphasis></entry>
+              <entry><emphasis role="bold">lib/netatalk/</emphasis></entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>moved to $libdir</entry>
             </row>
             <row>
               <entry>-ipaddr</entry>
               <entry>afp listen</entry>
               <entry>-</entry>
-              <entry>-.0.0 ::</entry>
+              <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-cnidserver</entry>
@@ -734,15 +690,15 @@
               <entry>localhost:4700</entry>
               <entry>localhost:4700</entry>
               <entry>(G)/(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-port</entry>
               <entry>port</entry>
-              <entry>548.0</entry>
-              <entry>548.0</entry>
+              <entry>548</entry>
+              <entry>548</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-signature</entry>
@@ -750,7 +706,7 @@
               <entry>auto</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-fqdn</entry>
@@ -758,15 +714,15 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-unixcodepage</entry>
               <entry>unix charset</entry>
-              <entry>LOCALE</entry>
-              <entry>UTF8</entry>
+              <entry><emphasis role="bold">LOCALE</emphasis></entry>
+              <entry><emphasis role="bold">UTF8</emphasis></entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-maccodepage</entry>
@@ -774,7 +730,7 @@
               <entry>MAC_ROMAN</entry>
               <entry>MAC_ROMAN</entry>
               <entry>(G)/(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-closevol</entry>
@@ -782,7 +738,7 @@
               <entry>-</entry>
               <entry>no</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-ntdomain</entry>
@@ -790,7 +746,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-ntseparator</entry>
@@ -798,31 +754,31 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-dircachesize</entry>
               <entry>dircachesize</entry>
-              <entry>8192.0</entry>
-              <entry>8192.0</entry>
+              <entry>8192</entry>
+              <entry>8192</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-tcpsndbuf</entry>
               <entry>tcpsndbuf</entry>
-              <entry>OS default</entry>
-              <entry>OS default</entry>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>OS default</entry>
             </row>
             <row>
               <entry>-tcprcvbuf</entry>
               <entry>tcprcvbuf</entry>
-              <entry>OS default</entry>
-              <entry>OS default</entry>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>OS default</entry>
             </row>
             <row>
               <entry>-fcelistener</entry>
@@ -830,7 +786,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-fcecoalesce</entry>
@@ -838,7 +794,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-fceevents</entry>
@@ -846,15 +802,15 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-fceholdfmod</entry>
               <entry>fce holdfmod</entry>
-              <entry>60.0</entry>
-              <entry>60.0</entry>
+              <entry>60</entry>
+              <entry>60</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-mimicmodel</entry>
@@ -862,7 +818,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-adminauthuser</entry>
@@ -870,63 +826,71 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>-noacl2maccess</entry>
+              <entry>map acls</entry>
+              <entry>-</entry>
+              <entry>yes</entry>
+              <entry>(G)</entry>
+              <entry>-</entry>
             </row>
             <row>
               <entry>-[no]tcp</entry>
               <entry>-</entry>
               <entry>-tcp</entry>
               <entry>-</entry>
-              <entry/>
-              <entry>always TCP</entry>
+              <entry>-</entry>
+              <entry>always TCP only</entry>
             </row>
             <row>
               <entry>-[no]ddp</entry>
-              <entry/>
+              <entry>-</entry>
               <entry>-noddp</entry>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>AppleTalk is obsoleted</entry>
             </row>
             <row>
               <entry>-[no]transall</entry>
-              <entry/>
+              <entry>-</entry>
               <entry>-tcp -noddp</entry>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>always TCP only</entry>
             </row>
             <row>
               <entry>-nodebug</entry>
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry/>
-              <entry>set it at command line</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
             </row>
             <row>
               <entry>-[no]slp</entry>
               <entry>-</entry>
+              <entry>-noslp</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry/>
               <entry>SLP support is obsoleted</entry>
             </row>
             <row>
               <entry>-[no]uservolfirst</entry>
               <entry>-</entry>
-              <entry>-</entry>
+              <entry>-nouservolfirst</entry>
               <entry>-</entry>
               <entry>-</entry>
               <entry>uservol is obsoleted</entry>
             </row>
             <row>
               <entry>-[no]uservol</entry>
-              <entry/>
               <entry>-</entry>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>-uservol</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>uservol is obsoleted</entry>
             </row>
             <row>
               <entry>-proxy</entry>
@@ -946,16 +910,16 @@
             </row>
             <row>
               <entry>-systemvol</entry>
-              <entry/>
+              <entry>-</entry>
               <entry>AppleVolumes.system</entry>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>afp.conf only</entry>
             </row>
             <row>
               <entry>-loginmaxfail</entry>
               <entry>-</entry>
-              <entry/>
+              <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
               <entry>not supported from the biginning</entry>
@@ -966,7 +930,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry/>
+              <entry>obsolete</entry>
             </row>
             <row>
               <entry>-authprintdir</entry>
@@ -984,18 +948,10 @@
               <entry>-</entry>
               <entry>AppleTalk is obsoleted</entry>
             </row>
-            <row>
-              <entry>-noacl2maccess</entry>
-              <entry/>
-              <entry>-</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-            </row>
           </tbody>
         </tgroup>
       </table><table frame="all">
-        <title/>
+        <title>from afp_ldap.conf to afp.conf</title>
         <tgroup cols="6">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>
@@ -1005,30 +961,22 @@
           <colspec colname="c6" colnum="6" colwidth="1.0*"/>
           <thead>
             <row>
-              <entry>Old File Name</entry>
-              <entry>New File Name</entry>
+              <entry>Old afp_ldap.conf</entry>
+              <entry>New afp.conf</entry>
+              <entry>Old Default Value</entry>
+              <entry>New Defalut Value</entry>
+              <entry>Section</entry>
               <entry>Description</entry>
-              <entry/>
-              <entry/>
-              <entry/>
             </row>
           </thead>
           <tbody>
-            <row>
-              <entry>afpd_ldap.conf</entry>
-              <entry>afp.conf</entry>
-              <entry>Old Default Value</entry>
-              <entry>New Default Value</entry>
-              <entry>Effective section</entry>
-              <entry>Description</entry>
-            </row>
             <row>
               <entry>ldap_server</entry>
               <entry>ldap server</entry>
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>ldap_auth_method</entry>
@@ -1036,7 +984,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>ldap_auth_dn</entry>
@@ -1044,7 +992,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>ldap_auth_pw</entry>
@@ -1052,7 +1000,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>ldap_userbase</entry>
@@ -1060,7 +1008,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>ldap_userscope</entry>
@@ -1068,7 +1016,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>ldap_groupbase</entry>
@@ -1076,7 +1024,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>ldap_groupscope</entry>
@@ -1084,7 +1032,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>ldap_uuid_attr</entry>
@@ -1092,7 +1040,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>ldap_name_attr</entry>
@@ -1100,7 +1048,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry> ldap_group_attr</entry>
@@ -1108,12 +1056,12 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
           </tbody>
         </tgroup>
       </table><table frame="all">
-        <title/>
+        <title>from AppleVolumes.* to afp.conf</title>
         <tgroup cols="6">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>
@@ -1123,54 +1071,46 @@
           <colspec colname="c6" colnum="6" colwidth="1.0*"/>
           <thead>
             <row>
-              <entry>Old File Name</entry>
-              <entry>New File Name</entry>
+              <entry>Old AppleVolumes.*</entry>
+              <entry>New afp.conf</entry>
+              <entry>Old Default Value</entry>
+              <entry>New Defalut Value</entry>
+              <entry>Section</entry>
               <entry>Description</entry>
-              <entry/>
-              <entry/>
-              <entry/>
             </row>
           </thead>
           <tbody>
             <row>
-              <entry>AppleVolumes.default</entry>
-              <entry>afp.conf</entry>
-              <entry>Old Default Value</entry>
-              <entry>New Default Value</entry>
-              <entry>Effective section</entry>
-              <entry>Description</entry>
-            </row>
-            <row>
               <entry>:DEFAULT:</entry>
-              <entry>use "vol preset ="</entry>
-              <entry>options:upriv,usedots (none if not set)</entry>
               <entry>-</entry>
-              <entry/>
+              <entry>options:upriv,usedots</entry>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>use "vol preset ="</entry>
             </row>
             <row>
-              <entry>"~"</entry>
-              <entry>[Homes] section</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-              <entry>Don't forget "basedir regex="</entry>
+              <entry>1st field ("~")</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>use [Homes] section</entry>
             </row>
             <row>
-              <entry>1st field</entry>
+              <entry>1st field ("/path")</entry>
               <entry>path</entry>
-              <entry>path</entry>
+              <entry>-</entry>
               <entry>-</entry>
               <entry>(V)</entry>
-              <entry>Volume path</entry>
+              <entry>-</entry>
             </row>
             <row>
               <entry>2nd field</entry>
-              <entry>section name</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-              <entry>Volume name</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>use section name</entry>
             </row>
             <row>
               <entry>allow:</entry>
@@ -1178,7 +1118,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>deny:</entry>
@@ -1186,7 +1126,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>rwlist:</entry>
@@ -1194,7 +1134,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>rolist:</entry>
@@ -1202,15 +1142,15 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>volcharset:</entry>
               <entry>vol charset</entry>
-              <entry>UTF8</entry>
-              <entry>UTF8</entry>
+              <entry><emphasis role="bold">UTF8</emphasis></entry>
+              <entry><emphasis role="bold">(same as unix charset)</emphasis></entry>
               <entry>(G)/(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>maccharset:</entry>
@@ -1218,7 +1158,7 @@
               <entry>MAC_ROMAN</entry>
               <entry>MAC_ROMAN</entry>
               <entry>(G)/(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>veto:</entry>
@@ -1226,15 +1166,15 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>cnidscheme:</entry>
               <entry>cnid scheme</entry>
-              <entry/>
-              <entry/>
+              <entry>dbd</entry>
+              <entry>dbd</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>casefold:</entry>
@@ -1242,127 +1182,15 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>adouble:</entry>
               <entry>appledouble</entry>
-              <entry>v2</entry>
-              <entry>ea</entry>
+              <entry><emphasis role="bold">v2</emphasis></entry>
+              <entry><emphasis role="bold">ea</emphasis></entry>
               <entry>(V)</entry>
               <entry>v1, osx and sfm are obsoleted</entry>
-            </row>
-            <row>
-              <entry>options:ro</entry>
-              <entry>read only</entry>
-              <entry>-</entry>
-              <entry>no</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:nohex</entry>
-              <entry>hex encoding</entry>
-              <entry>-</entry>
-              <entry>yes</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:usedots</entry>
-              <entry>use dots</entry>
-              <entry>-</entry>
-              <entry>yes</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:invisibledots</entry>
-              <entry>invisible dots</entry>
-              <entry>-</entry>
-              <entry>no</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:nostat</entry>
-              <entry>stat vol</entry>
-              <entry>-</entry>
-              <entry>yes</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:preexec_close</entry>
-              <entry>preexec close</entry>
-              <entry>-</entry>
-              <entry>no</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:root_preexec_close</entry>
-              <entry>root preexec close</entry>
-              <entry>-</entry>
-              <entry>no</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:upriv</entry>
-              <entry>unix priv</entry>
-              <entry>-</entry>
-              <entry>yes</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:nodev</entry>
-              <entry>cnid dev</entry>
-              <entry>-</entry>
-              <entry>yes</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:illegalseq</entry>
-              <entry>illegal seq</entry>
-              <entry>-</entry>
-              <entry>no</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:tm</entry>
-              <entry>time machine</entry>
-              <entry>-</entry>
-              <entry>no</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:searchdb</entry>
-              <entry>search db</entry>
-              <entry>-</entry>
-              <entry>no</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:nonetids</entry>
-              <entry>network ids</entry>
-              <entry>-</entry>
-              <entry>yes</entry>
-              <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:noacls</entry>
-              <entry>acls</entry>
-              <entry>-</entry>
-              <entry>yes</entry>
-              <entry>(V)</entry>
-              <entry/>
             </row>
             <row>
               <entry>cnidserver:</entry>
@@ -1370,95 +1198,95 @@
               <entry>localhost:4700</entry>
               <entry>localhost:4700</entry>
               <entry>(G)/(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>dbpath:</entry>
               <entry>vol dbpath</entry>
-              <entry>volume directory</entry>
-              <entry>var/netatalk/CNID/$v</entry>
+              <entry><emphasis role="bold">(volume directory)</emphasis></entry>
+              <entry><emphasis role="bold">var/netatalk/CNID/$v</emphasis></entry>
               <entry>(G)</entry>
-              <entry/>
+              <entry>moved to $localstatedir</entry>
             </row>
             <row>
               <entry>umask:</entry>
               <entry>umask</entry>
-              <entry/>
-              <entry/>
+              <entry>0000</entry>
+              <entry>0000</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>dperm:</entry>
               <entry>directory perm</entry>
-              <entry>-</entry>
-              <entry>-</entry>
+              <entry>0000</entry>
+              <entry>0000</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>fperm:</entry>
               <entry>file perm</entry>
-              <entry>-</entry>
-              <entry>-</entry>
+              <entry>0000</entry>
+              <entry>0000</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>password:</entry>
               <entry>password</entry>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>root_preexec:</entry>
               <entry>root preexec</entry>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>preexec:</entry>
               <entry>preexec</entry>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>root_postexec:</entry>
               <entry>root postexec</entry>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>postexec:</entry>
               <entry>postexec</entry>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>allowed_hosts:</entry>
               <entry>hosts allow</entry>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>denied_hosts:</entry>
               <entry>hosts deny</entry>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>ea:</entry>
@@ -1466,7 +1294,7 @@
               <entry>auto</entry>
               <entry>auto</entry>
               <entry>(V)</entry>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>volsizelimit:</entry>
@@ -1474,100 +1302,15 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>(V)</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry/>
-              <entry/>
-              <entry/>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
             </row>
             <row>
               <entry>perm:</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-              <entry/>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
               <entry>Use "directory perm" and "file perm"</entry>
-            </row>
-            <row>
-              <entry>options:nofileid</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:prodos</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-              <entry/>
-              <entry>legacy</entry>
-            </row>
-            <row>
-              <entry>options:mswindows</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-              <entry/>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:crlf</entry>
-              <entry/>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry>legacy</entry>
-            </row>
-            <row>
-              <entry>options:noadouble</entry>
-              <entry/>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:limitsize</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry>legacy</entry>
-            </row>
-            <row>
-              <entry>options:dropbox</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry>legacy</entry>
-            </row>
-            <row>
-              <entry>options:dropkludge</entry>
-              <entry/>
-              <entry/>
-              <entry/>
-              <entry/>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:nocnidcache</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry/>
-            </row>
-            <row>
-              <entry>options:caseinsensitive</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry>-</entry>
-              <entry/>
             </row>
             <row>
               <entry>forceuid:</entry>
@@ -1575,7 +1318,7 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry/>
+              <entry>obsolete</entry>
             </row>
             <row>
               <entry>forcegid:</entry>
@@ -1583,7 +1326,199 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>-</entry>
-              <entry/>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>options:ro</entry>
+              <entry>read only</entry>
+              <entry>-</entry>
+              <entry>no</entry>
+              <entry>(V)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>options:invisibledots</entry>
+              <entry>invisible dots</entry>
+              <entry>-</entry>
+              <entry>no</entry>
+              <entry>(V)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>options:nostat</entry>
+              <entry>stat vol</entry>
+              <entry>-</entry>
+              <entry>yes</entry>
+              <entry>(V)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>options:preexec_close</entry>
+              <entry>preexec close</entry>
+              <entry>-</entry>
+              <entry>no</entry>
+              <entry>(V)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>options:root_preexec_close</entry>
+              <entry>root preexec close</entry>
+              <entry>-</entry>
+              <entry>no</entry>
+              <entry>(V)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>options:upriv</entry>
+              <entry>unix priv</entry>
+              <entry>-</entry>
+              <entry><emphasis role="bold">yes</emphasis></entry>
+              <entry>(V)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>options:nodev</entry>
+              <entry>cnid dev</entry>
+              <entry>-</entry>
+              <entry>yes</entry>
+              <entry>(V)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>options:illegalseq</entry>
+              <entry>illegal seq</entry>
+              <entry>-</entry>
+              <entry>no</entry>
+              <entry>(V)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>options:tm</entry>
+              <entry>time machine</entry>
+              <entry>-</entry>
+              <entry>no</entry>
+              <entry>(V)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>options:searchdb</entry>
+              <entry>search db</entry>
+              <entry>-</entry>
+              <entry>no</entry>
+              <entry>(V)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>options:nonetids</entry>
+              <entry>network ids</entry>
+              <entry>-</entry>
+              <entry>yes</entry>
+              <entry>(V)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>options:noacls</entry>
+              <entry>acls</entry>
+              <entry>-</entry>
+              <entry>yes</entry>
+              <entry>(V)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>options:nohex</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>auto-convert from ":2f" to ":"</entry>
+            </row>
+            <row>
+              <entry>options:usedots</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>auto-convert from ":2e" to "."</entry>
+            </row>
+            <row>
+              <entry>options:nofileid</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>options:prodos</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>options:mswindows</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>options:crlf</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>options:noadouble</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>options:limitsize</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>options:dropbox</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>options:dropkludge</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>options:nocnidcache</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
+            </row>
+            <row>
+              <entry>options:caseinsensitive</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
             </row>
           </tbody>
         </tgroup>
