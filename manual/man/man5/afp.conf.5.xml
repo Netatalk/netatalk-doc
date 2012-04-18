@@ -5,7 +5,7 @@
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">11 Apr 2012</refmiscinfo>
+    <refmiscinfo class="date">18 Apr 2012</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -1196,6 +1196,24 @@ basedir regex = /home
             connection. The default is 4, therefore a connection will timeout
             after 2 minutes.</para>
           </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>client polling = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>no</emphasis>) <type>(G)</type></term>
+
+        <listitem>
+          <para>With this option enabled, afpd won't advertise that it is
+          capable of server notifications, so that connected clients poll the
+          server every 10 seconds to detect changes in opened server windows.
+          <emphasis>Note</emphasis>: Depending on the number of simultaneously
+          connected clients and the network's speed, this can lead to a
+          significant higher load on your network!</para>
+          <para>Do not use this option any longer as present Netatalk
+          correctly supports server notifications, allowing connected
+          clients to update folder listings in case another client changed
+          the contents.</para>
+        </listitem>
         </varlistentry>
       </variablelist>
     </refsect2>

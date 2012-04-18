@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="upgrade">
   <chapterinfo>
-    <date>15.4.2012</date>
+    <date>18.4.2012</date>
 
     <author>
       <firstname>Frank</firstname>
@@ -9,7 +9,7 @@
       <surname>Lahm</surname>
     </author>
 
-    <pubdate>15 Apr, 2012</pubdate>
+    <pubdate>18 Apr, 2012</pubdate>
   </chapterinfo>
 
   <title>Upgrading from Netatalk 2</title>
@@ -528,7 +528,7 @@
               <entry>-client_polling</entry>
               <entry>client polling</entry>
               <entry>-</entry>
-              <entry>yes</entry>
+              <entry>no</entry>
               <entry>(G)</entry>
               <entry>-</entry>
             </row>
