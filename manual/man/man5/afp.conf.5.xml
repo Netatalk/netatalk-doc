@@ -1019,7 +1019,7 @@ basedir regex = /home
 
         <varlistentry>
           <term>login message = <replaceable>message</replaceable>
-          <type>(G)</type></term>
+          <type>(G)/(V)</type></term>
 
           <listitem>
             <para>Sets a message to be displayed when clients logon to the
