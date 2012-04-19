@@ -1118,6 +1118,17 @@ basedir regex = /home
         </varlistentry>
 
         <varlistentry>
+          <term>solaris share reservations = <replaceable>BOOLEAN</replaceable> (default:
+          <emphasis>yes</emphasis>) <type>(G)</type></term>
+
+          <listitem>
+            <para>Use share reservations on Solaris. Solaris CIFS server
+              uses this too, so this makes a lock coherent multi protocol server.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>close vol = <replaceable>BOOLEAN</replaceable> (default:
           <emphasis>no</emphasis>) <type>(G)</type></term>
 
