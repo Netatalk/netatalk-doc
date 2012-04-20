@@ -1,8 +1,8 @@
-Netatalk 3.0 alpha2
+Netatalk 3.0 alpha3
 ===================
 
 The Netatalk development team is proud to announce the release of
-the second alpha version of the new major Netatalk release 3.0.
+the third alpha version of the new major Netatalk release 3.0.
 This release is NOT intended for production systems. 
 
 Netatalk is a freely-available Open Source AFP fileserver.
@@ -27,6 +27,7 @@ Summary of major new features and enhancements in 3.0
 * New service controller process "netatalk" responsible for starting and
   restarting afpd and cnid_metad as necessary
 * AppleTalk support has been removed
+* Coherent cross-platform locking with Solaris CIFS server
 
 Please make sure to read the upgrading section in the Netatalk online
 manual before trying to upgrade your system to 3.0!
@@ -39,6 +40,25 @@ the GNU General Public License (GPLv2).  The full license text is available
 at:
 
   http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+
+Changes in 3.0 alpha3
+~~~~~~~~~~~~~~~~~~~~~
+
+* NEW: afpd: Per volume "login message", NetAFP bug ID #18
+* NEW: afpd: Cross-platform locking (share modes) on Solaris and derivates
+       with Solaris CIFS/SMB server. Uses new Solaris fcntl F_SHARE share
+       reservation locking primitives. Enabled by default, set global
+       "solaris share reservations" option to false to disable it.
+* NEW: ad: ad set subcommand for changing Mac metadata on the server
+* UPD: unix charset is UTF8 by default
+       vol charset is same value as unix charset by default
+* UPD: .AppleDesktop/ are stored in $localstatedir/netatalk/CNID
+       (default: /var/netatalk/CNID), databases found in AFP volumes are
+       automatically moved
+* FIX: afpd: Server info packet was malformed resulting in broken
+       server names being displayed on clients
+* FIX: afpd: Byte order detection. Fixes an error where Netatalk on
+       OpenIndiana returned wrong volume size information.
 
 Changes in 3.0 alpha2
 ~~~~~~~~~~~~~~~~~~~~~
