@@ -1274,8 +1274,9 @@ aclmode = passthrough (if available)</screen>
     specific startup script templates that are tailored according to the
     options given to the "configure" script before compiling. Currently,
     templates are provided for RedHat (sysv style), RedHat (systemd style),
-    SuSE, Gentoo, NetBSD and Debian. You can select to install the generated
-    startup script(s) <indexterm>
+    SUSE (sysv style), SUSE (systemd style), Gentoo, NetBSD, Debian and
+    Solaris. You can select to install the generated startup script(s)
+    <indexterm>
         <primary>Startscript</primary>
 
         <secondary>startup script</secondary>
