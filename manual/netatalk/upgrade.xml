@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="upgrade">
   <chapterinfo>
-    <date>18.4.2012</date>
+    <date>26.4.2012</date>
 
     <author>
       <firstname>Frank</firstname>
@@ -9,7 +9,7 @@
       <surname>Lahm</surname>
     </author>
 
-    <pubdate>18 Apr, 2012</pubdate>
+    <pubdate>26 Apr, 2012</pubdate>
   </chapterinfo>
 
   <title>Upgrading from Netatalk 2</title>
@@ -1037,6 +1037,14 @@
             <row>
               <entry>ldap_uuid_attr</entry>
               <entry>ldap uuid attr</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+              <entry>(G)</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>ldap_uuid_string</entry>
+              <entry>ldap uuid string</entry>
               <entry>-</entry>
               <entry>-</entry>
               <entry>(G)</entry>
