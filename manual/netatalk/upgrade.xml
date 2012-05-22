@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="upgrade">
   <chapterinfo>
-    <date>26.4.2012</date>
+    <date>22.5.2012</date>
 
     <author>
       <firstname>Frank</firstname>
@@ -9,7 +9,7 @@
       <surname>Lahm</surname>
     </author>
 
-    <pubdate>26 Apr, 2012</pubdate>
+    <pubdate>22 May, 2012</pubdate>
   </chapterinfo>
 
   <title>Upgrading from Netatalk 2</title>
@@ -1212,7 +1212,7 @@
               <entry>dbpath:</entry>
               <entry>vol dbpath</entry>
               <entry><emphasis role="bold">(volume directory)</emphasis></entry>
-              <entry><emphasis role="bold">var/netatalk/CNID/$v</emphasis></entry>
+              <entry><emphasis role="bold">var/netatalk/CNID/</emphasis></entry>
               <entry>(G)</entry>
               <entry>moved to $localstatedir</entry>
             </row>
