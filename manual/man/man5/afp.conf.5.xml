@@ -1571,7 +1571,7 @@ directory perm = 0770</programlisting></para>
         </varlistentry>
 
         <varlistentry>
-          <term>convert adouble = <replaceable>BOOLEAN</replaceable> (default:
+          <term>convert appledouble = <replaceable>BOOLEAN</replaceable> (default:
           <emphasis>true</emphasis>) <type>(V)</type></term>
 
           <listitem>
