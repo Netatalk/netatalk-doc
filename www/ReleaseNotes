@@ -1,9 +1,9 @@
-Netatalk 2.2.2
+Netatalk 2.2.3
 ==============
 
-The Netatalk development team is proud to announce version 2.2.2 of
-the Netatalk File Sharing suite. This is the first update to the new 2.2
-release series. All users are encouraged to upgrade their systems to 2.2.2.
+The Netatalk development team is proud to announce version 2.2.3 of
+the Netatalk File Sharing suite. This is the latest update to the 2.2
+release series. All users are encouraged to upgrade their systems to 2.2.3.
 
 Netatalk is a freely-available Open Source AFP fileserver. It also
 provides a kernel level implementation of the AppleTalk Protocol Suite.
@@ -53,8 +53,33 @@ at:
 
   http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 
+Changes in 2.2.3
+~~~~~~~~~~~~~~~~
+* NEW: afpd: support for mdnsresponder
+* NEW: afpd: new LDAP config option ldap_uuid_string
+* UPD: based on Unicode 6.1.0
+* UPD: experimental systemd service files: always run both afpd and cnid_metad
+* UPD: afpd: Ensure our umask is not altered by eg pam_umask
+* UPD: afpd: Use GSS_C_NO_NAME as server principal when Kerberos options -fqdn
+       and -krb5service are not set, from Jamie Gilbertson
+* UPD: afpd: Changed behaviour for TimeMachine volumes in case there's a problem
+       talking to the CNID daemons. Previously the volume was flagged read-only
+       and an AFP message was sent to the client. As this might result in
+       TimeMachine assuming the backup sparse bundle is damaged, we now just
+       switch the CNID database to an in-memory tdb without the additional stuff.
+* FIX: afpd: sendfile() on FreeBSD was broken, courtesy of Denis Ahrens
+* FIX: afpd: Dont use searchdb when doing partial name search
+* FIX: afpd: Fix a possible bug handling disconnected sessions,
+       NetAFP Bug ID #16
+* FIX: afpd: Close IPC fds in afpd session child inherited from the afpd
+       master process
+* FIX: dbd: Don't remove BerkeleyDB if it's still in use by eg cnid_dbd, fixes
+       bug introduced in 2.2.2
+* FIX: debian initscript: start avahi-daemon (if available) before atalkd
+* FIX: Zeroconf could not advertise non-ASCII time machine volume name
+
 Changes in 2.2.2
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 * NEW: afpd: New option "adminauthuser". Specifying eg "-adminauthuser root"
        whenever a normal user login fails, afpd tries to authenticate as
        the specified adminauthuser. If this succeeds, a normal session is
@@ -311,4 +336,4 @@ We would like to thank all contributors to the Netatalk project for
 their commitment.  Without the many suggestions, bug and problem reports,
 patches, and reviews this project wouldn't be where it is.
 
- - The Netatalk Development Team, January 2012
+ - The Netatalk Development Team, May 2012
