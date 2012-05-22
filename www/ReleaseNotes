@@ -1,8 +1,8 @@
-Netatalk 3.0 alpha3
-===================
+Netatalk 3.0 beta1
+==================
 
 The Netatalk development team is proud to announce the release of
-the third alpha version of the new major Netatalk release 3.0.
+the first beta version of the new major Netatalk release 3.0.
 This release is NOT intended for production systems. 
 
 Netatalk is a freely-available Open Source AFP fileserver.
@@ -40,6 +40,16 @@ the GNU General Public License (GPLv2).  The full license text is available
 at:
 
   http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+
+Changes in 3.0 beta1
+~~~~~~~~~~~~~~~~~~~~
+
+* UPD: afpd: Performance tuning of read/write AFP operations. New option
+       "afp read locks" (default: no) which disables that the server
+       applies UNIX byte range locks to regions of files in AFP read and
+       write calls.
+* UPD: apple_dump: Extended Attributes AppleDouble support.
+       (*BSD is not supported yet)
 
 Changes in 3.0 alpha3
 ~~~~~~~~~~~~~~~~~~~~~
@@ -158,4 +168,4 @@ We would like to thank all contributors to the Netatalk project for
 their commitment.  Without the many suggestions, bug and problem reports,
 patches, and reviews this project wouldn't be where it is.
 
- - The Netatalk Development Team, April 2012
+ - The Netatalk Development Team, May 2012
