@@ -5,7 +5,7 @@
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">22 May 2012</refmiscinfo>
+    <refmiscinfo class="date">05 Jun 2012</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -1691,8 +1691,9 @@ directory perm = 0770</programlisting></para>
     <para>The AFP protocol mostly refers to files and directories by ID and
     not by name. Netatalk needs a way to store these ID's in a persistent way,
     to achieve this several different CNID backends are available. The CNID
-    Databases are by default located in the <filename>.AppleDB</filename>
-    folder in the volume root.</para>
+    Databases are by default located in the
+    <filename>:STATEDIR:/netatalk/CNID/(volumename)/.AppleDB/</filename>
+    directory.</para>
 
     <variablelist>
       <varlistentry>
@@ -1729,7 +1730,8 @@ directory perm = 0770</programlisting></para>
           are only valid for the current session. This is basically what
           <command>afpd</command> did in the 1.5 (and 1.6) versions. This
           backend is still available, as it is useful for e.g. sharing
-          cdroms.</para>
+          cdroms. Starting with Netatalk 3.0, it becomes the <emphasis>read
+          only mode</emphasis> automatically.</para>
 
           <para><emphasis role="bold">Warning</emphasis>: It is
           <emphasis>NOT</emphasis> recommended to use this backend for volumes
