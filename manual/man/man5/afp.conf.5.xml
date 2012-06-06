@@ -5,7 +5,7 @@
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">05 Jun 2012</refmiscinfo>
+    <refmiscinfo class="date">06 Jun 2012</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -993,15 +993,6 @@ basedir regex = /home
           <listitem>
             <para>AFP user home volume name. The default is <emphasis>users's
             home</emphasis>.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>icon = <replaceable>BOOLEAN</replaceable> (default:
-          <emphasis>no</emphasis>) <type>(G)</type></term>
-          <listitem>
-            <para>Use the platform-specific icon. Mac OS X doesn't display
-            it.</para>
           </listitem>
         </varlistentry>
 

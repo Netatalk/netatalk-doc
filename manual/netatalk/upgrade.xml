@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="upgrade">
   <chapterinfo>
-    <date>22.5.2012</date>
+    <date>6.6.2012</date>
 
     <author>
       <firstname>Frank</firstname>
@@ -9,7 +9,7 @@
       <surname>Lahm</surname>
     </author>
 
-    <pubdate>22 May, 2012</pubdate>
+    <pubdate>06 Jun, 2012</pubdate>
   </chapterinfo>
 
   <title>Upgrading from Netatalk 2</title>
@@ -485,14 +485,6 @@
               <entry>-</entry>
             </row>
             <row>
-              <entry>-[no]icon</entry>
-              <entry>icon</entry>
-              <entry>-noicon</entry>
-              <entry>no</entry>
-              <entry>(G)</entry>
-              <entry>-</entry>
-            </row>
-            <row>
               <entry>-advertise_ssh</entry>
               <entry>advertise ssh</entry>
               <entry>-</entry>
@@ -947,6 +939,14 @@
               <entry>-</entry>
               <entry>-</entry>
               <entry>AppleTalk is obsoleted</entry>
+            </row>
+            <row>
+              <entry>-[no]icon</entry>
+              <entry>-</entry>
+              <entry>-noicon</entry>
+              <entry></entry>
+              <entry>-</entry>
+              <entry>obsolete</entry>
             </row>
           </tbody>
         </tgroup>
