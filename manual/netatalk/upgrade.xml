@@ -149,7 +149,7 @@
           </listitem>
 
           <listitem>
-            <para>Removed type/creator &lt;-&gt; extension mapping
+            <para>Removed type/creator extension mapping
             support</para>
           </listitem>
         </itemizedlist></para>
@@ -169,27 +169,19 @@
         </listitem>
 
         <listitem>
-          <para>Manually re-create configuration in
+          <para>Manually recreate configuration in
           <option>afp.conf</option></para>
         </listitem>
 
         <listitem>
           <para>Update your Netatalk start script (SMF, systemd, whatever...)
-          to only start <link linkend="netatalk.8">netatalk</link>, not
-          <command>afpd</command> not <command>cnid_metad</command></para>
-        </listitem>
-
-        <listitem>
-          <para>The volume option <option>dbpath</option> has been made a
-          global option called <option>vol dbpath</option>. It doesn’t support
-          or require the use of variables, so make sure you remove
-          them!</para>
+          to only start <link linkend="netatalk.8">netatalk</link></para>
         </listitem>
 
         <listitem>
           <para>Move <filename>afp_voluuid.conf</filename> and
-          <filename>afp_signature.conf</filename> to state directory (default
-          <filename>/var/netatalk/</filename>), use <command>afpd -v</command>
+          <filename>afp_signature.conf</filename> to the localstate directory (default
+          <filename>/var/netatalk/</filename>), you can use <command>afpd -v</command>
           in order to find the correct path</para>
         </listitem>
 
@@ -206,17 +198,17 @@
       <listitem>
         <para>Solaris ZFS permissions</para>
 
-        <para>On Solaris w. ZFS you have to make sure connecting users have
-        filesystem access rights to read, create, modify (default: yes) and
+        <para>On Solaris with ZFS you have to make sure users have
+        filesystem permissions to read, create, modify (default: yes) and
         delete (default: no) extended attributes.</para>
 
-        <para>To grant this right to a group called “staff” you’d use this
+        <para>To grant this right to a group “staff” you’d use this
         command:</para>
 
         <para><command>pfexec chmod A+group:staff:RW:fd:allow
         /Volumes/test/</command></para>
 
-        <para>Remember to run this once before you share a volume such that
+        <para>Remember to run this once before you share a volume so that
         this permission inherits appropiately (fd flags in above
         command).</para>
       </listitem>
