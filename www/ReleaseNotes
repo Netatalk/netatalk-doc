@@ -1,9 +1,8 @@
-Netatalk 3.0 beta2
-==================
+Netatalk 3.0
+============
 
 The Netatalk development team is proud to announce the release of
-the second beta version of the new major Netatalk release 3.0.
-This release is NOT intended for production systems. 
+Netatalk 3.0. Early adopters are encouraged to upgrade their systems to 3.0.
 
 Netatalk is a freely-available Open Source AFP fileserver.
 A *NIX/*BSD system running Netatalk is capable of serving many Macintosh
@@ -32,6 +31,8 @@ Summary of major new features and enhancements in 3.0
 Please make sure to read the upgrading section in the Netatalk online
 manual before trying to upgrade your system to 3.0!
 
+  http://netatalk.sourceforge.net/3.0/htmldocs/upgrade.html
+
 License
 ~~~~~~~
 
@@ -40,6 +41,14 @@ the GNU General Public License (GPLv2).  The full license text is available
 at:
 
   http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+
+
+Changes in 3.0
+~~~~~~~~~~~~~~
+
+* UPD: afpd: force read only mode if cnid scheme is last
+* REM: afpd: removed global option "icon"
+* FIX: CNID path for user homes
 
 Changes in 3.0 beta2
 ~~~~~~~~~~~~~~~~~~~~
@@ -130,7 +139,7 @@ As of Netatalk 3.0 the following operating systems are supported:
  * Linux
  * OpenBSD
  * NetBSD
- * [Open]Solaris
+ * Solaris and derivates
 
 Netatalk may compile and run on other operating systems as well, but
 it is not well-tested on those.  We welcome patches and suggestions
@@ -174,4 +183,4 @@ We would like to thank all contributors to the Netatalk project for
 their commitment.  Without the many suggestions, bug and problem reports,
 patches, and reviews this project wouldn't be where it is.
 
- - The Netatalk Development Team, June 2012
+ - The Netatalk Development Team, July 2012
