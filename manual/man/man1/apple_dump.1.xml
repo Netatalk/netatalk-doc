@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">02 Jul 2012</refmiscinfo>
+    <refmiscinfo class="date">16 Jul 2012</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -80,7 +80,10 @@
   <refsect1 id="description">
     <title>DESCRIPTION</title>
 
-    <para><command>apple_dump</command> dump AppleSingle/AppleDouble format data.</para>
+    <para><command>apple_dump</command> is a perl script to dump
+    AppleSingle/AppleDouble format data. </para>
+    <para>This script can dump various AppleSingle/AppleDouble data created
+    by mailer, archiver, Mac OS X, Netatalk and so on.</para>
     <para>With no <replaceable>FILE</replaceable>|<replaceable>DIR</replaceable>, or when <replaceable>FILE</replaceable>|<replaceable>DIR</replaceable> is -, read standard input.</para>
 
   </refsect1>
@@ -90,7 +93,7 @@
 
     <variablelist remap="TP">
       <varlistentry>
-        <term><option>-a</option> <replaceable>FILE</replaceable>|<replaceable>DIR</replaceable></term>
+        <term><option>-a</option> [<replaceable>FILE</replaceable>|<replaceable>DIR</replaceable>]</term>
 
         <listitem>
           <para>This is default.
@@ -117,7 +120,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><option>-f</option> <replaceable>FILE</replaceable></term>
+        <term><option>-f</option> [<replaceable>FILE</replaceable>]</term>
 
         <listitem>
           <para>Dump <replaceable>FILE</replaceable>. Assume FinderInfo to be FileInfo.</para>
@@ -125,7 +128,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><option>-d</option> <replaceable>FILE</replaceable></term>
+        <term><option>-d</option> [<replaceable>FILE</replaceable>]</term>
 
         <listitem>
           <para>Dump <replaceable>FILE</replaceable>. Assume FinderInfo to be DirInfo.</para>
@@ -172,6 +175,8 @@
     <para><citerefentry><refentrytitle>ad</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
     <citerefentry><refentrytitle>getfattr</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
     <citerefentry><refentrytitle>attr</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-    <citerefentry><refentrytitle>runat</refentrytitle><manvolnum>1</manvolnum></citerefentry></para>
+    <citerefentry><refentrytitle>runat</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+    <citerefentry><refentrytitle>getextattr</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+    <citerefentry><refentrytitle>lsextattr</refentrytitle><manvolnum>8</manvolnum></citerefentry></para>
   </refsect1>
 </refentry>
