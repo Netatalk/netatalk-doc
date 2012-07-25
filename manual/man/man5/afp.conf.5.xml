@@ -5,7 +5,7 @@
 
     <manvolnum>5</manvolnum>
 
-    <refmiscinfo class="date">06 Jun 2012</refmiscinfo>
+    <refmiscinfo class="date">25 Jul 2012</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -448,6 +448,38 @@ basedir regex = /home
             <para>Format of the uuid string in the directory. A series of x and -,
               where every x denotes a value 0-9a-f and every - is a seperator.</para>
             <para>Default: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>ldap uuid encoding = <parameter>string | ms-guid (default: string)</parameter>
+          <type>(G)</type></term>
+          <listitem>
+            <para>Format of the UUID of the LDAP attribute, allows usage of the binary objectGUID
+              fields from Active Directory. If left unspecified, string is the default, which
+              passes through the ASCII UUID returned by most other LDAP stores. If set to ms-guid,
+              the internal UUID representation is converted to and from the binary format used in the
+              objectGUID attribute found on objects in Active Directory when interacting
+              with the server.</para>
+
+            <para><variablelist>
+                <varlistentry>
+                  <term>string</term>
+
+                  <listitem>
+                    <para>UUID is a string, use with eg OpenDirectory.</para>
+                  </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                  <term>ms-guid</term>
+
+                  <listitem>
+                    <para>Binary objectGUID from Active Directory</para>
+                  </listitem>
+                </varlistentry>
+
+              </variablelist></para>
           </listitem>
         </varlistentry>
 
