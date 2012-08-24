@@ -9,7 +9,7 @@
       <surname>Lahm</surname>
     </author>
 
-    <pubdate>06 Jun, 2012</pubdate>
+    <pubdate>24 Aug, 2012</pubdate>
   </chapterinfo>
 
   <title>Upgrading from Netatalk 2</title>
@@ -19,14 +19,14 @@
 
     <para>There are two major changes in Netatalk:<orderedlist>
         <listitem>
-          <para>New configuration file <option><link
-          linkend="afp.conf.5">afp.conf</link></option>, obsoleting all
+          <para>New configuration file <filename><link
+          linkend="afp.conf.5">afp.conf</link></filename>, obsoleting all
           previous configuration files</para>
         </listitem>
 
         <listitem>
-          <para>New AppleDouble backend <option>appledouble = ea</option>
-          which stores Mac metadata and ressource forks in extended attributes
+          <para>New AppleDouble backend "<option>appledouble = ea</option>"
+          which stores Mac metadata and resource forks in extended attributes
           of the filesystem</para>
         </listitem>
       </orderedlist></para>
@@ -45,8 +45,10 @@
           </listitem>
 
           <listitem>
-            <para>obsoletes afpd.conf, netatalk.conf, AppleVolumes.default and
-            afp_ldap.conf</para>
+            <para>obsoletes <filename>afpd.conf</filename>,
+            <filename>netatalk.conf</filename>,
+            <filename>AppleVolumes.default</filename> and
+            <filename>afp_ldap.conf</filename></para>
           </listitem>
         </itemizedlist><warning>
           <para>most option names have changed, read the full manpage <link
@@ -57,8 +59,8 @@
     <sect2>
       <title>New AppleDouble backend</title>
 
-      <para>New AppleDouble backend <option>appledouble = ea</option> which
-      stores Mac metadata and ressource forks in extended attributes of the
+      <para>New AppleDouble backend "<option>appledouble = ea</option>" which
+      stores Mac metadata and resource forks in extended attributes of the
       filesystem.<itemizedlist>
           <listitem>
             <para>default backend (!)</para>
@@ -66,12 +68,12 @@
 
           <listitem>
             <para>requires a filesystem with Extended Attributes, fallback is
-            <option>appledouble = v2</option></para>
+            "<option>appledouble = v2</option>"</para>
           </listitem>
 
           <listitem>
-            <para>converts filesystems from <option>appledouble = v2</option>
-            to <option>appledouble = ea</option> on the fly when accessed
+            <para>converts filesystems from "<option>appledouble = v2</option>"
+            to "<option>appledouble = ea</option>" on the fly when accessed
             (can be disabled)</para>
           </listitem>
 
@@ -85,20 +87,20 @@
           <listitem>
             <para>stores Mac Metadata (eg FinderInfo, AFP Flags, Comment,
             CNID) in an Extended Attributed named
-            “org.netatalk.Metadata”</para>
+            “<filename>org.netatalk.Metadata</filename>”</para>
           </listitem>
 
           <listitem>
-            <para>stores Mac RessourceFork either in<itemizedlist>
+            <para>stores Mac ResourceFork either in<itemizedlist>
                 <listitem>
                   <para>an Extended Attribute named
-                  “org.netatalk.RessourceFork” on Solaris (FreeBSD?) w. ZFS,
-                  or in</para>
+                  “<filename>org.netatalk.ResourceFork</filename>”
+                  on Solaris (FreeBSD?) w. ZFS, or in</para>
                 </listitem>
 
                 <listitem>
-                  <para>an extra AppleDouble file named “._file” for a file
-                  named “file”</para>
+                  <para>an extra AppleDouble file named “<filename>._file</filename>” for a file
+                  named “<filename>file</filename>”</para>
                 </listitem>
               </itemizedlist></para>
           </listitem>
@@ -108,14 +110,15 @@
             client expects it when accessing the same filesystem via a CIFS
             server (Samba), thus you can have parallel access from Macs to the
             same dataset via AFP and CIFS without the risk of loosing data
-            (ressources or metadata). Accessing the same dataset with CIFS
-            from Windows clients will still break the coupling of “file” and
-            “._file” on non ZFS filesystems (see above), so for this we still
+            (resources or metadata). Accessing the same dataset with CIFS
+            from Windows clients will still break the coupling of
+            “<filename>file</filename>” and “<filename>._file</filename>”
+            on non ZFS filesystems (see above), so for this we still
             need an enhanced Samba VFS module (in the works).</para>
           </listitem>
         </itemizedlist></para>
 
-      <para>As these days the only applications making use of Ressource Forks
+      <para>As these days the only applications making use of Resource Forks
       are Adobe Photoshop (image preview) and Postscript Type 1 fonts, even on
       eg Linux you’ll get rid of 99% of any extra Netatalk AppleDouble files
       (and folders).</para>
@@ -232,46 +235,47 @@
           <tbody>
             <row>
               <entry>-</entry>
-              <entry>etc/afp.conf</entry>
+              <entry><filename>etc/afp.conf</filename></entry>
               <entry>new ini-style format</entry>
             </row>
             <row>
-              <entry>etc/netatalk/afp_signature.conf</entry>
-              <entry>var/netatalk/afp_signature.conf</entry>
+              <entry><filename>etc/netatalk/afp_signature.conf</filename></entry>
+              <entry><filename>var/netatalk/afp_signature.conf</filename></entry>
               <entry>moved to $localstatedir</entry>
             </row>
             <row>
-              <entry>etc/netatalk/afp_voluuid.conf</entry>
-              <entry>var/netatalk/afp_voluuid.conf</entry>
+              <entry><filename>etc/netatalk/afp_voluuid.conf</filename></entry>
+              <entry><filename>var/netatalk/afp_voluuid.conf</filename></entry>
               <entry>moved to $localstatedir</entry>
             </row>
             <row>
-              <entry>etc/netatalk/netatalk.conf</entry>
+              <entry><filename>etc/netatalk/netatalk.conf</filename>
+              (<filename>/etc/default/netatalk</filename>)</entry>
               <entry>-</entry>
               <entry>obsolete</entry>
             </row>
             <row>
-              <entry>etc/netatalk/afpd.conf</entry>
+              <entry><filename>etc/netatalk/afpd.conf</filename></entry>
               <entry>-</entry>
               <entry>obsolete</entry>
             </row>
             <row>
-              <entry>etc/netatalk/afp_ldap.conf</entry>
+              <entry><filename>etc/netatalk/afp_ldap.conf</filename></entry>
               <entry>-</entry>
               <entry>obsolete</entry>
             </row>
             <row>
-              <entry>etc/netatalk/AppleVolumes.default</entry>
+              <entry><filename>etc/netatalk/AppleVolumes.default</filename></entry>
               <entry>-</entry>
               <entry>obsolete</entry>
             </row>
             <row>
-              <entry>etc/netatalk/AppleVolumes.system</entry>
+              <entry><filename>etc/netatalk/AppleVolumes.system</filename></entry>
               <entry>-</entry>
               <entry>obsolete</entry>
             </row>
             <row>
-              <entry>~/.AppleVolumes</entry>
+              <entry><filename>~/.AppleVolumes</filename></entry>
               <entry>-</entry>
               <entry>obsolete</entry>
             </row>
@@ -283,7 +287,7 @@
   <sect1>
     <title>Table with old and new option names</title>
     <para><table frame="all">
-        <title>from netatalk.conf to afp.conf</title>
+        <title>from netatalk.conf (/etc/default/netatalk) to afp.conf</title>
         <tgroup cols="6">
           <colspec colname="c1" colnum="1" colwidth="1.0*"/>
           <colspec colname="c2" colnum="2" colwidth="1.0*"/>

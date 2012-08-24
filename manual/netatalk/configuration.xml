@@ -35,11 +35,7 @@
       over AFP. Two new functions ensure that backups are written to spinning
       disk, not just in the server's cache. Different host operating systems
       honour this cache flushing differently. To make a volume a Time Machine
-      target use the <citerefentry>
-          <refentrytitle>AppleVolumes.default</refentrytitle>
-
-          <manvolnum>5</manvolnum>
-        </citerefentry> volume option <option>tm</option>.</para>
+      target use the volume option "<option>time machine = yes</option>".</para>
 
       <para>Starting with Netatalk 2.1 UNIX symlinks<indexterm>
           <primary>symlink</primary>
@@ -53,11 +49,11 @@
       <sect3>
         <title>afp.conf</title>
 
-        <para><filename>afpd.conf</filename> is the configuration file used by
+        <para><filename>afp.conf</filename> is the configuration file used by
         afpd to determine the behaviour and configuration of the AFP file
         serverand the AFP volume that it provides.</para>
 
-        <para>The <filename>afpd.conf</filename> is divided into several
+        <para>The <filename>afp.conf</filename> is divided into several
         sections:<variablelist>
             <varlistentry>
               <term>[Global]</term>
@@ -77,7 +73,7 @@
           </variablelist>Any section not called <option>Global</option> or
         <option>Homes</option> is interpreted as an AFP volume.</para>
 
-        <para>For sharing user homes by defining a Homes section you must
+        <para>For sharing user homes by defining a <option>Homes</option> section you must
         specify the option <option>basedir regex</option> which can be a
         simple string with the path to the parent directory of all user homes
         or a regular expression.</para>
@@ -222,7 +218,7 @@ basedir regex = /RAID./.*homes
             <secondary>"cdb" CNID backend</secondary>
           </indexterm></title>
 
-        <para>The "concurrent database" backend is based on sleepycat's
+        <para>The "concurrent database" backend is based on
         Berkeley DB. With this backend, several afpd daemons access the CNID
         database directly. Berkeley DB locking is used to synchronize access,
         if more than one afpd process is active for a volume. The drawback is,
@@ -538,7 +534,7 @@ basedir regex = /RAID./.*homes
 
             <listitem>
               <para>This is the codepage used internally by your operating
-              system. If not specified, it defaults to UTF8. If LOCALE is
+              system. If not specified, it defaults to <option>UTF8</option>. If <option>LOCALE</option> is
               specified and your system support Unix locales,
               afpd tries to detect the codepage.
               afpd uses this codepage to read its configuration files,
@@ -559,7 +555,7 @@ basedir regex = /RAID./.*homes
               </indexterm></term>
 
             <listitem>
-              <para>As already mentioned, older MacOS clients (up to AFP 2.2)
+              <para>As already mentioned, older Mac OS clients (up to AFP 2.2)
               use codepages to communicate with afpd. However, there is no
               support for negotiating the codepage used by the client in the
               AFP protocol. If not specified otherwise, afpd assumes the
@@ -584,7 +580,7 @@ basedir regex = /RAID./.*homes
 
             <listitem>
               <para>This defines the charset afpd should use for filenames on
-              disk. By default, it is the same as unix charset.
+              disk. By default, it is the same as <option>unix charset</option>.
               If you have <ulink
               url="http://www.gnu.org/software/libiconv/">iconv</ulink><indexterm>
                   <primary>Iconv</primary>
@@ -607,18 +603,18 @@ basedir regex = /RAID./.*homes
               :2f, if <option>usedots</option> was not specified, a leading dot
               '.' will be encoded as :2e.</para>
 
-              <para>Even though this version now uses UTF-8 as the default
+              <para>Even though this version now uses <option>UTF8</option> as the default
               encoding for filenames, '/' will be converted to ':'.
               For western users another useful setting could be
-              <emphasis>vol charset = ISO-8859-15</emphasis>.</para>
+              <option>vol charset = ISO-8859-15</option>.</para>
 
-              <para>If a character cannot be converted from the mac codepage
-              to the selected vol charset, afpd will save it as a CAP encoded
-              character. For AFP3 clients, afpd will convert the UTF-8
-              character to <emphasis>mac charset</emphasis> first. If this
+              <para>If a character cannot be converted from the <option>mac charset</option>
+              to the selected <option>vol charset</option>, afpd will save it as a CAP encoded
+              character. For AFP3 clients, afpd will convert the UTF8
+              character to <option>mac charset</option> first. If this
               conversion fails, you'll receive a -50 error on the mac.
               <emphasis>Note</emphasis>: Whenever you can, please stick with
-              the default UTF-8 volume format. see <citerefentry>
+              the default UTF8 volume format. see <citerefentry>
                   <refentrytitle>afp.conf</refentrytitle>
 
                   <manvolnum>5</manvolnum>
@@ -753,7 +749,7 @@ basedir regex = /RAID./.*homes
 
                 <secondary>"Client Krb v2" UAM (Kerberos V)</secondary>
               </indexterm> UAM (Kerberos V, suitable for "Single Sign On"
-            Scenarios with Mac OS X clients -- see below)</para>
+            Scenarios with OS X clients -- see below)</para>
 
             <para><filename>"--enable-krbV-uam"</filename> will provide you
             with the ability to use this UAM.</para>
@@ -761,11 +757,8 @@ basedir regex = /RAID./.*homes
         </itemizedlist>
 
         <para>You can configure which UAMs should be activated by defining
-        <filename>$AFPD_UAM_LIST</filename> in <citerefentry>
-            <refentrytitle>netatalk.conf</refentrytitle>
-
-            <manvolnum>5</manvolnum>
-          </citerefentry>. <command>afpd</command> will log which UAMs it's
+        "<option>uam list</option>" in <option>Global</option> section.
+        <command>afpd</command> will log which UAMs it's
         using and if problems occur while activating them in either
         <filename>netatalk.log</filename> or syslog at startup time.
         <citerefentry>
@@ -777,12 +770,11 @@ basedir regex = /RAID./.*homes
 
         <para>Having a specific UAM available at the server does not
         automatically mean that a client can use it. Client-side support is
-        also necessary. Fortunately this isn't such a problem these days since
-        Mac OS X' AFP-client supports DHCAST128 from the beginning on. For
+        also necessary. For
         older Macintoshes running Mac OS &lt; X DHCAST128 support exists since
         AppleShare client 3.8.x.</para>
 
-        <para>On Mac OS X, there exist some client-side techniques to make the
+        <para>On OS X, there exist some client-side techniques to make the
         AFP-client more verbose, so one can have a look what's happening while
         negotiating the UAMs to use. Compare with this <ulink
         url="http://article.gmane.org/gmane.network.netatalk.devel/7383/">hint</ulink>.</para>
@@ -802,17 +794,7 @@ basedir regex = /RAID./.*homes
             server's volumes ensure that you disable "No User Authent" since
             it might lead accidentally to unauthorized access. In case you
             must enable guest access take care that you enforce this on a per
-            volume base using the access controls the <citerefentry>
-                <refentrytitle>AppleVolumes.default</refentrytitle>
-
-                <manvolnum>5</manvolnum>
-              </citerefentry> config file supplies or think about setting up
-            an own server definition serving these public shares in
-            <citerefentry>
-                <refentrytitle>afpd.conf</refentrytitle>
-
-                <manvolnum>5</manvolnum>
-              </citerefentry>.</para>
+            volume base using the access controls.</para>
           </listitem>
 
           <listitem>
@@ -865,7 +847,7 @@ basedir regex = /RAID./.*homes
 
         <para>For a more detailed overview over the technical implications of
         the different UAMs, please have a look at Apple's <ulink
-        url="http://developer.apple.com/documentation/Networking/Conceptual/AFP/Chapter_1/chapter_2_section_6.html">File
+        url="http://developer.apple.com/library/mac/#documentation/Networking/Conceptual/AFP/AFPSecurity/AFPSecurity.html#//apple_ref/doc/uid/TP40000854-CH232-SW1">File
         Server Security</ulink> pages.</para>
       </sect3>
 
@@ -997,9 +979,9 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
                 <entry>built-in since AppleShare client 3.8.4, available as a
                 plug-in for 3.8.3, integrated in Mac OS X' AFP client</entry>
 
-                <entry>built-in since MacOS X 10.2</entry>
+                <entry>built-in since Mac OS X 10.2</entry>
 
-                <entry>built-in since MacOS X 10.2</entry>
+                <entry>built-in since Mac OS X 10.2</entry>
               </row>
 
               <row>
@@ -1092,7 +1074,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
           <para>This works since the first AFP servers that spoke "AFP over
           TCP" appeared in networks. One simply tunnels the remote server's
           AFP port to a local port different than 548 and connects locally to
-          this port afterwards. On MacOS X this can be done by</para>
+          this port afterwards. On OS X this can be done by</para>
 
           <programlisting>ssh -l $USER $SERVER -L 10548:127.0.0.1:548 sleep 3000</programlisting>
 
@@ -1129,12 +1111,9 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
           connection attempt.</para>
 
           <para>Netatalk's afpd will report that it is capable of handling SSH
-          tunneled AFP requests, when both <filename>-advertise_ssh</filename>
-          and <filename>-fqdn</filename> options are set in <citerefentry>
-              <refentrytitle>afpd.conf</refentrytitle>
-
-              <manvolnum>5</manvolnum>
-            </citerefentry> (double check with <citerefentry>
+          tunneled AFP requests, when both "<option>advertise ssh</option>"
+          and "<option>fqdn</option>" options are set in
+          <option>Global</option> section (double check with <citerefentry>
               <refentrytitle>asip-status.pl</refentrytitle>
 
               <manvolnum>1</manvolnum>
@@ -1166,7 +1145,7 @@ uams_dhx2.so -&gt; uams_dhx2_pam.so</programlisting> then you're using PAM,
 
             <listitem>
               <para>On the other side you've to limit access to afpd to
-              localhost only (TCP wrappers) and disable AFP over DDP when you
+              localhost only (TCP wrappers) when you
               want to ensure that all AFP sessions are SSH encrypted
               or...</para>
             </listitem>
@@ -1306,6 +1285,6 @@ aclmode = passthrough (if available)</screen>
     </itemizedlist>
 
     <para>Additionally, make sure that the configuration file
-    <filename>afpd.conf</filename> is in the right place.</para>
+    <filename>afp.conf</filename> is in the right place.</para>
   </sect1>
 </chapter>
