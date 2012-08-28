@@ -121,13 +121,13 @@
           <listitem>
             <para>Now get the source:</para>
 
-            <screen><prompt>$&gt;</prompt> <userinput>git clone git://netatalk.git.sourceforge.net/gitroot/netatalk/netatalk
+            <screen><prompt>$&gt;</prompt> <userinput>git clone git://git.code.sf.net/p/netatalk/code netatalk-code
 </userinput><computeroutput>Initialized empty Git repository in /path/to/new/source/dir/netatalk/.git/
 remote: Counting objects: 2503, done.
 ...
 </computeroutput></screen>
 
-            <para>This will create a local directory called "netatalk"
+            <para>This will create a local directory called "netatalk-code"
             containing a complete and fresh copy of the whole Netatalk source
             from the Git repository.</para>
           </listitem>
