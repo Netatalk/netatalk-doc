@@ -74,18 +74,18 @@
             heck for orphaned CNIDs in database (requires <option>-e</option>).
           </para>
 
+          <para>Options:</para>
           <variablelist>
-            <para>Options:</para>      
             <varlistentry>
               <term>-c</term>
-              <para>Don't check .AppleDouble stuff, only check orphaned.</para>
-              </varlistentry>
+              <listitem><para>Don't check .AppleDouble stuff, only check orphaned.</para></listitem>
+            </varlistentry>
 
-              <varlistentry>
-                <term>-n</term>
-                <para>Don't open CNID database, skip CNID
-                  checks, only traverse filesystem</para>
-              </varlistentry>
+            <varlistentry>
+              <term>-n</term>
+              <listitem><para>Don't open CNID database, skip CNID
+                checks, only traverse filesystem</para></listitem>
+            </varlistentry>
           </variablelist>
         </listitem>
       </varlistentry>
@@ -102,24 +102,24 @@
             delete orphaned CNIDs in database (requires <option>-e</option>).
           </para>
 
+          <para>Options:</para>
           <variablelist>
-            <para>Options:</para>
             <varlistentry>
               <term>-C</term>
-              <para>Converts volume from adouble:v2 to adouble:ea</para>
+              <listitem><para>Converts volume from adouble:v2 to adouble:ea</para></listitem>
             </varlistentry>
 
             <varlistentry>
               <term>-c</term>
-              <para>Don't create .AppleDouble stuff, only cleanup orphaned.</para>
+              <listitem><para>Don't create .AppleDouble stuff, only cleanup orphaned.</para></listitem>
             </varlistentry>
 
             <varlistentry>
               <term>-f</term>
-              <para>Wipe database and rebuild from IDs
+              <listitem><para>Wipe database and rebuild from IDs
                 stored in AppleDouble files, only available for volumes
                 without <option>nocnidcache</option> option. Implies
-                <option>-e</option>.</para>
+                <option>-e</option>.</para></listitem>
             </varlistentry>
           </variablelist>
         </listitem>
