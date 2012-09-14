@@ -5,7 +5,7 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo class="date">12 Oct 2010</refmiscinfo>
+    <refmiscinfo class="date">14 Sep 2012</refmiscinfo>
 
     <refmiscinfo class="source">:NETATALK_VERSION:</refmiscinfo>
   </refmeta>
@@ -29,7 +29,7 @@
 
         <arg choice="plain">-s <arg>-c|-n</arg></arg>
 
-        <arg choice="plain">-r <arg>-c|-f</arg></arg>
+        <arg choice="plain">-r <arg>-c|-f|-C</arg></arg>
 
         <arg choice="plain">-u</arg>
       </group>
@@ -67,56 +67,25 @@
 
         <listitem>
           <para>Scan volume:</para>
-
-          <itemizedlist>
-            <listitem>
-              <para>Compare CNIDs in database with volume</para>
-            </listitem>
-
-            <listitem>
-              <para>Test if .AppleDouble directories exist</para>
-            </listitem>
-
-            <listitem>
-              <para>Test if AppleDouble files exist</para>
-            </listitem>
-
-            <listitem>
-              <para>Report orphaned AppleDouble files</para>
-            </listitem>
-
-            <listitem>
-              <para>Report directories inside .AppleDouble directories</para>
-            </listitem>
-
-            <listitem>
-              <para>Check name encoding by roundtripping, log on error</para>
-            </listitem>
-
-            <listitem>
-              <para>Check for orphaned CNIDs in database (requires
-              <option>-e</option>)</para>
-            </listitem>
-
-            <listitem>
-              <para>Open and close adouble files</para>
-            </listitem>
-          </itemizedlist>
+          <para>
+            Compare CNIDs in database with volume, test if .AppleDouble directories exist,
+            test if AppleDouble files exist, report orphaned AppleDouble files,
+            report directories inside .AppleDouble directories, check name encoding,
+            heck for orphaned CNIDs in database (requires <option>-e</option>).
+          </para>
 
           <variablelist>
+            <para>Options:</para>      
             <varlistentry>
-              <term>Options:</term>
+              <term>-c</term>
+              <para>Don't check .AppleDouble stuff, only check orphaned.</para>
+              </varlistentry>
 
-              <listitem>
-                <para><option>-c</option> Don't check .AppleDouble stuff, only
-                check orphaned.</para>
-              </listitem>
-
-              <listitem>
-                <para><option>-n</option> Don't open CNID database, skip CNID
-                checks, only traverse filesystem</para>
-              </listitem>
-            </varlistentry>
+              <varlistentry>
+                <term>-n</term>
+                <para>Don't open CNID database, skip CNID
+                  checks, only traverse filesystem</para>
+              </varlistentry>
           </variablelist>
         </listitem>
       </varlistentry>
@@ -125,61 +94,32 @@
         <term>-r</term>
 
         <listitem>
-          <para>Rebuild volume. With <option>-f</option> wipe database and
-          rebuild from CNIIDs stored in AppleDouble files.</para>
-
-          <itemizedlist>
-            <listitem>
-              <para>Sync CNIDSs from database with volume</para>
-            </listitem>
-
-            <listitem>
-              <para>Ensure .AppleDouble directories exist</para>
-            </listitem>
-
-            <listitem>
-              <para>Ensure AppleDouble files exist</para>
-            </listitem>
-
-            <listitem>
-              <para>Delete orphaned AppleDouble files</para>
-            </listitem>
-
-            <listitem>
-              <para>Report directories inside .AppleDouble directories</para>
-            </listitem>
-
-            <listitem>
-              <para>Check name encoding by roundtripping, log on error</para>
-            </listitem>
-
-            <listitem>
-              <para>Delete orphaned CNIDs in database (requires
-              <option>-e</option>)</para>
-            </listitem>
-
-            <listitem>
-              <para>Open and close adouble files</para>
-            </listitem>
-          </itemizedlist>
+          <para>Rebuild volume:</para>
+          <para>
+            Sync CNIDSs from database with volume, ensure .AppleDouble directories exist,
+            ensure AppleDouble files exist, delete orphaned AppleDouble files,
+            report directories inside .AppleDouble directories, check name encoding by roundtripping,
+            delete orphaned CNIDs in database (requires <option>-e</option>).
+          </para>
 
           <variablelist>
+            <para>Options:</para>
             <varlistentry>
-              <term>Options:</term>
+              <term>-C</term>
+              <para>Converts volume from adouble:v2 to adouble:ea</para>
+            </varlistentry>
 
-              <listitem>
-                <para><option>-c</option> Don't create .AppleDouble stuff,
-                only cleanup orphaned.</para>
-              </listitem>
+            <varlistentry>
+              <term>-c</term>
+              <para>Don't create .AppleDouble stuff, only cleanup orphaned.</para>
+            </varlistentry>
 
-              <para />
-
-              <listitem>
-                <para><option>-f</option> Wipe database and rebuild from IDs
+            <varlistentry>
+              <term>-f</term>
+              <para>Wipe database and rebuild from IDs
                 stored in AppleDouble files, only available for volumes
                 without <option>nocnidcache</option> option. Implies
                 <option>-e</option>.</para>
-              </listitem>
             </varlistentry>
           </variablelist>
         </listitem>
