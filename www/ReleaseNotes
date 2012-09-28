@@ -1,9 +1,9 @@
-Netatalk 2.2.3
+Netatalk 2.2.4
 ==============
 
-The Netatalk development team is proud to announce version 2.2.3 of
+The Netatalk development team is proud to announce version 2.2.4 of
 the Netatalk File Sharing suite. This is the latest update to the 2.2
-release series. All users are encouraged to upgrade their systems to 2.2.3.
+release series. All users are encouraged to upgrade their systems to 2.2.4.
 
 Netatalk is a freely-available Open Source AFP fileserver. It also
 provides a kernel level implementation of the AppleTalk Protocol Suite.
@@ -52,6 +52,16 @@ the GNU General Public License (GPLv2).  The full license text is available
 at:
 
   http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+
+Changes in 2.2.4
+~~~~~~~~~~~~~~~~
+* FIX: Missing UAM links
+* FIX: Lockup in AFP logout on Fedora 17
+* FIX: Reset signal handlers and alarm timer after successfull PAM
+       authentication. Fixes a problem with AFP disconnects caused
+       by pam_smbpass.so messing with our handlers and timer.
+* FIX: afpd: Fix a possible problem with sendfile on Solaris derived
+       platforms
 
 Changes in 2.2.3
 ~~~~~~~~~~~~~~~~
@@ -336,4 +346,4 @@ We would like to thank all contributors to the Netatalk project for
 their commitment.  Without the many suggestions, bug and problem reports,
 patches, and reviews this project wouldn't be where it is.
 
- - The Netatalk Development Team, May 2012
+ - The Netatalk Development Team, September 2012
