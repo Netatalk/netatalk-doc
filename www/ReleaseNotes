@@ -1,9 +1,9 @@
-Netatalk 2.2.4
+Netatalk 2.2.5
 ==============
 
-The Netatalk development team is proud to announce version 2.2.4 of
+The Netatalk development team is proud to announce version 2.2.5 of
 the Netatalk File Sharing suite. This is the latest update to the 2.2
-release series. All users are encouraged to upgrade their systems to 2.2.4.
+release series. All users are encouraged to upgrade their systems to 2.2.5.
 
 Netatalk is a freely-available Open Source AFP fileserver. It also
 provides a kernel level implementation of the AppleTalk Protocol Suite.
@@ -52,6 +52,20 @@ the GNU General Public License (GPLv2).  The full license text is available
 at:
 
   http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+
+Changes in 2.2.5
+~~~~~~~~~~~~~~~~
+* FIX: Fix errors searching volumes
+* NEW: Configurable symlink handling with a new volume option
+       'followsymlinks'. Setting the option causes afpd to follow
+       symlinks on the server side.
+* UPD: Reload groups when reloading volumes. FR #71.
+* FIX: Fix a possible crash in cname() where cname_mtouname calls
+       dirlookup() where the curdir is freed because the dircache
+       detected a dev/inode cache difference and evicted the object
+       from the cache. Fixes bug #498.
+* FIX: Change default FinderInfo for directories to be all 0, fixes
+       bug 514.
 
 Changes in 2.2.4
 ~~~~~~~~~~~~~~~~
@@ -346,4 +360,4 @@ We would like to thank all contributors to the Netatalk project for
 their commitment.  Without the many suggestions, bug and problem reports,
 patches, and reviews this project wouldn't be where it is.
 
- - The Netatalk Development Team, September 2012
+ - The Netatalk Development Team, July 2013
