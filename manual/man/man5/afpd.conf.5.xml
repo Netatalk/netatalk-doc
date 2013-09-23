@@ -812,16 +812,9 @@ third -signature user:ADMINS</programlisting></para>
           filename is ommited the loglevel applies to messages passed to
           syslog.</para>
 
-          <para>By default (no explicit <option>-setuplog</option> and no
-          buildtime configure flag <option>--with-logfile</option>) afpd logs
+          <para>By default afpd logs
           to syslog with a default logging setup equivalent to
-          <option>"-setuplog default log_info</option>".</para>
-
-          <para>If build with <option>--with-logfile</option> (default logfile
-          <parameter>/var/log/netatalk.log</parameter>) or
-          <option>--with-logfile=somefile</option> afpd defaults to a setup
-          that is equivalent to "<option>-setuplog default log_info
-          [<parameter>netatalk.log|somefile]</parameter></option>".</para>
+          <option>-setuplog "default log_info"</option>.</para>
 
           <para>logtypes: Default, AFPDaemon, Logger, UAMSDaemon</para>
 
